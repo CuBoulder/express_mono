@@ -5,7 +5,7 @@ composer global require "drush/drush:8.*"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Build Behat dependencies.
-cd $ROOT_DIR/express/tests/behat
+cd $ROOT_DIR/express_mono/tests/behat
 composer install --prefer-dist --no-interaction
 earlyexit
 
@@ -13,7 +13,7 @@ earlyexit
 cd $ROOT_DIR
 drush dl drupal-7.65
 mkdir drupal && mv drupal-7.65/* drupal/
-mkdir profiles && mv express drupal/profiles/
+mkdir profiles && mv express_mono drupal/profiles/express
 
 # Harden Codebase.
 cd $ROOT_DIR/drupal/modules
