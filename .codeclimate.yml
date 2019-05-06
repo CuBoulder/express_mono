@@ -1,0 +1,33 @@
+version: "2"
+plugins:
+  phpmd:
+    enabled: true
+    config:
+      file_extensions: "php,inc,module,install"
+      rulesets: ".phpmd.xml"
+    checks:
+      Controversial/Superglobals:
+        enabled: false
+#  phan:
+#    enabled: true
+#    config:
+#      file_extensions: "php"
+#    checks:
+#      PhanUndeclaredFunction:
+#        enabled: false
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: "php,inc,module,install"
+      encoding: utf-8
+      standard: "Drupal"
+      ignore_warnings: true
+exclude_patterns:
+- "**.scss"
+- "libraries/"
+- "simplesaml/"
+- "tests/"
+# Removing themes due to symlinks.
+- "themes/"
+- "modules/contrib/"
+- "**.tpl.php"
