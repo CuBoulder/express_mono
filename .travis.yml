@@ -49,7 +49,10 @@ install:
   # Pulls in any helper functions used later in scripts.
   - source $ROOT_DIR/helper-functions.sh
 
-  # Install and build dependencies.
+  # Install drush
+  # Download and harden Drupal core (with hardening steps)
+  # TODO apply core patches
+  # Setup sites/default/files and tmp directories
   - echo ----
   - echo "Running install script..."
   - $ROOT_DIR/install.sh
@@ -57,7 +60,9 @@ install:
 
 before_script:
 
-  # Setup config for PHP/MySQL, settings.php, and install database.
+  # Setup config for PHP/MySQL
+  # Create database.
+  # Add settings.php
   - echo ----
   - echo Running setup script...
   - $ROOT_DIR/setup-config.sh
