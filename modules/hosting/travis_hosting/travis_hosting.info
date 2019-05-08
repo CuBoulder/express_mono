@@ -4,6 +4,7 @@ core = 7.x
 version = 7.x-1.0
 package = Hosting
 
+dependencies[] = cu_behat_tests
 dependencies[] = syslog
 
 ; Enable performance module for reporting at end of test run.
