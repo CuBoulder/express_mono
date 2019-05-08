@@ -65,13 +65,7 @@ before_script:
   # Add settings.php
   - echo ----
   - echo Running setup script...
-  - $ROOT_DIR/setup-config.sh
-  - echo ----
-
-  # Perform the site install after removing Xdebug since it seems faster.
-  - echo ----
-  - echo Running build script...
-  - $ROOT_DIR/build-express.sh
+  - $ROOT_DIR/setup.sh
   - echo ----
 
 script:
