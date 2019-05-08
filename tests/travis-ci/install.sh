@@ -11,8 +11,8 @@ earlyexit
 
 # Build Codebase.
 cd $ROOT_DIR
-drush dl drupal-7.65
-mkdir drupal && mv drupal-7.65/* drupal/
+drush dl drupal-7.66
+mkdir drupal && mv drupal-7.66/* drupal/
 mkdir profiles && mv express_mono drupal/profiles/express
 
 # Harden Codebase.
