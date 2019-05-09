@@ -15,7 +15,8 @@ ${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --st
 earlyexit
 
 # Run JS Behat tests if merged into dev.
-${ROOT_DIR}/drupal/profiles/express/tests/travis-ci/run-js-tests.sh
+echo "Running Express JS tests..."
+${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_JS_BEHAT_TAGS}
 earlyexit
 
 # Output performance logging data.
