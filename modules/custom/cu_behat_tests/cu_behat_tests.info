@@ -15,6 +15,7 @@ dependencies[] = cu_photo_gallery_bundle
 dependencies[] = cu_seo_bundle
 dependencies[] = cu_social_media_bundle
 dependencies[] = cu_forms_bundle
+dependencies[] = express_localist_bundle
 
 ; Create users for tests.
 dependencies[] = cu_local_users
