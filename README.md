@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CuBoulder/express.svg?branch=dev)](https://travis-ci.org/CuBoulder/express)
+[![Build Status](https://travis-ci.com/CuBoulder/express_mono.svg?branch=dev)](https://travis-ci.com/CuBoulder/express_mono)
 # Express Installation Profile
 The Express installation profile is developed and maintained by the University of Colorado Boulder where it is provided at no charge for college/school, academic and administrative department, and research group, lab and institute websites through the [Web Express service](http://www.colorado.edu/webcentral/). 
 
