@@ -14,6 +14,7 @@ Feature: Campus Events Block
             | role            | message                        |
             | edit_my_content | "Access Denied"                |
             | edit_only       | "Access Denied"                |
+            | site_editor     | "Create Localist Events block" |
             | site_owner      | "Create Localist Events block" |
             | administrator   | "Create Localist Events block" |
             | developer       | "Create Localist Events block" |
