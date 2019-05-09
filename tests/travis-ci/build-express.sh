@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "${BUNDLE_NAME}" != "null" ]; then
-  cd ${ROOT_DIR}/drupal/sites/all/modules/${BUNDLE_NAME}
-else
-  cd ${ROOT_DIR}/drupal/profiles/express
-fi
+cd ${ROOT_DIR}/drupal/profiles/express
 
 EXPRESS_COMMIT_HAS_BUILD="$(git log -2 --pretty=%B | awk '/./{line=$0} END{print line}' | grep '==build')"
 
@@ -51,5 +47,11 @@ $HOME/.composer/vendor/bin/drush pm-info cu_local_users
 $HOME/.composer/vendor/bin/drush pm-info cu_behat_tests
 $HOME/.composer/vendor/bin/drush pm-info cu_forms_bundle
 $HOME/.composer/vendor/bin/drush pm-info cu_unused_forms
+
+$HOME/.composer/vendor/bin/drush pm-info cu_behat_tests
+
+# Enable behat test module to enable bundles
+$HOME/.composer/vendor/bin/drush pm-enable cu_behat_tests -y
+$HOME/.composer/vendor/bin/drush pm-list
 
 exit 0
