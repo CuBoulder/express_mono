@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install content to be used later in tests.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function cu_cm_tests_install() {
+  // Set variable for map to show up on homepage.
+  variable_set('campus_map_enable', 1);
+}

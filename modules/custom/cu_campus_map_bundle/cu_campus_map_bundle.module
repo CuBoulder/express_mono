@@ -1,0 +1,363 @@
+<?php
+
+/**
+ * Implements hook_page_delivery_callback_alter().
+ *
+ * Set frontpage of site to output the basic campus map html.
+ */
+
+function cu_campus_map_bundle_page_delivery_callback_alter(&$delivery_callback) {
+  if (variable_get('campus_map_enable', 0)) {
+    if (drupal_is_front_page()) {
+      $delivery_callback = 'cu_campus_map_bundle_frontpage';
+    }
+  }
+}
+
+/*
+ * Delivery callback for hook__page_delivery_callback_alter().
+ */
+function cu_campus_map_bundle_frontpage($page_callback_result) {
+  $content = include('templates/campus-map-frontpage.tpl.php');
+  //print render($content);
+}
+
+/**
+ * Implements hook_menu().
+ */
+function cu_campus_map_bundle_menu() {
+  $items = array();
+  $items['admin/config/system/campus-map'] = array(
+    'title' => 'Campus Map Settings',
+    'access arguments' => array('administer campus map settings'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cu_campus_map_bundle_settings_form'),
+  );
+  $items['campus-map-url-builder'] = array(
+    'title' => 'Campus Map URL Builder',
+    'access callback' => TRUE,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cu_campus_map_shortcode_form'),
+  );
+  $items['location/%'] = array(
+    'access callback' => TRUE,
+    'page arguments' => array(1),
+    'page callback' => 'cu_campus_map_bundle_location_redirect',
+  );
+  $items['location-lookup'] = array(
+    'access callback' => TRUE,
+    'page callback' => 'cu_campus_map_bundle_location_lookup',
+    'delivery callback' =>  'drupal_json_output',
+  );
+  $items['location-lookup/%'] = array(
+    'access callback' => TRUE,
+    'page arguments' => array(1),
+    'page callback' => 'cu_campus_map_bundle_location_lookup',
+    'delivery callback' =>  'drupal_json_output',
+  );
+  $items['map.html'] = array(
+     'access callback' => TRUE,
+     'page arguments' => array(1),
+     'page callback' => 'cu_campus_map_bundle_legacy_location_redirect',
+   );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function cu_campus_map_bundle_permission() {
+  return array(
+    'administer campus map settings' => array(
+      'title' => 'Administer Campus Map Settings',
+      'description' => 'Configure embedding the campus map',
+    ),
+  );
+}
+
+function cu_campus_map_bundle_settings_form($form, &$form_state) {
+  $form = array();
+  $form['campus_map_enable'] = array(
+    '#type' => 'checkbox',
+    '#title' => 'Enable campus map on front page of this site.',
+    '#default_value' => variable_get('campus_map_enable', 0),
+    '#description' => 'Enabling this will replace the front page on this site with the campus map.',
+  );
+
+  return system_settings_form($form);
+
+
+
+}
+
+/**
+ * Rebuild Map Data from data file.
+ */
+function cu_campus_map_bundle_data_rebuild($form, &$form_state) {
+  variable_del('campus_map_locations');
+  drupal_set_message('Saved map data was deleted and will be rebuilt.');
+}
+
+function cu_campus_map_shortcode_form($form, &$form_state) {
+
+  //$locations = cu_campus_map_bundle_locations();
+
+  $form = array();
+
+  $form['description'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p>Change the settings below to build a custom map URL</p>
+    <p><em>Make all configuration changes using the fields below and not the campus map preview. Changing locations, zoom level, etc in the preview will not update the custom map url.</em></p>',
+  );
+  global $base_url;
+  $map_base_url = $base_url . '/?id=336';
+  $map_url_default = $map_base_url . '&sbh=1';
+  if (substr($map_url_default, 0, 5) === 'http:') {
+    $map_url_default = 'https' . substr($map_url_default, 4);
+    $map_base_url = 'https' . substr($map_base_url, 4);
+  }
+  // Map Preview.
+  $form['map'] = array(
+    '#type' => 'markup',
+    '#markup' => '<iframe src="' . $map_url_default .'" width="100%" height="600" class="campus-map-iframe"></iframe>',
+    '#prefix' => '<div id="map-preview">',
+    '#suffix' => '</div>',
+    '#title' => 'Map Preview',
+  );
+
+
+  // Add a map marker - current disabled/access false.
+  $locations = cu_campus_map_bundle_locations();
+  $form['map_marker'] = array(
+    '#title' => 'Location Marker',
+    '#type' => 'select',
+    '#options' => $locations,
+    '#description' => 'Choose a campus location to highlight. The map center option must be set to default.',
+  );
+  $form['map_marker']['#ajax'] = cu_campus_map_bundle_ajax_config();
+  $form['map_marker']['#states'] = array(
+    'visible' => array(
+      'select[name="map_center"]' => array('value' => 'default')
+    ),
+  );
+
+  // Map URL - textarea because url can get long.
+  $form['map_url'] = array(
+    '#type' => 'textarea',
+    '#title' => 'Map URL',
+    '#default_value' => $map_base_url,
+    '#prefix' => '<div id="map-url">',
+    '#suffix' => '</div>',
+
+  );
+  $form['map_url']['#ajax'] = cu_campus_map_bundle_ajax_config();
+  // Shortcode for generated map url.
+  $form['map_shortcode'] = array(
+    '#type' => 'textarea',
+    '#title' => 'Map Shortcode',
+    '#prefix' => '<div id="map-shortcode">',
+    '#suffix' => '</div>',
+    '#default_value' => '[map]' . $map_url_default . '[/map]',
+    '#access' => FALSE,
+  );
+
+
+
+
+
+
+
+
+  return $form;
+}
+
+/**
+ * Builds map url, map preview.
+ */
+function cu_campus_map_build($form, &$form_state) {
+
+  global $base_url;
+  $commands = array();
+
+  // Default or inserted URL.
+  $map_url = $form_state['values']['map_url'];
+  $url = parse_url($base_url);
+  if ($form_state['values']['map_marker'] != 'default') {
+    $url['query'] = 'id=336';
+    $url['fragment'] = '!m/' . $form_state['values']['map_marker'];
+  }
+
+
+
+  // Build urls.
+  $map_url = cu_campus_map_build_url($url, FALSE);
+  $preview_url = cu_campus_map_build_url($url, FALSE);
+
+  // Update form elements for ajax rebuild.
+  $form['map']['#markup'] = '<iframe src="' . $preview_url .'" width="100%" height="600"></iframe>';
+  $form['map_shortcode']['#value'] = '[map]' . $map_url . '[/map]';
+
+  $form['map_url']['#value'] = $map_url;
+
+  $commands[] = ajax_command_replace('#map-shortcode', drupal_render($form['map_shortcode']));
+
+  $commands[] = ajax_command_replace('#map-url', drupal_render($form['map_url']));
+
+  $commands[] = ajax_command_replace('#map-preview', drupal_render($form['map']));
+
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Combine elements from parse_url() back into a working url.
+ */
+function cu_campus_map_build_url( $parts, $encode=TRUE )
+{
+    if ( $encode )
+    {
+        if ( isset( $parts['user'] ) )
+            $parts['user']     = rawurlencode( $parts['user'] );
+        if ( isset( $parts['pass'] ) )
+            $parts['pass']     = rawurlencode( $parts['pass'] );
+        if ( isset( $parts['host'] ) &&
+            !preg_match( '!^(\[[\da-f.:]+\]])|([\da-f.:]+)$!ui', $parts['host'] ) )
+            $parts['host']     = rawurlencode( $parts['host'] );
+        if ( !empty( $parts['path'] ) )
+            $parts['path']     = preg_replace( '!%2F!ui', '/',
+                rawurlencode( $parts['path'] ) );
+        if ( isset( $parts['query'] ) )
+            $parts['query']    = rawurlencode( $parts['query'] );
+        if ( isset( $parts['fragment'] ) )
+            $parts['fragment'] = rawurlencode( $parts['fragment'] );
+    }
+
+    $url = '';
+    if ( !empty( $parts['scheme'] ) )
+        // $url .= $parts['scheme'] . ':';
+    if ( isset( $parts['host'] ) )
+    {
+        $url .= 'https://';
+        if ( isset( $parts['user'] ) )
+        {
+            $url .= $parts['user'];
+            if ( isset( $parts['pass'] ) )
+                $url .= ':' . $parts['pass'];
+            $url .= '@';
+        }
+        if ( preg_match( '!^[\da-f]*:[\da-f.:]+$!ui', $parts['host'] ) )
+            $url .= '[' . $parts['host'] . ']'; // IPv6
+        else
+            $url .= $parts['host'];             // IPv4 or name
+        if ( isset( $parts['port'] ) )
+            $url .= ':' . $parts['port'];
+        if ( !empty( $parts['path'] ) && $parts['path'][0] != '/' )
+            $url .= '/';
+    }
+    if ( !empty( $parts['path'] ) )
+        $url .= $parts['path'];
+    if ( isset( $parts['query'] ) )
+        $url .= '?' . $parts['query'];
+    if ( isset( $parts['fragment'] ) )
+        $url .= '#' . $parts['fragment'];
+    return $url;
+}
+
+/**
+ * Provide locations for map centering.
+ */
+function cu_campus_map_bundle_locations() {
+
+  module_load_include('inc', 'cu_campus_map_bundle', 'data/map_data');
+  $locations = cu_campus_map_bundle_data();
+  $options = array();
+  foreach ($locations as $code => $row) {
+    $key = $row['marker'];
+    $value = $row['label'] . ' - ' . $code;
+    $options[$key] = $value;
+  }
+  return $options;
+}
+
+function cu_campus_map_bundle_ajax_config() {
+  return array(
+    'callback' => 'cu_campus_map_build',
+    'method' => 'replace',
+    'effect' => 'fade',
+  );
+}
+
+function cu_campus_map_bundle_secure_permissions($role) {
+  $permissions = array(
+    'developer' => array(
+      'administer campus map settings',
+    ),
+  );
+
+  if (isset($permissions[$role])) {
+    return $permissions[$role];
+  }
+}
+
+
+/**
+ * Callback function for location/%
+ */
+function cu_campus_map_bundle_location_redirect($location = NULL) {
+  global $base_url;
+  module_load_include('inc', 'cu_campus_map_bundle', 'data/map_data');
+  $locations = cu_campus_map_bundle_data();
+
+  if ($location) {
+
+    $location = strtoupper($location);
+    $marker = $locations[$location]['marker'];
+    $redirect = $base_url . '?id=336#!m/' . $marker;
+    drupal_goto($base_url, array('query' => array('id' => '336'), 'fragment' => '!m/' . $marker));
+  }
+  else {
+
+    return drupal_not_found();
+  }
+}
+
+function cu_campus_map_bundle_legacy_location_redirect() {
+   global $base_url;
+   module_load_include('inc', 'cu_campus_map_bundle', 'data/map_data');
+   $locations = cu_campus_map_bundle_data();
+
+   if ($location = $_GET['bldg']) {
+     $location = check_plain($location);
+     $location = strtoupper($location);
+     $marker = $locations[$location]['marker'];
+     $redirect = $base_url . '?id=336#!m/' . $marker;
+     drupal_goto($redirect);
+   }
+   else {
+
+     drupal_goto($base_url);
+   }
+ }
+
+/**
+ * Callback function for location-lookup/%
+ */
+function cu_campus_map_bundle_location_lookup($location = NULL) {
+  module_load_include('inc', 'cu_campus_map_bundle', 'data/map_data');
+  $locations = cu_campus_map_bundle_data();
+
+  if ($location) {
+
+    $location = strtoupper($location);
+    if (!empty($locations[$location])) {
+      $locations[$location]['code'] = $location;
+      return $locations[$location];
+    }
+    else {
+      return array();
+    }
+  }
+  else {
+
+    return $locations;
+  }
+}
