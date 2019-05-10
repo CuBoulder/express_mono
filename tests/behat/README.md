@@ -28,8 +28,8 @@ You can now install an Express site by downloading Drupal, cloning in the Expres
 ROOT=$(pwd)
 
 # Add Drupal.
-drush dl drupal-7.59
-mv drupal-7.59 testing
+drush dl drupal-7.66
+mv drupal-7.66 testing
 
 # Make files folder and copy settings.php file.
 cd ${ROOT}/testing/sites/default
@@ -38,7 +38,7 @@ mkdir files && chmod -R 777 files
 
 # Add the Express profile.
 cd ${ROOT}/testing/profiles
-git clone git@github.com:CuBoulder/express.git
+git clone git@github.com:CuBoulder/express_mono.git
 
 # Installing the site via Drush in the next step should create the database first,
 # but if you have trouble, you can create it manually.

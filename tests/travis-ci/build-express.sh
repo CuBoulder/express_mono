@@ -45,10 +45,6 @@ $HOME/.composer/vendor/bin/drush pm-info cu_core
 $HOME/.composer/vendor/bin/drush pm-info cu_ldap
 $HOME/.composer/vendor/bin/drush pm-info cu_local_users
 
-$HOME/.composer/vendor/bin/drush pm-info cu_behat_tests
-
-# Enable behat test module to enable bundles
-$HOME/.composer/vendor/bin/drush pm-enable cu_behat_tests -y
 $HOME/.composer/vendor/bin/drush pm-list
 
 exit 0
