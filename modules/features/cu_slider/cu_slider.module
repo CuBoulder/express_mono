@@ -80,7 +80,7 @@ function cu_slider_preprocess_entity(&$vars) {
   // Only preprocess slider beans.
   if ($entity_type == 'bean' && $bundle == 'slider') {
 
-    // add css and js
+    // Add css and js
     $library = libraries_get_path('flickity');
 
     // Add the library reference.
