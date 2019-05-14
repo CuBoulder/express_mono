@@ -1,6 +1,6 @@
 ; Packaging information for express
 name = "Express"
-description = "Express installation profile"
+description = "Express installation profile build Test"
 exclusive = "1"
 core = "7.x"
 version = 7.x-3.0
