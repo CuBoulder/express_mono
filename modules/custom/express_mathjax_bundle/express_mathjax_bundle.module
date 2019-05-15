@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_filter_info_alter().
+ */
+function express_mathjax_bundle_filter_info_alter(&$info) {
+
+  // Load the wysiwyg text format
+  $format = filter_format_load('wysiwyg');
+  // Get the filters on the wysiwyg text format
+  $filters = filter_list_format($format->format);
+  // Enable mathjax filter
+  $filters['filter_mathjax']->status = '1';
+}
+
+/*
+ * Implements hook_secure_permissions
+ *
+ * Adding permissions for Block Designer.
+ */
+function express_mathjax_bundle_secure_permissions($role) {
+  $permissions = array(
+    'developer' => array(
+      'administer mathjax',
+    ),
+  );
+
+  if (isset($permissions[$role])) {
+    return $permissions[$role];
+  }
+}
