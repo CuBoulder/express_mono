@@ -46,6 +46,9 @@ default:
     localist:
       paths: [ "%paths.base%/features/express_localist_bundle" ]
       contexts: [ FeatureContext ]
+    livechat:
+      paths: [ "%paths.base%/features/cu_livechat_bundle" ]
+      contexts: [ FeatureContext ]
   extensions:
       Behat\MinkExtension:
         base_url: "http://127.0.0.1:8031/"
