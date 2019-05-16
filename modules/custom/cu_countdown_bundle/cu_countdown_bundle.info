@@ -9,4 +9,3 @@ dependencies[] = cu_countdown
 dependencies[] = shortcode
 
 bundle_roles[] = developer
-bundle_roles[] = administrator
