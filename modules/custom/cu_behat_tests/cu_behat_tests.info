@@ -17,7 +17,7 @@ dependencies[] = cu_social_media_bundle
 dependencies[] = cu_forms_bundle
 dependencies[] = cu_video_hero_unit_bundle
 dependencies[] = express_localist_bundle
-
+dependencies[] = cu_alumni_class_notes_bundle
 
 ; Create users for tests.
 dependencies[] = cu_local_users
