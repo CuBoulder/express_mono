@@ -22,6 +22,9 @@ default:
     advanced_layout:
       paths: [ "%paths.base%/features/cu_advanced_layout_bundle" ]
       contexts: [ FeatureContext ]
+    mega_menu:
+      paths: [ "%paths.base%/features/cu_mega_menu_bundle" ]
+      contexts: [ FeatureContext ]
     news_articles:
       paths: [ "%paths.base%/features/cu_news_articles_bundle" ]
       contexts: [ FeatureContext ]
