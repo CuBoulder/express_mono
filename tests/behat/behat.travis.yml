@@ -43,11 +43,26 @@ default:
     cu_video_hero_unit:
       paths: [ "%paths.base%/features/cu_video_hero_unit_bundle" ]
       contexts: [ FeatureContext ]
+    cu_publications_bundle:
+      paths: [ "%paths.base%/features/cu_publications_bundle" ]
+      contexts: [ FeatureContext ]
     localist:
       paths: [ "%paths.base%/features/express_localist_bundle" ]
       contexts: [ FeatureContext ]
     livechat:
       paths: [ "%paths.base%/features/cu_livechat_bundle" ]
+      contexts: [ FeatureContext ]
+    custom_logo:
+      paths: [ "%paths.base%/features/cu_custom_logo_bundle" ]
+      contexts: [ FeatureContext ]
+    responsive_visibility:
+      paths: [ "%paths.base%/features/express_responsive_visibility_bundle" ]
+      contexts: [ FeatureContext ]
+    cu_section_page:
+      paths: [ "%paths.base%/features/cu_section_page_bundle" ]
+      contexts: [ FeatureContext ]
+    collections:
+      paths: [ "%paths.base%/features/express_collections_bundle" ]
       contexts: [ FeatureContext ]
   extensions:
       Behat\MinkExtension:
