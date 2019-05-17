@@ -18,6 +18,7 @@ dependencies[] = cu_forms_bundle
 dependencies[] = cu_video_hero_unit_bundle
 dependencies[] = express_collections_bundle
 dependencies[] = express_localist_bundle
+dependencies[] = express_responsive_visibility_bundle
 dependencies[] = cu_section_page_bundle
 
 ; Create users for tests.
