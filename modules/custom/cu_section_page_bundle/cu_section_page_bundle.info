@@ -1,7 +1,7 @@
 name = Section Page
 core = 7.x
 package = CU Section Page Bundle
-description = 
+description = A page content type built from individually designed sections.
 version = 7.x-1.1
 project = cu_section_page_bundle
 
