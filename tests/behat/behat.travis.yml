@@ -49,6 +49,18 @@ default:
     localist:
       paths: [ "%paths.base%/features/express_localist_bundle" ]
       contexts: [ FeatureContext ]
+    custom_logo:
+      paths: [ "%paths.base%/features/cu_custom_logo_bundle" ]
+      contexts: [ FeatureContext ]
+    responsive_visibility:
+      paths: [ "%paths.base%/features/express_responsive_visibility_bundle" ]
+      contexts: [ FeatureContext ]
+    cu_section_page:
+      paths: [ "%paths.base%/features/cu_section_page_bundle" ]
+      contexts: [ FeatureContext ]
+    collections:
+      paths: [ "%paths.base%/features/express_collections_bundle" ]
+      contexts: [ FeatureContext ]
   extensions:
       Behat\MinkExtension:
         base_url: "http://127.0.0.1:8031/"
