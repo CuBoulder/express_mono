@@ -523,6 +523,7 @@ function cu_mega_menu_field_extra_fields() {
 function cu_mega_menu_add() {
   // Create a basic entity structure to be used and passed to the validation
   // and submission functions.
+  drupal_set_title('Add a Mega Menu');
   $entity = entity_get_controller('cu_mega_menu')->create();
   return drupal_get_form('cu_mega_menu_form', $entity);
 }
@@ -555,6 +556,7 @@ function cu_mega_menu_form($form, &$form_state, $entity) {
     '#weight' => 100,
   );
   if ($entity->id != 0) {
+    drupal_set_title('Edit Mega Menu');
     $form['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete'),
