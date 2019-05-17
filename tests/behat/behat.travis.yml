@@ -49,6 +49,9 @@ default:
     localist:
       paths: [ "%paths.base%/features/express_localist_bundle" ]
       contexts: [ FeatureContext ]
+    livechat:
+      paths: [ "%paths.base%/features/cu_livechat_bundle" ]
+      contexts: [ FeatureContext ]
     custom_logo:
       paths: [ "%paths.base%/features/cu_custom_logo_bundle" ]
       contexts: [ FeatureContext ]
