@@ -10,6 +10,7 @@ function express_mathjax_bundle_filter_info_alter(&$info) {
   // Get the filters on the wysiwyg text format
   $filters = filter_list_format($format->format);
   // Enable mathjax filter
+  $filters['filter_mathjax'] = new stdClass();
   $filters['filter_mathjax']->status = '1';
 }
 
