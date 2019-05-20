@@ -21,6 +21,7 @@ dependencies[] = express_collections_bundle
 dependencies[] = express_localist_bundle
 dependencies[] = cu_content_sequence_bundle
 dependencies[] = cu_newsletter_bundle
+dependencies[] = cu_campus_news_bundle
 dependencies[] = cu_livechat_bundle
 dependencies[] = cu_custom_logo_bundle
 dependencies[] = express_responsive_visibility_bundle
