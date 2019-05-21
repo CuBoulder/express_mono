@@ -9,7 +9,7 @@
  * Implements hook_install().
  */
 function cu_behat_tests_install() {
-  //module_enable(array('cu_dc_tests'));
+  module_enable(array('cu_dc_tests'));
   // Add test users.
   _cu_behat_tests_add_users();
 
