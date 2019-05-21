@@ -22,7 +22,6 @@ function cu_dc_tests_install() {
     'content' => 'Text Block B Content BBB',
     'delta' => 'block-b-2'
   );
-
   foreach ($beans as $key => $value) {
     $bean = bean_create(array('type' => 'block'));
     $bean->label = $value['title'];
@@ -36,14 +35,38 @@ function cu_dc_tests_install() {
     $bean->save();
   }
 
+  // Load beans for references
+  $b1 = bean_load_delta('block-a-1');
+  $b2 = bean_load_delta('block-b-2');
+
+  // Create A/B Block 1
+  $bean = bean_create(array('type' => 'a_b_block'));
+  $bean->label = 'a-b-test-block-1';
+  $bean->title = 'a-b-test-block-1';
+  _cu_dc_tests_collection_item($bean, $b1->bid, 0, 100);
+  _cu_dc_tests_collection_item($bean, $b2->bid, 1, 0);
+  $bean->save();
+
+  // Create A/B Block 2
+  $bean = bean_create(array('type' => 'a_b_block'));
+  $bean->label = 'a-b-test-block-2';
+  $bean->title = 'a-b-test-block-2';
+  _cu_dc_tests_collection_item($bean, $b1->bid, 0, 0);
+  _cu_dc_tests_collection_item($bean, $b2->bid, 1, 100);
+  $bean->save();
+
   _cu_dc_tests_add_users();
 
-  $instance_info = field_info_instance('field_collection_item', 'field_block_row_block', 'field_block_row_collection');
 
-  $instance_info['widget']['type'] = 'options_select';
-  $instance_info['widget']['module'] = 'options';
+}
 
-  field_update_instance($instance_info);
+function _cu_dc_tests_collection_item($bean, $bid, $order, $percentage) {
+  $fc_item = entity_create('field_collection_item', array('field_name' => 'field_block_option'));
+  $fc_item->setHostEntity('bean', $bean);
+  $fc_item->field_block[LANGUAGE_NONE][$order]['target_id'] = $bid;
+  $fc_item->field_percentage[LANGUAGE_NONE][$order]['value'] = $percentage;
+  $fc_item->save();
+  return TRUE;
 }
 
 
