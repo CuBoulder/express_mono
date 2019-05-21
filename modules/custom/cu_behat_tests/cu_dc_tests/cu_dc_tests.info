@@ -3,7 +3,6 @@ core = 7.x
 package = CU-Digital Campaign
 version = 7.x-1.0
 
-dependencies[] = cu_core
 dependencies[] = cu_digital_campaign_bundle
 dependencies[] = cu_ab_test
 dependencies[] = et_linkedin
