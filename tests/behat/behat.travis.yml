@@ -53,7 +53,7 @@ default:
       paths: [ "%paths.base%/features/cu_alumni_class_notes_bundle" ]
       contexts: [ FeatureContext ]
     livestream:
-      paths: [ "%paths.base%/features/cu_livestream_bundle" ]]
+      paths: [ "%paths.base%/features/cu_livestream_bundle" ]
       contexts: [ FeatureContext ]
     content_sequence:
       paths: [ "%paths.base%/features/cu_content_sequence_bundle" ]
