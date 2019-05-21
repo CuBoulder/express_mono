@@ -16,8 +16,17 @@ dependencies[] = cu_seo_bundle
 dependencies[] = cu_social_media_bundle
 dependencies[] = cu_forms_bundle
 dependencies[] = cu_video_hero_unit_bundle
+dependencies[] = cu_publications_bundle
+dependencies[] = express_collections_bundle
 dependencies[] = express_localist_bundle
 dependencies[] = cu_alumni_class_notes_bundle
+dependencies[] = cu_livestream_bundle
+dependencies[] = cu_content_sequence_bundle
+dependencies[] = cu_newsletter_bundle
+dependencies[] = cu_livechat_bundle
+dependencies[] = cu_custom_logo_bundle
+dependencies[] = express_responsive_visibility_bundle
+dependencies[] = cu_section_page_bundle
 
 ; Create users for tests.
 dependencies[] = cu_local_users
