@@ -49,6 +49,9 @@ default:
     localist:
       paths: [ "%paths.base%/features/express_localist_bundle" ]
       contexts: [ FeatureContext ]
+    classnotes:
+      paths: [ "%paths.base%/features/cu_alumni_class_notes_bundle" ]
+      contexts: [ FeatureContext ]
     livestream:
       paths: [ "%paths.base%/features/cu_livestream_bundle" ]]
       contexts: [ FeatureContext ]
