@@ -49,6 +49,9 @@ default:
     localist:
       paths: [ "%paths.base%/features/express_localist_bundle" ]
       contexts: [ FeatureContext ]
+    livestream:
+      paths: [ "%paths.base%/features/cu_livestream_bundle" ]]
+      contexts: [ FeatureContext ]
     content_sequence:
       paths: [ "%paths.base%/features/cu_content_sequence_bundle" ]
       contexts: [ FeatureContext ]
