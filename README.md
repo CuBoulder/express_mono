@@ -21,7 +21,6 @@ In addition to the Express install profile, Express sites add functionality by e
 * [![Build Status](https://travis-ci.org/CuBoulder/express_localist_bundle.svg?branch=master)](https://travis-ci.org/CuBoulder/express_localist_bundle) [Localist Bundle](https://github.com/CuBoulder/express_localist_bundle)
 * [![Build Status](https://travis-ci.org/CuBoulder/express_mathjax_bundle.svg?branch=master)](https://travis-ci.org/CuBoulder/express_mathjax_bundle) [Mathjax Bundle](https://github.com/CuBoulder/express_mathjax_bundle)
 * [![Build Status](https://travis-ci.org/CuBoulder/cu_newsletter_bundle.svg?branch=master)](https://travis-ci.org/CuBoulder/cu_newsletter_bundle) [Newsletter Bundle](https://github.com/CuBoulder/cu_newsletter_bundle)
-* [![Build Status](https://travis-ci.org/CuBoulder/cu_publications_bundle.svg?branch=master)](https://travis-ci.org/CuBoulder/cu_publications_bundle) [Publications Bundle](https://github.com/CuBoulder/cu_publications_bundle)
 * [![Build Status](https://travis-ci.org/CuBoulder/cu_section_page_bundle.svg?branch=master)](https://travis-ci.org/CuBoulder/cu_section_page_bundle) [Section Page Bundle](https://github.com/CuBoulder/cu_section_page_bundle)
 * [![Build Status](https://travis-ci.org/CuBoulder/express_responsive_visibility_bundle.svg?branch=master)](https://travis-ci.org/CuBoulder/express_responsive_visibility_bundle) [Responsive_Visibility_Bundle](https://github.com/CuBoulder/express_responsive_visibility_bundle)
 
