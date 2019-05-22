@@ -142,6 +142,8 @@ The block System help was assigned to the invalid region help and has been disab
 
   variable_set('express_permissions_owner_cap', 4);
 
+  // Google Tag Manager
+  variable_set('google_tag_container_id', 'GTM-M3DX2QP');
 }
 
 /**
@@ -384,4 +386,12 @@ function cu_core_update_7061() {
 
     variable_set('user_external_invite_addon_roles', $invite_roles);
   }
+}
+
+/**
+ * Update GTM ID, make sure google_tag is enabled..
+ */
+function cu_core_update_7062() {
+  module_enable(array('google_tag'));
+  variable_set('google_tag_container_id', 'GTM-M3DX2QP');
 }
