@@ -142,7 +142,7 @@ The block System help was assigned to the invalid region help and has been disab
 
   variable_set('express_permissions_owner_cap', 4);
 
-  // Google Tag Manager
+  // Google Tag Manager.
   variable_set('google_tag_container_id', 'GTM-M3DX2QP');
 }
 
