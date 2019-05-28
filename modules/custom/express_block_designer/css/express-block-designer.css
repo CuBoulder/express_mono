@@ -4,10 +4,10 @@ ul.tabs--primary li a.block-designer:before { content: "\f1fc"; }
 
 /* Styles for Block Designer Blocks */
 .exbd-block .exbd-block-icon { display: inline-block; margin-right: 5px; }
-.exbd-block.exbd-style-outline { padding: 10px; background-color: transparent; border: 1px solid rgba(128, 128, 128, 0.333); }
+.exbd-block.exbd-style-outline { padding: 10px; background-color: transparent; border: 1px solid rgba(200, 200, 200, 0.5); }
 @media screen and (min-width: 960px) { .exbd-block.exbd-style-outline { padding: 20px; } }
 .exbd-block.exbd-style-outline > *:last-child { margin-bottom: 0; }
-.exbd-block.exbd-style-underline { border-bottom: 1px solid rgba(128, 128, 128, 0.333); padding: 0 0 20px 0; }
+.exbd-block.exbd-style-underline { border-bottom: 1px solid rgba(200, 200, 200, 0.5); padding: 0 0 20px 0; }
 .exbd-block.exbd-heading-align-centered > .block-inner > .exbd-block-title { text-align: center; }
 .exbd-block.exbd-icon-position-inline > .block-inner > .exbd-block-title > .block-title .exbd-block.exbd-icon-position-default > .block-inner > .exbd-block-title > .block-title { display: flex; flex-direction: row; align-items: center; }
 .exbd-block.exbd-icon-position-top > .block-inner > .exbd-block-title .exbd-block-title-text { display: block; }
@@ -87,6 +87,6 @@ ul.tabs--primary li a.block-designer:before { content: "\f1fc"; }
 #edit-exbd-style label[for='edit-exbd-style-brick'] { height: 130px; display: inline-block; }
 #edit-exbd-style label[for='edit-exbd-style-brick']:after { display: flex; align-items: center; justify-content: center; content: 'Example Text'; content: ' '; color: #fff; height: 100px; position: absolute; bottom: 0; right: 10px; left: 10px; background-color: #ae5a39; }
 #edit-exbd-style label[for='edit-exbd-style-outline'] { height: 130px; display: inline-block; }
-#edit-exbd-style label[for='edit-exbd-style-outline']:after { display: flex; align-items: center; justify-content: center; content: 'Example Text'; content: ' '; height: 100px; position: absolute; bottom: 0; right: 10px; left: 10px; border: 1px solid rgba(128, 128, 128, 0.333); }
+#edit-exbd-style label[for='edit-exbd-style-outline']:after { display: flex; align-items: center; justify-content: center; content: 'Example Text'; content: ' '; height: 100px; position: absolute; bottom: 0; right: 10px; left: 10px; border: 1px solid rgba(200, 200, 200, 0.5); }
 #edit-exbd-style label[for='edit-exbd-style-underline'] { height: 130px; display: inline-block; }
-#edit-exbd-style label[for='edit-exbd-style-underline']:after { display: flex; align-items: center; justify-content: center; content: 'Example Text'; content: ' '; height: 100px; position: absolute; bottom: 0; right: 10px; left: 10px; border-bottom: 1px solid rgba(128, 128, 128, 0.333); }
+#edit-exbd-style label[for='edit-exbd-style-underline']:after { display: flex; align-items: center; justify-content: center; content: 'Example Text'; content: ' '; height: 100px; position: absolute; bottom: 0; right: 10px; left: 10px; border-bottom: 1px solid rgba(200, 200, 200, 0.5); }
