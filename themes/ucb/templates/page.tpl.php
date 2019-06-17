@@ -99,7 +99,7 @@
         ?>
           <?php print theme('links', array('links' => $mobile_menu, 'attributes' => array('id' => 'main-menu-mobile', 'class' => array('links', 'clearfix')), 'heading' => array('text' => t('Mobile menu'),'level' => 'h2','class' => array('element-invisible')))); ?>
         <?php else: ?>
-          <?php print theme('ucb_main_menu_links', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu-mobile', 'class' => array('links', 'clearfix')), 'heading' => array('text' => t('Mobile menu'),'level' => 'h2','class' => array('element-invisible')))); ?>
+          <?php print theme('links', array('links' => $main_menu, 'attributes' => array('id' => 'main-menu-mobile', 'class' => array('links', 'clearfix')), 'heading' => array('text' => t('Mobile menu'),'level' => 'h2','class' => array('element-invisible')))); ?>
           <?php print theme('links', array('links' => $secondary_menu, 'attributes' => array('id' => 'secondary-menu-mobile', 'class' => array('links', 'clearfix')), )); ?>
           <?php
             // Make sure footer menu is not a duplicate of the main menu.
@@ -148,7 +148,7 @@
     <div class="page-content">
       <!-- INTRO -->
       <?php if (!empty($page['intro'])): ?>
-        <div id="intro-wide-wrapper" class="section intro-wide-wrapper">
+        <div id="intro-wide-wrapper" class="section intro-wide-wrapper <?php print $section['intro']['class']; ?>">
           <?php print render($page['intro']); ?>
         </div>
       <?php endif; ?>
@@ -189,7 +189,7 @@
           <?php endif; ?>
           <div class="container">
             <!-- TITLE -->
-            <div class="<?php if (isset($title_image) && !drupal_is_front_page()) { print 'element-invisible'; }  ?>">
+            <div class="main-title-wrapper <?php if (isset($title_image) && !drupal_is_front_page()) { print 'element-invisible'; }  ?>">
 
               <a id="main-content"></a>
               <?php print render($title_prefix); ?>

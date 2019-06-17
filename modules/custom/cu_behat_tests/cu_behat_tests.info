@@ -24,6 +24,7 @@ dependencies[] = cu_alumni_class_notes_bundle
 dependencies[] = cu_livestream_bundle
 dependencies[] = cu_content_sequence_bundle
 dependencies[] = cu_newsletter_bundle
+dependencies[] = cu_campus_news_bundle
 dependencies[] = cu_livechat_bundle
 dependencies[] = cu_custom_logo_bundle
 dependencies[] = express_responsive_visibility_bundle
