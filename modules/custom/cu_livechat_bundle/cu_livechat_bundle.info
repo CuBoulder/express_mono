@@ -1,0 +1,21 @@
+name = CU Live Chat
+description = LiveChat is a paid real-time chat solution from LiveChat Inc. The department or academic unit will need to purchase a license in order to use this service.
+core = 7.x
+version = 7.x-1.2
+package = CU-LiveChat
+project = cu_livechat_bundle
+project status url = https://github.com/CuBoulder/cu_livechat_bundle
+project_demo_url = http://www.colorado.edu/webcentral/node/1532
+
+files[] = cu_livechat_bundle.context.inc
+
+bundle_cache_clear = 1
+bundle_context_clear = 1
+bundle_request = 1
+
+bundle_roles[] = developer
+bundle_roles[] = administrator
+bundle_roles[] = site_owner
+bundle_roles[] = configuration_manager
+
+bundle_group = request_bundles
