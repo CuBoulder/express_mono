@@ -1,4 +1,5 @@
 .node-type-section-page #main { padding-bottom: 0; }
+.node-type-section-page .main-content-wrapper { padding: 0 !important; }
 
 .section-page-sections { position: relative; }
 .section-page-sections .block-section { overflow: hidden; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; display: flex; align-items: center; padding-bottom: 72px; }
@@ -8,9 +9,10 @@
 .section-page-sections .block-section .section-next-wrapper .section-next { display: inline-block; margin: 0 auto; font-size: 48px; }
 @media screen and (min-width: 768px) { .section-page-sections .block-section .section-next-wrapper .section-next { font-size: 64px; } }
 
+.node-type-section-page .main-title-wrapper { padding-top: 20px; }
+.node-type-section-page .section-page-body { padding: 20px 0 0; }
 .node-type-section-page .section-page-hide-title .breadcrumb-wrapper, .node-type-section-page .section-page-hide-title .main-title-wrapper, .node-type-section-page .section-page-hide-title .page-title-wrapper, .node-type-section-page .section-page-hide-title h1.page-title { border: 0; height: 1px !important; overflow: hidden; padding: 0 !important; position: absolute !important; width: 1px !important; white-space: nowrap; }
 .node-type-section-page .section-page-hide-title #main, .node-type-section-page .section-page-hide-title #main-content-wrapper { padding: 0; }
-.node-type-section-page .section-page-hide-title .section-page-body { padding: 20px 0; }
 .node-type-section-page .section-page-hide-title #main .region-content > .block:first-child { margin-top: 20px; }
 .node-type-section-page .post-title-wide-wrapper { padding-bottom: 0; }
 .node-type-section-page .content-wrapper { padding-bottom: 0; }
@@ -46,7 +48,7 @@
 
 .layout-boxed .section-page-section-navigation { width: 100%; position: relative; left: auto; right: auto; margin: 0; }
 .layout-boxed .section-page-navigation-wrapper { margin: 0 -20px; position: relative; left: auto; right: auto; width: auto; background: none; }
-.layout-boxed .section-page-navigation-wrapper.sticky { position: fixed; z-index: 10; top: 0; width: 100%; max-width: 1200px; }
+.layout-boxed .section-page-navigation-wrapper.sticky { position: fixed; z-index: 10; top: 0; width: 100%; max-width: 1500px; }
 .layout-boxed .section-page-sections { position: relative; margin: 0 -20px; }
 .layout-boxed .section-page-sections .block-section { overflow: hidden; width: 100%; position: relative; left: auto; right: auto; margin: 0; }
 
