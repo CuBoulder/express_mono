@@ -18,13 +18,19 @@ body {
   @include rgbashadow(0,0,80px,#000,.25);
 }
 .layout-fixed .page {
-  width:1500px;
+  width:1160px;
   margin: 0 auto;
 }
 .layout-responsive .page {
   width:auto;
-  max-width: 1200px;
   margin: 0 auto;
+  max-width: 920px;
+  @media screen and (min-width:1200px) {
+    max-width: 1160px;
+  }
+  @media screen and (min-width:1500px) {
+    max-width: 1500px;
+  }
 }
 #secondary-menu-wrapper {
   background-color: #000;

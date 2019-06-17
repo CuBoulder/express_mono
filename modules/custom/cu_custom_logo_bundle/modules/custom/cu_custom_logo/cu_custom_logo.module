@@ -16,20 +16,23 @@ function cu_custom_logo_menu() {
 }
 
 function cu_custom_logo_upload_form($form, &$form_state) {
+  $form['instructions'] = array(
+    '#type' => 'markup',
+    '#markup' => '<p>Add logo images suitable for light and dark backgrounds. Both images are required for the logo to display.</p>',
+  );
   $form['custom_white_logo'] = array(
     '#type' => 'managed_file',
     '#name' => 'custom_white_logo',
-    '#title' => t('White logo'),
+    '#title' => t('White logo (deprecated)'),
     '#size' => 40,
     '#description' => t('Image should be a transparent png which will be displayed on a dark background. Width should be fewer than 440 pixels. (This field will be removed in a future update).'),
     '#upload_location' => 'public://custom_logo/',
     '#default_value' => variable_get('custom_white_logo', ''),
   );
-
   $form['custom_black_logo'] = array(
     '#type' => 'managed_file',
     '#name' => 'custom_black_logo',
-    '#title' => t('Black logo'),
+    '#title' => t('Black logo (deprecated)'),
     '#size' => 40,
     '#description' => t('Image should be a transparent png which will be displayed on a light background. Width should be fewer than 440 pixels. (This field will be removed in a future update).'),
     '#upload_location' => 'public://custom_logo/',
