@@ -15,9 +15,11 @@ function cu_home_page_form_alter(&$form, &$form_state, $form_id) {
   if (isset($form['#node_edit_form']) && ($form['#node_edit_form'] == TRUE)) {
     // Get frontpage variable
     $site_frontpage = variable_get('site_frontpage', 'node');
-    list($first, $second) = explode('/', $site_frontpage, 2);
-    if ($first == 'node' && is_numeric($second) && ($form['nid']['#value'] == $second)) {
-      unset($form['actions']['delete']);
+if (count(explode('/', $site_frontpage, 2)) > 1) {
+      list($first, $second) = explode('/', $site_frontpage, 2);
+      if ($first == 'node' && is_numeric($second) && ($form['nid']['#value'] == $second)) {
+        unset($form['actions']['delete']);
+      }
     }
   }
 }
