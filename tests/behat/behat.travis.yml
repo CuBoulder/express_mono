@@ -51,6 +51,13 @@ default:
       contexts: [ FeatureContext ]
     digital_campaign:
       paths: [ "%paths.base%/features/cu_digital_campaign_bundle" ]
+      contexts: [ FeatureContext ]
+    classnotes:
+      paths: [ "%paths.base%/features/cu_alumni_class_notes_bundle" ]
+      contexts: [ FeatureContext ]
+    livestream:
+      paths: [ "%paths.base%/features/cu_livestream_bundle" ]
+      contexts: [ FeatureContext ]
     content_sequence:
       paths: [ "%paths.base%/features/cu_content_sequence_bundle" ]
       contexts: [ FeatureContext ]
@@ -71,6 +78,9 @@ default:
       contexts: [ FeatureContext ]
     collections:
       paths: [ "%paths.base%/features/express_collections_bundle" ]
+      contexts: [ FeatureContext ]
+    campus_news:
+      paths: [ "%paths.base%/features/cu_campus_news_bundle" ]
       contexts: [ FeatureContext ]
   extensions:
       Behat\MinkExtension:
@@ -98,4 +108,4 @@ default:
                 platform: "macOS 10.13"
                 #platform: "Windows 10"
                 # Version of browser to use.
-                #version: "63.0"
+                version: "74.0"
