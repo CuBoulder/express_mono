@@ -83,7 +83,7 @@ function express_collections_bundle_preprocess_entity(&$vars) {
       }
       $terms = taxonomy_term_load_multiple($tids);
       // Sort terms according to term weight.
-      usort($terms, function($a, $b) {
+      usort($terms, function ($a, $b) {
         return $a->weight - $b->weight;
       });
 
