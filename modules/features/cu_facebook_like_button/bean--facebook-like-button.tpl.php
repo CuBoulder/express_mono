@@ -2,7 +2,6 @@
 
 /**
  * @file
- *
  * Template file for facebook like button bean.
  */
  ?>
