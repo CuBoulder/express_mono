@@ -105,4 +105,4 @@ default:
                 platform: "macOS 10.13"
                 #platform: "Windows 10"
                 # Version of browser to use.
-                #version: "63.0"
+                version: "74.0"
