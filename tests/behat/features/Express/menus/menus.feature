@@ -66,9 +66,11 @@ Scenario: Functionality - The explanatory blurb should be "Each menu has a corre
 Given I am logged in as a user with the "site_owner" role
 And I am on "admin/structure/menu"
 Then I should see "Each menu has a corresponding block which can be placed in a content region"
+And I go to "admin/structure/menu/add"
+Then I should see "Each menu has a corresponding block which can be placed in a content region"
 
 # NOTE: Sometimes the Menus Section reverts to old ways; and displays links to the Blocks Admin page and Content Types Admin page
-# This test verifys that these pages are off limits to all but developers V
+# This test verifys that these pages are off limits to all but developers
 Scenario Outline: Access - No one (but Devs) can access the Drupal System Block Admin page or Content Types page
 Given I am logged in as a user with the <role> role
 When I go to "admin/structure/block"
