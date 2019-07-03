@@ -32,17 +32,25 @@ I should be able to create, edit, and delete Webforms
     Then I should see "Access denied"
 
   #  2) CHECK THAT SIMPLE NODE CAN BE CREATED
-  Scenario: The provide menu link box should be checked on node creation but remain unchecked if user chooses to uncheck that box.
-    Given I am logged in as a user with the "site_owner" role
-    When I am on "node/add/webform"
-    And  I fill in "edit-title" with "Check The Box"
-    Then the "edit-menu-enabled" checkbox should be checked
-    When I uncheck "edit-menu-enabled"
-    And I press "Save"
-    And I follow "Edit"
-    Then the checkbox "edit-menu-enabled" should be unchecked
+    Scenario: A user can interact with webform body fields.
+      Given I am logged in as a user with the "site_owner" role
+      When I am on "node/add/webform"
+      Then I should see "Allow the following user(s) to view form submissions."
+      And I should see "Allow the following user(s) to edit the form."
+      And the "edit-menu-enabled" checkbox should be checked
+      Then I fill in "edit-title" with "Field Test Form"
+      And I fill in "edit-field-webform-results-access-und-0-target-id" with "developer"
+      And I fill in "edit-field-add-form-manager-und-0-target-id" with "site_editor"
+      And I uncheck "edit-menu-enabled"
+      And I press "Save"
+      Then I should see "The new webform Field Test Form has been created"
+      And I follow "Edit"
+      Then the checkbox "edit-menu-enabled" should be unchecked
+      When I go to "admin/content/webform"
+      Then I should see "site_editor"
+      And I should see "developer"
 
-    Scenario: Node Functionality - A very basic Webform node can be created
+     Scenario: Node Functionality - A user can add webform components to a webform node
     Given I am logged in as a user with the "site_owner" role
     And I am on "node/add/webform"
     And fill in "edit-title" with "Simple Test Form"
@@ -107,7 +115,7 @@ And I select "Time" from "edit-add-type"
   #    | form_manager   |
 
  # 4) CHECK MORE COMPLEX NODE CREATION
-  Scenario: More complex forms can be created
+  Scenario: Form submission details can be added 
     Given I am logged in as a user with the "site_owner" role
     And I am on "admin/content/webform"
     And I follow "Simple Test Form"
