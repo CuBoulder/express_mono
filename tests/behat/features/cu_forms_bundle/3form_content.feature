@@ -46,7 +46,7 @@ I should be able to create, edit, and delete Webforms
     Given I am logged in as a user with the "site_owner" role
     And I am on "node/add/webform"
     And fill in "edit-title" with "Simple Test Form"
-    And fill in "Body" with "Lorem ipsum dolor sit amet"
+    And fill in "edit-body-und-0-value" with "Lorem ipsum dolor sit amet"
     When I press "edit-submit"
     And I should see "The new webform Simple Test Form has been created. Add new fields to your webform with the form below."
     # And the URL should contain "webform/components"
