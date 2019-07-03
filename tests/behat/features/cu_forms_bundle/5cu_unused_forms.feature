@@ -1,4 +1,4 @@
-@cu_unused_forms
+@webform
 
 Feature: Unused Forms Report
     Scenario Outline: An authenticated user with a role should be able to access the Unused forms report page
