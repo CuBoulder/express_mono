@@ -19,6 +19,7 @@ dependencies[] = cu_video_hero_unit_bundle
 dependencies[] = cu_publications_bundle
 dependencies[] = express_collections_bundle
 dependencies[] = express_localist_bundle
+dependencies[] = cu_mega_menu_bundle
 dependencies[] = cu_alumni_class_notes_bundle
 dependencies[] = cu_livestream_bundle
 dependencies[] = cu_content_sequence_bundle

@@ -1,0 +1,13 @@
+name = Mega Menu Bundle
+description = Adds mega menu functionality to sites. Desktop view only.
+core = 7.x
+version = 7.x-1.0
+package = CU Mega Menu Bundle
+dependencies[] = cu_mega_menu
+
+
+bundle_cache_clear = 1
+
+
+bundle_roles[] = developer
+bundle_roles[] = administrator
