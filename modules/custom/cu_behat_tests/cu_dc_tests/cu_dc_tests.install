@@ -9,7 +9,7 @@
  * Implements hook_install().
  */
 function cu_dc_tests_install() {
-
+  module_enable(array('cu_ab_test'));
   // Install text block beans.
   $beans[0] = array(
     'title' => 'Text Block A',
