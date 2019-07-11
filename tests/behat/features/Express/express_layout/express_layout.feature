@@ -7,7 +7,7 @@
     Given  I am logged in as a user with the "developer" role
       And I go to "admin/config/content/express-layout"
       And I check "edit-page-field-content-bottom"
-      And I click the "#edit-page-field-post-title" element
+      And I check the "#edit-page-field-post-title" element
       And I press "Save Layout Settings"
     When I go to "node/1"
       And I follow "Edit Layout"
