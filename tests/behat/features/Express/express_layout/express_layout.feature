@@ -6,13 +6,13 @@
   Scenario: Adding or removing regions on settings form should be reflected on node layout forms
     Given  I am logged in as a user with the "developer" role
       And I go to "admin/config/content/express-layout"
-      And I check "edit-page-field-footer"
-      And I click the "#edit-page-field-title-image" element
+      And I check "edit-page-field-content-bottom"
+      And I click the "#edit-page-field-post-title" element
       And I press "Save Layout Settings"
     When I go to "node/1"
       And I follow "Edit Layout"
-    Then I should not see an "#edit-field-footer" element
-      And I should see an "#edit-field-title-image" element
+    Then I should not see an "#edit-field-post-title" element
+      And I should see an "#edit-field-content-bottom" element
 
  @javascript
   Scenario: Adding a block in the content region should appear in the region and deleting it should delete it from region
