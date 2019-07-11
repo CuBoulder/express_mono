@@ -14,7 +14,7 @@
     Then I should not see an "#edit-field-post-title" element
       And I should see an "#edit-field-content-bottom" element
 
- @javascript
+ @layout @javascript
   Scenario: Adding a block in the content region should appear in the region and deleting it should delete it from region
     Given  I am logged in as a user with the "developer" role
     When I go to "node/1"
