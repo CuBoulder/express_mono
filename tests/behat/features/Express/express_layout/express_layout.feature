@@ -1,4 +1,4 @@
-  @layout @javascript
+  @layout
   Feature: CU Layout Creation
   Users should be able to create and edit layouts. Developers should be able to modify layout settings.
 
@@ -6,15 +6,15 @@
   Scenario: Adding or removing regions on settings form should be reflected on node layout forms
     Given  I am logged in as a user with the "developer" role
       And I go to "admin/config/content/express-layout"
-      And I check "edit-page-field-header"
-      And I click the "#edit-page-field-intro" element
+      And I check "edit-page-field-footer"
+      And I click the "#edit-page-field-title-image" element
       And I press "Save Layout Settings"
     When I go to "node/1"
       And I follow "Edit Layout"
-    Then I should not see an "#edit-field-intro" element
-      And I should see an "#edit-field-header" element
+    Then I should not see an "#edit-field-footer" element
+      And I should see an "#edit-field-title-image" element
 
- 
+ @javascript
   Scenario: Adding a block in the content region should appear in the region and deleting it should delete it from region
     Given  I am logged in as a user with the "developer" role
     When I go to "node/1"
