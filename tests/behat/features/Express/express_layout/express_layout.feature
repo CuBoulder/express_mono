@@ -46,7 +46,7 @@
     Given  I am logged in as a user with the "developer" role
     When I go to "node/1"
       And I follow "Edit Layout"
-      And I select "block" from "field_sidebar_first[und][actions][bundle]"
+      And I select "Text Block" from "field_sidebar_first[und][actions][bundle]"
       And I wait for the ".ief-form" element to appear
       And I fill in "Text Block Label" with "left sidebar block"
       And I follow "Disable rich-text"
@@ -64,4 +64,3 @@
       #And I fill in "field_sidebar_first[und][form][entity_id]" with "abo"
       #And I wait 5 seconds
       #And I select autosuggestion option "above content block"
-
