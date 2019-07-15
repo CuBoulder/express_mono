@@ -9,5 +9,26 @@
  * Implemenets hook_enable().
  */
 function pantheon_hosting_enable() {
+  module_enable(array(
+    'redis'
+  ));
 
+  module_disable(array(
+    'syslog',
+    'memcache',
+    'cu_atlas',
+    'atlas_statistics',
+    'atlas',
+    'ldap_authentication',
+    'ldap_user',
+    'ldap_servers',
+    'varnish'
+
+  ));
+  # Evaluate what needs to be uninstalled
+  drupal_uninstall_modules($module_list = array('syslog','memcache'), $uninstall_dependents = FALSE);
+  
+  
+  #Any needed variable sets would go here, example:
+  # variable_set('smtp_fromname', 'Web Express');
 }
