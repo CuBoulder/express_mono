@@ -19,7 +19,7 @@
     Given  I am logged in as a user with the "developer" role
     When I go to "node/1"
       And I follow "Edit Layout"
-      And I select "block" from "field_header[und][actions][bundle]"
+      And I select "block" from "edit-field-header-und-actions-bundle"
       And I wait for the ".ief-form" element to appear
       And I fill in "Text Block Label" with "above content block"
       And I follow "Disable rich-text"
@@ -41,7 +41,7 @@
       #And I wait 5 seconds
       #And I select autosuggestion option "above content block (8)"
 
-
+  @layout @javascript
   Scenario: Adding a block in the left sidebar region should appear in the region
     Given  I am logged in as a user with the "developer" role
     When I go to "node/1"
@@ -64,4 +64,3 @@
       #And I fill in "field_sidebar_first[und][form][entity_id]" with "abo"
       #And I wait 5 seconds
       #And I select autosuggestion option "above content block"
-
