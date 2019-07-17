@@ -131,7 +131,7 @@ function _cu_test_content_recursive_tree_of_pages($nodes, $menu_name, $plid = 0)
 
   $weight = 0;
   foreach ($nodes as $elem) {
-    // Grab a random image
+    // Grab a random image.
     $file_path = system_retrieve_file('https://placeimg.com/1500/1000/nature');
 
     if ($file_path) {
@@ -142,7 +142,7 @@ function _cu_test_content_recursive_tree_of_pages($nodes, $menu_name, $plid = 0)
         'status' => 1,
       );
 
-      // Image styles
+      // Image styles.
       $styles = array("medium", "slider");
       $rand_keys = array_rand($styles, 1);
       $style = $styles[$rand_keys];
