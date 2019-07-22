@@ -1143,7 +1143,7 @@ function cu_mega_menu_field_default_field_instances() {
     'bundle' => 'mega_menu',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'This field will be linked to the original menu item the mega menu is attached to.',
+    'description' => 'Appears as the heading of this Mega Menu and is linked to the page to which this menu is attached.',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
