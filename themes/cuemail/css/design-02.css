@@ -51,7 +51,7 @@ td.web-link a:hover { color: #000000 !important; }
 
 .footer-content p { color: #000000; }
 
-.footer-content a { color: #007bc8; }
-.footer-content a:link, .footer-content a:visited, .footer-content a:active { color: #007bc8 !important; }
+.footer-content a { color: #007BC8; }
+.footer-content a:link, .footer-content a:visited, .footer-content a:active { color: #007BC8 !important; }
 
-.footer-content a:hover { color: #007bc8 !important; }
+.footer-content a:hover { color: #007BC8 !important; }
