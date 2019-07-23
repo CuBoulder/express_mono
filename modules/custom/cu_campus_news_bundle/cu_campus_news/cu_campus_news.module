@@ -263,8 +263,8 @@ function cu_campus_news_preprocess_entity(&$vars) {
       // Grid needs additional markup
       $link_classes = array();
       if ($view_mode == 'grid') {
-        $vars['content']['#prefix'] = '<div class="campus-news-grid row">';
-        $vars['content']['#suffix'] = '</div>';
+        $vars['content']['articles']['#prefix'] = '<div class="campus-news-grid row">';
+        $vars['content']['articles']['#suffix'] = '</div>';
         $link_classes[] = 'button-ghost';
       }
 
@@ -283,7 +283,12 @@ function cu_campus_news_preprocess_entity(&$vars) {
       }
 
       $vars['content']['cu_boulder_today_link']['#markup'] = l($link_text, $link_url, array('query' => $query, 'attributes' => array('class' => $link_classes)));
-      $vars['content']['cu_boulder_today_link']['#prefix'] = '<div class="campus-news-more-link">';
+
+      if ($view_mode == 'grid') {
+        $vars['content']['cu_boulder_today_link']['#prefix'] = '<div class="campus-news-grid-more-link">';
+      } else {
+        $vars['content']['cu_boulder_today_link']['#prefix'] = '<div class="campus-news-more-link">';
+      }
       $vars['content']['cu_boulder_today_link']['#suffix'] = '</div>';
 
       $vars['content']['articles']['#weight'] = 0;
