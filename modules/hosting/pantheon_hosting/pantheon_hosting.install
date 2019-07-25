@@ -10,20 +10,20 @@
  */
 function pantheon_hosting_enable() {
   module_enable(array(
-    'redis'
   ));
 
   module_disable(array(
-    'syslog',
+    'ucb_on_prem_hosting',
     'memcache',
-    'cu_atlas',
-    'atlas_statistics',
-    'atlas',
+    'varnish',
+    'cu_ldap',
     'ldap_authentication',
     'ldap_user',
     'ldap_servers',
-    'varnish'
-
+    'syslog',
+    'cu_atlas',
+    'cu_statistics',
+    'atlas'
   ));
   # Evaluate what needs to be uninstalled
   drupal_uninstall_modules($module_list = array('syslog','memcache'), $uninstall_dependents = FALSE);
