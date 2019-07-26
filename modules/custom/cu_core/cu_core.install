@@ -20,7 +20,6 @@ function cu_core_install() {
 
   if ($hosting === 'travis') {
     module_enable(array('travis_hosting', 'cu_users'));
-    
   }
   elseif ($hosting == 'ucb_on_prem_hosting') {
     module_enable(array('ucb_on_prem_hosting'));
