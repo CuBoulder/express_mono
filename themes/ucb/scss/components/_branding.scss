@@ -210,8 +210,8 @@
    .banner-black .header-wrapper & a:link,
    .banner-black .header-wrapper & a:visited,
    header.ucb.black &,
-   header.ucb.black a:link,
-   header.ucb.black a:visited {
+   header.ucb.black & a:link,
+   header.ucb.black & a:visited {
      color:#aaa;
    }
    .banner-dark .header-wrapper &,
