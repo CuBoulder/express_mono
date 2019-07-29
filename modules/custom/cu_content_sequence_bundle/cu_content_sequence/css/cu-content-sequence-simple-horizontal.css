@@ -247,21 +247,7 @@ Main Components
   max-width: 600px;
   margin: 0 auto;
 }
-.cd-horizontal-timeline .events-content h2 {
 
-}
-.cd-horizontal-timeline .events-content em {
-  display: block;
-  margin: 10px auto;
-}
-.cd-horizontal-timeline .events-content em::before {
-  content: '- ';
-}
-.cd-horizontal-timeline .events-content p {
-
-}
-.cd-horizontal-timeline .events-content em, .cd-horizontal-timeline .events-content p {
-}
 
 
 @-webkit-keyframes cd-enter-right {
