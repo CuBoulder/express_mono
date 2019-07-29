@@ -95,9 +95,10 @@ td.web-link a:hover {
   // Design
   color:#FFFFFF;
 }
-.footer-content a {
+.footer-content a:link,
+.footer-content a:visited {
   // Design
-  color:$gold;
+  color:$gold !important;
 }
 .footer-content a:hover {
   // Design
