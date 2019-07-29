@@ -316,7 +316,7 @@ websupport@colorado.edu');
  * Add Jesus Ortiz Tovar as a developer.
  */
 function cu_users_update_7026() {
-  // If alfi2595 user does not exist.
+  // If jeor0980 user does not exist.
   $new_account = user_load_by_name('jeor0980');
   if (!isset($new_account->uid)) {
     // Create new user.
