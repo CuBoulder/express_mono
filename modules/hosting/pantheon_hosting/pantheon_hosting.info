@@ -11,4 +11,3 @@ dependencies[] = redis
 dependencies[] = noreqnewpass
 dependencies[] = smtp
 dependencies[] = maillog
-optional-dependencies[] = agrcache
