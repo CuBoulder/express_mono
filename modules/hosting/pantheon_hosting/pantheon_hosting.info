@@ -8,3 +8,7 @@ dependencies[] = pantheon_api
 dependencies[] = simplesamlphp_auth
 dependencies[] = dblog
 dependencies[] = redis
+dependencies[] = noreqnewpass
+dependencies[] = smtp
+dependencies[] = maillog
+optional-dependencies[] = agrcache
