@@ -53,3 +53,12 @@ function cu_mega_menu_schema() {
 
   return $schema;
 }
+
+/**
+ * Add field description to label heading field.
+ */
+function cu_mega_menu_update_7001() {
+  $instance_info = field_info_instance('cu_mega_menu', 'field_mega_menu_label', 'mega_menu');
+  $instance_info['description'] = 'Appears as the heading of this Mega Menu and is linked to the page to which this menu is attached.';
+  field_update_instance($instance_info);
+}
