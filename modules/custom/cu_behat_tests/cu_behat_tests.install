@@ -18,6 +18,9 @@ function cu_behat_tests_install() {
   // @todo Actually add test content.
   // Add testing content.
   // _cu_behat_tests_add_content();
+
+  // TODO Figure out when to enable this
+  //module_enable(array('cu_dc_tests'));
 }
 
 /**
