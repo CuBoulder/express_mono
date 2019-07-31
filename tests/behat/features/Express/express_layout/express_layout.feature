@@ -19,7 +19,7 @@
     Given  I am logged in as a user with the "developer" role
     When I go to "node/1"
       And I follow "Edit Layout"
-      And I select "block" from "edit-field-header-und-actions-bundle"
+      And I select "block" from "edit-field-post-title-und-actions-bundle"
       And I wait for the ".ief-form" element to appear
       And I fill in "Text Block Label" with "above content block"
       And I follow "Disable rich-text"
