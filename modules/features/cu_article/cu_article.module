@@ -809,6 +809,17 @@ function cu_article_preprocess_node(&$vars) {
       // Add bylines terms to author meta section
       $vars['author_meta']['byline'] = '<span class="author-meta-name author-meta-item">By ' . join(', ', $bylines) . '</span>';
     }
+    // Add more link from article teaser to article teaser category view mode.
+    if ($vars['view_mode'] == 'teaser_category') {
+      $node_title_stripped = strip_tags($vars['node']->title);
+      $vars['content']['links']['node']['#links']['node-readmore'] = array(
+        'title' => t('Read more<span class="element-invisible"> about @title</span>', array('@title' => $node_title_stripped)),
+        'href' => 'node/' . $vars['node']->nid,
+        'html' => TRUE,
+        'attributes' => array('rel' => 'tag', 'title' => $node_title_stripped),
+      );
+    }
+
     if (!empty($vars['content']['links']['node']['#links']['node-readmore'])) {
       $vars['more_link'] = l($vars['content']['links']['node']['#links']['node-readmore']['title'], $vars['content']['links']['node']['#links']['node-readmore']['href'], array('attributes' => array('aria-hidden' => 'true', 'class' => array('more-link', 'summary-more-link')),
     'html' => TRUE));
