@@ -1,1 +1,4 @@
-Version 4.0.0
+# Changelog
+## Version 4.0.0
+
+### Issues Resolved
