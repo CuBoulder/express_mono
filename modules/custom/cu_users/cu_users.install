@@ -114,7 +114,7 @@ function cu_users_update_7013() {
  * Add Kevin Reynen as a developer.
  */
 function cu_users_update_7016() {
-  // Intentionally empty
+  // Intentionally empty.
 }
 
 /**
@@ -200,14 +200,14 @@ function cu_users_update_7020() {
  * Remove Erin Corson and Matt Tucker as a users
  */
 function cu_users_update_7021() {
-  // Intentionally empty
+  // Intentionally empty.
 }
 
 /**
  * Add Alex Finnarn as a developer.
  */
 function cu_users_update_7022() {
-  // Intentionally empty
+  // Intentionally empty.
 }
 
 /**
