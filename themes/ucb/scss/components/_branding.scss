@@ -135,19 +135,23 @@
    justify-content: space-between;
    align-items:center;
    width:100%;
-
-   .brand-logo img {
-     width:100%;
+   .brand-logo {
      max-width: 200px;
      min-width:160px;
-     height: auto;
-     display: block;
+     width:100%;
      @media screen and (min-width:768px) {
        & {
          max-width:240px;
          // margin:5px 0;
        }
      }
+   }
+   .brand-logo img {
+     width:100%;
+
+     height: auto;
+     display: block;
+
    }
  }
 
@@ -180,6 +184,7 @@
      font-size:20px;
      font-weight: 750;
      font-family: $base_font_condensed;
+     line-height: 1.1;
    }
    @media screen and (min-width:768px) {
      &,
@@ -209,8 +214,8 @@
    .banner-black .header-wrapper & a:link,
    .banner-black .header-wrapper & a:visited,
    header.ucb.black &,
-   header.ucb.black a:link,
-   header.ucb.black a:visited {
+   header.ucb.black & a:link,
+   header.ucb.black & a:visited {
      color:#aaa;
    }
    .banner-dark .header-wrapper &,

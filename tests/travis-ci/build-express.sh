@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "${BUNDLE_NAME}" != "null" ]; then
-  cd ${ROOT_DIR}/drupal/sites/all/modules/${BUNDLE_NAME}
-else
-  cd ${ROOT_DIR}/drupal/profiles/express
-fi
+cd ${ROOT_DIR}/drupal/profiles/express
 
 EXPRESS_COMMIT_HAS_BUILD="$(git log -2 --pretty=%B | awk '/./{line=$0} END{print line}' | grep '==build')"
 
@@ -48,5 +44,7 @@ $HOME/.composer/vendor/bin/drush pm-info ng_hosting
 $HOME/.composer/vendor/bin/drush pm-info cu_core
 $HOME/.composer/vendor/bin/drush pm-info cu_ldap
 $HOME/.composer/vendor/bin/drush pm-info cu_local_users
+
+$HOME/.composer/vendor/bin/drush pm-list
 
 exit 0

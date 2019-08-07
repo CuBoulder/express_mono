@@ -29,33 +29,6 @@ function cu_slider_libraries_info() {
   return $libraries;
 }
 
-
-/**
- * Implements hook_page_alter().
- */
-function cu_slider_init() {
-
-  $library = libraries_get_path('flickity');
-
-  // Add the library reference.
-  $path = $library . '/js/flickity.pkgd.min.js';
-  $installed = file_exists($path);
-  if ($installed) {
-    drupal_add_js($path);
-  }
-
-  $path = $library . '/css/flickity.css';
-  $installed = file_exists($path);
-  if ($installed) {
-    drupal_add_css($path);
-  }
-
-  // Add cu slider css
-  drupal_add_css(drupal_get_path('module', 'cu_slider') . '/css/cu_slider.css');
-  // Add cu slider js
-  drupal_add_js(drupal_get_path('module', 'cu_slider') . '/js/cu-slider.js');
-}
-
 /**
  * Implements hook_theme_registry_alter().
  *
@@ -106,6 +79,28 @@ function cu_slider_preprocess_entity(&$vars) {
 
   // Only preprocess slider beans.
   if ($entity_type == 'bean' && $bundle == 'slider') {
+
+    // Add css and js
+    $library = libraries_get_path('flickity');
+
+    // Add the library reference.
+    $path = $library . '/js/flickity.pkgd.min.js';
+    $installed = file_exists($path);
+    if ($installed) {
+      drupal_add_js($path);
+    }
+
+    $path = $library . '/css/flickity.css';
+    $installed = file_exists($path);
+    if ($installed) {
+      drupal_add_css($path);
+    }
+
+    // Add cu slider css
+    drupal_add_css(drupal_get_path('module', 'cu_slider') . '/css/cu_slider.css');
+    // Add cu slider js
+    drupal_add_js(drupal_get_path('module', 'cu_slider') . '/js/cu-slider.js');
+
     //global $cu_slider_image_size;
 
     //$vars['content']['field_slider_image'][0]['#image_style'] = $cu_slider_image_size;

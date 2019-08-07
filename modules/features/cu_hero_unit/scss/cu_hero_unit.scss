@@ -65,24 +65,24 @@ $radius_small: 3px;
 /* PADDING */
 
 .hero-unit-image .hero-unit-content-inner {
-  padding:0 20px;
+  padding:0 0px;
 }
 .hero-unit-text .hero-unit-content-inner {
-  padding:20px;
+  padding:20px 0;
 }
 .hero-size-small.hero-unit-image .hero-unit-content-inner {
-  padding:0 20px;
+  padding:0 0px;
 }
 .hero-size-small.hero-unit-text .hero-unit-content-inner {
-  padding:20px;
+  padding:20px 0;
 }
 
 @media all and (min-width: 740px) and (min-device-width: 740px), (max-device-width: 800px) and (min-width: 740px) and (orientation:landscape) {
   .hero-unit-image .hero-unit-content-inner {
-    padding:0 60px;
+    padding:0 0px;
   }
   .hero-unit-text .hero-unit-content-inner {
-    padding:100px 50px;
+    padding:100px 0px;
   }
   .hero-unit {
     font-size:21px;

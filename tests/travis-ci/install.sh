@@ -5,17 +5,17 @@ composer global require "drush/drush:8.*"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Build Behat dependencies.
-cd $ROOT_DIR/express/tests/behat
+cd $ROOT_DIR/express_mono/tests/behat
 composer install --prefer-dist --no-interaction
 earlyexit
 
 # Build Codebase.
 cd $ROOT_DIR
-drush dl drupal-7.65
-mkdir drupal && mv drupal-7.65/* drupal/
-mkdir profiles && mv express drupal/profiles/
+drush dl drupal-7.66
+mkdir drupal && mv drupal-7.66/* drupal/
+mkdir profiles && mv express_mono drupal/profiles/express
 
-# Harden Codebase.
+# Harden Core.
 cd $ROOT_DIR/drupal/modules
 rm -rf php aggregator blog book color contact translation dashboard forum locale openid overlay poll rdf search statistics toolbar tracker trigger
 earlyexit
@@ -25,14 +25,5 @@ earlyexit
 # Setup files.
 mkdir -p $ROOT_DIR/drupal/sites/default/files/styles/preview/public/gallery/ && chmod -R 777 $ROOT_DIR/drupal/sites
 mkdir $ROOT_DIR/tmp && chmod -R 777 $ROOT_DIR/tmp
-
-if [ "${BUNDLE_NAME}" != "null" ]; then
-
-  # Move bundle to right place after build step.
-  mkdir $ROOT_DIR/drupal/profiles/express/tests/behat/bundle_features
-  cp -R $ROOT_DIR/$BUNDLE_NAME/tests/behat/features/* $ROOT_DIR/drupal/profiles/express/tests/behat/bundle_features
-  mv $ROOT_DIR/$BUNDLE_NAME $ROOT_DIR/drupal/sites/all/modules/
-
-fi
 
 exit 0

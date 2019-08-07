@@ -21,6 +21,9 @@ mysql:
   username: root
   encoding: utf8
 
+services:
+  -mysql
+
 # Cache Composer and db export.
 # I removed caching of Drush since you have to clear Drush cache to get new Drupal versions.
 cache:
@@ -44,12 +47,15 @@ install:
   - export BUNDLE_BEHAT_TAGS="~@exclude_all_bundles&&~@broken"
 
   # Copy scripts to root.
-  - cp -R ${ROOT_DIR}/express/tests/travis-ci/* ${ROOT_DIR}
+  - cp -R ${ROOT_DIR}/express_mono/tests/travis-ci/* ${ROOT_DIR}
 
   # Pulls in any helper functions used later in scripts.
   - source $ROOT_DIR/helper-functions.sh
 
-  # Install and build dependencies.
+  # Install drush
+  # Download and harden Drupal core (with hardening steps)
+  # TODO apply core patches
+  # Setup sites/default/files and tmp directories
   - echo ----
   - echo "Running install script..."
   - $ROOT_DIR/install.sh
@@ -57,16 +63,12 @@ install:
 
 before_script:
 
-  # Setup config for PHP/MySQL, settings.php, and install database.
+  # Setup config for PHP/MySQL
+  # Create database.
+  # Add settings.php
   - echo ----
   - echo Running setup script...
-  - $ROOT_DIR/setup-config.sh
-  - echo ----
-
-  # Perform the site install after removing Xdebug since it seems faster.
-  - echo ----
-  - echo Running build script...
-  - $ROOT_DIR/build-express.sh
+  - $ROOT_DIR/setup.sh
   - echo ----
 
 script:
