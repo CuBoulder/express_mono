@@ -22,7 +22,7 @@ mysql:
   encoding: utf8
 
 services:
-  -mysql
+  - mysql
 
 # Cache Composer and db export.
 # I removed caching of Drush since you have to clear Drush cache to get new Drupal versions.
