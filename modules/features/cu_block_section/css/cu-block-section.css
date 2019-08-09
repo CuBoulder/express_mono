@@ -32,13 +32,13 @@
 .block-section-background-light_blue { background-color: #EBF7FF; }
 
 .block-section-text-white .block-section-content-bg-visible { padding: 20px; }
-.block-section-text-white .block-section-content-bg-visible.background-black { background: rgba(0, 0, 0, 0.75); }
+.block-section-text-white .block-section-content-bg-visible.background-black { background: rgba(0, 0, 0, 0.75) !important; }
 .block-section-text-white .block-section-content-bg-solid { padding: 20px; }
 .block-section-text-white a:link, .block-section-text-white a:visited { color: #cfb87c; }
 .block-section-text-white a:hover { color: #fff; }
 
 .block-section-text-black .block-section-content-bg-visible { padding: 20px; }
-.block-section-text-black .block-section-content-bg-visible.background-white { background: rgba(255, 255, 255, 0.85); }
+.block-section-text-black .block-section-content-bg-visible.background-white { background: rgba(255, 255, 255, 0.85) !important; }
 
 .block-section-text-black .block-section-content-bg-solid { padding: 20px; }
 
