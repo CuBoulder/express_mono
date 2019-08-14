@@ -452,11 +452,13 @@ $red:#B71C1C;
   @include headers;
   display: block;
   .content-grid-item {
+    display: flex;
     img.image-square {
       float:left;
       margin:0 10px 0 0;
       width:50px;
       height:50px;
+      display: block;
     }
     @media screen and (min-width: 768px) {
       img.image-square {
