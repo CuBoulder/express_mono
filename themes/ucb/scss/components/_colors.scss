@@ -28,7 +28,14 @@
     *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
     *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
     *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
-    *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name}
+    *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
+    *[class*="background-"] .exbd-block.exbd-style-#{$name},
+    *[class*="background-"] *[class*="background-"] .exbd-block.exbd-style-#{$name},
+    *[class*="background-"] *[class*="background-"] *[class*="background-"] .exbd-block.exbd-style-#{$name},
+    *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .exbd-block.exbd-style-#{$name},
+    *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .exbd-block.exbd-style-#{$name},
+    *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .exbd-block.exbd-style-#{$name},
+    *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .exbd-block.exbd-style-#{$name}
 
      {
       background-color: $color;
