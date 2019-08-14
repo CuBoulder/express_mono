@@ -37,6 +37,7 @@
 
 $link_blue: #0277BD;
 $text: #202020;
+$red:#B71C1C;
 
 .content-grid-container {
   display: flex;
@@ -95,7 +96,10 @@ $text: #202020;
       color: $text;
       a:link,
       a:visited {
-        color:$link_blue;
+        color:$link_blue !important;
+      }
+      a:hover {
+        color:$red !important;
       }
     }
     .content-grid-content > *:last-child {
@@ -361,12 +365,18 @@ $text: #202020;
         font-size: 100%;
         margin: 0;
       }
-      a,
+      a:link,
+      a:visited,
       span {
         display: block;
         padding:20px;
-        color: #fff;
+        color: #fff !important;
         position: relative;
+        background: none;
+      }
+      a:hover {
+        color:#eee !important;
+        background:#000;
       }
       a:after {
         content: " ";
