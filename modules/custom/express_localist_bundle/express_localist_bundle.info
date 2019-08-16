@@ -79,7 +79,7 @@ features[field_instance][] = bean-localist_events-field_localist_style
 features[field_instance][] = bean-localist_events-field_localist_tags
 features[field_instance][] = bean-localist_events-field_localist_truncate_desc
 features[field_instance][] = bean-localist_events-field_localist_widget_type
-project_demo_url = https://websupport.colorado.edu/article/75-localist-event-block-templates
+project_demo_url = https://websupport.colorado.edu/category/254-events
 
 bundle_roles[] = developer
 bundle_roles[] = administrator

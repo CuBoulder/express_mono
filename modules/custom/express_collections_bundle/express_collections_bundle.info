@@ -93,4 +93,4 @@ bundle_roles[] = configuration_manager
 
 features[variable][] = webform_node_collection_item
 project status url = https://github.com/CuBoulder/express_collections_bundle
-project_demo_url = http://www.colorado.edu/webcentral/node/1530
+project_demo_url = https://websupport.colorado.edu/category/148-collections
