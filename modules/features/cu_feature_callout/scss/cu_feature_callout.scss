@@ -188,15 +188,24 @@ $red:#B71C1C;
       h2.feature-callout-title,
       h3.feature-callout-title {
         margin: 0;
-        a {
-          color:#fff !important;
+        a:link,
+        a:visited {
+          color:$cugold !important;
           text-decoration: none !important;
+        }
+        a:hover {
+          color:#fff !important;
         }
       }
       color:#fff;
       .content-grid-text {
-        a {
-          color: $cugold;
+        a:link,
+        a:visited {
+          color: $cugold !important;
+          text-decoration: none !important;
+        }
+        a:hover {
+          color:#fff !important;
         }
       }
     }
