@@ -17,7 +17,6 @@ I should be able to invite users to my site and manage invitations.
     When I go to "admin/config/people/invite"
     Then I should see <message4>
 
-
     Examples:
       | role                  | message         | message1          | message2                | message3                                                    | message4                                  |
       | developer             | "Users"         | "Invite New User" | "No invites available." | "This web page allows administrators to register new users" | "Core Roles users can be invited to join" |

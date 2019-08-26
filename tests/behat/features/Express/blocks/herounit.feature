@@ -17,8 +17,8 @@ When I go to "block/add/hero-unit"
 Then I should see <message>
 
 Examples:
- | role                    | message                      |
- | developer             | "Create Hero Unit block" |
+| role                  | message                      |
+| developer             | "Create Hero Unit block" |
 | administrator         | "Create Hero Unit block" |
 | site_owner            | "Create Hero Unit block" |
 | content_editor        | "Create Hero Unit block" |
@@ -29,9 +29,9 @@ Examples:
  Scenario: Block Access: An anonymous user cannot add a Hero Unit block
   When I am on "block/add/hero-unit"
   Then I should see "Access denied"
-  
+
 # 2) TEST THAT A SIMPLE BLOCK CAN BE CREATED AND REVISED
- Scenario: Block Functionality - A very simple Hero Unit can be created 
+ Scenario: Block Functionality - A very simple Hero Unit can be created
  Given I am logged in as a user with the "site_owner" role
   And I am on "block/add/hero-unit"
   And fill in "edit-label" with "Hero Unit Label"
@@ -42,7 +42,7 @@ Examples:
   Then I should be on "block/hero-unit-label/view"
  And I should see "My Hero Unit Title"
 And I should see "Learn more about our program"
- 
+
 #  2.5 CREATE REVISIONS TO THE BLOCK ABOVE
 Scenario: Block Functionality - Create Revision of block
 Given I am logged in as a user with the "site_owner" role
@@ -59,7 +59,7 @@ And I am on "admin/content/blocks"
 And I follow "Hero Unit Label"
 Then I should see the link "View"
 And I should see the link "Edit Block"
-And I should see the link "Revisions" 
+And I should see the link "Revisions"
 And I should see the link "Block Designer"
 And I should see the link "Delete Block"
 When I follow "Edit Block"
@@ -67,11 +67,11 @@ Then I should see "Edit Hero Unit: Hero Unit Label"
 And I should see an "#edit-delete" element
 And I follow "View"
 
-Examples: 
+Examples:
 | role |
-| developer       | 
-| administrator   | 
-| site_owner      | 
+| developer       |
+| administrator   |
+| site_owner      |
 | content_editor  |
 | site_editor |
 

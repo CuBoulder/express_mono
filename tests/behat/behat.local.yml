@@ -42,7 +42,7 @@ default:
       contexts: [ FeatureContext ]
   extensions:
       Behat\MinkExtension:
-        base_url: "http://127.0.0.1:8079/"
+        base_url: "http://webtest.lndo.site"
         files_path: "%paths.base%/assets"
         javascript_session: sauce
         sessions:
@@ -67,5 +67,3 @@ default:
                 #platform: "Windows 10"
                 # Version of browser to use.
                 #version: "63.0"
-
-
