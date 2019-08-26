@@ -12,7 +12,7 @@ You will need:
 - PHP 7 - [Homebrew works well for this step](https://github.com/Homebrew/homebrew-php).
 - MySQL - [Homebrew can be used also here](https://gist.github.com/nrollr/3f57fc15ded7dddddcc4e82fe137b58e).
 - Composer - Once PHP is installed, [you can install Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) locally or globally.
-- Drush - Once Composer is installed, `composer global require "drush/drush:8.*"` to install Drush globally. 
+- Drush - Once Composer is installed, `composer global require "drush/drush:8.*"` to install Drush globally.
 
 You can check the versions of what you have locally, but for this tutorial the versions are as follows:
 - PHP `7.1.10`
@@ -22,14 +22,14 @@ You can check the versions of what you have locally, but for this tutorial the v
 
 ## Running Tests
 
-You can now install an Express site by downloading Drupal, cloning in the Express profile, and installing the site. 
+You can now install an Express site by downloading Drupal, cloning in the Express profile, and installing the site.
 
 ```bash
 ROOT=$(pwd)
 
 # Add Drupal.
-drush dl drupal-7.66
-mv drupal-7.66 testing
+drush dl drupal-7.67
+mv drupal-7.67 testing
 
 # Make files folder and copy settings.php file.
 cd ${ROOT}/testing/sites/default
@@ -56,7 +56,7 @@ source ~/.bash_profile
 drush si express --db-url=mysql://root:@127.0.0.1/testing -y
 
 # Depending on your environment, you might not have a hosting module installed.
-# local_hosting adds users needed for a test run but does not turn on all bundles. 
+# local_hosting adds users needed for a test run but does not turn on all bundles.
 # It is the most appropriate hosting module to enable after install.
 drush pm-info local_hosting
 
@@ -90,7 +90,7 @@ With your localhost site address:
         base_url: "http://localhost/express"
 ```
 
-When Express installs, environmental variables are used to determine which "core" to install. If no environment other than the Express deployment servers is found, the "ng_hosting" module will be enabled by default. You can export a variable to enable the Pantheon or other hosting setups, but they might not install the modules and configuration you want. 
+When Express installs, environmental variables are used to determine which "core" to install. If no environment other than the Express deployment servers is found, the "ng_hosting" module will be enabled by default. You can export a variable to enable the Pantheon or other hosting setups, but they might not install the modules and configuration you want.
 
 It is likely that the hosting modules will be modified to take in local environments and some shared VM solution. For now, you can use different environmental variables for each Express environment you'd want to install. For example, you could use `$_SERVER['WWWNG_ENV'] = TRUE;` in your `settings.php` file to enable "ng_hosting" like is done on production. In that case, you should be able to login to your account via LDAP, but if not, then use Drush.
 
@@ -113,7 +113,7 @@ cd <site-path>/profiles/express/tests/behat
 composer install
 ```
 
-The test suite uses two different drivers during a test run: one for headless tests and one for browser emulated tests using JavaScript. The JavaScript tests are run via Sauce Labs, and you'll need an API key to use that service and run the tests. You can ask a team member for an API key and username, and they will be shared using LastPass. You'll also need to export those variables. 
+The test suite uses two different drivers during a test run: one for headless tests and one for browser emulated tests using JavaScript. The JavaScript tests are run via Sauce Labs, and you'll need an API key to use that service and run the tests. You can ask a team member for an API key and username, and they will be shared using LastPass. You'll also need to export those variables.
 
 The [Sauce Connect Proxy](https://wiki.saucelabs.com/display/DOCS/Sauce+Connect+Proxy) uses those auth keys to tunnel into your machine and accept Behat requests. Please download the latest Mac OS version.
 
