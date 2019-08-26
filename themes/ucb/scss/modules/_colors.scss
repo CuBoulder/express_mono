@@ -47,7 +47,7 @@ $border:#e0e0e0;
 $border: rgba(128,128,128,.333);
 
 $all_colors: (
-  "white" : $white,
+
   "black" : $black,
   "gray-dark" : $gray-dark,
   "gray-light" : $gray-light,
@@ -65,17 +65,19 @@ $all_colors: (
   "yellow" : $yellow,
   "red-light" : $red-light,
   "gold" : $gold,
+  "white" : $white,
 );
 
 $brand: (
   "gold" : $gold,
 );
 $neutrals: (
-  "white" : $white,
+
   "black" : $black,
   "gray-dark" : $gray-dark,
   "gray-light" : $gray-light,
   "gray" : $gray-light,
+  "white" : $white,
 );
 $secondary: (
   "blue-light" : $blue-light,
