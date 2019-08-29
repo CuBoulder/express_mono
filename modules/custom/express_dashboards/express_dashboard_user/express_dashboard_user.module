@@ -75,8 +75,13 @@ function express_dashboard_user_permission() {
 /**
  * Use this to get the user's realname without loading entire user object.
  */
-function _get_realname($uid) {
-  $output = db_query('SELECT r.realname FROM {realname} r WHERE r.uid = :uid', array(':uid' => $uid))->fetchField();
+function _get_realname($user) {
+  if(module_exists('realname')) {
+    $output = db_query('SELECT r.realname FROM {realname} r WHERE r.uid = :uid', array(':uid' => $user->uid))->fetchField();
+  }
+  else {
+    $output = $user->name;
+  }
   return $output;
 }
 
@@ -85,7 +90,7 @@ function _get_realname($uid) {
  */
 function express_dashboard_user_edited_content() {
   global $user;
-  $realname = _get_realname($user->uid);
+  $realname = _get_realname($user);
 
   $user_content = views_embed_view('authored_content', 'page_1');
   $output['left']['widgets']['edited']['title'] = $realname . '\'s edited content';
@@ -99,7 +104,7 @@ function express_dashboard_user_edited_content() {
  */
 function express_dashboard_user_authored_content() {
   global $user;
-  $realname = _get_realname($user->uid);
+  $realname = _get_realname($user);
 
   $user_content = views_embed_view('authored_content', 'page');
   $output['left']['widgets']['authored']['title'] = $realname . '\'s authored content';
@@ -113,7 +118,7 @@ function express_dashboard_user_authored_content() {
  */
 function express_dashboard_user_content() {
   global $user;
-  $realname = _get_realname($user->uid);
+  $realname = _get_realname($user);
   $vars['user'] = (array) $user;
   $excluded_roles = array(
     'authenticated user',
