@@ -9,7 +9,7 @@ I should be able to affect page layout by adding blocks to regions
 # 'MY LAYOUT PAGE' EACH WITH A SEPARATE URL. TO SOLVE THE PROBLEM OF TRYING TO
 # TARGET THESE PAGES, ALL THE TESTS ARE RUN WITHIN THE SAME SCENARIO
 
-@layout1 @javascript
+@javascript
 Scenario: A block can be added to and deleted from a region on the Edit Layout page
 # CREATE BASIC PAGE FOR TESTING THIS FUNCTIONALITY
 Given I am logged in as a user with the "site_owner" role
