@@ -55,12 +55,10 @@ Then I should see "My Block Row Block Title"
 Then I should see "Cupcake ipsum dolor sit amet ice cream carrot cake"
 And I should see "Lemon drops dessert chocolate gingerbread dessert"
 
-@javascript
+@javascript 
 # This test depends on the one above
-Scenario: An EditOnly can edit but not delete a Block Row Block
+Scenario: An EditOnly can edit a Block Row but not delete it
 Given I am logged in as a user with the "edit_only" role
-And am on "block/my-block-row-block-label/view"
-Then I should see the link "Edit Block"
-And I follow "Edit Block"
-Then I should see "My Block Row Block Label"
-And I should not see "Delete"
+And am on "block/my-block-row-block-label/edit"
+Then I should not see "Access denied"
+And the response should not contain "id=\"edit-delete\""
