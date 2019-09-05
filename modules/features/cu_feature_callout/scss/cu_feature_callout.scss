@@ -37,6 +37,7 @@
 
 $link_blue: #0277BD;
 $text: #202020;
+$red:#B71C1C;
 
 .content-grid-container {
   display: flex;
@@ -95,7 +96,12 @@ $text: #202020;
       color: $text;
       a:link,
       a:visited {
-        color:$link_blue;
+        color:$link_blue !important;
+        text-decoration: none !important;
+      }
+      a:hover {
+        color:$red !important;
+        text-decoration: none !important;
       }
     }
     .content-grid-content > *:last-child {
@@ -178,18 +184,28 @@ $text: #202020;
       left:0;
       right:0;
       padding:10px;
-      background: rgba(0,0,0,.5);
+      background: rgba(0,0,0,.75);
       h2.feature-callout-title,
       h3.feature-callout-title {
         margin: 0;
-        a {
-          color:#fff;
+        a:link,
+        a:visited {
+          color:$cugold !important;
+          text-decoration: none !important;
+        }
+        a:hover {
+          color:#fff !important;
         }
       }
       color:#fff;
       .content-grid-text {
-        a {
-          color: $cugold;
+        a:link,
+        a:visited {
+          color: $cugold !important;
+          text-decoration: none !important;
+        }
+        a:hover {
+          color:#fff !important;
         }
       }
     }
@@ -217,7 +233,7 @@ $text: #202020;
     @media screen and (min-width:768px) {
       .content-grid-content {
         position: absolute;
-        background: rgba(0,0,0,.5);
+        background: rgba(0,0,0,.75);
       }
     }
   }
@@ -355,18 +371,26 @@ $text: #202020;
       bottom:0;
       left:0;
       right:0;
-      background-color: rgba(0,0,0,.65);
+      background-color: rgba(0,0,0,.75);
       color:#fff;
       h2, h3 {
         font-size: 100%;
         margin: 0;
       }
-      a,
+      a:link,
+      a:visited,
       span {
         display: block;
         padding:20px;
-        color: #fff;
+        color: #fff !important;
         position: relative;
+        background: none;
+        text-decoration: none !important;
+      }
+      a:hover {
+        color:#eee !important;
+        background:#000;
+        text-decoration: none !important;
       }
       a:after {
         content: " ";
@@ -442,11 +466,13 @@ $text: #202020;
   @include headers;
   display: block;
   .content-grid-item {
+    display: flex;
     img.image-square {
       float:left;
       margin:0 10px 0 0;
       width:50px;
       height:50px;
+      display: block;
     }
     @media screen and (min-width: 768px) {
       img.image-square {

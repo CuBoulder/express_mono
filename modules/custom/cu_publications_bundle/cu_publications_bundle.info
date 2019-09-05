@@ -5,7 +5,7 @@ package = CU-Publications
 project = cu_publications_bundle
 version = 7.x-1.2
 project status url = https://github.com/CuBoulder/cu_publications_bundle
-project_demo_url = http://www.colorado.edu/webcentral/node/1212
+project_demo_url = https://websupport.colorado.edu/category/155-publication
 
 dependencies[] = cu_publication
 dependencies[] = cu_news_bundle
