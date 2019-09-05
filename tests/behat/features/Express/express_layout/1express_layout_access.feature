@@ -27,7 +27,7 @@ When I go to "node/1"
 And I follow "Edit Layout"
 And I should see an "#edit-field-content-bottom" element
 Then I should not see an "#edit-field-post-title" element
-# AND NOW TURN THEM BACK THE WAY THEY WERE
+# And now put them back the way they were
 Then I go to "admin/config/content/express-layout"
 And I uncheck "edit-page-field-content-bottom"
 And I check "edit-page-field-post-title"

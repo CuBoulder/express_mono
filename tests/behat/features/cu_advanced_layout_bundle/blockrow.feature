@@ -25,13 +25,13 @@ Scenario: An anonymous user should not be able to access the form
   Then I should see "Access denied"
 
  @javascript
- #Note: You can't create a Block Row Block w/o javascript
+#Note: You can't create a Block Row Block w/o javascript
 Scenario: A Block Row Block can be created
 Given I am logged in as a user with the "site_owner" role
 And I go to "block/add/block-row"
 And I fill in "edit-label" with "My Block Row Block Label"
 And I fill in "edit-title" with "My Block Row Block Title"
-# CREATE FIRST TEXT BLOCK
+# Create first text block
 And I select "Text Block" from "edit-field-block-row-collection-und-0-field-block-row-block-und-actions-bundle"
 And I wait for the ".ief-form" element to appear
 And I fill in "Text Block Label" with "BR Text One Label"
@@ -39,7 +39,7 @@ And I fill in "Text Block Title" with "BR Text One Title"
 And I follow "Disable rich-text"
 And fill in "Body" with "Cupcake ipsum dolor sit amet ice cream carrot cake"
 And I press "Create block"
- # CREATE SECOND TEXT BLOCK
+# Create second text block
 And I press "Add another column"
 And I wait for the "#edit-field-block-row-collection-und-1-field-block-row-block" element to appear
 And I select "Text Block" from "edit-field-block-row-collection-und-1-field-block-row-block-und-actions-bundle"
@@ -55,7 +55,7 @@ Then I should see "My Block Row Block Title"
 Then I should see "Cupcake ipsum dolor sit amet ice cream carrot cake"
 And I should see "Lemon drops dessert chocolate gingerbread dessert"
 
-@javascript 
+@javascript
 # This test depends on the one above
 Scenario: An EditOnly can edit a Block Row but not delete it
 Given I am logged in as a user with the "edit_only" role
