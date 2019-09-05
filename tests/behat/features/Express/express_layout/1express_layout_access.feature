@@ -19,20 +19,20 @@ Scenario Outline: The layout settings form should be available for certain roles
 
 Scenario: Adding or removing regions on settings form should be reflected on node layout forms
   Given I am logged in as a user with the "developer" role
-  And I go to "admin/config/content/express-layout"
-  And I check "edit-page-field-content-bottom"
-  And I uncheck "edit-page-field-post-title"
-  And I press "Save Layout Settings"
-  When I go to "node/1"
-  And I follow "Edit Layout"
-  And I should see an "#edit-field-content-bottom" element
-  Then I should not see an "#edit-field-post-title" element
+    And I go to "admin/config/content/express-layout"
+    And I check "edit-page-field-content-bottom"
+    And I uncheck "edit-page-field-post-title"
+    And I press "Save Layout Settings"
+    And I go to "node/1"
+    And I follow "Edit Layout"
+  Then I should see an "#edit-field-content-bottom" element
+    And I should not see an "#edit-field-post-title" element
 # And now put them back the way they were
-  Then I go to "admin/config/content/express-layout"
-  And I uncheck "edit-page-field-content-bottom"
-  And I check "edit-page-field-post-title"
-  And I press "Save Layout Settings"
-  When I go to "node/1"
-  And I follow "Edit Layout"
+  When I go to "admin/config/content/express-layout"
+    And I uncheck "edit-page-field-content-bottom"
+    And I check "edit-page-field-post-title"
+    And I press "Save Layout Settings"
+    And I go to "node/1"
+    And I follow "Edit Layout"
   Then I should not see an "#edit-field-content-bottom" element
-  And I should see an "#edit-field-post-title" element
+    And I should see an "#edit-field-post-title" element
