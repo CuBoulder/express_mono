@@ -28,9 +28,11 @@ function cu_dc_tests_install() {
     $bean->title = $value['title'];
     $bean->delta = $value['delta'];
     $bean->field_block_text = array(
-      LANGUAGE_NONE => array(array(
-        'value' => $value['content'],
-      )),
+      LANGUAGE_NONE => array(
+        array(
+          'value' => $value['content'],
+        )
+      ),
     );
     $bean->save();
   }
@@ -51,7 +53,6 @@ function cu_dc_tests_enable() {
 
   field_update_instance($instance_info);
 }
-
 
 /**
  * Creates users needed for test runs.
