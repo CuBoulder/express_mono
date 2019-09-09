@@ -76,7 +76,7 @@ function express_dashboard_user_permission() {
  * Use this to get the user's realname without loading entire user object.
  */
 function _get_realname($user) {
-  if(module_exists('realname')) {
+  if (module_exists('realname')) {
     $output = db_query('SELECT r.realname FROM {realname} r WHERE r.uid = :uid', array(':uid' => $user->uid))->fetchField();
   }
   else {
