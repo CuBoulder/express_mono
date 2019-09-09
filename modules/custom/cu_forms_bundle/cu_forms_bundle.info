@@ -5,7 +5,7 @@ package = CU-Forms
 version = 7.x-3.0
 project = cu_forms_bundle
 project status url = https://github.com/CuBoulder/cu_forms_bundle
-project_demo_url = http://www.colorado.edu/webcentral/node/674
+project_demo_url = https://websupport.colorado.edu/category/151-forms
 
 dependencies[] = cu_webform
 dependencies[] = cu_feedback

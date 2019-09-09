@@ -6,7 +6,7 @@ dependencies[] = cu_campus_news
 version = 7.x-1.4
 project = cu_campus_news_bundle
 project status url = https://github.com/CuBoulder/cu_campus_news_bundle
-project_demo_url = http://www.colorado.edu/webcentral/node/1954
+project_demo_url = https://websupport.colorado.edu/category/331-campus-news
 bundle_request = 1
 bundle_group = 'request_bundles'
 

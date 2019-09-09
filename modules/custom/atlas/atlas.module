@@ -119,52 +119,6 @@ function atlas_admin_settings() {
     '#default_value' => $site_array['path'],
   );
 
-  $form['atlas_code'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Code Items'),
-    '#collapsible' => TRUE,
-  );
-
-  $core_options = _get_code_options('core', 'drupal');
-  $active_core = $site_array['code']['core'];
-
-  $form['atlas_code']['atlas_core'] = array(
-    '#type' => 'select',
-    '#title' => t('Core'),
-    '#options' => $core_options,
-    '#default_value' => $active_core,
-  );
-
-  $profile_options = _get_code_options('profile', 'express');
-  $active_profile = $site_array['code']['profile'];
-
-  $form['atlas_code']['atlas_profile'] = array(
-    '#type' => 'select',
-    '#title' => t('Profile'),
-    '#options' => $profile_options,
-    '#default_value' => $active_profile,
-  );
-
-  $package_options = _get_code_options('packages', NULL);
-  // If there are packages, add the field.
-  if (!empty($package_options)) {
-    $active_packages = array();
-    // Check and see if we have any packages.
-    if (array_key_exists('package', $site_array['code'])) {
-      $active_modules_list = $site_array['code']['package'];
-      foreach ($active_modules_list as $module) {
-        $active_packages[] = $module;
-      }
-    }
-
-    $form['atlas_code']['atlas_packages'] = array(
-      '#type' => 'checkboxes',
-      '#title' => t('packages'),
-      '#options' => $package_options,
-      '#default_value' => $active_packages,
-    );
-  }
-
   // Set the options and description. Override if status is not 'Launched'.
   $update_group_options = range(0, 14);
   $update_group_description = 'Groups 0-10 are considered "normal" and can be arbitrarily reassigned. Groups 11-14 should only be used for sites that need special attention.';
@@ -247,31 +201,6 @@ function atlas_admin_settings_submit($form, &$form_state) {
 
   if ($form_state['values']['atlas_path'] != $site_array['path']) {
     $request_data['path'] = $form_state['values']['atlas_path'];
-  }
-
-  if ($form_state['values']['atlas_core'] != $site_array['code']['core']) {
-    $request_data['code']['core'] = $form_state['values']['atlas_core'];
-  }
-
-  if ($form_state['values']['atlas_profile'] != $site_array['code']['profile']) {
-    $request_data['code']['profile'] = $form_state['values']['atlas_profile'];
-  }
-  if (isset($form_state['values']['atlas_packages'])) {
-    // Drop all the keys with zero as a value.
-    $form_state['values']['atlas_packages'] = array_diff($form_state['values']['atlas_packages'], array(0));
-    // Check to see if the new arrays are different.
-    if (isset($site_array['code']['package'])) {
-      $packages_diff = array_diff($form_state['values']['atlas_packages'], $site_array['code']['package']);
-    }
-    // Check for First added package, Remove all packages, or Change packages.
-    if (!empty($packages_diff)
-      || (array_key_exists('package', $site_array['code']) && empty($form_state['values']['atlas_packages']))
-    ) {
-      $request_data['code']['package'] = $form_state['values']['atlas_packages'];
-    }
-    elseif (!array_key_exists('package', $site_array['code']) && !empty($form_state['values']['atlas_packages'])) {
-      $request_data['code']['package'] = $form_state['values']['atlas_packages'];
-    }
   }
 
   if ($form_state['values']['atlas_update_group'] != $site_array['update_group']) {

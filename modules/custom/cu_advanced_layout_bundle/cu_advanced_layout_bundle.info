@@ -3,7 +3,7 @@ description = The features in this bundle allow you to create complex and dynami
 
 core = 7.x
 package = CU-Advanced Layout
-project_demo_url = http://www.colorado.edu/webcentral/node/670
+project_demo_url = https://websupport.colorado.edu/category/144-advanced-layout
 dependencies[] = context_ui
 dependencies[] = cu_column_override
 dependencies[] = cu_block_section

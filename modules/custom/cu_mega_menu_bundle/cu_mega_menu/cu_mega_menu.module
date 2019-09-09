@@ -543,6 +543,7 @@ function cu_mega_menu_form($form, &$form_state, $entity) {
     '#required' => TRUE,
     '#default_value' => $entity->title,
     '#title' => 'Label',
+    '#description' => 'Name that displays in the admin interface',
   );
   $form['mega_menu'] = array(
     '#type' => 'value',
@@ -1142,7 +1143,7 @@ function cu_mega_menu_field_default_field_instances() {
     'bundle' => 'mega_menu',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Appears as the heading of this Mega Menu and is linked to the page to which this menu is attached.',
     'display' => array(
       'default' => array(
         'label' => 'hidden',

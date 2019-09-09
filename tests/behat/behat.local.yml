@@ -52,6 +52,10 @@ default:
                   verify: false
           sauce:
             sauce_labs:
+              # Following are placeholders for environmental variables
+              # username: USER_NAME
+              # access_key: ACCESS_KEY
+              connect: true
               # Browser defaults to Firefox if left out.
               browser: "chrome"
               #browser: "internet explorer"
@@ -67,5 +71,3 @@ default:
                 #platform: "Windows 10"
                 # Version of browser to use.
                 #version: "63.0"
-
-
