@@ -362,10 +362,10 @@ function cu_users_update_7032() {
 
 
 /**
- * Add Jeremy Sparks as a developer.
+ * Add Jeremy Sparks, Michael Bolei and Christina Morris as developers.
  */
 function cu_users_update_7033() {
-  // If jesp3304 user does not exist.
+  // If jesp3304 user does not exist. (Jeremy Sparks)
   $new_account = user_load_by_name('jesp3304');
   if (!isset($new_account->uid)) {
     // Create new user.
@@ -380,13 +380,8 @@ function cu_users_update_7033() {
     $query->values(array('uid' => $account->uid, 'rid' => $developer_role->rid));
     $query->execute();
   }
-}
 
-/**
- * Add Michael Bolei as a developer.
- */
-function cu_users_update_7034() {
-  // If mibo7729 user does not exist.
+  // If mibo7729 user does not exist. (Michael Bolei)
   $new_account = user_load_by_name('mibo7729');
   if (!isset($new_account->uid)) {
     // Create new user.
@@ -401,13 +396,8 @@ function cu_users_update_7034() {
     $query->values(array('uid' => $account->uid, 'rid' => $developer_role->rid));
     $query->execute();
   }
-}
 
-/**
- * Add Christina Morris as a developer.
- */
-function cu_users_update_7035() {
-  // If chmo0919 user does not exist.
+  // If chmo0919 user does not exist. (Christina Morris)
   $new_account = user_load_by_name('chmo0919');
   if (!isset($new_account->uid)) {
     // Create new user.
