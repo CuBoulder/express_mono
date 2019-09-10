@@ -360,7 +360,6 @@ function cu_users_update_7032() {
   watchdog('cu_users', t('Removed owmo7772 from list of users on sites'));
 }
 
-
 /**
  * Add Jeremy Sparks, Michael Bolei and Christina Morris as developers.
  */
