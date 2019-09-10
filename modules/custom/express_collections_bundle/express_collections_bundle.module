@@ -82,6 +82,10 @@ function express_collections_bundle_preprocess_entity(&$vars) {
         $tids[] = $term['tid'];
       }
       $terms = taxonomy_term_load_multiple($tids);
+      // Sort terms according to term weight.
+      usort($terms, function ($a, $b) {
+        return $a->weight - $b->weight;
+      });
 
       // Filter background image
       $image = !empty($fc->field_collection_category_bg) ? image_style_url('large', $fc->field_collection_category_bg[LANGUAGE_NONE][0]['uri']) : NULL;

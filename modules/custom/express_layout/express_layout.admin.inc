@@ -323,7 +323,7 @@ function _express_layout_region_diagram() {
     background-color:#e7e7e7;
   }
 </style>';
-  return $html;
+  return '';
 }
 
 /**

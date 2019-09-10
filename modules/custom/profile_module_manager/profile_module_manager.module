@@ -361,8 +361,12 @@ function profile_module_manager_modules_enabled($modules) {
 }
 
 function profile_module_manager_user_has_role($roles) {
-    //checks if user has role/roles
-    return !!count(array_intersect(is_array($roles)? $roles : array($roles), array_values($GLOBALS['user']->roles)));
+  // Checks if user has role/roles.
+  global $user;
+  if ($user->uid == 1) {
+    return TRUE;
+  }
+  return !!count(array_intersect(is_array($roles)? $roles : array($roles), array_values($GLOBALS['user']->roles)));
 };
 
 // @TODO: Make configurable
@@ -541,4 +545,3 @@ function profile_module_manager_list_bundles($enabled = FALSE, $type = NULL, $co
 
   return $output;
 }
-
