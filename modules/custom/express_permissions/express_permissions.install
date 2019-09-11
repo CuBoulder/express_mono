@@ -14,8 +14,6 @@ function express_permissions_install() {
   variable_set('secure_permissions_show_roles_page', 0);
   variable_set('secure_permissions_use_default', 0);
   variable_set('secure_permissions_verbose', 0);
-  variable_set('secure_permissions_ignore_in_export', 'access devel information');
-
 }
 
 /**
