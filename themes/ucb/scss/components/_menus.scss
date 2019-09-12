@@ -179,6 +179,12 @@
     @include rgbashadow(0, 3px, 15px, #000000, .35);
   }
 }
+.action-blue ul#action-menu a.active,
+.action-gray ul#action-menu a.active,
+.action-gold ul#action-menu a.active {
+  background-color: #000 !important;
+  color:$cugold !important;
+}
 /* Block Menu - default blocks provided by core for each menu */
 .block-menu {
   ul.menu,

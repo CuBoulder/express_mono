@@ -82,6 +82,9 @@ default:
     campus_news:
       paths: [ "%paths.base%/features/cu_campus_news_bundle" ]
       contexts: [ FeatureContext ]
+    digital_campaign:
+      paths: [ "%paths.base%/features/cu_digital_campaign_bundle" ]
+      contexts: [ FeatureContext ]
   extensions:
       Behat\MinkExtension:
         base_url: "http://127.0.0.1:8031/"
