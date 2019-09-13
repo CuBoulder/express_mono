@@ -1,9 +1,4 @@
 @digital_campaign
-Feature: the Digital Campaign bundle
-In order to test the results of a digital campaign
-As a user with the proper role
-I should be able to access and use the Digital Campaign functionality
-
 Feature: Interaction with the Embed Templates admin screens.
 
 
@@ -26,3 +21,4 @@ Feature: Interaction with the Embed Templates admin screens.
       | edit_only             | "Access Denied" |
       | access_manager        | "Access Denied" |
       | configuration_manager | "Access Denied" |
+
