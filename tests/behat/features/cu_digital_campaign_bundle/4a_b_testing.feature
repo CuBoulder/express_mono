@@ -2,16 +2,16 @@
 Feature: A/B Testing
 In order to test the results of a digital campaign
 As a user with the proper role
-I should be able to access and use the Digital Campaign functionality
+I can create and run A/B tests
 
-
+@ab_testing
 Scenario: A/B Block has been added to the Blocks page
   Given I am logged in as a user with the "site_owner" role
     And I am on "block/add"
   Then I should see the link "A/B Block"
 
 @ab_testing @javascript
-Scenario: Create An A/B test can be created and its content served according to set percentages
+Scenario: An A/B test can be created and its content served according to set percentages
   Given I am logged in as a user with the "developer" role
     # Turning the auto-complete field into a select list doesn't work like on my local...
     And I go to "admin/structure/field-collections/field-block-option/fields/field_block/widget-type"
@@ -30,8 +30,13 @@ Scenario: Create An A/B test can be created and its content served according to 
     Then I should see "A/B Block"
       And I should see "Text Block A Content AAA"
     When I follow "Edit Block"
-      And I fill in "edit-field-block-option-und-0-field-percentage-und-0-value" with "0"
-      And I fill in "edit-field-block-option-und-1-field-percentage-und-0-value" with "100"
+    And I wait for the "#field-block-option-values" element to appear
+    #  And I fill in "edit-field-block-option-und-0-field-percentage-und-0-value" with "0"
+    #  And I fill in "edit-field-block-option-und-1-field-percentage-und-0-value" with "100"
+      And I select "Text Block B (Text Block B)" from "field_block_option[und][0][field_block][und]"
+      And I select "Text Block A (Text Block A)" from "field_block_option[und][1][field_block][und]"
+      # And I select "Text Block B (Text Block B)" from "#edit-field-block-option-und-0-field-block-und"
+      #  And I select "Text Block A (Text Block A)" from "#edit-field-block-option-und-1-field-block-und"
     When I press "Save"
     Then I should see "A/B Block"
       And I should see "Text Block B Content BBB"

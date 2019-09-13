@@ -2,18 +2,18 @@
 Feature: the Digital Campaign bundle
 In order to test the results of a digital campaign
 As a user with the proper role
-I should be able to access and use the Digital Campaign functionality
+I should be able to create funnel pages
 
 @funnelpages
 Scenario: The Settings page contains a link to add Campaign Funnel Pages
   Given I am logged in as a user with the "site_owner" role
-    And I am on admin/settings
+    And I am on "admin/settings"
   Then I should see the link "Funnel Pages"
 
 @funnelpages
 Scenario Outline:  A user with the proper role can add funnel pages
   Given I am logged in as a user with the <role> role
-  When I go to "settings/campaign/funnel-pages"
+  When I go to "admin/settings/campaign/funnel-pages"
   Then I should see <message>
 
   Examples:
@@ -21,7 +21,7 @@ Scenario Outline:  A user with the proper role can add funnel pages
     | developer        | "Funnel Pages"  |
     | administrator    | "Funnel Pages"  |
     | site_owner       | "Funnel Pages"  |
-    | campaign_manager | "Funnel Pages"  |
+  #  | campaign_manager | "Funnel Pages"  | ADD ON ROLE
     | content_editor   | "Access denied" |
     | edit_my_content  | "Access denied" |
     | site_editor      | "Access denied" |
@@ -30,23 +30,35 @@ Scenario Outline:  A user with the proper role can add funnel pages
 
 @funnelpages
 Scenario: An anonymous user cannot add a Funnel Page
-  When I am on "settings/campaign/funnel-pages"
+  When I am on "admin/settings/campaign/funnel-pages"
   Then I should see "Access denied"
 
-@funnelpages
-Scenario: A Funnel Page is properly formatted (no menu bar)
+@funnelpages @javascript
+Scenario: A Funnel Page can be added
   Given I am logged in as a user with the "site_owner" role
-# Create a Basic Page for testing
-  When I am on "node/add/page"
-    And fill in "edit-title" with "Funnel Page Test"
+# Create a two Basic Pages for testing
+    And I go to "node/add/page"
+    And fill in "edit-title" with "PageOne"
+    And the checkbox "edit-menu-enabled" is checked
     And I press "edit-submit"
-    Then I should be on "/funnel-page-test"
-    And I should see "Funnel Page Test"
-    And the response should contain "id=\"navigation\""
+  Then I should see "PageOne"
+    And I go to "node/add/page"
+    And fill in "edit-title" with "PageTwo"
+    And the checkbox "edit-menu-enabled" is checked
+    And I press "edit-submit"
+  Then I should be on "/pagetwo"
+    And I should see "PageTwo"
+  # The main menu navigation is visible
+    And I should see "PageOne"
 # Make this page a funnel page
   Then I go to "admin/settings/campaign/funnel-pages"
-  And I fill in ""#edit-cu-funnel-pages" with "funnel-page-test"
-  And I press "Save configuration"
+    And I fill in "cu_funnel_pages" with "pagetwo"
+    And I press "Save configuration"
   Then I should see "The configuration options have been saved"
-  When I go to 'funnel-page-test'
-  The response should not contain contain "id=\"navigation\""
+  When I go to "/pageone"
+    And I should see "PageOne"
+  Then I should see "PageTwo"
+  When I go to "/pagetwo"
+    Then I should see "PageTwo"
+  # The main menu navigation is not visible
+    But I should not see "PageOne"
