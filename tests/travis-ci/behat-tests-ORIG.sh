@@ -10,6 +10,15 @@ cd ${ROOT_DIR}/drupal/profiles/express
 
 # Setting Behat environment variables is now done in behat.travis.yml for simplicity.
 
+echo "Running Express headless tests..."
+${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_HEADLESS_BEHAT_TAGS}
+earlyexit
+
+# Run JS Behat tests
+echo "Running Express JS tests..."
+${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_JS_BEHAT_TAGS}
+earlyexit
+
 # Run Digital Campaign Tests
 # We run these seperately b/c the changes they make cause other tests to fail if they are run afterwards.
 echo "Running Express Digital Campaign tests..."
