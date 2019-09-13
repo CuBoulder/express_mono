@@ -1,8 +1,8 @@
 @digital_campaign @tracking_pixels
 Feature: the Digital Campaign bundle
 In order to test the results of a digital campaign
-As a user with the proper role
-I should be able to create and edit tracking pixel embeds.
+A user with the proper role
+Should be able to access, create and edit tracking pixel embeds.
 
 Scenario Outline: Access Embed Templates Overview Page.
   Given I am logged in as a user with the <role> role

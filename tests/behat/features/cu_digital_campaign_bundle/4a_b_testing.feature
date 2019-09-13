@@ -1,8 +1,8 @@
 @digital_campaign
 Feature: A/B Testing
 In order to test the results of a digital campaign
-As a user with the proper role
-I can create and run A/B tests
+A user with the proper role
+Should be able to access, create and run A/B tests
 
 @ab_testing
 Scenario: A/B Block has been added to the Blocks page

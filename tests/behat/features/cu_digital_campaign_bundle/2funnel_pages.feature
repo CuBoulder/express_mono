@@ -1,8 +1,8 @@
 @digital_campaign
 Feature: the Digital Campaign bundle
 In order to test the results of a digital campaign
-As a user with the proper role
-I should be able to create funnel pages
+A user with the proper role
+Should be able to access and create funnel pages
 
 @funnelpages
 Scenario: The Settings page contains a link to add Campaign Funnel Pages
