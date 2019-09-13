@@ -10,4 +10,5 @@ Scenario: The Campaign Manager role has been added to Roles
     And I go to "admin/people/permissions/roles"
   Then I should see "campaign_manager"
     And I go to "admin/people/invite"
-  Then I should see "Campaign Manager"
+  Then I should see "This role is tied to the Digital Campaign Bundle"
+    And I should see "Campaign Manager"
