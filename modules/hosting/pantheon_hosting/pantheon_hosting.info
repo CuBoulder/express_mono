@@ -6,6 +6,7 @@ package = Hosting
 
 dependencies[] = pantheon_api
 dependencies[] = simplesamlphp_auth
+dependencies[] = cu_users
 dependencies[] = cu_saml
 dependencies[] = dblog
 dependencies[] = redis
