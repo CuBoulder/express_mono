@@ -1,5 +1,35 @@
 # Changelog
 
+## v4.0.1
+
+### Added
+
+* Add developers Jeremy Sparks, Michael Bolei, Christina Morris.
+* Added digital campaign and A/B test bundles.
+
+### Changed
+
+* Adding cu_saml module to pantheon_hosting dependencies list.
+* Updating dependencies and module_disable() in pantheon_hosting module.
+* Update module wysiwyg to 7x-2.6.
+* Update HTML Title to 7.x-1.5.
+
+### Fixed
+
+* Fixing issue where form fields on dark backgrounds might be unreadable #267.
+* Fixing issue where article read more link wasn't rendering correctly when part of an issue #227.
+* Fix broken test that tested EditOnly access to Block Row blocks.
+* Making sure content grid link colors are correct #232.
+* Preventing links with fixed colors from inheriting underlines, reducing transparency to help accessibility #232.
+* Fixing a spacing issue on teaser display where linked images would add additional padding #232.
+* Fixing issue where content grid links would be wrong colors if placed in block sections #232.
+* Explicitly telling .travis.yml to initialize mysql.
+* Fixing block designer background classes #239.
+* Fixing color nesting issues #239.
+* Fixing issue where block designer blocks did not the the correct link colors #239.
+* Fixing issue where semitransparent content background was fully opaque #234.
+* Fixed link to project URL for live chat.
+
 ## v4.0.0
 
 This update begins the process of adding what were separate code bundles back into the core profile, adds the mega menu bundle, and includes various bug fixes and improvements.
