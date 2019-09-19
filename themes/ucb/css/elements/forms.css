@@ -16,13 +16,13 @@ textarea, select, input[type="date"], input[type="datetime"], input[type="dateti
 
 button, input[type="reset"], input[type="submit"], input[type="button"] { font-size: 100%; }
 
-input.form-text, textarea.form-textarea, input[type=text], input[type=email], input[type=tel], textarea { padding: 10px; border: 1px solid rgba(128, 128, 128, 0.333); background-color: #f2f2f2; color: #111111; color: inherit; line-height: 150%; }
+input.form-text, textarea.form-textarea, input[type=text], input[type=email], input[type=tel], textarea { padding: 10px; border: 1px solid rgba(128, 128, 128, 0.333); background-color: #f2f2f2; color: #111111 !important; color: inherit; line-height: 150%; }
 
 textarea { display: block; width: 100%; }
 
 input.form-text, input[type=text], input[type=email], input[type=tel] { max-width: 100%; -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */ -moz-box-sizing: border-box; /* Firefox, other Gecko */ box-sizing: border-box; }
 
-input.form-text:focus, textarea.form-textarea:focus, textarea:focus, input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus { background-color: #e7e7e7; color: #111111; outline: #0277BD solid 2px; }
+input.form-text:focus, textarea.form-textarea:focus, textarea:focus, input[type=text]:focus, input[type=email]:focus, input[type=tel]:focus { background-color: #e7e7e7; color: #111111 !important; outline: #0277BD solid 2px; }
 
 select:focus { outline: #0277BD solid 2px; }
 
