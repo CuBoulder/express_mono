@@ -562,6 +562,8 @@ a.mega-menu-link:after { content: '\f107'; font-family: "Font Awesome 5 Free", "
 .action-gold ul#action-menu a:hover, .action-gold ul#action-menu a:focus { background-color: #d3be87; -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); color: #000; }
 .action-gold ul#action-menu a:active { -webkit-box-shadow: 0 3px 15px rgba(0, 0, 0, 0.35); -moz-box-shadow: 0 3px 15px rgba(0, 0, 0, 0.35); box-shadow: 0 3px 15px rgba(0, 0, 0, 0.35); }
 
+.action-blue ul#action-menu a.active, .action-gray ul#action-menu a.active, .action-gold ul#action-menu a.active { background-color: #000 !important; color: #cfb87c !important; }
+
 /* Block Menu - default blocks provided by core for each menu */
 .block-menu ul.menu, .block-menu ul.menu li { list-style: none; list-style-image: none; margin: 0; padding: 0; }
 .block-menu ul.menu a { display: block; padding: 5px 0; }
