@@ -94,12 +94,12 @@ $red:#B71C1C;
     .content-grid-content {
       padding:20px;
       color: $text;
-      a:link,
-      a:visited {
+      a:link:not(.button),
+      a:visited:not(.button) {
         color:$link_blue !important;
         text-decoration: none !important;
       }
-      a:hover {
+      a:hover:not(.button) {
         color:$red !important;
         text-decoration: none !important;
       }
@@ -199,12 +199,12 @@ $red:#B71C1C;
       }
       color:#fff;
       .content-grid-text {
-        a:link,
-        a:visited {
+        a:link:not(.button),
+	      a:visited:not(.button) {
           color: $cugold !important;
           text-decoration: none !important;
         }
-        a:hover {
+        a:hover:not(.button) {
           color:#fff !important;
         }
       }
