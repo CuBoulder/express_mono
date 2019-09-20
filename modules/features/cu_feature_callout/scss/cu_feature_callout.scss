@@ -93,16 +93,6 @@ $red:#B71C1C;
     @include shadowtransition;
     .content-grid-content {
       padding:20px;
-      color: $text;
-      a:link,
-      a:visited {
-        color:$link_blue !important;
-        text-decoration: none !important;
-      }
-      a:hover {
-        color:$red !important;
-        text-decoration: none !important;
-      }
     }
     .content-grid-content > *:last-child {
       margin-bottom: 0;
@@ -188,25 +178,10 @@ $red:#B71C1C;
       h2.feature-callout-title,
       h3.feature-callout-title {
         margin: 0;
-        a:link,
-        a:visited {
-          color:$cugold !important;
-          text-decoration: none !important;
-        }
-        a:hover {
-          color:#fff !important;
-        }
       }
       color:#fff;
       .content-grid-text {
-        a:link,
-        a:visited {
-          color: $cugold !important;
-          text-decoration: none !important;
-        }
-        a:hover {
-          color:#fff !important;
-        }
+        
       }
     }
 
