@@ -1,0 +1,70 @@
+<?php
+
+/**
+ *
+ * Implements hook_shortcode_info
+ */
+function cu_wowza_bundle_shortcode_info() {
+  $shortcodes = array();
+  $shortcodes['wowza'] = array(
+    'title' => t('Wowza Embed'),
+    'description' => t('Embed content from Wowza'),
+    'process callback' => 'cu_wowza_bundle_embed',
+    'tips callback' => 'cu_wowza_bundle_embed_tips',
+    'default settings' => array(),
+  );
+  return $shortcodes;
+}
+/*
+ * Process callback for cu_wowza_bundle_shortcode_info
+ */
+function cu_wowza_bundle_embed($attrs, $content = NULL) {
+  extract(shortcode_attrs(array(
+    'license' => 'PLAY2-j7edh-vmrnJ-FG9DU-M9Uhy-QaM8k',
+    'title' => '',
+    'description' => '',
+    'url' => '',
+  ), $attrs));
+  $parts = array();
+  $parts['script'] = '<script type="text/javascript" src="//player.wowza.com/player/latest/wowzaplayer.min.js"></script>';
+  $parts['container'] = '<div id="playerElement" style="width:100%; height:0; padding:0 0 56.25% 0"></div>';
+  $parts['js'] = '<script type="text/javascript">
+    WowzaPlayer.create(\'playerElement\',
+    	{
+    	"license":"' . $license . '",
+    	"title":"' . $title . '",
+    	"description":"' . $description . '",
+    	"sourceURL":"' . $url . '",
+
+      "autoPlay":false,
+    	"volume":"75",
+    	"mute":false,
+    	"loop":false,
+    	"audioOnly":false,
+    	"uiShowQuickRewind":true,
+    	"uiQuickRewindSeconds":"30"
+    	}
+    );
+    </script>';
+  $render = join('', $parts);
+  return $render;
+}
+/*
+ * Tips callback for cu_wowza_bundle_shortcode_info
+ */
+function cu_wowza_bundle_tips($format, $long) {
+  $output = '[wowza id="Embed code ID" account="Embed code Account" event="Embed code Event" /]';
+  return $output;
+}
+
+/**
+ * Implements hook_filter_info_alter().
+ */
+function cu_wowza_bundle_filter_info_alter(&$info) {
+  // Load the wysiwyg text format
+  $format = filter_format_load('wysiwyg');
+  // Get the filters on the wysiwyg text format
+  $filters = filter_list_format($format->format);
+  // Enable livestream shortcode
+  $filters['shortcode']->settings['wowza'] = 1;
+}
