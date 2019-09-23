@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Implements hook_enable()
+ */
+function cu_debug_admin_bundle_enable() {
+  module_enable(_cu_debug_admin_bundle_enable_modules());
+  drupal_set_message('Enabled ' . join(', ', _cu_debug_admin_bundle_enable_modules()));
+}
+
+/**
+ * Implements hook_disable()
+ */
+function cu_debug_admin_bundle_disable() {
+  // This only works if the dependencies aren't requirements in the .info and
+  // enabled by in hook_enable.
+
+  module_disable(_cu_debug_admin_bundle_enable_modules());
+
+  drupal_set_message('Disabled ' . join(', ', _cu_debug_admin_bundle_enable_modules()));
+
+  variable_set('dev_timer', FALSE);
+  variable_set('devel_memory', FALSE);
+}
+
+/**
+ * Modules to be enabled/disabled
+ */
+function _cu_debug_admin_bundle_enable_modules() {
+  return array(
+    'devel',
+    'search_krumo',
+    'ds_ui',
+    'views_ui',
+  );
+}
