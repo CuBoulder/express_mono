@@ -250,7 +250,6 @@ function _get_bundle_stats() {
     'cu_social_media_bundle',
     'cu_seo_admin_bundle',
     'cu_test_content_admin_bundle',
-    'cu_debug_admin_bundle',
   );
 
   $other_bundles = array();

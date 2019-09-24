@@ -21,6 +21,9 @@ mysql:
   username: root
   encoding: utf8
 
+services:
+  - mysql
+
 # Cache Composer and db export.
 # I removed caching of Drush since you have to clear Drush cache to get new Drupal versions.
 cache:
@@ -39,8 +42,10 @@ install:
   - export BUNDLE_NAME="null"
 
   # Behat tags. Allows you to include/exclude tags per bundle as needed.
-  - export EXPRESS_JS_BEHAT_TAGS="~@exclude_all_bundles&&~@broken&&@javascript"
-  - export EXPRESS_HEADLESS_BEHAT_TAGS="~@exclude_all_bundles&&~@broken&&~@javascript"
+  - export EXPRESS_JS_BEHAT_TAGS="~@broken&&@javascript&&~@digital_campaign"
+  - export EXPRESS_HEADLESS_BEHAT_TAGS="~@broken&&~@javascript&&~@digital_campaign"
+  - export EXPRESS_DC_BEHAT_TAGS="@digital_campaign&&~@broken&&~@javascript"
+  - export EXPRESS_DC_JS_BEHAT_TAGS="@digital_campaign&&~@broken&&@javascript"
   - export BUNDLE_BEHAT_TAGS="~@exclude_all_bundles&&~@broken"
 
   # Copy scripts to root.

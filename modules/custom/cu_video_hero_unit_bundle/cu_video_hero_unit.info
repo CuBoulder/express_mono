@@ -2,6 +2,7 @@ name = Video Hero Unit
 description = Hero unit with video background
 core = 7.x
 package = CU-Video-Hero
+project_demo_url = https://websupport.colorado.edu/category/286-video-hero
 version = 7.x-1.2
 dependencies[] = bean_admin_ui
 dependencies[] = ctools

@@ -19,7 +19,7 @@ function cu_core_install() {
   $hosting = express_check_known_hosts();
 
   if ($hosting === 'travis') {
-    module_enable(array('travis_hosting'));
+    module_enable(array('travis_hosting', 'cu_users'));
   }
   elseif ($hosting == 'ucb_on_prem_hosting') {
     module_enable(array('ucb_on_prem_hosting'));
@@ -142,6 +142,8 @@ The block System help was assigned to the invalid region help and has been disab
 
   variable_set('express_permissions_owner_cap', 4);
 
+  // Google Tag Manager.
+  variable_set('google_tag_container_id', 'GTM-M3DX2QP');
 }
 
 /**
@@ -384,4 +386,21 @@ function cu_core_update_7061() {
 
     variable_set('user_external_invite_addon_roles', $invite_roles);
   }
+}
+
+/**
+ * Fixing array formatting of string overrides, Setting gtm variable.
+ */
+function cu_core_update_7062() {
+  module_enable(array('google_tag'));
+  variable_set('google_tag_container_id', 'GTM-M3DX2QP');
+
+  $locale_custom_strings_en = array();
+  $locale_custom_strings_en[''] = array(
+    'Each menu has a corresponding block that is managed on the <a href="@blocks">Blocks administration page</a>.' => 'Each menu has a corresponding block which can be placed in a content region.',
+    'You can enable the newly-created block for this menu on the <a href="@blocks">Blocks administration page</a>.' => 'Each menu has a corresponding block which can be placed in a content region.',
+    'Set and configure the default theme for your website.  Alternative <a href="@themes">themes</a> are available.' => 'Set and configure the default theme for your website.',
+    'The menu module allows on-the-fly creation of menu links in the content authoring forms. To configure these settings for a particular content type, visit the <a href="@content-types">Content types</a> page, click the <em>edit</em> link for the content type, and go to the <em>Menu settings</em> section.' => 'The menu module allows on-the-fly creation of menu links.',
+  );
+  variable_set('locale_custom_strings_en', $locale_custom_strings_en);
 }
