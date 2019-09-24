@@ -3,7 +3,7 @@
     <div class="content-grid-image-wrapper">
       <?php print $content['image']; ?>
     </div>
-    <div class="content-grid-content">
+    <div class="content-grid-content background-black">
       <?php print $content['title']; ?>
       <div class="content-grid-text">
         <?php print $content['text']; ?>
