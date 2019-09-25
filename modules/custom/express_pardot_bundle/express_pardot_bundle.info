@@ -1,0 +1,7 @@
+name = Embed Templates - Pardot Form Base
+description = Provide a form and template that allows Pardot forms to be placed on your site.
+core = 7.x
+package = Embed Templates
+
+dependencies[] = embed_templates
+dependencies[] = et_blocks
