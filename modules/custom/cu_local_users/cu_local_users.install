@@ -42,6 +42,7 @@ function _add_users() {
     'edit_only',
     'access_manager',
     'configuration_manager',
+    'campaign_manager',
   );
 
   // Create users.
