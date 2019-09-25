@@ -9,10 +9,36 @@
  * Implements hook_install().
  */
 function cu_dc_tests_install() {
+  // Install text block beans.
+  $beans[0] = array(
+    'title' => 'Text Block A',
+    'content' => 'Text Block A Content AAA',
+    'delta' => 'block-a-1'
+  );
+
+  $beans[1] = array(
+    'title' => 'Text Block B',
+    'content' => 'Text Block B Content BBB',
+    'delta' => 'block-b-2'
+  );
+
+  foreach ($beans as $key => $value) {
+    $bean = bean_create(array('type' => 'block'));
+    $bean->label = $value['title'];
+    $bean->title = $value['title'];
+    $bean->delta = $value['delta'];
+    $bean->field_block_text = array(
+      LANGUAGE_NONE => array(
+        array(
+          'value' => $value['content'],
+        )
+      ),
+    );
+    $bean->save();
+  }
 
   _cu_dc_tests_add_users();
 }
-
 
 /**
  * Creates users needed for test runs.
