@@ -9,7 +9,7 @@
  * Implements hook_install().
  */
 function cu_dc_tests_install() {
-  // Install text block beans.
+  // This next bit creates beans that are used in the A/B tests.
   $beans[0] = array(
     'title' => 'Text Block A',
     'content' => 'Text Block A Content AAA',
@@ -45,7 +45,7 @@ function cu_dc_tests_install() {
  */
 function _cu_dc_tests_add_users() {
 
-  // List needed users.
+  // Add 'campaign_manager' to cu_local_users
   $users = array(
     'campaign_manager',
   );
