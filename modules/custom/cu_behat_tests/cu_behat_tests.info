@@ -30,9 +30,10 @@ dependencies[] = cu_livechat_bundle
 dependencies[] = cu_custom_logo_bundle
 dependencies[] = express_responsive_visibility_bundle
 dependencies[] = cu_section_page_bundle
+dependencies[] = cu_dc_tests
 ; dependencies[] = cu_digital_campaign_bundle (already listed above)
-; dependencies[] = cu_ab_test (this is in cu_digital_campaign_bundle now)
-; dependencies[] = cu_dc_tests (this is in cu_digital_campaign_bundle now)
+; dependencies[] = cu_ab_test (this is a dependency of cu_dc_tests)
+
 
 ; Create users for tests.
 dependencies[] = cu_local_users
