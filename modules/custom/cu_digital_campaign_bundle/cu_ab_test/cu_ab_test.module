@@ -81,7 +81,7 @@ function cu_ab_test_preprocess_entity(array &$vars) {
       // Load field collection.
       $fc_array = entity_load('field_collection_item', array($item['value']));
       $fc = array_shift($fc_array);
-
+      
       $bean = $fc->field_block[LANGUAGE_NONE][0]['entity'];
       $percentage = $fc->field_percentage['und'][0]['value'];
 
