@@ -48,7 +48,7 @@ function cu_saml_user_login(&$edit, $account) {
  * Sets the user display name from saml info.
  */
 function _set_user_display_name($account, $values) {
-  // update account fields
+  // Update account fields.
   $edit = array();
   $edit['field_saml_display_name'][LANGUAGE_NONE][0]['value'] = $values['display_name'];
   $edit['field_saml_last_name'][LANGUAGE_NONE][0]['value'] = $values['last_name'];
