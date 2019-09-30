@@ -19,7 +19,6 @@ features[variable][] = r4032login_redirect_authenticated_users_to
 features[variable][] = r4032login_user_login_path
 features[variable][] = simplesamlphp_auth_activate
 features[variable][] = simplesamlphp_auth_allowdefaultlogin
-features[variable][] = simplesamlphp_auth_allowdefaultloginroles
 features[variable][] = simplesamlphp_auth_allowdefaultloginusers
 features[variable][] = simplesamlphp_auth_allowsetdrupalpwd
 features[variable][] = simplesamlphp_auth_authsource
