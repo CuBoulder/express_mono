@@ -70,35 +70,35 @@ function cu_saml_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'simplesamlphp_auth_allowdefaultlogin';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['simplesamlphp_auth_allowdefaultlogin'] = $strongarm;
 
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'simplesamlphp_auth_allowdefaultloginroles';
-  $strongarm->value = array(
-    2 => '2',
-    12 => '12',
-    8 => '8',
-    14 => '14',
-    6 => '6',
-    10 => '10',
-  );
-  $export['simplesamlphp_auth_allowdefaultloginroles'] = $strongarm;
+  // $strongarm = new stdClass();
+  // $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  // $strongarm->api_version = 1;
+  // $strongarm->name = 'simplesamlphp_auth_allowdefaultloginroles';
+  // $strongarm->value = array(
+  //   2 => '2',
+  //   12 => '12',
+  //   8 => '8',
+  //   14 => '14',
+  //   6 => '6',
+  //   10 => '10',
+  // );
+  // $export['simplesamlphp_auth_allowdefaultloginroles'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'simplesamlphp_auth_allowdefaultloginusers';
-  $strongarm->value = '1,74';
+  $strongarm->value = '1';
   $export['simplesamlphp_auth_allowdefaultloginusers'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'simplesamlphp_auth_allowsetdrupalpwd';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['simplesamlphp_auth_allowsetdrupalpwd'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -150,12 +150,6 @@ function cu_saml_strongarm() {
   $strongarm->value = 'saml_login';
   $export['simplesamlphp_auth_login_path'] = $strongarm;
 
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'simplesamlphp_auth_logoutgotourl';
-  $strongarm->value = '';
-  $export['simplesamlphp_auth_logoutgotourl'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
