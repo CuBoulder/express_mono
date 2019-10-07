@@ -67,6 +67,9 @@ function express_pardot_bundle_form_options(&$form, &$form_state, $id = NULL, $d
   );
 }
 
+/**
+ * Provides options for the pardot domain field.
+ */
 function _pardot_domain_options() {
   return array(
     'https://lawschool.colorado.edu' => 'https://lawschool.colorado.edu'
@@ -102,7 +105,9 @@ function express_pardot_bundle_embed_templates_types() {
   return $custom_types;
 }
 
-
+/**
+ * Implements hook_secure_permissions.
+ */
 function express_pardot_bundle_secure_permissions($role) {
   $permissions = array(
     'administrator' => array(
