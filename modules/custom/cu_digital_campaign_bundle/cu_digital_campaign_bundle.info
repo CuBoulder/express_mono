@@ -16,6 +16,7 @@ dependencies[] = et_page_top_bottom
 dependencies[] = cu_funnel_page
 
 optional-dependencies[] = cu_ab_test
+optional-dependencies[] = cu_dc_tests
 optional-dependencies[] = et_slate_form
 optional-dependencies[] = et_slate_form_bean
 optional-dependencies[] = et_slate_form_block

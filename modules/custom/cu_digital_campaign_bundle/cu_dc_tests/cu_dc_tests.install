@@ -9,7 +9,7 @@
  * Implements hook_install().
  */
 function cu_dc_tests_install() {
-  // Install text block beans.
+  // This next bit creates beans that are used in the A/B tests.
   $beans[0] = array(
     'title' => 'Text Block A',
     'content' => 'Text Block A Content AAA',
@@ -41,25 +41,11 @@ function cu_dc_tests_install() {
 }
 
 /**
- * Implements hook_enable().
- *
- * Set block field autocomplete to be a select list.
- */
-function cu_dc_tests_enable() {
-  $instance_info = field_info_instance('field_collection_item', 'field_block_row_block', 'field_block_row_collection');
-
-  $instance_info['widget']['type'] = 'options_select';
-  $instance_info['widget']['module'] = 'options';
-
-  field_update_instance($instance_info);
-}
-
-/**
  * Creates users needed for test runs.
  */
 function _cu_dc_tests_add_users() {
 
-  // List needed users.
+  // Add 'campaign_manager' to cu_local_users
   $users = array(
     'campaign_manager',
   );
