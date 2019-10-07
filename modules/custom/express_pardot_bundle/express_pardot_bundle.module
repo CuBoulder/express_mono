@@ -112,7 +112,7 @@ function express_pardot_bundle_secure_permissions($role) {
   $permissions = array(
     'administrator' => array(
       'edit express_pardot_bundle_block embeds',
-	    'view express_pardot_bundle_block embeds',
+      'view express_pardot_bundle_block embeds',
     ),
     'anonymous user' => array(
       'view express_pardot_bundle_block embeds',
@@ -122,15 +122,15 @@ function express_pardot_bundle_secure_permissions($role) {
     ),
     'campaign_manager' => array(
       'edit express_pardot_bundle_block embeds',
-	    'view express_pardot_bundle_block embeds',
+      'view express_pardot_bundle_block embeds',
     ),
     'developer' => array(
       'edit express_pardot_bundle_block embeds',
-	    'view express_pardot_bundle_block embeds',
+      'view express_pardot_bundle_block embeds',
     ),
     'site_owner' => array(
       'edit express_pardot_bundle_block embeds',
-	    'view express_pardot_bundle_block embeds',
+      'view express_pardot_bundle_block embeds',
     ),
   );
 
