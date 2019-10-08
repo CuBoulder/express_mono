@@ -87,7 +87,8 @@ Fixed
 
 - Fixed link to project URL for live chat.
 
-## v4.0.0
+v4.0.0 (2019-08-07)
+-----------------
 
 This update begins the process of adding what were separate code bundles back into the core profile, adds the mega menu bundle, and includes various bug fixes and improvements.
 
