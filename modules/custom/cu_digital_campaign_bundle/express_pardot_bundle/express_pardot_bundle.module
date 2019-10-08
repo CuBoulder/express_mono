@@ -77,11 +77,6 @@ function _pardot_domain_options() {
 }
 
 /**
- * @file
- * Contains embed type definition for et_slate_form_block module.
- */
-
-/**
  * Implements hook_embed_templates_types().
  *
  * @return array
