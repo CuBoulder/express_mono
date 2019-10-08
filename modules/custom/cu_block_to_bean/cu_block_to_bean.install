@@ -46,9 +46,8 @@ function cu_block_to_bean_update_7001() {
 /**
  * Add et_blocks to available options.
  */
-
- function cu_block_to_bean_update_7002() {
-   $included_modules = variable_get('cu_block_to_bean_module_include', array());
-   $included_modules['et_blocks'] = 'et_blocks';
-   variable_set('cu_block_to_bean_module_include', $included_modules);
- }
+function cu_block_to_bean_update_7002() {
+  $included_modules = variable_get('cu_block_to_bean_module_include', array());
+  $included_modules['et_blocks'] = 'et_blocks';
+  variable_set('cu_block_to_bean_module_include', $included_modules);
+}
