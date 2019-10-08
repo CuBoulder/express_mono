@@ -1,5 +1,36 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## v4.1.0
+
+This update adds support for Pardot (Salesforce lead generation) forms, brings the Slate bundle into the core profile, and resolves several CSS bugs.
+
+### Added
+
+- Add Pardot embed template module #300.
+- Adding slate bundle #62.
+
+### Changed
+
+- Removing message about unsetting progress bar in webform node creation #269.
+- Move and improve AB tests.
+- Update login and user modules to work with SAML.
+- Remove features that duplicate tests.
+
+### Fixed
+
+- Buttons in slider content gets the wrong text color #258.
+- Teaser image display at the wrong aspect ratio if a link wasn't added #305.
+- Button text color in card style content grids are the wrong color #292.
+
+### Removed
+
+- Remove drupal-org make files.
+- Remove developer modules.
+
 ## v4.0.1
 
 ### Added
