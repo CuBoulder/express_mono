@@ -21,6 +21,8 @@ function express_version_get_version() {
 
 /**
  * Determines the installed profile and its version.
+ * 
+ * This gives the major and minor version.
  */
 function _express_version_determine_profile_version() {
   require_once DRUPAL_ROOT . '/includes/install.inc';
@@ -33,7 +35,9 @@ function _express_version_determine_profile_version() {
 }
 
 /**
- * Determines the version of Drupal core in use.
+ * Determines the version of Hosting core in use.
+ * 
+ * This gives the patch version.
  */
 function _express_version_determine_core_version() {
   // @TODO: The core var is set on install.  It is possible that the core could be changed
