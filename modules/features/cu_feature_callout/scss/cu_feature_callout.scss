@@ -181,7 +181,7 @@ $red:#B71C1C;
       }
       color:#fff;
       .content-grid-text {
-        
+
       }
     }
 
@@ -441,7 +441,10 @@ $red:#B71C1C;
   @include headers;
   display: block;
   .content-grid-item {
-    display: flex;
+    display: block;
+    width:100%;
+    clear:both;
+    overflow:hidden;
     img.image-square {
       float:left;
       margin:0 10px 0 0;
