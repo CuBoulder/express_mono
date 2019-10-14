@@ -2,11 +2,11 @@
 
 /**
  * @file
- * Drupal hooks for et_slate_form module.
+ * Drupal hooks for express_pardot_bundle module.
  */
 
 /**
- * Callback to generate form components for Slate Form embed type.
+ * Callback to generate form components for Pardot Form embed type.
  *
  * @param array $form
  *   Form containing default embed template form options.
@@ -30,7 +30,7 @@ function express_pardot_bundle_form_options(&$form, &$form_state, $id = NULL, $d
 
   $form['options']['pardot_domain'] = array(
     '#title' => t('Pardot Domain'),
-    '#description' => t('The custom sub-domain of the Slate account.'),
+    '#description' => t('The custom sub-domain of the Pardot account.'),
     '#type' => 'select',
     '#options' => _pardot_domain_options(),
     '#default_value' => !empty($data['pardot_domain']) ? $data['pardot_domain'] : variable_get('express_pardot_bundle_pardot_domain', ''),
