@@ -7,7 +7,7 @@ project status url = https://github.com/CuBoulder/cu_content_sequence_bundle
 bundle_group = addon_bundles
 description = Create sequences of content such as steps or timelines.
 dependencies[] = cu_content_sequence
-project_demo_url = http://www.colorado.edu/webcentral/node/1550
+project_demo_url = https://websupport.colorado.edu/category/251-content-sequence
 
 bundle_roles[] = developer
 bundle_roles[] = administrator

@@ -19,6 +19,7 @@ dependencies[] = cu_video_hero_unit_bundle
 dependencies[] = cu_publications_bundle
 dependencies[] = express_collections_bundle
 dependencies[] = express_localist_bundle
+dependencies[] = cu_digital_campaign_bundle
 dependencies[] = cu_mega_menu_bundle
 dependencies[] = cu_alumni_class_notes_bundle
 dependencies[] = cu_livestream_bundle
@@ -29,6 +30,10 @@ dependencies[] = cu_livechat_bundle
 dependencies[] = cu_custom_logo_bundle
 dependencies[] = express_responsive_visibility_bundle
 dependencies[] = cu_section_page_bundle
+dependencies[] = cu_dc_tests
+; dependencies[] = cu_digital_campaign_bundle (already listed above)
+; dependencies[] = cu_ab_test (this is a dependency of cu_dc_tests)
+
 
 ; Create users for tests.
 dependencies[] = cu_local_users

@@ -14,9 +14,21 @@ echo "Running Express headless tests..."
 ${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_HEADLESS_BEHAT_TAGS}
 earlyexit
 
-# Run JS Behat tests if merged into dev.
+# Run JS Behat tests
 echo "Running Express JS tests..."
 ${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_JS_BEHAT_TAGS}
+earlyexit
+
+# Run Digital Campaign Tests
+# We run these seperately b/c the changes they make cause other tests to fail if they are run afterwards.
+echo "Running Express Digital Campaign tests..."
+# Enable test content, user, and role.
+$HOME/.composer/vendor/bin/drush en cu_dc_tests -y
+${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_BEHAT_TAGS}
+earlyexit
+
+echo "Running Express Digital Campaign JS tests..."
+${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_JS_BEHAT_TAGS}
 earlyexit
 
 # Output performance logging data.

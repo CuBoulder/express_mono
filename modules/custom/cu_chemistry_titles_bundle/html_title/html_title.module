@@ -47,9 +47,8 @@ function html_title_theme_registry_alter(&$theme_registry) {
  */
 function html_title_preprocess_page(&$vars) {
   if (array_key_exists('node', $vars)) {
-    $elements = variable_get('html_title_allowed_elements', array('em', 'sub', 'sup'));
     // Reset title to allow safe HTML
-    $vars['title'] = filter_xss($vars['node']->title, $elements);
+    $vars['title'] = html_title_filter_xss($vars['node']->title);
     // Strip HTML from head title
     $vars['head_title'] = strip_tags($vars['node']->title);
     drupal_set_title($vars['head_title']);
@@ -65,8 +64,7 @@ function html_title_preprocess_node(&$vars) {
     case 'rss':
       return;
     default:
-      $elements = variable_get('html_title_allowed_elements', array('em', 'sub', 'sup'));
-      $vars['title'] = filter_xss($vars['elements']['#node']->title, $elements);
+      $vars['title'] = html_title_filter_xss($vars['elements']['#node']->title);
   }
 }
 
@@ -75,8 +73,7 @@ function html_title_preprocess_node(&$vars) {
  */
 function html_title_preprocess_search_result(&$vars) {
   if (isset($vars['result']['title'])) {
-    $elements = variable_get('html_title_allowed_elements', array('em', 'sub', 'sup'));
-    $vars['title'] = filter_xss($vars['result']['title'], $elements);
+    $vars['title'] = html_title_filter_xss($vars['result']['title']);
   }
 }
 
@@ -99,4 +96,31 @@ function html_title_views_api() {
     'api' => 3,
     'path' => drupal_get_path('module', 'html_title') .'/views',
   );
+}
+
+/**
+ * Helper function to help filter out unwanted XSS opportunities.
+ *
+ * Use this function if you expect to have junk or incomplete html. It uses the
+ *   same strategy as the "Fix Html" filter option in configuring the HTML
+ *   filter in the text format configuration.
+ */
+function html_title_filter_xss($title) {
+  $elements = variable_get('html_title_allowed_elements', array('em', 'sub', 'sup'));
+  $dom = new DOMDocument();
+  // Ignore warnings during HTML soup loading.
+  @$dom->loadHTML('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head><body>' . $title . '</body></html>', LIBXML_NOENT);
+  $xp = new DOMXPath($dom);
+  $q = "//body//text()";
+  $nodes = $xp->query($q);
+
+  foreach ($nodes as $n) {
+    $n->nodeValue = htmlentities($n->nodeValue, ENT_QUOTES);
+  }
+  $body = str_replace(
+    array('&amp;quot;', '&amp;#039;'),
+    array('&quot;', '&#039;'),
+    $dom->saveHTML($dom->getElementsByTagName('body')->item(0))
+  );
+  return filter_xss($body, $elements);
 }
