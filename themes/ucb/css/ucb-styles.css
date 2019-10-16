@@ -212,7 +212,7 @@ textarea, select, input[type="date"], input[type="datetime"], input[type="dateti
 
 button, input[type="reset"], input[type="submit"], input[type="button"] { font-size: 100%; }
 
-input.form-text, textarea.form-textarea, input[type=text], input[type=email], input[type=tel], textarea { padding: 10px; border: 1px solid rgba(128, 128, 128, 0.333); background-color: #f2f2f2; color: #111111 !important; color: inherit; line-height: 150%; }
+input.form-text, textarea.form-textarea, input[type=text], input[type=email], input[type=tel], textarea { padding: 10px; border: 1px solid rgba(128, 128, 128, 0.333); background-color: #f2f2f2; color: #111111 !important; color: inherit; line-height: 150%; font-size: inherit; }
 
 textarea { display: block; width: 100%; }
 

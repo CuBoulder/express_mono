@@ -53,6 +53,11 @@ function cu_feature_callout_theme(&$existing, $type, $theme, $path) {
     'path' => $template_dir,
     'render element' => 'elements',
   );
+  $registry['cu_feature_callout_item__cards'] = array(
+    'template' => 'cu-feature-callout-item--cards',
+    'path' => $template_dir,
+    'render element' => 'elements',
+  );
   $registry['cu_feature_callout_item__columns_overlay'] = array(
     'template' => 'cu-feature-callout-item--columns-overlay',
     'path' => $template_dir,
@@ -103,7 +108,7 @@ function cu_feature_callout_style_themes($style) {
   $themes['large_teaser_alt'] = 'cu_feature_callout_item__large_teaser';
   $themes['feature'] = 'cu_feature_callout_item__feature';
   $themes['offset'] = 'cu_feature_callout_item__columns';
-  $themes['cards'] = 'cu_feature_callout_item__columns';
+  $themes['cards'] = 'cu_feature_callout_item__cards';
   $themes['overlay'] = 'cu_feature_callout_item__overlay';
   $themes['tiles'] = 'cu_feature_callout_item__tiles';
   $themes['tiles_alt'] = 'cu_feature_callout_item__tiles';
@@ -306,6 +311,12 @@ function cu_feature_callout_preprocess_entity(&$vars) {
           $title = '<' . $grid_header . ' class="feature-callout-title"><span>' . $title . '</span></' . $grid_header . '>';
         } else {
           $title = '';
+        }
+        if (isset($image)) {
+          $image = '<span>' . $image . '</span>';
+        } else {
+          $image = '';
+
         }
       }
       $item_vars['content']['title'] = $title;
