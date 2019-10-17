@@ -109,6 +109,7 @@ function cu_social_links_preprocess_entity(&$vars) {
           'html' => TRUE,
           'query' => isset($link_url['query']) ? $link_url['query'] : '',
           'fragment' => isset($link_url['fragment']) ? $link_url['fragment'] : '',
+          'attributes' => array('class' => array('social-links-link')),
         );
         // If homepage url set, add markup to send structured data to Google.
         if (isset($vars['field_social_links_homepage_url'])) {
