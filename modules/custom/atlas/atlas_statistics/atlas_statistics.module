@@ -79,6 +79,10 @@ function atlas_statistics() {
 
   // Check the base requirements to interact with Atlas.
   // We need Atlas to be up.
+
+  module_load_include('inc', 'atlas_statistics');
+  $atlas_statistics = atlas_statistics_get_statistics();
+  print_r(atlas_statistics_pretty_print(drupal_json_encode($atlas_statistics)));
   if (!atlas_up()) {
     drupal_set_message(t("Atlas must be up to configure these settings"), 'error');
     return;

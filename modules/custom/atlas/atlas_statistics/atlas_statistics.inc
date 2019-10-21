@@ -68,7 +68,7 @@ function atlas_statistics_atlas_statistics() {
     // Make sure username and email exist before putting them in the array.
     // Removes user 0 (aka Anonymous).
     // Also test to see if the user is active, do not include blocked accounts.
-    if ($user->name && $user->mail && $user->status ==  1) {
+    if ($user->name && $user->mail && $user->status == 1) {
       foreach ($user_roles as $role) {
         if (in_array($role, $user->roles, FALSE)) {
           $statistics_data['users']['username'][$role][] = $user->name;
