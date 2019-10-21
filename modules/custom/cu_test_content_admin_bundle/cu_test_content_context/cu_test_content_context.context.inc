@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * cu_test_content_context.context.inc
@@ -11,7 +12,7 @@ function cu_test_content_context_context_default_contexts() {
   $export = array();
 
   $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'cu_test_content_article_lists';
   $context->description = '';
@@ -216,6 +217,18 @@ function cu_test_content_context_context_default_contexts() {
           'region' => 'content',
           'weight' => '9',
         ),
+        'bean-content_grid_teaser' => array(
+          'module' => 'bean',
+          'delta' => 'content_grid_teaser',
+          'region' => 'content',
+          'weight' => '10',
+        ),
+        'bean-content_grid_cards' => array(
+          'module' => 'bean',
+          'delta' => 'content_grid_cards',
+          'region' => 'content',
+          'weight' => '10',
+        ),
       ),
     ),
   );
@@ -227,7 +240,7 @@ function cu_test_content_context_context_default_contexts() {
   $export['cu_test_content_blocks'] = $context;
 
   $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'cu_test_content_home';
   $context->description = 'Home page test content';
@@ -472,7 +485,7 @@ function cu_test_content_context_context_default_contexts() {
   $export['cu_test_content_home_3'] = $context;
 
   $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'cu_test_content_pages';
   $context->description = '';
@@ -519,7 +532,7 @@ function cu_test_content_context_context_default_contexts() {
   $export['cu_test_content_pages'] = $context;
 
   $context = new stdClass();
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'cu_test_content_sitewide';
   $context->description = 'Sitewide test content';
