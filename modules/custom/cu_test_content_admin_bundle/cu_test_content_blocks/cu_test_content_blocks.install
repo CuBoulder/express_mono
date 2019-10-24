@@ -12,6 +12,8 @@ function cu_test_content_blocks_install() {
   _cu_test_content_blocks_hero();
   _cu_test_content_blocks_social();
   _cu_test_content_blocks_content_grid();
+  _cu_test_content_blocks_content_grid('teaser');
+  _cu_test_content_blocks_content_grid('cards');
   _cu_test_content_blocks_slider();
   _cu_test_content_blocks_article_slider();
   _cu_test_content_blocks_article_feature();
@@ -247,15 +249,23 @@ function _cu_test_content_create_social_field_collection_item($bean, $type, $url
   return TRUE;
 }
 
-function _cu_test_content_blocks_content_grid() {
+/**
+ * Create content grids on install - pass stype type by argument.
+ */
+function _cu_test_content_blocks_content_grid($style = NULL) {
   $temp_beans = variable_get('cu_test_content_beans', array());
 
 
   $bean = bean_create(array('type' => 'feature_callout'));
   $bean->label = 'content_grid';
-  $bean->title = '';
   $bean->delta = 'content_grid';
+  $bean->title = '';
   $bean->field_callout_columns[LANGUAGE_NONE][0]['value'] = 3;
+  if ($style) {
+    $bean->field_callout_style[LANGUAGE_NONE][0]['value'] = $style;
+    $bean->label = 'content_grid_' . $style;
+    $bean->delta = 'content_grid_' . $style;
+  }
 
   $title_salt = _cu_test_content_grid_titles_dummy_text();
   $titles = explode('.', $title_salt);
@@ -277,7 +287,12 @@ function _cu_test_content_create_grid_field_collection_item($bean, $title, $imag
   $fc_item = entity_create('field_collection_item', array('field_name' => 'field_callouts'));
   $fc_item->setHostEntity('bean', $bean);
   $text = _cu_test_content_grid_dummy_text();
+  // Add buttons to content grid text.
+  $text .= '<p>[button color="blue" url="node/1"]This is a button[/button]</p>';
   $fc_item->field_callout_title[LANGUAGE_NONE][$order]['title'] = $title;
+  if ($order == 1) {
+    $fc_item->field_callout_title[LANGUAGE_NONE][$order]['url'] = 'node/1';
+  }
   $fc_item->field_callout_text[LANGUAGE_NONE][$order]['value'] = $text;
   $fc_item->field_callout_text[LANGUAGE_NONE][$order]['format'] = 'wysiwyg';
 
@@ -327,6 +342,8 @@ function _cu_test_content_create_slider_field_collection_item($bean, $title, $or
   $fc_item = entity_create('field_collection_item', array('field_name' => 'field_slider_slide'));
   $fc_item->setHostEntity('bean', $bean);
   $text = _cu_test_content_grid_titles_dummy_text();
+  // Add button to slider text.
+  $text .= ' [button color="blue" url="node/1"]Learn More[/button]';
   $fc_item->field_slider_caption[LANGUAGE_NONE][$order]['value'] = $title;
   $fc_item->field_slider_teaser[LANGUAGE_NONE][$order]['value'] = $text;
   $fc_item->field_slider_teaser[LANGUAGE_NONE][$order]['format'] = 'wysiwyg';

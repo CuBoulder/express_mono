@@ -1,4 +1,4 @@
-<div class="cu-slider-slide cu-slider-style-4 clearfix">
+<div class="cu-slider-slide cu-slider-style-4 clearfix background-gray-dark">
   <div class="cu-slider-slide-row row">
     <div class="cu-slider-slide-image col-lg-8 col-md-8 col-sm-8 col-xs-12">
       <?php if (isset($slide_image)) { print $slide_image; } ?>

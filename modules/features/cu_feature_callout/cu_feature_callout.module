@@ -312,6 +312,12 @@ function cu_feature_callout_preprocess_entity(&$vars) {
         } else {
           $title = '';
         }
+        if (isset($image)) {
+          $image = '<span>' . $image . '</span>';
+        } else {
+          $image = '';
+
+        }
       }
       $item_vars['content']['title'] = $title;
       $item_vars['content']['image'] = $image;

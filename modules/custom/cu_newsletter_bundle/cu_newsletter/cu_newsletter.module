@@ -423,6 +423,10 @@ function cu_newsletter_form_taxonomy_form_term_alter(&$form, &$form_state, $form
     $form['#validate'][] = 'cu_newsletter_path_validate';
     // Hide Description field
     $form['description']['#access'] = FALSE;
+    // Hide social links reference if social links module is not enabled.
+    if (!module_exists('cu_social_links')) {
+      $form['field_newsletter_social_links']['#access'] = FALSE;
+    }
   }
 }
 /**

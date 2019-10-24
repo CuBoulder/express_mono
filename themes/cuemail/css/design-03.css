@@ -7,7 +7,7 @@ table.body { max-width: 580px !important; margin: 0 auto; background-color: #FFF
 .blocks td { padding-top: 10px; }
 
 .hero-image .content-padding { padding: 0px; }
-.hero-image .content-padding .intro-text { padding: 0 10px; }
+.hero-image .content-padding .intro-text { padding: 0 0px; }
 
 .article-content.odd1 { background-color: #f2f2f2; }
 .article-content.odd1 .text-pad { padding-top: 10px; padding-bottom: 10px; }

@@ -23,7 +23,6 @@ function cu_forms_bundle_node_presave($node) {
 
     if (!in_array('pagebreak', $types) || sizeof($types) == 0) {
       $node->webform['progressbar_bar'] = 0;
-      drupal_set_message(t('Progress bar has been unchecked due to your lack of faith.'));
     }
   }
 }
@@ -46,7 +45,7 @@ function cu_forms_bundle_secure_permissions_roles() {
 
 function cu_forms_bundle_menu() {
   $items = array();
-  
+
   $items['cu-forms-bundle/autocomplete'] = array(
     'page callback' => 'form_users_autocomplete',
     'access arguments' => array('access user profiles'),

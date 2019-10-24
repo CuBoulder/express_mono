@@ -55,7 +55,7 @@ td.web-link a:hover { color: #ffffff !important; }
 .footer-content a:hover { color: #cfb87c !important; }
 
 .hero-image .content-padding { padding: 0px; }
-.hero-image .content-padding .intro-text { padding: 0 10px; }
+.hero-image .content-padding .intro-text { padding: 0px; }
 
 .article-teaser-border { border-bottom: 1px solid #e7e7e7; display: block; margin: 0 10px 20px; }
 
