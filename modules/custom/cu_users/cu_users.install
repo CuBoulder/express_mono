@@ -412,3 +412,20 @@ function cu_users_update_7033() {
     $query->execute();
   }
 }
+
+/**
+ * Remove developer role from developers who have departed (Alex Finnarn; Kevin Reynen)
+ */
+function cu_users_update_7034() {
+ // Alex Finnarn; Kevin Reynen
+  $users = array('alfi2595', 'kere7580');
+  foreach ($users as $username) {
+    $user = user_load_by_name($username);
+    if ($user) {
+      if (($key = array_search('developer', $user->roles)) !== false) {
+        unset($user->roles[$key]);
+      }
+    user_save($user);
+    }
+  }
+}
