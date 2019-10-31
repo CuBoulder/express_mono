@@ -2,11 +2,10 @@
 
 /**
  * Implements hook_menu_alter().
+ *
+ * Unset default help link.
  */
 function cu_help_menu_alter(&$items) {
-  // Send user to express help page instead of default help page
-  // $items['admin/help']['page callback'] = 'drupal_goto';
-  // $items['admin/help']['page arguments'] = array( 'admin/express/help');
   unset($items['admin/help']);
 }
 
