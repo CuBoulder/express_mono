@@ -409,6 +409,6 @@ function cu_core_update_7062() {
  * Disabling Express Help module.
  */
 function cu_core_update_7063() {
-  module_disable(array('express_help'));
-  drupal_uninstall_modules(array('express_help'));
+  module_disable(array('express_help', 'cu_help'));
+  drupal_uninstall_modules(array('express_help', 'cu_help'));
 }
