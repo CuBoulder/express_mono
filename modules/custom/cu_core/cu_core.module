@@ -559,3 +559,35 @@ function cu_core_site_types($type = NULL) {
     return $types;
   }
 }
+
+/**
+ * Implements hook_navbar().
+ *
+ * Add Help link to navbar.
+ */
+function cu_core_navbar() {
+  $items = array();
+  // responsive_preview has a weight of 200 and right aligned
+  // Help needs to be to the left of that?
+  $items['express_help'] = array(
+    '#type' => 'navbar_item',
+    'tab' => array(
+      '#type' => 'link',
+      '#title' => t('Help'),
+      '#href' => 'http://colorado.edu/webcentral',
+      '#options' => array(
+        'html' => TRUE,
+        'attributes' => array(
+          'title' => t('Web Express Help'),
+          'class' => array('navbar-icon navbar-icon-help'),
+          'target' => '_blank',
+        ),
+      ),
+    ),
+    '#weight' => 101,
+    '#wrapper_attributes' => array(
+      'class' => array('pull-right'),
+    ),
+  );
+  return $items;
+}
