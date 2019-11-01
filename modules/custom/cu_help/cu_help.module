@@ -4,6 +4,8 @@
  * Implements hook_menu_alter().
  *
  * Unset default help link.
+ * This code duplicates code in the express_help module while will be removed.
+ * https://github.com/CuBoulder/express_mono/issues/361
  */
 function cu_help_menu_alter(&$items) {
   unset($items['admin/help']);
@@ -13,6 +15,8 @@ function cu_help_menu_alter(&$items) {
  * Implements hook_navbar().
  *
  * Add Help link to navbar.
+ * This code duplicates code in the express_help module while will be removed.
+ * https://github.com/CuBoulder/express_mono/issues/361
  */
 function cu_help_navbar() {
   $items = array();
