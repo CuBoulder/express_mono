@@ -404,3 +404,11 @@ function cu_core_update_7062() {
   );
   variable_set('locale_custom_strings_en', $locale_custom_strings_en);
 }
+
+/**
+ * Disabling Express Help module.
+ */
+function cu_core_update_7063() {
+  module_disable(array('express_help'));
+  drupal_uninstall_modules(array('express_help'));
+}
