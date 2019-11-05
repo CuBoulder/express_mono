@@ -434,7 +434,7 @@ function cu_users_update_7034() {
  * Remove developer role from developers who have departed (Christina Morris)
  */
 function cu_users_update_7035() {
-  // Christina Morris
+  // Christina Morris.
   $users = array('chmo0919');
   foreach ($users as $username) {
     $user = user_load_by_name($username);
