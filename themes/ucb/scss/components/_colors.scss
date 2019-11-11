@@ -74,10 +74,7 @@
       &.color-border {
         border: 1px solid rgba(darken($color, 20), .4);
       }
-      /*
-      &.background-transparent {
-        background-color: rgba($color, .7);
-      }
+
       a.button-ghost {
         color: set-text-color($color) !important;
         border:1px solid set-text-color($color);
@@ -93,6 +90,10 @@
           color: $hover !important;
           background: set-text-color($color);
         }
+      }
+      /*
+      &.background-transparent {
+        background-color: rgba($color, .7);
       }
       a.text-color {
         &:link,
