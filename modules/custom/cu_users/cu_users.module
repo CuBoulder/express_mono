@@ -23,7 +23,6 @@ function cu_users_get_users($type = 'all') {
     'jeor0980' => 'Jesus.OrtizTovar@colorado.edu',
     'jesp3304' => 'Jeremy.Sparks@colorado.edu',
     'mibo7729' => 'Michael.Bolei@colorado.edu',
-    'chmo0919' => 'Christina.Morris@colorado.edu',
     'osr-test-sis' => 'osr-test-sis@colorado.edu',
   );
 
