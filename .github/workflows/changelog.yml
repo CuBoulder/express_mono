@@ -3,7 +3,8 @@ name: Create changelog
 on:
   push:
     branches:
-      - release/*
+      - 'release/*'
+    types: [opened, review_requested, ready_for_review, edited]
 
 jobs:
   build:
