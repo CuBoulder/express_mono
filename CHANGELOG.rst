@@ -5,6 +5,60 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.1.1 (2019-11-12)
+------------
+
+This update resolves several visual regressions and begins removing unused or broken code.
+
+Added
+~~~~~
+- Add a Github Action to create a Changelog artifact release branches are opened. Resolves #333.
+
+Changed
+~~~~~
+- Fixing issue where image styles were not getting flushed properly #328.
+
+- Setting a dependency for cu_help module #324.
+
+- Update README to better reflect reality of the profile.
+
+- Updating Helpscout beacon to version 2.0 #263.
+
+- Updating newsletter design with new website standards #207.
+
+- Update PHP 7.1 patch version and add PHP 7.2.
+
+
+Fixed
+~~~~~
+- Fixing issue where share on twitter link was not creating a tweet #306.
+
+- Adding a background color class for slider style 4 to set link colors correctly #334.
+
+- Fixing issue where social links reference would error if social links were not enabled #343.
+
+- Fixing issue where social links have underlines if nested in multiple background color classes #314.
+
+- Fixing issue where hero image styles where not positioned properly when page layout was set to feature layout #312.
+
+- Fixing notice of missing variable for intro region #325.
+
+Deprecated
+~~~~~
+
+- Disabling and uninstall express_help module #324.
+
+Removed
+~~~~~
+
+- Remove developer role from devs who are gone.
+
+- Removing redis dependency from pantheon_hosting.info.
+
+- Remove blocked users from the Atlas statistics user report. Resolves #195.
+
+- Remove debug module Stage File Proxy.
+
 v4.1.0 (2019-10-08)
 -------------------
 
