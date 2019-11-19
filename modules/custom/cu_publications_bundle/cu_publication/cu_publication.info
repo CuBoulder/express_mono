@@ -31,6 +31,7 @@ features[field_instance][] = node-issue-field_issue_image
 features[field_instance][] = node-issue-field_issue_image_insert
 features[field_instance][] = node-issue-field_issue_section
 features[node][] = issue
+features[variable][] = addanother_button_issue
 features[variable][] = field_bundle_settings_node__issue
 features[variable][] = menu_options_issue
 features[variable][] = menu_parent_issue
