@@ -9,6 +9,15 @@ body { background: none; background-color: #000; background-color: #f2f2f2; back
 @media screen and (min-width: 1200px) { .layout-responsive .page { max-width: 1160px; } }
 @media screen and (min-width: 1500px) { .layout-responsive .page { max-width: 1500px; } }
 
+.layout-boxed .feature-layout-hero-wrapper img.image-hero { max-width: 1500px; margin: 0 auto; width: 100%; }
+
+@media screen and (min-width: 960px) { .layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper { max-width: 920px; margin: 0 auto; right: auto; width: 920px; } }
+@media screen and (min-width: 1200px) { .layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper { max-width: 1160px; margin: 0 auto; right: auto; width: 1160px; } }
+@media screen and (min-width: 1500px) { .layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper { max-width: 1500px; margin: 0 auto; left: -40px; right: auto; width: 1500px; } }
+
+@media screen and (min-width: 960px) { .layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper { left: -20px; } }
+@media screen and (min-width: 1500px) { .layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper { left: -40px; } }
+
 #secondary-menu-wrapper { background-color: #000; }
 
 #main-menu-wrapper { background-color: #444; }

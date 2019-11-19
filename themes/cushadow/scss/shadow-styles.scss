@@ -32,6 +32,45 @@ body {
     max-width: 1500px;
   }
 }
+// Align hero image to edges.
+.layout-boxed .feature-layout-hero-wrapper img.image-hero {
+    max-width: 1500px;
+    margin: 0 auto;
+    width:100%;
+}
+.layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper {
+  @media screen and (min-width:960px) {
+    max-width: 920px;
+    margin: 0 auto;
+    //left: -40px;
+    right: auto;
+    width:920px;
+  }
+    @media screen and (min-width:1200px) {
+      max-width: 1160px;
+      margin: 0 auto;
+      //left: -40px;
+      right: auto;
+      width:1160px;
+    }
+    @media screen and (min-width:1500px) {
+      max-width: 1500px;
+      margin: 0 auto;
+      left: -40px;
+      right: auto;
+      width:1500px;
+    }
+}
+// If there is a callout image wrapper margin needs to be set here.
+.layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper,
+.express-layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper {
+  @media screen and (min-width:960px) {
+    left: -20px;
+  }
+  @media screen and (min-width:1500px) {
+    left: -40px;
+  }
+}
 #secondary-menu-wrapper {
   background-color: #000;
 }

@@ -223,3 +223,25 @@ a.button-ghost {
 
   }
 }
+.block-section-text-white a.button-ghost:link,
+.block-section-text-white a.button-ghost:visited {
+  color:#fff !important;
+  border-color: #fff;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color:#fff;
+    color: #000 !important;
+  }
+}
+.block-section-text-black a.button-ghost:link,
+.block-section-text-black a.button-ghost:visited {
+  color:#000 !important;
+  border-color: #000;
+  &:hover,
+  &:active,
+  &:focus {
+    background-color:#000;
+    color: #fff !important;
+  }
+}

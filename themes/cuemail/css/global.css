@@ -29,11 +29,12 @@ body { padding: 0 0 40px; }
 /* Newsletter Title & Logo */
 table.full { width: 100%; }
 
-td.newsletter-logo-single { padding: 20px 10px 10px; vertical-align: middle; }
+td.campus-logo { padding: 10px; }
+td.campus-logo img#campus-logo { width: 180px !important; height: auto !important; }
 
-td.newsletter-logo-single img { max-width: 240px !important; }
+img#newsletter-logo { max-width: 100% !important; }
 
-td.newsletter-name { width: 60%; padding: 40px 60px 20px 10px; vertical-align: middle; }
+td.newsletter-name { padding: 10px; vertical-align: middle; }
 
 td.newsletter-logo { width: 40%; padding: 40px 10px 20px; vertical-align: middle; }
 
@@ -44,7 +45,7 @@ img#logo { float: right; }
 
 .issue-meta { margin-top: -20px; }
 
-td.issue-date { width: 50%; padding: 10px; }
+td.issue-date { width: 50%; padding: 10px; font-size: 11px; }
 
 td.web-link { width: 50%; padding: 10px; text-align: right; }
 

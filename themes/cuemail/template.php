@@ -65,8 +65,8 @@ function cuemail_preprocess_node(&$vars) {
         image_style_create_derivative(image_style_load('medium'), $vars['newsletter_logo_uri'], $newsletter_logo_image_style_uri);
       }
       $image_info = image_get_info($newsletter_logo_image_style_uri);
-      $vars['newsletter_logo_width'] = round($image_info['width'] * .46333);
-      $vars['newsletter_logo_height'] = round($image_info['height'] * .46333);
+      $vars['newsletter_logo_width'] = round($image_info['width'] * .333);
+      $vars['newsletter_logo_height'] = round($image_info['height'] * .333);
     }
     $vars['content']['list'] = theme('item_list', array(
       'items' => $list,
@@ -157,11 +157,11 @@ function cuemail_image_style(&$vars) {
 
 function cuemail_logo_color($design = 'design-01') {
   $logos = array();
-  $logos['design-01'] = 'logo-black-2x.gif';
-  $logos['design-02'] = 'logo-white-2x.gif';
-  $logos['design-03'] = 'logo-white-2x.gif';
-  $logos['design-04'] = 'logo-black-2x.gif';
-  $logos['design-05'] = 'logo-black-2x.gif';
+  $logos['design-01'] = 'cu-boulder-logo-text-white.gif';
+  $logos['design-02'] = 'cu-boulder-logo-text-black.gif';
+  $logos['design-03'] = 'cu-boulder-logo-text-black.gif';
+  $logos['design-04'] = 'cu-boulder-logo-text-white.gif';
+  $logos['design-05'] = 'cu-boulder-logo-text-white.gif';
   return $logos[$design];
 }
 

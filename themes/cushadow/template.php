@@ -19,11 +19,11 @@ function cushadow_preprocess_html(&$vars) {
   // SET BANNER COLOR (banner-white, banner-light, banner-dark, banner-black)
 
   $vars['classes_array'][]='banner-black';
+  $vars['classes_array'][]='layout-boxed';
 }
 
 function cushadow_preprocess_region(&$vars) {
   if ($vars['region'] == 'branding') {
     $vars['logo_color'] = 'black';
   }
-  $vars['classes_array'][]='layout-boxed';
 }

@@ -1,0 +1,28 @@
+name: Create changelog
+
+on:
+  push:
+    branches:
+      - release/*
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Generate changelog
+        id: changelog
+        run: |
+          pip install gitchangelog pystache
+          gitchangelog
+      - name: Upload Changelog as an artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: changelog
+          path: CHANGELOG.rst
