@@ -25,6 +25,7 @@ features[field_instance][] = node-content_list_page-body
 features[field_instance][] = node-content_list_page-field_content_list_reference
 features[field_instance][] = node-content_list_page-field_content_list_sort
 features[node][] = content_list_page
+features[variable][] = addanother_button_content_list_page
 features[variable][] = additional_settings__active_tab_content_list_page
 features[variable][] = attachment_links_create_alias_content_list_page
 features[variable][] = attachment_links_selection_content_list_page
