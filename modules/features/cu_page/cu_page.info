@@ -17,6 +17,7 @@ features[field_base][] = field_photo
 features[field_instance][] = node-page-body
 features[field_instance][] = node-page-field_photo
 features[node][] = page
+features[variable][] = addanother_button_page
 features[variable][] = comment_page
 features[variable][] = default_menu_link_page_enabled
 features[variable][] = diff_enable_revisions_page_node_page
