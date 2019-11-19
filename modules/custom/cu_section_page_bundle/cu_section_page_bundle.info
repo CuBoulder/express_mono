@@ -31,6 +31,7 @@ features[field_instance][] = node-section_page-field_section_page_navigation
 features[field_instance][] = node-section_page-field_section_page_sections
 features[field_instance][] = node-section_page-field_section_page_size
 features[node][] = section_page
+features[variable][] = addanother_button_section_page
 features[variable][] = additional_settings__active_tab_section_page
 features[variable][] = attachment_links_create_alias_section_page
 features[variable][] = attachment_links_selection_section_page
