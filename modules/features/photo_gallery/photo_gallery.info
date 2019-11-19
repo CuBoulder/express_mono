@@ -28,6 +28,7 @@ features[features_api][] = api:2
 features[field_instance][] = node-photo_gallery-body
 features[field_instance][] = node-photo_gallery-field_photo
 features[node][] = photo_gallery
+features[variable][] = addanother_button_photo_gallery
 features[variable][] = field_bundle_settings_node__photo_gallery
 features[variable][] = menu_options_photo_gallery
 features[variable][] = menu_parent_photo_gallery
