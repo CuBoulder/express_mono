@@ -188,7 +188,6 @@ I should be able to create, edit, and delete Basic Pages
   And I am on "node/add/page"
   And fill in "edit-title" with "Test Page"
   And fill in "Body" with "Lorem ipsum dolor sit amet"
-  And I should see "Save and add another"
   When I press "edit-addanother"
   Then I should be on "/node/add/page"
   And I should see "Create Page"
