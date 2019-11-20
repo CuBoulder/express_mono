@@ -52,6 +52,7 @@ I should be able to create, edit, and delete Basic Pages
   And I am on "node/add/page"
   And fill in "edit-title" with "My Page"
   And fill in "Body" with "Lorem ipsum dolor sit amet"
+  And I should see an "#edit-addanother" element
   When I press "edit-submit"
   Then I should be on "/my-page"
   And I should see "My Page"
