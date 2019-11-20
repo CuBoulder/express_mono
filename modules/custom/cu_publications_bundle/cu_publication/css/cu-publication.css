@@ -31,12 +31,10 @@ h3.current-issue-title { text-align: center; font-size: 100%; margin: 0; padding
 .current-issue, .latest-issues, .view-issue-archive { overflow: hidden; }
 .current-issue img, .latest-issues img, .view-issue-archive img { display: block; margin-bottom: 10px; }
 
-@media all and (max-width: 719px) { .latest-issues { overflow: hidden; }
-  .latest-issues .issue-view-mode-grid { display: flex; flex-direction: row; margin: 0 -20px; }
-  .latest-issues .issue-view-mode-grid > * { padding: 0 20px; margin-bottom: 20px; width: 50%; } }
-@media all and (min-width: 720px) { .latest-issues { overflow: hidden; }
-  .latest-issues .issue-view-mode-grid { display: flex; flex-direction: row; margin: 0 -20px; }
-  .latest-issues .issue-view-mode-grid > * { padding: 0 20px; margin-bottom: 20px; width: 25%; } }
+@media all and (max-width: 719px) { .latest-issues { overflow: hidden; display: flex; flex-wrap: wrap; flex-direction: row; margin: 0 -20px; }
+  .latest-issues .issue-view-mode-grid { padding: 0 20px; margin-bottom: 20px; width: 50%; } }
+@media all and (min-width: 720px) { .latest-issues { overflow: hidden; display: flex; flex-wrap: wrap; flex-direction: row; margin: 0 -20px; }
+  .latest-issues .issue-view-mode-grid { padding: 0 20px; margin-bottom: 20px; width: 25%; } }
 .article-grid-more-link, .issue-archive-link { text-align: center; }
 .article-grid-more-link a, .issue-archive-link a { border: 1px solid #0277BD; padding: 5px; display: inline-block; }
 

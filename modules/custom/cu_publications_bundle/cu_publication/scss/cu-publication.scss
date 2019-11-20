@@ -116,15 +116,14 @@ h3.current-issue-title {
 @media all and (max-width: 719px) {
   .latest-issues {
     overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin:0 -20px;
     .issue-view-mode-grid  {
-      display: flex;
-      flex-direction: row;
-      margin:0 -20px;
-      & > * {
-        padding:0 20px;
-        margin-bottom: 20px;
-        width:50%;
-      }
+      padding:0 20px;
+      margin-bottom: 20px;
+      width:50%;
     }
   }
 }
@@ -132,15 +131,14 @@ h3.current-issue-title {
 @media all and (min-width: 720px) {
   .latest-issues {
     overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin:0 -20px;
     .issue-view-mode-grid  {
-      display: flex;
-      flex-direction: row;
-      margin:0 -20px;
-      & > * {
-        padding:0 20px;
-        margin-bottom: 20px;
-        width:25%;
-      }
+      padding:0 20px;
+      margin-bottom: 20px;
+      width:25%;
     }
   }
 }
