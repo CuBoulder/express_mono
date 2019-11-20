@@ -190,4 +190,3 @@ I should be able to create, edit, and delete Basic Pages
   And fill in "Body" with "Lorem ipsum dolor sit amet"
   When I press "edit-addanother"
   Then I should be on "/node/add/page"
-  And I should see "Create Page"
