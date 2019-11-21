@@ -63,6 +63,7 @@ features[field_instance][] = node-collection_item-field_collection_type
 features[node][] = collection_item
 features[taxonomy][] = collection_categories
 features[taxonomy][] = collection_type
+features[variable][] = addanother_button_collection_item
 features[variable][] = additional_settings__active_tab_collection_item
 features[variable][] = attachment_links_create_alias_collection_item
 features[variable][] = attachment_links_selection_collection_item
