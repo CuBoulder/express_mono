@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - release/*
+      - feature/**-changelog # Allow branches like this to make it easier to test changelog changes.
 
 jobs:
   build:
@@ -16,11 +17,8 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.7
-      - name: Generate changelog
-        id: changelog
-        run: |
-          pip install gitchangelog pystache
-          gitchangelog
+      - run: pip install gitchangelog pystache
+      - run: gitchangelog
       - name: Upload Changelog as an artifact
         uses: actions/upload-artifact@master
         with:
