@@ -767,7 +767,6 @@ function express_permissions_secure_permissions($role) {
       'preview focal point',
       'revert revisions',
       'schedule publishing of nodes',
-      'use block designer',
       'use bigmenu',
       'use text format wysiwyg',
       'view any block bean',
