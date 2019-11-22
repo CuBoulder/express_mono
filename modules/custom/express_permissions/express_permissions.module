@@ -222,7 +222,6 @@ function express_permissions_secure_permissions($role) {
       'edit own page content',
       'edit site affiliation',
       'edit users with role authenticated user',
-      'edit users with role authenticated user',
       'edit users with role content_editor',
       'edit users with role edit_my_content',
       'edit users with role site_owner',
