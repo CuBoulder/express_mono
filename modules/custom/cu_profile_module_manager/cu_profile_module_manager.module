@@ -25,18 +25,10 @@ function cu_profile_module_manager_theme() {
  */
 function cu_profile_module_manager_secure_permissions($role) {
   $permissions = array(
-    'site_owner' => array(
-      'enable module bundles',
-    ),
-    'configuration_manager' => array(
-      'enable module bundles',
-    ),
     'administrator' => array(
-      'enable module bundles',
       'skip bundle request step',
     ),
     'developer' => array(
-      'enable module bundles',
       'skip bundle request step',
     ),
   );
