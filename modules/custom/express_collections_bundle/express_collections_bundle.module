@@ -203,8 +203,6 @@ function express_collections_bundle_secure_permissions($role) {
       'delete own collection_item content',
       'edit any collection_item content',
       'edit own collection_item content',
-      'administer collection_categories vocabulary terms',
-      'administer collection_type vocabulary terms',
     ),
     'content_editor' => array(
       'create any collection_grid bean',
@@ -218,8 +216,6 @@ function express_collections_bundle_secure_permissions($role) {
       'delete own collection_item content',
       'edit any collection_item content',
       'edit own collection_item content',
-      'administer collection_categories vocabulary terms',
-      'administer collection_type vocabulary terms',
     ),
     'developer' => array(
       'create any collection_grid bean',
@@ -233,8 +229,6 @@ function express_collections_bundle_secure_permissions($role) {
       'delete own collection_item content',
       'edit any collection_item content',
       'edit own collection_item content',
-      'administer collection_categories vocabulary terms',
-      'administer collection_type vocabulary terms',
     ),
     'edit_my_content' => array(
       'view any collection_grid bean',
@@ -257,8 +251,6 @@ function express_collections_bundle_secure_permissions($role) {
       'delete own collection_item content',
       'edit any collection_item content',
       'edit own collection_item content',
-      'administer collection_categories vocabulary terms',
-      'administer collection_type vocabulary terms',
     ),
     'site_owner' => array(
       'create any collection_grid bean',
@@ -272,8 +264,6 @@ function express_collections_bundle_secure_permissions($role) {
       'delete own collection_item content',
       'edit any collection_item content',
       'edit own collection_item content',
-      'administer collection_categories vocabulary terms',
-      'administer collection_type vocabulary terms',
     ),
   );
 

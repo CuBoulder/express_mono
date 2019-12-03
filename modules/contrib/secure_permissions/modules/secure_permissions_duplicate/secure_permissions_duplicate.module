@@ -72,39 +72,3 @@ function secure_permissions_duplicate_report() {
 function secure_permissions_duplicate_count($k, $v) {
   return "$v : $k";
 }
-
-function secure_permissions_duplicate_secure_permissions($role) {
-  $permissions = array(
-    'anonymous user' => array(
-    ),
-    'authenticated user' => array(
-    ),
-    'administrator' => array(
-      'access express reports',
-
-    ),
-    'content_editor' => array(
-
-    ),
-    'developer' => array(
-      'access express reports',
-    ),
-    'edit_my_content' => array(
-    ),
-    'edit_only' => array(
-
-    ),
-    'site_editor' => array(
-      'access express reports',
-
-    ),
-    'site_owner' => array(
-      'access express reports',
-
-    ),
-  );
-
-  if (isset($permissions[$role])) {
-    return $permissions[$role];
-  }
-}
