@@ -31,28 +31,10 @@ h3.current-issue-title { text-align: center; font-size: 100%; margin: 0; padding
 .current-issue, .latest-issues, .view-issue-archive { overflow: hidden; }
 .current-issue img, .latest-issues img, .view-issue-archive img { display: block; margin-bottom: 10px; }
 
-@media all and (max-width: 719px) { .latest-issues { overflow: hidden; }
-  .latest-issues:before, .latest-issues:after { content: ""; display: table; }
-  .latest-issues:after { clear: both; }
-  .latest-issues .issue-view-mode-grid { float: left; padding-left: 20px; padding-right: 20px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; word-wrap: break-word; width: 50%; padding-left: 0; padding-right: 20px; margin-right: 20px; }
-  .latest-issues .issue-view-mode-grid:nth-child(2n+2) { padding-left: 20px; padding-right: 20px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; word-wrap: break-word; width: 50%; padding-left: 0; padding-right: 20px; margin-right: -20px; }
-  .latest-issues .issue-view-mode-grid:nth-child(2n+1) { clear: left; }
-  .view-issue-archive .view-content { overflow: hidden; }
-  .view-issue-archive .view-content:before, .view-issue-archive .view-content:after { content: ""; display: table; }
-  .view-issue-archive .view-content:after { clear: both; }
-  .view-issue-archive .view-content .archive-issue { float: left; padding-left: 20px; padding-right: 20px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; word-wrap: break-word; width: 50%; padding-left: 0; padding-right: 20px; margin-right: 20px; }
-  .view-issue-archive .view-content .archive-issue:nth-child(2n+2) { padding-left: 20px; padding-right: 20px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; word-wrap: break-word; width: 50%; padding-left: 0; padding-right: 20px; margin-right: -20px; }
-  .view-issue-archive .view-content .archive-issue:nth-child(2n+1) { clear: left; } }
-@media all and (min-width: 720px) { .latest-issues:before, .latest-issues:after { content: ""; display: table; }
-  .latest-issues:after { clear: both; }
-  .latest-issues .issue-view-mode-grid { float: left; padding-left: 20px; padding-right: 20px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; word-wrap: break-word; width: 25%; padding-left: 0; padding-right: 30px; margin-right: 10px; }
-  .latest-issues .issue-view-mode-grid:nth-child(4n+4) { padding-left: 20px; padding-right: 20px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; word-wrap: break-word; width: 25%; padding-left: 0; padding-right: 30px; margin-right: -30px; }
-  .latest-issues .issue-view-mode-grid:nth-child(4n+1) { clear: left; }
-  .view-issue-archive .view-content:before, .view-issue-archive .view-content:after { content: ""; display: table; }
-  .view-issue-archive .view-content:after { clear: both; }
-  .view-issue-archive .view-content .archive-issue { float: left; padding-left: 20px; padding-right: 20px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; word-wrap: break-word; width: 25%; padding-left: 0; padding-right: 30px; margin-right: 10px; }
-  .view-issue-archive .view-content .archive-issue:nth-child(4n+4) { padding-left: 20px; padding-right: 20px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; word-wrap: break-word; width: 25%; padding-left: 0; padding-right: 30px; margin-right: -30px; }
-  .view-issue-archive .view-content .archive-issue:nth-child(4n+1) { clear: left; } }
+@media all and (max-width: 719px) { .latest-issues { overflow: hidden; display: flex; flex-wrap: wrap; flex-direction: row; margin: 0 -20px; }
+  .latest-issues .issue-view-mode-grid { padding: 0 20px; margin-bottom: 20px; width: 50%; } }
+@media all and (min-width: 720px) { .latest-issues { overflow: hidden; display: flex; flex-wrap: wrap; flex-direction: row; margin: 0 -20px; }
+  .latest-issues .issue-view-mode-grid { padding: 0 20px; margin-bottom: 20px; width: 25%; } }
 .article-grid-more-link, .issue-archive-link { text-align: center; }
 .article-grid-more-link a, .issue-archive-link a { border: 1px solid #0277BD; padding: 5px; display: inline-block; }
 
