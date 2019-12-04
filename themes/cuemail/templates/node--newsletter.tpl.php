@@ -29,7 +29,7 @@
                       <table class=" full" role="presentation">
                         <tr>
                           <td class="campus-logo">
-                            <a href="https://www.colorado.edu"><img src="<?php print $path; ?>/images/<?php print cuemail_logo_color($design); ?>" alt="University of Colorado Boulder " id="campus-logo" width="212" height="32" /></a>
+                            <a href="https://www.colorado.edu"><img src="<?php print $path; ?>/images/<?php print cuemail_logo_color($design); ?>" alt="University of Colorado Boulder " id="campus-logo" width="180" height="27" /></a>
                           </td>
                         </tr>
                         <tr>
