@@ -49,8 +49,7 @@ function cu_saml_user_login(&$edit, $account) {
  *
  * Redirects users to the federated login page at /saml_login.
  */
-function cu_saml_menu_alter(&$items)
-{
+function cu_saml_menu_alter(&$items){
   $items['user']['page callback'] = 'drupal_goto';
   $items['user']['page arguments'] = array('saml_login');
 }
