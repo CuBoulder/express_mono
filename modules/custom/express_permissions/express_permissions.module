@@ -167,7 +167,6 @@ function express_permissions_secure_permissions($role) {
       'administer checked out documents',
       'administer contexts',
       'administer express settings',
-      'administer express site status',
       'administer express theme picker',
       'administer menu',
       'administer nodes',
