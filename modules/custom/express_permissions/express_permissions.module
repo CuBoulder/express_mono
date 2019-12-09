@@ -441,7 +441,6 @@ function express_permissions_secure_permissions($role) {
       'administer contexts',
       'administer rave alerts',
       'administer express settings',
-      'administer express site status',
       'administer express theme picker',
       'administer features',
       'administer fields',
