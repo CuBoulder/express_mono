@@ -16,10 +16,6 @@ function express_settings_permission() {
       'title' => 'Administer Express Settings',
       'description' => 'Configure settings in admin/settings',
     ),
-    'administer express site status' => array(
-      'title' => 'Administer Express Site Status',
-      'description' => 'Configure settings in admin/settings',
-    ),
     'administer redirect settings' => array(
       'title' => 'Administer Redirect Settings',
       'description' => 'Overrides some permissions of the Redirect contrib project to expose specific settings to users',
