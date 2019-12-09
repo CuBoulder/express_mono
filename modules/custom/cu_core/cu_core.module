@@ -277,6 +277,22 @@ function cu_core_preprocess_html(&$vars) {
   }
 }
 
+/**
+ * Implements hook_form_alter().
+ *
+ * This alters the site name form from express_settings.module.
+ * This alter provides a list of CU Boulder specific options for the
+ * affiliation field in addition to a custom option.
+ *
+ * Most sites should use one of the set options, but the custom option can be
+ * used for special use cases, such as RASEI, where the affilation text could be
+ * 'A partnership between CU Boulder and the National Renewable Energy Laboratory'.
+ *
+ * This alter also adds a site_type field. By setting a site type, we can make
+ * global/theme changes based on these. For example, sport clubs get the
+ * Ralphie logo added next to the site name, student groups get an affilation
+ * set. See template.php and site-name.tpl.php in the UCB theme.
+ */
 function cu_core_form_express_settings_site_name_form_alter(&$form, &$form_state, $form_id) {
   // Set a type for each site.
   $form['express_site_type'] = array(
