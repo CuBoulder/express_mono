@@ -48,7 +48,7 @@ function express_permissions_update_7008() {
 }
 
 /**
- * Rebuild permissions
+ * Rebuild secure permissions after removing perms for express site status.
  */
 function express_permissions_update_7009() {
   secure_permissions_rebuild();
