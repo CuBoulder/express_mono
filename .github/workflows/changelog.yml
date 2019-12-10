@@ -5,6 +5,8 @@ on:
     branches:
       - release/*
       - feature/**-changelog # Allow branches like this to make it easier to test changelog changes.
+    paths-ignore:
+    - 'CHANGELOG.rst' # Don't run the changelog when it is the only thing that has changed.
 
 jobs:
   build:
