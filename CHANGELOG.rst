@@ -13,7 +13,7 @@ This release adds the 'Save and Add Another' feature to many content types, upda
 Added
 ~~~~~~~
 
-- 'Save and Add Another' functionality added to select content types.
+- 'Save and Add Another' functionality added to select content types. #115
 
 
 Changed
@@ -22,53 +22,53 @@ Changed
 
 - Rebuild secure permissions after removing perms for express site status.
 
-- Adding comments about site affiliation fields, display.
+- Adding comments about site affiliation fields, display. #413
 
-- Fixing issue where campus logo would not display at the correct aspect ration in some clients.
+- Fixing issue where campus logo would not display at the correct aspect ration in some clients. #393
 
-- Fixed issue where buttons in vertical tabs did not have correct color.
+- Fixed issue where buttons in vertical tabs did not have correct color. #401
 
-- Update webform from 7.x-4.19 to 7.x-4.20.
+- Update webform from 7.x-4.19 to 7.x-4.20. #374
 
-- Updated file_entity from 7.x-2.25 to 7.x-2.27.
+- Updated file_entity from 7.x-2.25 to 7.x-2.27. #374
 
-- Updated google_tag from 7.x-1.4 to 7.x-1.6.
+- Updated google_tag from 7.x-1.4 to 7.x-1.6. #374
 
-- Update link from 7.x-1.6 to 7.x-1.7.
+- Update link from 7.x-1.6 to 7.x-1.7. #374
 
-- Update captcha from 7.x-1.5 to 7.x-1.6.
+- Update captcha from 7.x-1.5 to 7.x-1.6. #374
 
-- Update inline_entity_form from 7.x-1.8 to 7.x-1.9.
+- Update inline_entity_form from 7.x-1.8 to 7.x-1.9. #374
 
-- Updated unpublished_404 from 7.x-1.1 to 7.x-1.2.
+- Updated unpublished_404 from 7.x-1.1 to 7.x-1.2. #374
 
-- Update field_collection from 7.x-1.0-beta13 to 7.x-1.1.
+- Update field_collection from 7.x-1.0-beta13 to 7.x-1.1. #374
 
 - Update and patch simplesamlphp_auth module.
 
 - Updating variable sets for simplesamlphp_auth_user_name and simplesamlphp_auth_unique_id. 
 
-- Updating gemfiles
+- Updating gemfiles #326
 
-- Sorting social link type options alphabetically
+- Sorting social link type options alphabetically #357
 
-- Updated text for bundle request email. 
+- Updated text for bundle request email. #375
 
 
 Fixed
 ~~~~~
-- Changelog is generated correctly.
+- Changelog is generated correctly. 
 
-- Fixing issue where administrators couldn't edit user roles #114. [kevincrafts]
+- Fixing issue where administrators couldn't edit user roles #114.
 
-- Fixing flexbox display of issue grids #326. [kevincrafts]
+- Fixing flexbox display of issue grids #326.
 
 
 Removed
 ~~~~~~~
-- Remove express help module.
+- Remove express help module. #361
 
-- Removing zengrids from publication bundle
+- Removing zengrids from publication bundle #326
 
 
 v4.1.1 (2019-11-12)
