@@ -5,6 +5,72 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.1.2 (2019-12-10)
+------------
+
+This release adds the 'Save and Add Another' feature to many content types, updated contrib modules, and resolved some CSS bugs.
+
+Added
+~~~~~~~
+
+- 'Save and Add Another' functionality added to select content types.
+
+
+Changed
+~~~~~~~
+- Remove Site Status Section from admin/settings.
+
+- Rebuild secure permissions after removing perms for express site status.
+
+- Adding comments about site affiliation fields, display.
+
+- Fixing issue where campus logo would not display at the correct aspect ration in some clients.
+
+- Fixed issue where buttons in vertical tabs did not have correct color.
+
+- Update webform from 7.x-4.19 to 7.x-4.20.
+
+- Updated file_entity from 7.x-2.25 to 7.x-2.27.
+
+- Updated google_tag from 7.x-1.4 to 7.x-1.6.
+
+- Update link from 7.x-1.6 to 7.x-1.7.
+
+- Update captcha from 7.x-1.5 to 7.x-1.6.
+
+- Update inline_entity_form from 7.x-1.8 to 7.x-1.9.
+
+- Updated unpublished_404 from 7.x-1.1 to 7.x-1.2.
+
+- Update field_collection from 7.x-1.0-beta13 to 7.x-1.1.
+
+- Update and patch simplesamlphp_auth module.
+
+- Updating variable sets for simplesamlphp_auth_user_name and simplesamlphp_auth_unique_id. 
+
+- Updating gemfiles
+
+- Sorting social link type options alphabetically
+
+- Updated text for bundle request email. 
+
+
+Fixed
+~~~~~
+- Changelog is generated correctly.
+
+- Fixing issue where administrators couldn't edit user roles #114. [kevincrafts]
+
+- Fixing flexbox display of issue grids #326. [kevincrafts]
+
+
+Removed
+~~~~~~~
+- Remove express help module.
+
+- Removing zengrids from publication bundle
+
+
 v4.1.1 (2019-11-12)
 ------------
 
