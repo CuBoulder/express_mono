@@ -21,7 +21,25 @@ function express_content_edit_lock_menu() {
     'access arguments' => array('dashboard user lock'),
     'weight' => 100,
   );
+  $items['express-edit-lock'] = array(
+    'title' => 'Web Express',
+    'page callback' => 'express_content_edit_local_page',
+    'access callback' => TRUE,
+  );
   return $items;
+}
+
+/**
+ * Page callback function for /express-edit-lock.
+ *
+ * Displays a message for when we disable user login.
+ */
+function express_content_edit_local_page() {
+  return array(
+    '#markup' => '<div class="messages error">
+<h2 class="element-invisible">Status message</h2>
+You are not able to login to the site at this time.</div>',
+  );
 }
 
 /**
@@ -239,8 +257,7 @@ function express_content_edit_lock_user_login(&$edit, $account) {
       watchdog('express_content_edit_lock', ':name has tried to login to the site while it is locked.', array(':name' => $account->name));
       module_load_include('pages.inc', 'user');
       user_logout_current_user();
-      drupal_set_message('You are not able to login to the site at this time.', 'error');
-      drupal_goto();
+      drupal_goto('express-edit-lock');
     }
   }
 }
