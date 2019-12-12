@@ -53,6 +53,8 @@ Changed
 
 - Updated text for bundle request email. #375
 
+- Replacing '&' with 'and' in affiliation names. #235
+
 Fixed
 ~~~~~
 - Changelog is generated correctly. 
