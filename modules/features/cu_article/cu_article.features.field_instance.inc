@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * cu_article.features.field_instance.inc
@@ -262,7 +263,9 @@ function cu_article_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'link',
-        'settings' => array(),
+        'settings' => array(
+          'custom_title' => '',
+        ),
         'type' => 'link_default',
         'weight' => 1,
       ),
@@ -486,7 +489,9 @@ function cu_article_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'link',
-        'settings' => array(),
+        'settings' => array(
+          'custom_title' => '',
+        ),
         'type' => 'link_default',
         'weight' => 4,
       ),
@@ -1094,7 +1099,7 @@ function cu_article_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'smart_trim',
         'settings' => array(
-          'more_link' => 1,
+          'more_link' => 0,
           'more_text' => 'Read more',
           'summary_handler' => 'full',
           'trim_length' => 50,
@@ -1170,7 +1175,7 @@ function cu_article_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'smart_trim',
         'settings' => array(
-          'more_link' => 1,
+          'more_link' => 0,
           'more_text' => 'Read more',
           'summary_handler' => 'full',
           'trim_length' => 50,
@@ -2580,7 +2585,9 @@ function cu_article_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'link',
-        'settings' => array(),
+        'settings' => array(
+          'custom_title' => '',
+        ),
         'type' => 'link_default',
         'weight' => 0,
       ),
@@ -2671,7 +2678,9 @@ function cu_article_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'link',
-        'settings' => array(),
+        'settings' => array(
+          'custom_title' => '',
+        ),
         'type' => 'link_default',
         'weight' => 1,
       ),
@@ -2761,7 +2770,9 @@ function cu_article_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'link',
-        'settings' => array(),
+        'settings' => array(
+          'custom_title' => '',
+        ),
         'type' => 'link_default',
         'weight' => 0,
       ),
