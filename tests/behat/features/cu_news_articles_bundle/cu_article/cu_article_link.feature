@@ -1,3 +1,6 @@
+@newsArticles
+Feature: Article Read More Links
+
 Scenario: An issue page should contain articles with a single read more link
  Given I am logged in as a user with the "site_owner" role
   And I am on "node/add/article"
