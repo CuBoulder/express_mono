@@ -440,7 +440,7 @@ class FeatureContext extends MinkContext
       foreach ($nodes as $node) {
         // Note: getText() will return an empty string when using Selenium2D. This
         // is ok since it will cause a failed step.
-        $childnodes = $element->findAll('css', $childElement);
+        $childnodes = $node->findAll('css', $childElement);
         if (count($childnodes) > 1) {
           throw new \Exception();
         }
