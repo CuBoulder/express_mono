@@ -1,0 +1,32 @@
+<?php
+
+function cu_article_tests_menu() {
+  $items = array();
+
+  $items['article-tests'] = array(
+    'title' => 'Article Tests',
+    'access callback' => TRUE,
+    'page callback' => 'cu_article_tests_page',
+  );
+
+  return $items;
+}
+
+function cu_article_tests_page() {
+  $output = array();
+  // Start query.
+  $query = db_select('node', 'n');
+  $query->fields('n', array('nid'));
+  $query->condition('n.type', 'article', '=');
+  $query->condition('n.status', 1, '=');
+  $nids = $query->execute()->fetchCol();
+  //print_r($nids);
+  $nodes = node_load_multiple($nids);
+
+  if (!empty($nodes)) {
+    $output['articles'] = array();
+    $output['articles'] = node_view_multiple($nodes, 'teaser_category');
+  }
+
+  return $output;
+}
