@@ -5,6 +5,17 @@
  */
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function unpublished_404_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'menu_alter') {
+    $this_imp = $implementations['unpublished_404'];
+    unset($implementations['unpublished_404']);
+    $implementations['unpublished_404'] = $this_imp;
+  }
+}
+
+/**
  * Implements hook_menu_alter().
  */
 function unpublished_404_menu_alter(&$items) {
@@ -29,15 +40,20 @@ function unpublished_404_node_access() {
  *   A node object that is being viewed.
  */
 function unpublished_404_node_page_view($node) {
-
   $node_content = '';
-
   if (!node_access('view', $node)) {
-    $node_content = MENU_NOT_FOUND;
+    if ($node->status != NODE_PUBLISHED) {
+      $node_content = MENU_NOT_FOUND;
+    }
+    else {
+      $node_content = MENU_ACCESS_DENIED;
+    }
+  }
+  elseif (module_exists('ds_extras') && function_exists('ds_extras_node_page_view')) {
+    $node_content = ds_extras_node_page_view($node);
   }
   else {
     $node_content = node_page_view($node);
   }
-
   return $node_content;
 }

@@ -13,6 +13,13 @@ function cu_section_page_bundle_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'addanother_button_section_page';
+  $strongarm->value = 1;
+  $export['addanother_button_section_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_section_page';
   $strongarm->value = 'edit-display';
   $export['additional_settings__active_tab_section_page'] = $strongarm;

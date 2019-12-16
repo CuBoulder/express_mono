@@ -82,8 +82,8 @@ $cugold: #CFB87C;
       width:75%;
       .expandable-panel {
         width: 100%;
-        a:link,
-        a:visited {
+        a:link:not(.button),
+        a:visited:not(.button) {
           color: $blue !important;
         }
       }

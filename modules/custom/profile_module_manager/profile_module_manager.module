@@ -419,7 +419,7 @@ function profile_module_manger_send_request($form, &$form_state) {
   $site_name = variable_get('site_name', '');
   $name = isset($user->realname) ? $user->realname : $user->name;
   $bundle = $form_state['values']['bundle'];
-  $body = $name  . ' (' . $from . ') has requested the ' . $bundle  . ' for the ' . $site_name . ' website (' . $base_url .')';
+  $body = $name . ' - ' . $from . ' - has requested the ' . $bundle . ' for the ' . $site_name . ' website ' . $base_url;
   $params = array(
     'subject' => t('Bundle Request - ' . $bundle),
     'body' => $body,

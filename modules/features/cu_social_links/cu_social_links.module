@@ -175,6 +175,7 @@ function cu_social_links_types() {
     'blogger' => 'Blogger',
     'snapchat' => 'Snapchat',
   );
+  asort($types);
   return $types;
 }
 

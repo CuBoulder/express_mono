@@ -23,18 +23,19 @@ Examples:
  Scenario: Node Access -  An anonymous user cannot add Article content
   When I am on "node/add/article"
   Then I should see "Access denied"
-  
+
 # 2) TEST THAT A SIMPLE NODE CAN BE CREATED AND REVISED
  Scenario: Node Functionality - A simple Article node can be created
  Given I am logged in as a user with the "site_owner" role
   And I am on "node/add/article"
+  And I should see an "#edit-addanother" element
   And fill in "edit-title" with "Lunch is served at the Center for Community"
   And fill in "Body" with "Enjoy many lucious desserts"
   When I press "edit-submit"
  Then I should see "Article Lunch is served at the Center for Community has been created."
 And I should see "Enjoy many lucious desserts"
 
- 
+
 #  2.5 CREATE REVISIONS TO THE NEW NODE
 Scenario: Node functionality - Create node revision by adding graphics
 Given I am logged in as a user with the "site_owner" role
@@ -70,7 +71,7 @@ And I attach the file "ralphie.jpg" to "edit-field-article-thumbnail-und-0-uploa
  When I go to "/ralphie"
  Then I should see "An article about Ralphie"
  And I should not see "Lunch is served at the Center for Community"
- 
+
 # DATES CAN BE TURNED ON and OFF FOR DISPLAY ON ARTICLES
 # This is also tested in Express/cu_settings/articlesettings.feature
 Scenario: Article Date Display can be turned on and off site-wide
@@ -120,11 +121,11 @@ Then I should see "This document is now locked against simultaneous editing."
 And I should see an "#edit-delete" element
 And I press "Cancel edit"
 
-Examples: 
+Examples:
 | role |
-| developer       | 
-| administrator   | 
-| site_owner      | 
+| developer       |
+| administrator   |
+| site_owner      |
 | content_editor  |
 | site_editor |
 
@@ -133,7 +134,7 @@ Given I am logged in as a user with the "edit_only" role
 And I am on "admin/content"
 And I follow "Lunch is served at the Center for Community"
 Then I should see the link "View"
-# HIDE THE REST FOR NOW UNTIL PERMISSIONS ARE FIXED. 
+# HIDE THE REST FOR NOW UNTIL PERMISSIONS ARE FIXED.
 And I should see the link "Edit"
 And I should not see the link "Edit Layout"
 # And I should see the link "Revisions"
@@ -143,7 +144,7 @@ Then I should see "This document is now locked against simultaneous editing."
 But I should not see an "#edit-delete" element
 And I press "Cancel edit"
 
-# EDIT MY CONTENT: ALL OTHER NODES 
+# EDIT MY CONTENT: ALL OTHER NODES
 Scenario: Node Access - EditMyContent can not edit Article nodes
 Given I am logged in as a user with the "edit_my_content" role
 And I am on "admin/content"
@@ -151,4 +152,3 @@ And I follow "Lunch is served at the Center for Community"
 Then I should see the link "View"
 And I should not see the link "Edit"
 And I should not see the link "Clear Page Cache"
-

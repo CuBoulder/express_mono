@@ -45,6 +45,16 @@ function cu_saml_user_login(&$edit, $account) {
 }
 
 /**
+ * Implements hook_menu_alter().
+ *
+ * Redirects users to the federated login page at /saml_login.
+ */
+function cu_saml_menu_alter(&$items) {
+  $items['user']['page callback'] = 'drupal_goto';
+  $items['user']['page arguments'] = array('saml_login');
+}
+
+/**
  * Sets the user display name from saml info.
  */
 function _set_user_display_name($account, $values) {

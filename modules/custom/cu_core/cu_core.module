@@ -277,6 +277,22 @@ function cu_core_preprocess_html(&$vars) {
   }
 }
 
+/**
+ * Implements hook_form_alter().
+ *
+ * This alters the site name form from express_settings.module.
+ * This alter provides a list of CU Boulder specific options for the
+ * affiliation field in addition to a custom option.
+ *
+ * Most sites should use one of the set options, but the custom option can be
+ * used for special use cases, such as RASEI, where the affilation text could be
+ * 'A partnership between CU Boulder and the National Renewable Energy Laboratory'.
+ *
+ * This alter also adds a site_type field. By setting a site type, we can make
+ * global/theme changes based on these. For example, sport clubs get the
+ * Ralphie logo added next to the site name, student groups get an affilation
+ * set. See template.php and site-name.tpl.php in the UCB theme.
+ */
 function cu_core_form_express_settings_site_name_form_alter(&$form, &$form_state, $form_id) {
   // Set a type for each site.
   $form['express_site_type'] = array(
@@ -381,7 +397,7 @@ function cu_core_site_affiliation_options($option = NULL) {
 
     'college_of_arts_sciences' => array(
       'url' => 'https://www.colorado.edu/artsandsciences',
-      'label' => 'College of Arts & Sciences',
+      'label' => 'College of Arts and Sciences',
     ),
     'leeds_school_business' => array(
       'url' => 'https://www.colorado.edu/business',
@@ -393,11 +409,11 @@ function cu_core_site_affiliation_options($option = NULL) {
     ),
     'college_engineering_applied_science' => array(
       'url' => 'https://www.colorado.edu/engineering',
-      'label' => 'College of Engineering & Applied Science',
+      'label' => 'College of Engineering and Applied Science',
     ),
     'college_media_communication_information' => array(
       'url' => 'https://www.colorado.edu/cmci',
-      'label' => 'College of Media, Communication & Information',
+      'label' => 'College of Media, Communication and Information',
     ),
     'college_music' => array(
       'url' => 'https://www.colorado.edu/music',
@@ -425,7 +441,7 @@ function cu_core_site_affiliation_options($option = NULL) {
     ),
     'diversity_equity_engagement' => array(
       'url' => 'https://www.colorado.edu/odece',
-      'label' => 'Office of Diversity, Equity & Community Engagement',
+      'label' => 'Office of Diversity, Equity and Community Engagement',
     ),
     'faculty_affairs' => array(
       'url' => 'https://www.colorado.edu/facultyaffairs',
@@ -437,7 +453,7 @@ function cu_core_site_affiliation_options($option = NULL) {
     ),
     'research_innovation' => array(
       'url' => 'https://www.colorado.edu/researchinnovation',
-      'label' => 'Research & Innovation Office',
+      'label' => 'Research and Innovation Office',
     ),
     'strategic_initiatives' => array(
       'url' => 'https://www.colorado.edu/osi',
@@ -457,7 +473,7 @@ function cu_core_site_affiliation_options($option = NULL) {
     ),
     'finance_business_strategy' => array(
       'url' => 'https://www.colorado.edu/fbs',
-      'label' => 'Part of Finance & Business Strategy',
+      'label' => 'Part of Finance and Business Strategy',
     ),
     'human_resources' => array(
       'url' => 'https://www.colorado.edu/hr',
@@ -469,7 +485,7 @@ function cu_core_site_affiliation_options($option = NULL) {
     ),
     'infrastructure_sustainability' => array(
       'url' => 'https://www.colorado.edu/infrastructure-sustainability',
-      'label' => 'Part of Infrastructure & Sustainability',
+      'label' => 'Part of Infrastructure and Sustainability',
     ),
     'institutional_equity' => array(
       'url' => 'https://www.colorado.edu/oiec',
@@ -477,11 +493,11 @@ function cu_core_site_affiliation_options($option = NULL) {
     ),
     'integrity_safety_compliance' => array(
       'url' => '',
-      'label' => 'Office of Integrity, Safety & Compliance',
+      'label' => 'Office of Integrity, Safety and Compliance',
     ),
     'strategic_relations_communication' => array(
       'url' => 'https://www.colorado.edu/strategicrelations',
-      'label' => 'Part of Strategic Relations & Communications',
+      'label' => 'Part of Strategic Relations and Communications',
     ),
   );
 

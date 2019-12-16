@@ -16,10 +16,6 @@ function express_settings_permission() {
       'title' => 'Administer Express Settings',
       'description' => 'Configure settings in admin/settings',
     ),
-    'administer express site status' => array(
-      'title' => 'Administer Express Site Status',
-      'description' => 'Configure settings in admin/settings',
-    ),
     'administer redirect settings' => array(
       'title' => 'Administer Redirect Settings',
       'description' => 'Overrides some permissions of the Redirect contrib project to expose specific settings to users',
@@ -52,25 +48,6 @@ function express_settings_menu() {
     'weight' => 8,
   );
 
-  // DEFINES SITE STATUS SECTION.
-  $items['admin/settings/site-status'] = array(
-    'title' => 'Site Status',
-    'description' => '',
-    'position' => 'left',
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('administer express site status'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
-    'weight' => -99,
-  );
-  $items['admin/settings/site-status/verify'] = array(
-    'title' => 'Verify Migration',
-    'description' => 'Confirm that this site has migrated successfully',
-    'type' => MENU_NORMAL_ITEM,
-    'page callback' => 'express_settings_site_status_page',
-    'access arguments' => array('administer express site status'),
-    'weight' => -50,
-  );
 
   // DEFINES SITE CONFIGURATION SECTION.
   $items['admin/settings/site-configuration'] = array(
@@ -387,6 +364,10 @@ function express_settings_site_name_form($form, &$form_state) {
     '#description' => 'The name of your website.',
   );
 
+  // These two fields are used to display text and an optional link of what
+  // other units the site is affiliated with.
+  // For example, the Department of Mechanical Engineering can display
+  // An affiliation link to the College of Engineering.
   $form['express_site_affiliation_title'] = array(
     '#title' => t('Site Affiliation Title'),
     '#type' => 'textfield',

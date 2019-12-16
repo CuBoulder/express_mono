@@ -48,6 +48,7 @@ And fill in "Last Name" with "MyLast"
 And I press "Save"
 # CREATE CONTENT LIST PAGE
 And I go to "node/add/content-list-page"
+And I should see an "#edit-addanother" element
 And fill in "edit-title" with "Test Content List Page"
 And fill in "edit-field-content-list-reference-und-0-target-id" with "List Test Page"
 And I press "field_content_list_reference_add_more"

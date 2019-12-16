@@ -12,7 +12,7 @@
 .expandable-tabs-vertical ul.expandable-tablist li.is-active a { background-color: #fff; color: #202020 !important; border-right: none; }
 @media screen and (min-width: 768px) { .expandable-tabs-vertical .expandable-panel-group { padding: 0px 20px 20px; border: 1px solid rgba(128, 128, 128, 0.333); border-left: none; flex-grow: 1; background: #fff; width: 75%; }
   .expandable-tabs-vertical .expandable-panel-group .expandable-panel { width: 100%; }
-  .expandable-tabs-vertical .expandable-panel-group .expandable-panel a:link, .expandable-tabs-vertical .expandable-panel-group .expandable-panel a:visited { color: #0277BD !important; } }
+  .expandable-tabs-vertical .expandable-panel-group .expandable-panel a:link:not(.button), .expandable-tabs-vertical .expandable-panel-group .expandable-panel a:visited:not(.button) { color: #0277BD !important; } }
 
 .expandable .expandable-accordion-heading { font-size: 110%; border-bottom: 1px solid rgba(128, 128, 128, 0.333); margin-bottom: -1px; }
 .expandable .expandable-accordion-heading a:link, .expandable .expandable-accordion-heading a:visited { font-weight: normal; padding: 10px 0; display: block; text-decoration: none !important; }

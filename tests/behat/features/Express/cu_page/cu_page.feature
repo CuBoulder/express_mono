@@ -45,18 +45,19 @@ I should be able to create, edit, and delete Basic Pages
   Scenario: Node Access -  An anonymous user cannot add Basic Page content
     When I am on "node/add/page"
     Then I should see "Access denied"
-  
+
   #  2) CHECK THAT SIMPLE NODE CAN BE CREATED
   Scenario: Node Functionality - A very basic Basic Page node can be created
   Given I am logged in as a user with the "site_owner" role
   And I am on "node/add/page"
   And fill in "edit-title" with "My Page"
   And fill in "Body" with "Lorem ipsum dolor sit amet"
+  And I should see an "#edit-addanother" element
   When I press "edit-submit"
   Then I should be on "/my-page"
   And I should see "My Page"
   And I should see "Lorem ipsum dolor sit amet"
- 
+
   # 2.1) CHANGE AUTHOR OF THE PAGE NODE
   @broken
   Scenario: Node functionality - Change Authorship of node on admin/content
@@ -181,3 +182,12 @@ I should be able to create, edit, and delete Basic Pages
     Then I should see "Not In Menu"
     And I follow "Edit"
     Then the checkbox "edit-menu-enabled" should be unchecked
+
+  #  6) CHECK SAVE AND ADD ANOTHER
+  Scenario: Node Functionality - A a page node and add another
+  Given I am logged in as a user with the "site_owner" role
+  And I am on "node/add/page"
+  And fill in "edit-title" with "Test Page"
+  And fill in "Body" with "Lorem ipsum dolor sit amet"
+  When I press "edit-addanother"
+  Then I should be on "/node/add/page"

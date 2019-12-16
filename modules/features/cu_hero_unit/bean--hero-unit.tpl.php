@@ -42,7 +42,7 @@
     <div class="hero-unit-image-content-wrapper clearfix">
       <div class="hero-unit-content-wrapper element-max-width">
         <div class="hero-unit-content">
-          <div class="hero-unit-content-inner">
+          <div class="container">
           <h2><?php print render($content['field_hero_unit_headline']); ?></h2>
           <?php if(!empty($content['field_hero_unit_text'])): ?>
             <p><?php print render($content['field_hero_unit_text']); ?></p>

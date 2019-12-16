@@ -5,6 +5,70 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.1.2 (2019-12-10)
+------------
+
+This release adds the 'Save and Add Another' feature to many content types, updated contrib modules, and resolved some CSS bugs.
+
+Added
+~~~~~~~
+
+- 'Save and Add Another' functionality added to select content types. #115
+
+Changed
+~~~~~~~
+- Remove Site Status Section from admin/settings.
+
+- Rebuild secure permissions after removing perms for express site status.
+
+- Adding comments about site affiliation fields, display. #413
+
+- Fixing issue where campus logo would not display at the correct aspect ration in some clients. #393
+
+- Fixed issue where buttons in vertical tabs did not have correct color. #401
+
+- Update webform from 7.x-4.19 to 7.x-4.20. #374
+
+- Updated file_entity from 7.x-2.25 to 7.x-2.27. #374
+
+- Updated google_tag from 7.x-1.4 to 7.x-1.6. #374
+
+- Update link from 7.x-1.6 to 7.x-1.7. #374
+
+- Update captcha from 7.x-1.5 to 7.x-1.6. #374
+
+- Update inline_entity_form from 7.x-1.8 to 7.x-1.9. #374
+
+- Updated unpublished_404 from 7.x-1.1 to 7.x-1.2. #374
+
+- Update field_collection from 7.x-1.0-beta13 to 7.x-1.1. #374
+
+- Update and patch simplesamlphp_auth module.
+
+- Updating variable sets for simplesamlphp_auth_user_name and simplesamlphp_auth_unique_id. 
+
+- Updating gemfiles #326
+
+- Sorting social link type options alphabetically #357
+
+- Updated text for bundle request email. #375
+
+- Replacing '&' with 'and' in affiliation names. #235
+
+Fixed
+~~~~~
+- Changelog is generated correctly. 
+
+- Fixing issue where administrators couldn't edit user roles #114.
+
+- Fixing flexbox display of issue grids #326.
+
+Removed
+~~~~~~~
+- Remove express help module. #361
+
+- Removing zengrids from publication bundle #326
+
 v4.1.1 (2019-11-12)
 ------------
 
@@ -148,89 +212,89 @@ This update begins the process of adding what were separate code bundles back in
 
 Added
 ~~~~~
-- Add mega menu bundle. [#48](https://github.com/CuBoulder/express_mono/issues/48).
+- Add mega menu bundle. #48
 
-- Add custom logo to sticky menus. [#3](https://github.com/CuBoulder/express_mono/issues/3).
+- Add custom logo to sticky menus. #3
 
-- Add ability to choose brand bar color. [#2](https://github.com/CuBoulder/express_mono/issues/2).
+- Add ability to choose brand bar color. #2
 
 Changed
 ~~~~~
-- Consolidate code into a single reposistory: Campus News, Class Notes, Livestream, Content Sequence, Newsletter, Livechat, Publications, Chemistry Titles, Custom Logo, Responsive Visibility, Section Page, Collections, Video Hero Unit, Localist.
+- Consolidate code into a single repository: Campus News, Class Notes, Livestream, Content Sequence, Newsletter, Livechat, Publications, Chemistry Titles, Custom Logo, Responsive Visibility, Section Page, Collections, Video Hero Unit, Localist.
 
 - Make changes to support cloud hosting.
 
 - Increased Form bundle test coverage.
 
-- Setting GTM ID, enabling google_tag on existing sites. [#142](https://github.com/CuBoulder/express_mono/issues/142).
+- Setting GTM ID, enabling google_tag on existing sites. #142
 
 Deprecated
 ~~~~~
-- Add instructions and deprecated label to old fields. [#3](https://github.com/CuBoulder/express_mono/issues/3).
+- Add instructions and deprecated label to old fields. #3
 
 Removed
 ~~~~~
-- Remove Atlas code UI. [#113](https://github.com/CuBoulder/express_mono/issues/113).
+- Remove Atlas code UI. #113
 
-- Remove developers from install profile. [#221](https://github.com/CuBoulder/express_mono/issues/221).
+- Remove developers from install profile. #221
 
 Fixed
 ~~~~~
-- Logo did not size properly in Firefox. [#212](https://github.com/CuBoulder/express_mono/issues/212).
+- Logo did not size properly in Firefox. #212
 
-- Test content images did not load. [#163](https://github.com/CuBoulder/express_mono/issues/163).
+- Test content images did not load. #163
 
-- Correct color of affiliation text/link on black site name banners. [#188](https://github.com/CuBoulder/express_mono/issue/188s).
+- Correct color of affiliation text/link on black site name banners. #188
 
-- Correct content sequence formating with italics. [#214](https://github.com/CuBoulder/express_mono/issues/214).
+- Correct content sequence formating with italics. #214
 
-- Hide text description that is no supposed to appear. [#118](https://github.com/CuBoulder/express_mono/issues/118).
+- Hide text description that is no supposed to appear. #118
 
-- Center 'more' link on campus news grid. [#162](https://github.com/CuBoulder/express_mono/issues/162).
+- Center 'more' link on campus news grid. #162
 
-- Correct footer link color on simple newsletter theme. [#164](https://github.com/CuBoulder/express_mono/issues/164).
+- Correct footer link color on simple newsletter theme. #164
 
-- Collection terms sort predictably. [#166](https://github.com/CuBoulder/express_mono/issues/166).
+- Collection terms sort predictably. #166
 
-- Correct expandable link colors on dark backgrounds. [#10](https://github.com/CuBoulder/express_mono/issues/10).
+- Correct expandable link colors on dark backgrounds. #10
 
-- Correct alignment of hero content at various browser widths. [#149](https://github.com/CuBoulder/express_mono/issues/149).
+- Correct alignment of hero content at various browser widths. #149
 
-- Improve contrast of block designer outline on dark backgrounds. [#158](https://github.com/CuBoulder/express_mono/issues/158).
+- Improve contrast of block designer outline on dark backgrounds. #158
 
-- User 1 cannot access bundle configuration screens. [#145](https://github.com/CuBoulder/express_mono/issues/145).
+- User 1 cannot access bundle configuration screens. #145
 
-- Related article calculation is incorrect. [#1](https://github.com/CuBoulder/express_mono/issues/1).
+- Related article calculation is incorrect. #1
 
-- Drupal blocks could not be configured. [#121](https://github.com/CuBoulder/express_mono/issues/121).
+- Drupal blocks could not be configured. #121
 
-- Correct section page content on mobile displays. [#150](https://github.com/CuBoulder/express_mono/issues/150).
+- Correct section page content on mobile displays. #150
 
-- Some themes have too much padding at wide widths. [#151](https://github.com/CuBoulder/express_mono/issues/151).
+- Some themes have too much padding at wide widths. #151
 
-- Page title had too much horizontal padding on mobile displays. [#152](https://github.com/CuBoulder/express_mono/issues/152).
+- Page title had too much horizontal padding on mobile displays. #152
 
-- Correct blocks display with offset icons. [#106](https://github.com/CuBoulder/express_mono/issues/106).
+- Correct blocks display with offset icons. #106
 
-- Correct height of lighttheme page titles. [#157](https://github.com/CuBoulder/express_mono/issues/157).
+- Correct height of lighttheme page titles. #157
 
-- Improve nesting of background color classes. [#6](https://github.com/CuBoulder/express_mono/issues/6).
+- Improve nesting of background color classes. #6
 
-- Fixing notice if a homepage is set to a path that is not a node. [#86](https://github.com/CuBoulder/express_mono/issues/86).
+- Fixing notice if a homepage is set to a path that is not a node. #86
 
-- Correct 'site name' line height on non-front pages. [#9](https://github.com/CuBoulder/express_mono/issues/9).
+- Correct 'site name' line height on non-front pages. #9
 
-- Correct form fields display on dark backgrounds. [#8](https://github.com/CuBoulder/express_mono/issues/8).
+- Correct form fields display on dark backgrounds. #8
 
-- Display breadcrumbs when a feature image was set. [#7](https://github.com/CuBoulder/express_mono/issues/7).
+- Display breadcrumbs when a feature image was set. #7
 
-- Allow teaser content grid to display short text content. [#4](https://github.com/CuBoulder/express_mono/issues/4).
+- Allow teaser content grid to display short text content. #4
 
-- Correct link color when the background color for the region is not correct. [#5](https://github.com/CuBoulder/express_mon/5o/issues).
+- Correct link color when the background color for the region is not correct. #5
 
 Security
 ~~~~~
-- Update Drupal contributed modules. [#116](https://github.com/CuBoulder/express_mono/issues/116).
+- Update Drupal contributed modules. #116
 
 
 __ https://keepachangelog.com/en/1.0.0/

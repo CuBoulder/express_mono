@@ -59,10 +59,10 @@ EOS;
   }
 /*
   $script = <<<EOS
-<!-- Google Tag Manager -->
-$script
-<!-- End Google Tag Manager -->
-EOS;
+  <!-- Google Tag Manager -->
+  $script
+  <!-- End Google Tag Manager -->
+  EOS;
 */
   return $script;
 }
@@ -82,17 +82,17 @@ function _google_tag_noscript_snippet() {
   // Build noscript snippet.
   $noscript = <<<EOS
 <noscript aria-hidden="true"><iframe src="https://www.googletagmanager.com/ns.html?id=$container_id$query"
- height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager">Google Tag Manager</iframe></noscript>
+ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 EOS;
   if ($compact) {
     $noscript = str_replace("\n", '', $noscript);
   }
 /*
   $noscript = <<<EOS
-<!-- Google Tag Manager -->
-$noscript
-<!-- End Google Tag Manager -->
-EOS;
+  <!-- Google Tag Manager -->
+  $noscript
+  <!-- End Google Tag Manager -->
+  EOS;
 */
   return $noscript;
 }
@@ -148,20 +148,12 @@ function _google_tag_environment_query() {
  *
  * @param string $variable
  *   The variable name.
- * @param string $variable
+ * @param string $default
  *   The default value for the variable.
  *
  * @return string
  *   The cleansed variable.
  */
 function _google_tag_variable_clean($variable, $default = '') {
-  $clean_variable = trim(drupal_json_encode(variable_get($variable, $default)), '"');
-  // @TODO: TEMP - find a way to alter this vs. using a patch-hack
-  if ($variable == 'google_tag_container_id') {
-    $google_tag_client_container_id = variable_get('google_tag_client_container_id', FALSE);
-    if ($_ENV['OSR_ENV'] == 'test' && $google_tag_client_container_id) {
-      $clean_variable = $google_tag_client_container_id;
-    }
-  }
-  return $clean_variable;
+  return trim(drupal_json_encode(variable_get($variable, $default)), '"');
 }
