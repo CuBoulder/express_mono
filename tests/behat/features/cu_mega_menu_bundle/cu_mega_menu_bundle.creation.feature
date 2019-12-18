@@ -6,7 +6,7 @@ As an authenticated user with the right permission
 I should be able to create a mega menu
 
 Scenario Outline: An authenticated user should be able to access the form for adding a mega menu
-    Given  I am logged in as a user with the site_owner role
+    Given  I am logged in as a user with the "site_owner" role
     When I go to "admin/structure/mega-menu/add"
     Then I should see "Add a Mega Menu"
     And I fill in "Label" with "About Mega Menu"
