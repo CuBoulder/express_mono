@@ -23,7 +23,7 @@ Scenario Outline: An authenticated user should be able to access the form for ad
     And I fill in "field_mega_menu_links[und][0][field_mega_menu_link_fc][und][1][field_mega_menu_link][und][0][url]" with "https://www.colorado.edu"
     And I fill in "field_mega_menu_links[und][0][field_mega_menu_link_fc][und][1][field_mega_menu_link_desc][und][0][value]" with "Link Two Description"
     # Add another section
-    and I press "field_mega_menu_links_add_more"
+    And I press "field_mega_menu_links_add_more"
     # And I wait for AJAX
     And I fill in "field_mega_menu_links[und][1][field_mega_menu_links_label][und][0][value]" with "Mega Menu Label Two"
     And I fill in "field_mega_menu_links[und][1][field_mega_menu_link_fc][und][0][field_mega_menu_link][und][0][title]" with "Mega Menu Link Three"
