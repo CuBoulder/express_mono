@@ -43,7 +43,7 @@ Scenario: An authenticated user should be able to create a mega menu
 
     Then I am on "admin/structure/menu/manage/main-menu"
     And I should see "Main Menu"
-    And I press "configure item"
+    And I follow "configure item"
     And I check "Enable mega menu on this menu item"
     And I select "About Mega Menu" from "edit-mega-menu-reference"
     And I press "Save"
