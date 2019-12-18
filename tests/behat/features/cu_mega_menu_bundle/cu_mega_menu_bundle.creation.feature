@@ -39,7 +39,7 @@ Scenario: An authenticated user should be able to create a mega menu
     And I fill in "Text Below" with "This is text below the mega menu."
 
     And I press "Save"
-    And I should see "About Mega Menu"
+    Then I should see "About Mega Menu"
 
     Then I am on "admin/structure/menu/manage/main-menu"
     And I should see "Main Menu"
