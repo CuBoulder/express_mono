@@ -9,8 +9,8 @@ Scenario: An authenticated user should be able to create a mega menu
     Given  I am logged in as a user with the "site_owner" role
     When I go to "admin/structure/mega-menu/add"
     Then I should see "Add a Mega Menu"
-    And I fill in "Label" with "About Mega Menu"
-    And I fill in "Heading" with "About Us"
+    And I fill in "edit-title" with "About Mega Menu"
+    And I fill in "edit-field-mega-menu-label-und-0-value" with "About Us"
     And I fill in "Text Above" with "This is text above the mega menu."
     And I fill in "field_mega_menu_links[und][0][field_mega_menu_links_label][und][0][value]" with "Mega Menu Label One"
     And I fill in "field_mega_menu_links[und][0][field_mega_menu_link_fc][und][0][field_mega_menu_link][und][0][title]" with "Mega Menu Link One"
