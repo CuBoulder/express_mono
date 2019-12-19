@@ -1,0 +1,18 @@
+diff --git a/modules/contrib/field_collection/field_collection.module b/modules/contrib/field_collection/field_collection.module
+index 8e1b8092..341c4294 100644
+--- a/modules/contrib/field_collection/field_collection.module
++++ b/modules/contrib/field_collection/field_collection.module
+@@ -971,7 +971,7 @@ function field_collection_entity_preload($entities, $langcode, &$items, $fields)
+               $field_data = $e->$field_name;
+               if (isset($field_data[$langcode])) {
+                 $new_entities[$e->item_id] = $e->item_id;
+-                $items[$e->item_id] = $field_data[$langcode];
++                $items[] = $field_data[$langcode];
+               }
+             }
+           }
+@@ -2454,4 +2454,3 @@ function field_collection_feeds_presave(FeedsSource $source, $entity, $item, $en
+     }
+   }
+ }
+-
