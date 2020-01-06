@@ -12,7 +12,10 @@
         <?php print $category_teaser_category_links; ?>
       <?php endif; ?>
     </div>
-    <div class="article-summary"><?php print render($content['body']); ?></div>
+    <div class="article-summary">
+      <?php print render($content['body']); ?>
+      <p><?php print $more_link; ?></p>
+    </div>
 
   </div>
 </div>
