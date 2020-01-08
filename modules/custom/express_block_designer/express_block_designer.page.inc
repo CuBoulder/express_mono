@@ -28,7 +28,19 @@ function express_block_designer_themes_preview($id = NULL) {
     $exbd_theme_settings = unserialize($theme->block_settings);
     foreach ($exbd_theme_settings as $key => $setting) {
       if (!in_array($key, $excluded_settings)) {
-        $prefix = str_replace("_", "-", $key);
+        // Translate style value
+        if ($key == 'exbd_style') {
+          $setting = express_block_designer_style_translate($setting);
+          if ($setting == 'outline' || $setting == 'underline') {
+            $prefix = 'exbd-style';
+          }
+          else {
+            $prefix = 'background';
+          }
+        }
+        else {
+          $prefix = str_replace("_", "-", $key);
+        }
         $vars['classes_array'][$prefix] = $prefix . '-' . str_replace("_", "-", $setting);
       }
     }
