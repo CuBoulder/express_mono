@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * cu_article.field_group.inc
