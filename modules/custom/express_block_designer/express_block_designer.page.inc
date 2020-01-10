@@ -25,6 +25,7 @@ function express_block_designer_themes_preview($id = NULL) {
   $examples = array();
   // Loop through returned themes and build preview output.
   foreach($results as $theme) {
+    $vars['classes_array'] = array();
     $exbd_theme_settings = unserialize($theme->block_settings);
     foreach ($exbd_theme_settings as $key => $setting) {
       if (!in_array($key, $excluded_settings)) {
@@ -61,7 +62,7 @@ function express_block_designer_themes_preview($id = NULL) {
     $vars['exbd_classes'] = join(' ', $vars['classes_array']);
     $vars['icon_classes'] = join(' ', $icon_classes);
     // Theme block output.
-    $examples[]['#markup'] = theme('express_block_designer_block_preview', $vars);
+    $examples[]['#markup'] = '<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 exbd-theme-preview">' . theme('express_block_designer_block_preview', $vars) . '</div>';
     $examples['#prefix'] = '<div class="row exbd-theme-previews">';
 
     $examples['#suffix'] = '</div>';
