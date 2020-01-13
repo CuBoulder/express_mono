@@ -1,6 +1,5 @@
 @cu_mega_menu_bundle
 Feature: Mega Menu
-
 When I login to a Web Express website
 As an authenticated user with the right permission
 I should be able to create and render a mega menu
