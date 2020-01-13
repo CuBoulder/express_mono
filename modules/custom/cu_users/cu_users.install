@@ -430,3 +430,19 @@ function cu_users_update_7035() {
     }
   }
 }
+
+/**
+ * Remove admin role from Jon Leslie)
+ */
+function cu_users_update_7036() {
+  $users = array('leslie');
+  foreach ($users as $username) {
+    $user = user_load_by_name($username);
+    if ($user) {
+      if (($key = array_search('administrator', $user->roles)) !== FALSE) {
+        unset($user->roles[$key]);
+      }
+      user_save($user);
+    }
+  }
+}
