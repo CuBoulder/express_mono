@@ -1,4 +1,4 @@
-<div class="<?php print $exbd_classes; ?>">
+<div class="<?php print $exbd_classes; ?> exbd-theme-preview">
   <div class="block-inner-wrapper block-inner clearfix">
     <div class="exbd-block-title">
       <<?php print $exbd_heading; ?> class="block-title">
