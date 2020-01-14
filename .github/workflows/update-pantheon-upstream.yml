@@ -13,4 +13,4 @@ jobs:
     - uses: ./.github/workflows/action-update-express-upstream
       env:
         TOKEN: ${{ secrets.OSRWEBDEPLOY_TOKEN }}
-        EXPRESS_VERSION: 0.0.1
+        EXPRESS_VERSION: v4.0.0
