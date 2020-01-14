@@ -11,11 +11,8 @@ echo Creating new branch $GITHUB_REF
 git checkout -b $GITHUB_REF
 cd profiles
 rm -rf express
-echo Cloning express_mono $GITHUB_REF release into express-mono-upstream
+echo Cloning express_mono $GITHUB_REF into express-mono-upstream
 git clone https://osrwebdeploy:$TOKEN@github.com/CuBoulder/express_mono.git --branch $GITHUB_REF --single-branch express
-cd express
-git checkout $GITHUB_REF
-cd ..
 git add express
 git commit -m "Updating express_mono to $GITHUB_REF"
 echo Pushing changes...
