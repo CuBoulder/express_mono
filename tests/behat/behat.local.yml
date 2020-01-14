@@ -22,8 +22,35 @@ default:
     advanced_layout:
       paths: [ "%paths.base%/features/cu_advanced_layout_bundle" ]
       contexts: [ FeatureContext ]
+    classnotes:
+      paths: [ "%paths.base%/features/cu_alumni_class_notes_bundle" ]
+      contexts: [ FeatureContext ]
+    content_sequence:
+      paths: [ "%paths.base%/features/cu_content_sequence_bundle" ]
+      contexts: [ FeatureContext ]
+    custom_logo:
+      paths: [ "%paths.base%/features/cu_custom_logo_bundle" ]
+      contexts: [ FeatureContext ]
+    digital_campaign:
+      paths: [ "%paths.base%/features/cu_digital_campaign_bundle" ]
+      contexts: [ FeatureContext ]
+    forms:
+      paths: [ "%paths.base%/features/cu_forms_bundle" ]
+      contexts: [ FeatureContext ]
+    livechat:
+      paths: [ "%paths.base%/features/cu_livechat_bundle" ]
+      contexts: [ FeatureContext ]
+    livestream:
+      paths: [ "%paths.base%/features/cu_livestream_bundle" ]
+      contexts: [ FeatureContext ]
+    mega_menu:
+      paths: [ "%paths.base%/features/cu_mega_menu_bundle" ]
+      contexts: [ FeatureContext ]
     news_articles:
       paths: [ "%paths.base%/features/cu_news_articles_bundle" ]
+      contexts: [ FeatureContext ]
+    newsletter:
+      paths: [ "%paths.base%/features/cu_newsletter_bundle" ]
       contexts: [ FeatureContext ]
     people:
       paths: [ "%paths.base%/features/cu_people_bundle" ]
@@ -31,17 +58,32 @@ default:
     photo_gallery:
       paths: [ "%paths.base%/features/cu_photo_gallery_bundle" ]
       contexts: [ FeatureContext ]
+    cu_publications_bundle:
+      paths: [ "%paths.base%/features/cu_publications_bundle" ]
+      contexts: [ FeatureContext ]
     seo_bundle:
       paths: [ "%paths.base%/features/cu_seo_bundle" ]
       contexts: [ FeatureContext ]
     social_media:
       paths: [ "%paths.base%/features/cu_social_media_bundle" ]
       contexts: [ FeatureContext ]
-    forms:
-      paths: [ "%paths.base%/features/cu_forms_bundle" ]
+    cu_video_hero_unit:
+      paths: [ "%paths.base%/features/cu_video_hero_unit_bundle" ]
       contexts: [ FeatureContext ]
-    digital_campaign:
-      paths: [ "%paths.base%/features/cu_digital_campaign_bundle" ]
+    cu_section_page:
+      paths: [ "%paths.base%/features/cu_section_page_bundle" ]
+      contexts: [ FeatureContext ]
+    collections:
+      paths: [ "%paths.base%/features/express_collections_bundle" ]
+      contexts: [ FeatureContext ]
+    localist:
+      paths: [ "%paths.base%/features/express_localist_bundle" ]
+      contexts: [ FeatureContext ]
+    responsive_visibility:
+      paths: [ "%paths.base%/features/express_responsive_visibility_bundle" ]
+      contexts: [ FeatureContext ]
+    campus_news:
+      paths: [ "%paths.base%/features/cu_campus_news_bundle" ]
       contexts: [ FeatureContext ]
   extensions:
       Behat\MinkExtension:
