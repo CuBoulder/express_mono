@@ -16,5 +16,4 @@ And I press "Save"
 And I go to "block/apple-info-block/design"
 And I select "fa-apple" from "exbd_icon"
 And I press "edit-submit"
-#YES THE FOLLOWING LINE IS MISSPELLED IN WEB EXPRESS
-Then I should see "Block Desiger settings have been saved."
+Then I should see "settings have been saved."
