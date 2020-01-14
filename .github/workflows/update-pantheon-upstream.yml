@@ -1,8 +1,9 @@
 name: Update express_mono in express-mono-upstream to lastest release
 on:  
-  release:
+  push:
     # Options: published, unpublished, created, edited, deleted, prereleased
-    types: [published]
+    branches:
+      - feature/456-debug
 jobs:
   build:
     name: Update express-mono-upstream to latest release
@@ -12,3 +13,4 @@ jobs:
     - uses: ./.github/workflows/action-update-express-upstream
       env:
         TOKEN: ${{ secrets.OSRWEBDEPLOY_TOKEN }}
+        EXPRESS_VERSION: 0.0.1
