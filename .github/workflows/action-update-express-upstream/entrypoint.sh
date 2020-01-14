@@ -13,9 +13,6 @@ cd profiles
 rm -rf express
 echo Cloning express_mono $EXPRESS_VERSION release into express-mono-upstream
 git clone https://osrwebdeploy:$TOKEN@github.com/CuBoulder/express_mono.git --branch $EXPRESS_VERSION --single-branch express
-cd express
-git checkout $EXPRESS_VERSION
-cd ..
 git add express
 git commit -m "Updating express_mono to $EXPRESS_VERSION"
 echo Pushing changes...
