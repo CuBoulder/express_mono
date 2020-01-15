@@ -30,7 +30,6 @@ Scenario: FAQ Access -  An anonymous user cannot add FAQ content
   When I am on "node/add/faqs"
   Then I should see "Access denied"
 
-@simple
 # 2) CHECK THAT A SIMPLE NODE CAN BE CREATED, ADDED TO MENU, AND REVISED
 Scenario: Node Functionality - a simple FAQ node can be created
 Given I am logged in as a user with the "site_owner" role
