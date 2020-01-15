@@ -3,7 +3,7 @@
 # Content is sortable by Title, Type, Author, and Updated Date
 # NOTE: SORT BY AUTHOR IS TURNED OFF IN 2.8.5
 
- @extended_search @rebuild
+ @admin @extended_search @rebuild
  Feature: Content page allows viewing and sorting of content
   When I go to the Admin/Content page
   As a user with the proper role

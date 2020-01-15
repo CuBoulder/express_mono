@@ -1,7 +1,8 @@
+@admin 
 Feature: Content Management
-  When I install the website
-  As a user
-  I should be able to see certain content
+When I install the website
+As a user
+I should be able to see certain content
 
 
   @testing_frontpage
