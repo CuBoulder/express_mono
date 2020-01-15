@@ -5,7 +5,7 @@
   When I log into the website
   As a user with the proper role
   I should see the correct toolbar menus and shortcuts.
-  
+
  Scenario Outline: All roles should see the blue and white toolbars
   Given I am logged in as a user with the <role> role
   When I go to "/"
@@ -19,9 +19,9 @@
     | site_owner |
     | content_editor |
     | edit_my_content |
-    | site_editor      | 
-    | edit_only        | 
-    
+    | site_editor      |
+    | edit_only        |
+
 
 Scenario Outline: All roles should see a blue toolbar with the same five links
  Given I am logged in as a user with the <role> role
@@ -39,8 +39,9 @@ Examples:
      | site_owner |
      | content_editor |
      | edit_my_content |
-     | site_editor      | 
-     | edit_only        | 
+     | site_editor      |
+     | edit_only        |
+
 
  
 # CHECKING THE EXPRESS MENU
@@ -82,7 +83,7 @@ Examples:
     And I should see the link "Content"
     And I should see the link "Structure"
     And I should see the link "Settings"
-    
+
  Scenario: As an edit_only I should see a limited Express menu
    Given  I am logged in as a user with the "edit_only" role
    When I go to "admin"

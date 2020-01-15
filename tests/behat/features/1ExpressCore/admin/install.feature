@@ -3,6 +3,7 @@ Feature: Content Management
   As a user
   I should be able to see certain content
 
+
   @testing_frontpage
   Scenario: A user should see "Welcome!" on the homepage
       Given I am on the homepage
@@ -10,17 +11,20 @@ Feature: Content Management
         And I should see the link "view examples of all the Web Express Features"
         And I should see the link "view online tutorials"
 
+
   @testing_admin
   Scenario: A user should see the string overrides on the menu overview page.
     Given I am logged in as a user with the "site_editor" role
     When I go to "admin/structure/menu"
     Then I should see "Each menu has a corresponding block which can be placed in a content region."
 
+
   @testing_admin
   Scenario: A user should see the string overrides on the menu add page.
     Given I am logged in as a user with the "site_editor" role
     When I go to "admin/structure/menu/add"
     Then I should see "Each menu has a corresponding block which can be placed in a content region."
+
 
   # Test to cover the regression in FIT-902.
   @broken

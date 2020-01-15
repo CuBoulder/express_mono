@@ -25,6 +25,7 @@ I am redirected to my dashboard
       | content_editor  |
       | edit_my_content |
 
+
   @usertabs
   Scenario Outline: Authenticated users should see three tabs on their dashboard
     Given I am logged in as a user with the <role> role
