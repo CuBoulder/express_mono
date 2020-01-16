@@ -39,6 +39,7 @@ I should be able to create, edit, and delete Basic Pages
   And I am on "node/add/page"
   And fill in "edit-title" with "My Page"
   And fill in "Body" with "Lorem ipsum dolor sit amet"
+  Then the "edit-menu-enabled" checkbox should be checked
   And I should see an "#edit-addanother" element
   When I press "edit-submit"
   Then I should be on "/my-page"
@@ -57,7 +58,7 @@ I should be able to create, edit, and delete Basic Pages
     Then I should see "edit_my_content"
 
     @broken
-    #TO DO: CHECK IF THIS SCENARIO MAY NEEDS JAVASCRIPT
+    #TO DO: CHECK TO SEE IF THIS SCENARIO NEEDS JAVASCRIPT
     Scenario: Node functionality - Change Authorship of node on admin/content
     Given I am logged in as a user with the "site_owner" role
     And I am on "admin/content"
@@ -109,8 +110,8 @@ I should be able to create, edit, and delete Basic Pages
   And I should not see an "#edit-delete" element
   And I press "Cancel edit"
 
-  # Page assigned to edit_my_content role is assigned on page.feature:53
-  Scenario: Node Access -  EditMyContent can edit Basic Pages and Persons if owner; cannot delete; can clear page cache
+  # edit_my_content role is assigned on page.feature:53
+  Scenario: Node Access -  EditMyContent can edit Basic Pages if owner but cannot delete
   Given I am logged in as a user with the "edit_my_content" role
   And I am on "/my-page"
   Then I should see the link "View"
@@ -124,7 +125,7 @@ I should be able to create, edit, and delete Basic Pages
   Then I should see "EditMyContent has changed their content."
 
 
-  # 4) CHECK THAT DELETE BUTTON ACTUALLY WORKS
+  # 4) CHECK THAT PAGE CAN BE DELETED
   Scenario: Verify that the Delete button actually works
   Given I am logged in as a user with the "site_owner" role
   And I am on "/my-page"
@@ -135,11 +136,11 @@ I should be able to create, edit, and delete Basic Pages
   Then I should see "Basic page My Page has been deleted."
   And I am on "/"
 
-  # 5) CHECK MORE COMPLEX NODE CREATION
+  # 5) CHECK MORE COMPLEX NODE CREATION; USE FOR TEST PAGES LATER ON
   Scenario: A graphic can be uploaded to a Basic Page node
   Given I am logged in as a user with the "site_owner" role
   And I am on "node/add/page"
-  And fill in "edit-title" with "Test Page"
+  And fill in "edit-title" with "Test Page One"
   And fill in "Body" with "Ralphie the Buffalo is the name of the live mascot of the University of Colorado Buffaloes."
   And I fill in "edit-field-photo-und-0-alt" with "Ralphie Buffalo with handlers"
   And I attach the file "ralphieMtns.jpg" to "edit-field-photo-und-0-upload"
@@ -148,8 +149,8 @@ I should be able to create, edit, and delete Basic Pages
   And I should see "ralphieMtns.jpg"
   And I should see "Insert"
   And I press "edit-submit"
-  Then I should be on "/test-page"
-  And I should see "Test Page"
+  Then I should be on "/test-page-one"
+  And I should see "Test Page One"
   And I should see "Ralphie the Buffalo is the name of the live mascot of the University of Colorado Buffaloes."
 
   Scenario: The provide menu link box should be checked on node creation but remain unchecked if user chooses to uncheck that box.
@@ -165,10 +166,9 @@ I should be able to create, edit, and delete Basic Pages
     Then the checkbox "edit-menu-enabled" should be unchecked
 
   #  6) CHECK SAVE AND ADD ANOTHER
-  Scenario: Node Functionality - A a page node and add another
+  Scenario: Node Functionality - Create a page node and add another
   Given I am logged in as a user with the "site_owner" role
   And I am on "node/add/page"
-  And fill in "edit-title" with "Test Page"
-  And fill in "Body" with "Lorem ipsum dolor sit amet"
+  And fill in "edit-title" with "Test Page Two"
   When I press "edit-addanother"
   Then I should be on "/node/add/page"
