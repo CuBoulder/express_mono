@@ -24,6 +24,11 @@ Changed
 
 - Replacing & with and in affiliation names. #235
 
+Fixed
+~~~~~~
+
+- Fixed issue where edit_my_content users could not edit person node they owned. #467
+
 Removed
 ~~~~~
 
