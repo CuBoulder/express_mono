@@ -419,3 +419,10 @@ function cu_core_update_7063() {
 function cu_core_update_7064() {
   module_enable(array('addanother'));
 }
+
+/**
+ * Rebuild permissions.
+ */
+function cu_core_update_7065() {
+  secure_permissions_rebuild();
+}
