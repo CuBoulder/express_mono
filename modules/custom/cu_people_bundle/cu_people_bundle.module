@@ -91,6 +91,7 @@ function cu_people_bundle_secure_permissions($role) {
       'view any people_list_block bean',
     ),
     'edit_my_content' => array(
+      'edit own person content',
       'view any people_list_block bean',
     ),
     'site_editor' => array(

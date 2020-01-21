@@ -119,10 +119,7 @@ function rave_alerts_remote_data() {
         $data = json_decode($data, true);
         //@TODO: Make the cache timeout configurable
         cache_set('rave_alert', $data, 'cache_rave_alerts', time() + 60);
-
-        watchdog('rave_alerts', 'New RSS item found. Checking tokens.');
         // There is a new RSS item.  Evaluate the description for triggers.
-
         // assume we are going to display this
         variable_set('rave_alerts_display', 1);
         variable_set('rave_alerts_pubdate', $data['channel']['item']['pubDate']);
@@ -135,7 +132,6 @@ function rave_alerts_remote_data() {
         if (strpos($data['channel']['item']['title'], variable_get('rave_alerts_clear_text', '[CLEAR]')) !== FALSE) {
            variable_set('rave_alerts_active_event', 0);
            variable_set('rave_alerts_display', 0);
-           watchdog('rave_alerts', 'CLEAR token found');
         }
         // @TODO: Add option to leave all clear message up for X hours
       }

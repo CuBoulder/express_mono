@@ -426,4 +426,24 @@ class FeatureContext extends MinkContext
 
     throw new \Exception("Radio button with label {$labelText} not found");
   }
+
+  /**
+   * @Then /^(?:|I )should see one? "(?P<childElement>[^"]*)" in "(?P<element>[^"]*)"$/
+   *
+   * I should see one ".CLASSNAME" in ".ELEMENT".
+   */
+
+  public function seeOneElementInElement($childElement, $element)
+    {
+      $page = $this->getSession()->getPage();
+      $nodes = $page->findAll('css', $element);
+      foreach ($nodes as $node) {
+        // Note: getText() will return an empty string when using Selenium2D. This
+        // is ok since it will cause a failed step.
+        $childnodes = $node->findAll('css', $childElement);
+        if (count($childnodes) > 1) {
+          throw new \Exception();
+        }
+      }
+    }
 }

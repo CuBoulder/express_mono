@@ -28,8 +28,8 @@ You can now install an Express site by downloading Drupal, cloning in the Expres
 ROOT=$(pwd)
 
 # Add Drupal.
-drush dl drupal-7.67
-mv drupal-7.67 testing
+drush dl drupal-7.68
+mv drupal-7.68 testing
 
 # Make files folder and copy settings.php file.
 cd ${ROOT}/testing/sites/default
