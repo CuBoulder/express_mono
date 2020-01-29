@@ -426,3 +426,18 @@ function cu_core_update_7064() {
 function cu_core_update_7065() {
   secure_permissions_rebuild();
 }
+
+/**
+ * Set affiliation and enable affiliation.
+ */
+function cu_core_update_7065() {
+  if ($atlas_id = variable_get('atlas_id', NULL)) {
+    $site_array = atlas_api_request('sites', $atlas_id);
+    $atlas_major_unit = $site_array['major_unit'];
+    $affiliation = cu_core_site_affiliation_options($atlas_major_unit);
+    if (!empty($affiliation)) {
+      variable_set('cu_site_affiliation_options', $atlas_major_unit);
+    }
+    variable_set('cu_affiliation_enable', 1);
+  }
+}
