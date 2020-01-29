@@ -82,10 +82,10 @@ function cu_social_links_preprocess_entity(&$vars) {
       $fc_item = array_pop($vars['content']['field_social_links_collection'][$child]['entity']['field_collection_item']);
 
       // Dig in to the fc_items and extract the type, url, and name.
-      $link_type = $fc_item['field_social_link_type'][0]['#markup'];
-      $link_url = $fc_item['field_social_link_url'][0]['#element'];
+      $link_type = !empty($fc_item['field_social_link_type']) ? $fc_item['field_social_link_type'][0]['#markup'] : NULL;
+      $link_url = !empty($fc_item['field_social_link_url']) ? $fc_item['field_social_link_url'][0]['#element'] : NULL;
       $types = cu_social_links_types();
-      $link_name = $types[$link_type];
+      $link_name = isset($link_type) ? $types[$link_type] : NULL;
 
       // Create an array of items.
       if (isset($link_name, $link_url, $link_type)) {
