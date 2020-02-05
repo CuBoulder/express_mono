@@ -31,7 +31,7 @@ Scenario: Create a Article for Testing
   Then I should see "NewTestArticle"
 
 # CHECK THAT SIMPLE NODE CAN BE CREATED
-Scenario: Node Functionality - A very basic Basic Page node can be created; Display options are populated
+Scenario: Node Functionality - A very basic Issue node can be created; Display options are populated
   Given I am logged in as a user with the "site_owner" role
   And I am on "node/add/issue"
   And fill in "edit-title" with "Test Issue"
