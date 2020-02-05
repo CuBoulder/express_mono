@@ -27,25 +27,21 @@ Feature: People List Page Content Type
     Then I should see "Access denied"
 
 
-  Scenario: The Provide Menu Link box should be checked on node creation but remain unchecked if unchecked.
+  Scenario: The People List Page provides several display/format; can be removed from menu
     Given I am logged in as a user with the "site_owner" role
     When I go to "node/add/people-list-page"
     And  I fill in "Title" with "New People List Page"
+    And I select "Table" from "edit-field-people-list-display-und"
+    And I select "Grid" from "edit-field-people-list-display-und"
+    And I select "List" from "edit-field-people-list-display-und"
+    And I select "Show" from "edit-field-people-pos-filter-show-und"
     Then the "edit-menu-enabled" checkbox should be checked
     When I uncheck "edit-menu-enabled"
     And I press "Save"
     And I follow "Edit"
     Then the checkbox "edit-menu-enabled" should be unchecked
+    And I press "Cancel edit"
 
-   @javascript
-  Scenario: The People List Page provides several display/format types
-    Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/people-list-page"
-    And I click the ".group-people-list-display.field-group-fieldset a.fieldset-title" element
-    And I select "Table" from "edit-field-people-list-display-und"
-    And I select "Grid" from "edit-field-people-list-display-und"
-    And I select "List" from "edit-field-people-list-display-und"
-    
 ## POPULATING DATA TABLE FOR PEOPLE LIST PAGES AND BLOCKS
 
   Scenario: Create Person 1 - Deshawn Michael StaffGeoMariDes
@@ -110,11 +106,11 @@ Feature: People List Page Content Type
     When I press "Save"
     Then I should see "Person Abdullah FacTechMariDes has been created."
 
-   @javascript
-  Scenario: Adding taxonomy terms to Persons populates the the People List Page filters
+
+Scenario: Adding taxonomy terms to Persons populates the the People List Page filters
     Given I am logged in as a user with the "site_owner" role
     And am on "node/add/people-list-page"
-    And I click the ".group-people-list-filter.field-group-fieldset a.fieldset-title" element
+  #  And I click the ".group-people-list-filter.field-group-fieldset a.fieldset-title" element
     And I should see "Geophysics"
     And I should see "Technology"
     Then I should see "Faculty"
@@ -125,11 +121,12 @@ Feature: People List Page Content Type
     And I should see "Law"
 
 
-  Scenario: A People List Page filters persons correctly
+    Scenario: A People List Page filters persons correctly
     Given I am logged in as a user with the "site_owner" role
     And am on "node/add/people-list-page"
     And fill in "Title" with "Our Faculty"
     And I check "Faculty"
+    And I select "Show" from "edit-field-people-pos-filter-show-und"
     When I press "Save"
     Then I should be on "our-faculty"
     And I should see "Our Faculty"
@@ -139,7 +136,8 @@ Feature: People List Page Content Type
     And I should not see "Deshawn StaffGeoMariDes"
 
 
-  Scenario: A People List Page can group people by chosen filter
+
+    Scenario: A People List Page can group people by chosen filter
     Given I am logged in as a user with the "site_owner" role
     And am on "node/add/people-list-page"
     And fill in "Title" with "Research Groups"
@@ -153,7 +151,9 @@ Feature: People List Page Content Type
     And I should see "Alejandro FacGeoHoneyLaw"
 
 
-  Scenario: A People List Page can display all the chosen filters
+
+    @cathy
+    Scenario: A People List Page can display all the chosen filters
     Given I am logged in as a user with the "site_owner" role
     And am on "node/add/people-list-page"
     And fill in "Title" with "Directory"
@@ -172,9 +172,10 @@ Feature: People List Page Content Type
     And I should not see "Committees"
       # THIS ONE IS AN ATLAS ERROR
     # TEST FINDS THIS EVEN THOUGH HIDDEN And I should not see "Leave This Field Blank"
-    
-Scenario: A user with the Edit Only role can edit but not delete People List Pages
-    Given I am logged in as a user with the "edit_only" role 
+
+    @cathy
+    Scenario: A user with the Edit Only role can edit but not delete People List Pages
+    Given I am logged in as a user with the "edit_only" role
     And am on "our-faculty"
     And I follow "Edit"
     Then I should see "This document is now locked against simultaneous editing."

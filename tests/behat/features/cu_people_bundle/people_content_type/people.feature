@@ -1,62 +1,7 @@
+@broken
 Feature: People
 
-@people
-Scenario Outline: An authenticated user should be able to access the form for adding person content
-    Given  I am logged in as a user with the <role> role
-    When I go to "node/add/person"
-    Then I should not see <message>
 
-    Examples:
-    | role           | message         |
-    | content_editor | "Access denied" |
-    | site_owner     | "Access denied" |
-    | administrator  | "Access denied" |
-    | developer      | "Access denied" |
-
-@people
-Scenario: An anonymous user should not be able to access the form for adding person content
-  When I am on "node/add/person"
-  Then I should see "Access denied"
-
-@people
-Scenario Outline: An authenticated user should be able to access the form for adding people list page content
-    Given  I am logged in as a user with the <role> role
-    When I go to "node/add/people-list-page"
-    Then I should not see <message>
-
-    Examples:
-    | role           | message         |
-    | content_editor | "Access denied" |
-    | site_owner     | "Access denied" |
-    | administrator  | "Access denied" |
-    | developer      | "Access denied" |
-
-@people
-Scenario: An anonymous user should not be able to access the form for adding people list page content
-  When I am on "node/add/people-list-page"
-  Then I should see "Access denied"
-
-@people
-Scenario: Content editors can create person nodes
-  Given  I am logged in as a user with the "content_editor" role
-    And am on "node/add/person"
-    And fill in "First Name" with "Staff"
-    And fill in "Last Name" with "Person"
-    And fill in "Job Type" with "Staff"
-    And fill in "edit-field-person-title-und-0-value" with "My Job Title"
-    And fill in "Department" with "Department One"
-  When I press "Save"
-  Then I should see "Person Staff Person has been created."
-
-  # Given  I am logged in as a user with the "content_editor" role
-    And am on "node/add/person"
-    And fill in "First Name" with "Faculty"
-    And fill in "Last Name" with "Person"
-    And fill in "Job Type" with "Faculty"
-    And fill in "edit-field-person-title-und-0-value" with "My Job Title"
-      And fill in "Department" with "Department Two"
-  When I press "Save"
-  Then I should see "Person Faculty Person has been created."
 
   # Given  I am logged in as a user with the "content_editor" role
     And am on "node/add/people-list-page"
