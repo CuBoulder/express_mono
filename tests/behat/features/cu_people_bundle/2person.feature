@@ -70,9 +70,6 @@ Scenario: Person nodes can accept more than one filter value per filter
   Given I am logged in as a user with the "site_owner" role
   And am on "ralphie-buffalo"
   And I follow "Edit"
-#  And am on "node/add/person"
-#  And fill in "First Name" with "Misc"
-#  And fill in "Last Name" with "Ellaneous"
   When I fill in "edit-field-person-filter-1-und" with "Apple, Orange"
   And I fill in "edit-field-person-filter-2-und" with "Cat, Dog"
   And I fill in "edit-field-person-filter-3-und" with "Green, Red"

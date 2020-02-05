@@ -162,3 +162,4 @@ Scenario: A user with the Edit Only role can edit but not delete People List Pag
   And I follow "Edit"
   Then I should see "This document is now locked against simultaneous editing."
   But I should not see "Delete"
+  And I press "Cancel edit"
