@@ -188,22 +188,4 @@ function ucb_form_system_theme_settings_alter(&$form, &$form_state) {
       'footer-menu-gold' => t('Gold'),
     ),
 	);
-
-	$form['expressbase_theme_settings']['block_icons'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Block Icons'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  $form['expressbase_theme_settings']['block_icons']['block_icons_color'] = array(
-	  '#type' => 'select',
-	  '#title' => t('Color'),
-	  '#default_value' => theme_get_setting('block_icons_color', $theme) ? theme_get_setting('block_icons_color', $theme) : 'block-icons-inherit',
-	  '#description' => t('Pick color for block title icons.'),
-	  '#options' => array(
-	    'block-icons-inherit' => t('Same as block title text'),
-      'block-icons-gray' => t('Gray'),
-      'block-icons-gold' => t('Gold'),
-    ),
-	);
 }

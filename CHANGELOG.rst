@@ -5,6 +5,41 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.1.3 (2012-01-14)
+------------
+
+This release resolves some display bugs.
+
+Added
+~~~~~
+- Adding Pantheon Advanced Page Cache and d8cache modules.
+
+Changed
+~~~~~~~
+- Adding test for mega menu rendering. #450
+
+- Fixing issue where block designer theme previews did not show background colors. #445
+
+- Updated Webform from 4.20 to 4.21. #426
+
+- Replacing & with and in affiliation names. #235
+
+Fixed
+~~~~~~
+
+- Fixed issue where edit_my_content users could not edit person node they owned. #467
+
+Removed
+~~~~~
+
+- Remove testing on PHP 7.1. #460
+
+- Remove admin permission for a user; stop adding them to new sites.
+
+- Removing original read more link on some article view modes. #431
+
+- Remove logging messages during normal RAVE state. #425
+
 v4.1.2 (2019-12-10)
 ------------
 
@@ -45,7 +80,7 @@ Changed
 
 - Update and patch simplesamlphp_auth module.
 
-- Updating variable sets for simplesamlphp_auth_user_name and simplesamlphp_auth_unique_id. 
+- Updating variable sets for simplesamlphp_auth_user_name and simplesamlphp_auth_unique_id.
 
 - Updating gemfiles #326
 
@@ -57,7 +92,7 @@ Changed
 
 Fixed
 ~~~~~
-- Changelog is generated correctly. 
+- Changelog is generated correctly.
 
 - Fixing issue where administrators couldn't edit user roles #114.
 
@@ -76,7 +111,7 @@ This update resolves several visual regressions and begins removing unused or br
 
 Added
 ~~~~~
-- Add a Github Action to create a Changelog artifact release branches are opened. Resolves #333.
+- Add a Github Action to create a Changelog artifact release branches are opened. #333
 
 Changed
 ~~~~~
@@ -119,7 +154,7 @@ Removed
 
 - Removing redis dependency from pantheon_hosting.info.
 
-- Remove blocked users from the Atlas statistics user report. Resolves #195.
+- Remove blocked users from the Atlas statistics user report. #195
 
 - Remove debug module Stage File Proxy.
 

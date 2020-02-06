@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * cu_section_page_bundle.field_group.inc
