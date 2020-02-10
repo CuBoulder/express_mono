@@ -3,7 +3,7 @@ Feature: the Block Section Block
 In order to place a block on a background graphic
 As a user with the proper role
 I should be able to access and use the Block Section Block
-  
+
 
 Scenario Outline: An authenticated user should be able to access the form for adding a block section block
     Given I am logged in as a user with the <role> role
@@ -32,7 +32,7 @@ And am on "block/add/block-section"
 When I select "Fixed" from "edit-field-block-section-bg-effect-und"
 When I select "Scroll" from "edit-field-block-section-bg-effect-und"
 When I select "Parallax" from "edit-field-block-section-bg-effect-und"
-# BACKGROUND COLOR CHOICES   
+# BACKGROUND COLOR CHOICES
 When I select "White" from "edit-field-hero-unit-bg-color-und"
 When I select "Gray" from "edit-field-hero-unit-bg-color-und"
 When I select "Black" from "edit-field-hero-unit-bg-color-und"
@@ -75,10 +75,7 @@ And I should see "Ralphie Handlers run Ralphie around Folsom Field."
 @javascript
 # This test depends on the one above to create its content
 Scenario: An EditOnly can edit but not delete a Block Section Block
-Given I am logged in as a user with the "edit_only" role
-And am on "block/my-block-section-block-label/view"
-Then I should see the link "Edit Block"
-And I follow "Edit Block"
-Then I should see "Edit Block Section: My Block Section Block Label"
-Then I should not see "Delete"
-
+  Given I am logged in as a user with the "edit_only" role
+  And am on "block/my-block-section-block-label/edit"
+  Then I should not see "Access denied"
+  And the response should not contain "id=\"edit-delete\""
