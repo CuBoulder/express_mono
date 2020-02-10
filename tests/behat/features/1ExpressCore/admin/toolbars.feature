@@ -1,4 +1,4 @@
-@admin @toolbars
+@admin @toolbars @core
 # Checking the Express toolbar and Shortcut toolbar
 Feature: the Express and Shortcut toolbars
 When I log into the website

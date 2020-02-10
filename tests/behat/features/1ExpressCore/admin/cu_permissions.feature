@@ -1,4 +1,4 @@
-@admin    @permissions
+@admin @permissions @core
 Feature: Permissions
 
 Scenario Outline: An site owner/administrator/content editor user should not be able to access certain admin settings

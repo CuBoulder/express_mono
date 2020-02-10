@@ -1,4 +1,4 @@
-@admin
+@admin @core
 Feature: CU Image Styles
 As a developer I should see the proper dimensions for image styles.
 

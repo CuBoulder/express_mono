@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Enabling Bundles
 In order to add functionality to a Web Express site
 An authenticated user with the proper role
@@ -30,4 +30,3 @@ Scenario: The Bundle List page displays 2 tabs
   Then I should see "Bundles"
   And I should see "Enabled"
   And I should see "Available"
-    

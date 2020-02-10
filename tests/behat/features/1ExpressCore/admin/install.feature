@@ -1,4 +1,4 @@
-@admin 
+@admin @core
 Feature: Content Management
 When I install the website
 As a user

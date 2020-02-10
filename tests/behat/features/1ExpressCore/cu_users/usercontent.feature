@@ -1,4 +1,4 @@
-@users @usertabs
+@users @usertabs @core
 Feature: Each User Page is populated with several tabs of informational content
 When I am on the User pages
 As an authenticated user with the proper role

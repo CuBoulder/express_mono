@@ -1,4 +1,4 @@
-@users @login
+@users @login @core
 Feature: Authentication tasks
   When I install the website
   As a user
@@ -39,4 +39,3 @@ Feature: Authentication tasks
     And I should not see "IdentiKey Password field is required."
     And I should not see "CU Login Name field is required."
     And I should not see "Unable to send e-mail. Contact the site administrator if the problem persists"
-

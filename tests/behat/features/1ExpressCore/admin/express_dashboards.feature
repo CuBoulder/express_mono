@@ -1,4 +1,4 @@
-@admin @dashboard
+@admin @dashboard @core
 Feature: The Web Express Dashboard
 When I login to a Web Express website
 As an authenticated user

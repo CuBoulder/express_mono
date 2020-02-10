@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Site Name identifies the Web Express website; appears in top banner
 In order to identify what Web Express site this is
 An authenticated user with the proper role

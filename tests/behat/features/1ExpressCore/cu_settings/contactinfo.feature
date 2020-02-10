@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Site Contact populates Site Information region
 In order to provide contact information about the site
 Authenticated users with the proper role
@@ -38,4 +38,3 @@ Scenario: When Contact Information is populated, it shows up in the footer regio
   Then I should see "The configuration options have been saved"
   And I go to "/"
   Then I should see "email@example.edu"
-    
