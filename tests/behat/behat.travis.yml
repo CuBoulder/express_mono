@@ -11,7 +11,7 @@ default:
       paths: [ "%paths.base%/features/aaa_run_first" ]
       contexts: [ FeatureContext ]
     express:
-      paths: [ "%paths.base%/features/Express" ]
+      paths: [ "%paths.base%/features/1ExpressCore" ]
       contexts: [ FeatureContext ]
     advanced_content:
       paths: [ "%paths.base%/features/cu_advanced_content_bundle" ]
