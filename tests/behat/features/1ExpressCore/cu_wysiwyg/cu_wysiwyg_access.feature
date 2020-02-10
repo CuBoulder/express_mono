@@ -34,11 +34,3 @@ Scenario: The WYSIWYG editor contains all the shortcodes
   And I should see a ".cke_button__video_sc_generator_button" element
   And I should see a ".cke_button__soundcloud_embed_button" element
   And I should see a ".cke_button__link_icon" element
-
-  Examples:
-  | role           |
-  | content_editor |
-  | site_editor    |
-  | site_owner     |
-  | administrator  |
-  | developer      |
