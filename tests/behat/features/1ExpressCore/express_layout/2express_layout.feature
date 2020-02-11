@@ -16,13 +16,9 @@ Scenario: A block can be added to and deleted from a region on the Edit Layout p
   Given I am logged in as a user with the "site_owner" role
     And I am on "node/add/page"
     And fill in "edit-title" with "My Layout Page"
-    And I follow "Disable rich-text"
-    And fill in "Body" with "Web Express sites can create complex and dynamic layouts of content"
-    And I uncheck "edit-menu-enabled"
-  When I press "edit-submit"
-  Then I should see "Web Express sites can create complex and dynamic layouts of content"
+  And I press "edit-submit"
 # Add a block to a region
-  When I follow "Edit Layout"
+  Then I follow "Edit Layout"
     And I wait for the ".field-name-field-sidebar-first" element to appear
     And I select "block" from "field_sidebar_first[und][actions][bundle]"
     And I wait for the ".ief-form" element to appear
@@ -40,7 +36,7 @@ Scenario: A block can be added to and deleted from a region on the Edit Layout p
     And I wait for the ".ief-form" element to appear
     And I check "edit-field-sidebar-first-und-entities-0-form-delete"
     And I press "Remove"
-    And I press "Update layout"
+    When I press "Update layout"
   Then I should not see "Left Sidebar Block Text"
 
 @broken

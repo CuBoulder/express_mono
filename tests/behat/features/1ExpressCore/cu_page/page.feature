@@ -165,6 +165,7 @@ I should be able to create, edit, and delete Basic Pages
     Then I should see "Not In Menu"
     And I follow "Edit"
     Then the checkbox "edit-menu-enabled" should be unchecked
+    And I press "Cancel edit"
 
   #  6) CHECK SAVE AND ADD ANOTHER
   Scenario: Node Functionality - Create a page node and add another
