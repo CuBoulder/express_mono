@@ -54,10 +54,9 @@ I should be able to create, edit, and delete Basic Pages
     And I fill in "Authored by" with "edit_my_content"
     When I press "Save"
     And I should see the link "Revisions"
-  #And I go to "admin/content"
-    #Then I should see "edit_my_content"
-      And I follow "Edit"
-      Then the "Authored by" field should contain "edit_my_content"
+    And I follow "Edit"
+    Then the "Authored by" field should contain "edit_my_content"
+    And I press "Cancel edit"
 
     @broken
     #TO DO: CHECK TO SEE IF THIS SCENARIO NEEDS JAVASCRIPT
