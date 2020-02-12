@@ -49,7 +49,6 @@ I should be able to create, edit, and delete Webforms
       When I go to "admin/content/webform"
       Then I should see "site_editor"
       And I should see "developer"
-      And I press "Cancel edit"
 
      Scenario: Node Functionality - A user can add webform components to a webform node
     Given I am logged in as a user with the "site_owner" role
