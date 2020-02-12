@@ -428,7 +428,7 @@ function cu_core_update_7065() {
 }
 
 /**
- * Reset affilation value to match keys from ATLAS.
+ * Reset affiliation value to match keys from ATLAS.
  */
 function cu_core_update_7066() {
   // This array contains keys of the original config with values of the new config.
@@ -460,11 +460,12 @@ function cu_core_update_7066() {
 function cu_core_update_7067() {
   if ($atlas_id = variable_get('atlas_id', NULL)) {
     $site_array = atlas_api_request('sites', $atlas_id);
+    $current_affiliation = variable_get('cu_site_affiliation_options', NULL);
     if (!empty($site_array['major_unit'])) {
       $atlas_major_unit = $site_array['major_unit'];
-      // Check to see if major_unit value returns affilation settings.
+      // Check to see if major_unit value returns affiliation settings.
       $affiliation = cu_core_site_affiliation_options($atlas_major_unit);
-      if (!empty($affiliation)) {
+      if (!empty($affiliation) && ($current_affiliation != 'custom')) {
         variable_set('cu_site_affiliation_options', $atlas_major_unit);
       }
     }
