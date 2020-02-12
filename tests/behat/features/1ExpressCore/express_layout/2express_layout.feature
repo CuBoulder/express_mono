@@ -20,24 +20,30 @@ Scenario: A block can be added to and deleted from a region on the Edit Layout p
 # Add a block to a region
   Then I follow "Edit Layout"
     And I wait for the ".field-name-field-sidebar-first" element to appear
-    And I select "block" from "field_sidebar_first[und][actions][bundle]"
+    # LEFT SIDEBAR And I select "block" from "field_sidebar_first[und][actions][bundle]"
+    And I select "block" from "edit-field-slider-und-actions-bundle"
     And I wait for the ".ief-form" element to appear
-    And I fill in "Text Block Label" with "Left Sidebar Block Label"
+    # LEFT SIDEBAR And I fill in "Text Block Label" with "Left Sidebar Block Label"
+    And I fill in "Text Block Label" with "Slider Block Label"
     And I follow "Disable rich-text"
-    And I fill in "Body" with "Left Sidebar Block Text"
+      # LEFT SIDEBAR And I fill in "Body" with "Left Sidebar Block Text"
+      And I fill in "Body" with "Slider Block Text"
     And I press "Create block"
     And I press "Update layout"
-  Then I should see "Left Sidebar Block Text"
-# Remove a block from a region
+  # LEFT SIDEBAR Then I should see "Left Sidebar Block Text"
+  Then I should see "Slider Block Text"
+# REMOVE BLOCK FROM REGION
   When I follow "Edit Layout"
     And I wait for the ".field-name-field-sidebar-first" element to appear
-    And I should see "Left Sidebar Block Label"
+    # LEFT SIDEBAR And I should see "Left Sidebar Block Label"
+    And I should see "Slider Block Label"
     And I press "Remove"
     And I wait for the ".ief-form" element to appear
-    And I check "edit-field-sidebar-first-und-entities-0-form-delete"
+    And I check "edit-field-slider-und-entities-0-form-delete"
     And I press "Remove"
     When I press "Update layout"
-  Then I should not see "Left Sidebar Block Text"
+    # LEFT SIDEBAR Then I should not see "Left Sidebar Block Text"
+    Then I should not see "Slider Block Text"
 
 @broken
 ## @TODO Get autocomplete suggestion to work
