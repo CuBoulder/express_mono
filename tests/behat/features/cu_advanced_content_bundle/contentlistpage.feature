@@ -45,7 +45,7 @@ And I should see the link "TestBasicPage"
 And I should see the link "TestArticle"
 And I should see the link "TestFirstName TestLastName"
 
-Scenario: An EditOnly can edit a Content Grid
+Scenario: An EditOnly can edit but not delete a Content List Page
 Given I am logged in as a user with the "edit_only" role
 And am on "admin/content"
 And I follow "Test Content List Page"
