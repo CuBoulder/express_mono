@@ -52,4 +52,5 @@ And I follow "Test Content List Page"
 Then I should see the link "Edit"
 And I follow "Edit"
 Then I should see "This document is now locked against simultaneous editing."
-And I should not see "Delete"
+And I should not see an "edit-delete" element
+And I press "Cancel edit"

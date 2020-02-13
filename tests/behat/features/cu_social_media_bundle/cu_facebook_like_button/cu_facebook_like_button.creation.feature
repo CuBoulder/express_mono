@@ -21,3 +21,4 @@ Scenario: An EditOnly can edit an Facebook Like Block
   And I follow "Edit Block"
   Then I should see "Edit Facebook Like Button: Facebook Like Label"
   And I should not see an "edit-delete" element
+  And I press "Cancel edit"

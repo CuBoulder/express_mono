@@ -61,3 +61,4 @@ Then I should see the link "Edit Block"
 And I follow "Edit Block"
 Then I should see "Edit Expandable: Expandable Label"
 And I should not see an "edit-delete" element
+And I press "Cancel edit"

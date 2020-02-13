@@ -20,3 +20,4 @@ Scenario: An EditOnly can edit but not delete an Facebook Activity Block
   And I follow "Edit Block"
   Then I should see "Edit Facebook Activity: Facebook Activity Label"
   And I should not see an "edit-delete" element
+  And I press "Cancel edit"
