@@ -67,4 +67,3 @@ Then I should see the link "Edit Block"
 And I follow "Edit Block"
 Then I should see "Edit Content List: My Content List Block Label"
 And I should not see an "edit-delete" element
-And I press "Cancel edit"

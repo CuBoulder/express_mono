@@ -71,11 +71,10 @@ And I should see "Cupcake ipsum dolor sit amet ice cream carrot cake"
 And I should see "Veggie ipsum dolor sit amet cucumber broccoli carrot stringbean"
 
 @meonly
-Scenario: An EditOnly can edit but not delete a Content Grid
+Scenario: An EditOnly can edit but not delete a Content Grid block
 Given I am logged in as a user with the "edit_only" role
 And am on "block/my-content-grid-label/view"
 Then I should see the link "Edit Block"
 And I follow "Edit Block"
 Then I should see "Edit Content Grid: My Content Grid Label"
 And I should not see an "edit-delete" element
-And I press "Cancel edit"
