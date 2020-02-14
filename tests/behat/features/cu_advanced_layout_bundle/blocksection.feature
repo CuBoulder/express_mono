@@ -65,10 +65,8 @@ And I follow "Disable rich-text"
  And I press "Create block"
 # JAVASCRIPT CANNOT FIND GRAPHIC And I attach the file "ralphieMtns.jpg" to "edit-field-block-section-bg-image-und-0-upload"
 # And I press "edit-field-block-section-bg-image-und-0-upload-button"
-And I click the ".horizontal-tab-button.horizontal-tab-button-1.last a" element
-And I select "White" from "Text Color"
 And I press "Save"
-Then I should see "My Block Section Block Title"
+Then I should see "Block Section My Block Section Block Title has been created."
 And I should see "Ralphie Buffalo Title"
 And I should see "Ralphie Handlers run Ralphie around Folsom Field."
 
