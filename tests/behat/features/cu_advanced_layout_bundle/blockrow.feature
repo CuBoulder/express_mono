@@ -51,7 +51,7 @@ Scenario: A Block Row Block can be created
     And I press "Create block"
     And I check "edit-field-block-row-match-height-und"
   When I press "Save"
-  Then print response
+  Then print last response
     Then I should see "My Block Row Block Title"
     And I should see "Cupcake ipsum dolor sit amet ice cream carrot cake"
     And I should see "Lemon drops dessert chocolate gingerbread dessert"
