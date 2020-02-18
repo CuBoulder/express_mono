@@ -66,9 +66,9 @@ And I follow "Disable rich-text"
 # JAVASCRIPT CANNOT FIND GRAPHIC And I attach the file "ralphieMtns.jpg" to "edit-field-block-section-bg-image-und-0-upload"
 # And I press "edit-field-block-section-bg-image-und-0-upload-button"
 And I press "Save"
-Then I should see "Block Section My Block Section Block Title has been created."
-And I should see "Ralphie Buffalo Title"
-And I should see "Ralphie Handlers run Ralphie around Folsom Field."
+Then the response should contain "Block Section My Block Section Block Title has been created."
+Then the response should contain "Ralphie Buffalo Title"
+Then the response should contain "Ralphie Handlers run Ralphie around Folsom Field."
 
 @javascript
 # This test depends on the one above to create its content
