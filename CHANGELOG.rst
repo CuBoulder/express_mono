@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.1.4 (2012-02-12)
+------------
+
+This release add content types to the default sitemap and removes configuration that had no impact.
+
+Changed
+~~~~~~~
+- Adding photo galleries, collection items, and section pages to xml site map. #351
+
+- Removing configuration for Block Icon Color. #434
+
+
 v4.1.3 (2012-01-14)
 ------------
 

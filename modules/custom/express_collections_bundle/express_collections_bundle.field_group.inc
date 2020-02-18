@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * express_collections_bundle.field_group.inc
