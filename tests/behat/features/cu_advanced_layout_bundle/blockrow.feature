@@ -50,10 +50,10 @@ Scenario: A Block Row Block can be created
     And fill in "Body" with "Lemon drops dessert chocolate gingerbread dessert"
     And I press "Create block"
     And I check "edit-field-block-row-match-height-und"
-  When I press "Save"
-    Then I should see "My Block Row Block Title"
-    And I should see "Cupcake ipsum dolor sit amet ice cream carrot cake"
-    And I should see "Lemon drops dessert chocolate gingerbread dessert"
+    When I press "Save"
+    Then the response should contain "My Block Row Block Title"
+    And the response should contain "Cupcake ipsum dolor sit amet ice cream carrot cake"
+    And the response should contain "Lemon drops dessert chocolate gingerbread dessert"
 
 @javascript
 # This test depends on the one above
