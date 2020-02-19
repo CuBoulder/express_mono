@@ -10,9 +10,9 @@ cd ${ROOT_DIR}/drupal/profiles/express
 
 # Setting Behat environment variables is now done in behat.travis.yml for simplicity.
 
-echo "Running Express headless tests..."
-${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_HEADLESS_BEHAT_TAGS}
-earlyexit
+# COMMENT OUT echo "Running Express headless tests..."
+# COMMENT OUT ${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_HEADLESS_BEHAT_TAGS}
+# COMMENT OUT earlyexit
 
 # Run JS Behat tests
 echo "Running Express JS tests..."
@@ -21,15 +21,15 @@ earlyexit
 
 # Run Digital Campaign Tests
 # We run these seperately b/c the changes they make cause other tests to fail if they are run afterwards.
-echo "Running Express Digital Campaign tests..."
+# COMMENT OUT echo "Running Express Digital Campaign tests..."
 # Enable test content, user, and role.
-$HOME/.composer/vendor/bin/drush en cu_dc_tests -y
-${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_BEHAT_TAGS}
-earlyexit
+# COMMENT OUT $HOME/.composer/vendor/bin/drush en cu_dc_tests -y
+# COMMENT OUT ${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_BEHAT_TAGS}
+# COMMENT OUT earlyexit
 
-echo "Running Express Digital Campaign JS tests..."
-${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_JS_BEHAT_TAGS}
-earlyexit
+# COMMENT OUT echo "Running Express Digital Campaign JS tests..."
+# COMMENT OUT ${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_JS_BEHAT_TAGS}
+# COMMENT OUT earlyexit
 
 # Output performance logging data.
 $HOME/.composer/vendor/bin/drush scr ${ROOT_DIR}/drupal/profiles/express/tests/travis-ci/log-express-performance.php
