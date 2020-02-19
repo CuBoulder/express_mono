@@ -31,6 +31,7 @@ Scenario: A block can be added to and deleted from a region on the Edit Layout p
     And I fill in "Body" with "Left Sidebar Block Text"
     And I press "Create block"
     And I press "Update layout"
+    Then I should be on "my-layout-page"
   Then the response should contain "Left Sidebar Block Text"
 # Remove a block from a region
   When I follow "Edit Layout"
