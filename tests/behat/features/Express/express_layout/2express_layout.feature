@@ -31,7 +31,7 @@ Scenario: A block can be added to and deleted from a region on the Edit Layout p
     And I fill in "Body" with "Left Sidebar Block Text"
     And I press "Create block"
     And I press "Update layout"
-  Then I should see "Left Sidebar Block Text"
+  Then the response should contain "Left Sidebar Block Text"
 # Remove a block from a region
   When I follow "Edit Layout"
     And I wait for the ".field-name-field-sidebar-first" element to appear
@@ -41,7 +41,7 @@ Scenario: A block can be added to and deleted from a region on the Edit Layout p
     And I check "edit-field-sidebar-first-und-entities-0-form-delete"
     And I press "Remove"
     And I press "Update layout"
-  Then I should not see "Left Sidebar Block Text"
+  Then the response should not contain "Left Sidebar Block Text"
 
 @broken
 ## @TODO Get autocomplete suggestion to work
