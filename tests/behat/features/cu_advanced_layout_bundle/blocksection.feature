@@ -78,8 +78,8 @@ And I follow "Disable rich-text"
 # And I press "edit-field-block-section-bg-image-und-0-upload-button"
 And I click the ".horizontal-tab-button.horizontal-tab-button-1.last a" element
 And I select "White" from "Text Color"
-And I press "Save"
-Then I should be on "block/my-block-row-block-label/view"
+And I press "Save
+Then I should be on "block/my-block-section-block-label/view"
 Then the response should contain "My Block Section Block Title"
 Then the response should contain "Ralphie Buffalo Title"
 Then the response should contain "Ralphie Handlers run"

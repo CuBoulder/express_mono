@@ -51,6 +51,7 @@ Scenario: A Block Row Block can be created
     And I press "Create block"
     And I check "edit-field-block-row-match-height-und"
     When I press "Save"
+    Then I should be on "block/my-block-row-block-label/view"
     Then the response should contain "My Block Row Block Title"
     And the response should contain "Cupcake ipsum"
     And the response should contain "Lemon drops"
