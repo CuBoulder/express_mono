@@ -41,7 +41,7 @@ Scenario: A block can be added to and deleted from a region on the Edit Layout p
     And I wait for the ".ief-form" element to appear
     And I check "edit-field-sidebar-first-und-entities-0-form-delete"
     And I press "Remove"
-    And I press "Update layout
+    And I press "Update layout"
     Then I should be on "my-layout-page"
   Then the response should not contain "Left Sidebar Block Text"
 
