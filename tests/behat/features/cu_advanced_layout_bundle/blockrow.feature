@@ -52,8 +52,8 @@ Scenario: A Block Row Block can be created
     And I check "edit-field-block-row-match-height-und"
     When I press "Save"
     Then the response should contain "My Block Row Block Title"
-    And the response should contain "Cupcake ipsum dolor sit amet ice cream carrot cake"
-    And the response should contain "Lemon drops dessert chocolate gingerbread dessert"
+    And the response should contain "Cupcake ipsum"
+    And the response should contain "Lemon drops"
 
 @javascript
 # This test depends on the one above
