@@ -53,7 +53,6 @@ Scenario: A Block Row Block can be created
     When I press "Save"
     Then I should be on "block/my-block-row-block-label/view"
     Then the response should contain "My Block Row Block Title"
-    Then print last response
     And the response should contain "Cupcake ipsum"
     And the response should contain "Lemon drops"
 
