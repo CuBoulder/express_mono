@@ -30,8 +30,9 @@ Scenario: A block can be added to and deleted from a region on the Edit Layout p
       And I fill in "Body" with "Slider Block Text"
     And I press "Create block"
     And I press "Update layout"
+    Then I should be on "my-layout-page"
   # LEFT SIDEBAR Then I should see "Left Sidebar Block Text"
-  Then I should see "Slider Block Text"
+  And the response should contain "Slider Block Text"
 # REMOVE BLOCK FROM REGION
   When I follow "Edit Layout"
     And I wait for the ".field-name-field-sidebar-first" element to appear
@@ -42,8 +43,9 @@ Scenario: A block can be added to and deleted from a region on the Edit Layout p
     And I check "edit-field-slider-und-entities-0-form-delete"
     And I press "Remove"
     When I press "Update layout"
+    Then I should be on "my-layout-page"
     # LEFT SIDEBAR Then I should not see "Left Sidebar Block Text"
-    Then I should not see "Slider Block Text"
+    And the response should not contain "Slider Block Text"
 
 @broken
 ## @TODO Get autocomplete suggestion to work
