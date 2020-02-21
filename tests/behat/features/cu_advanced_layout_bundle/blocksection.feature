@@ -25,17 +25,14 @@ Scenario: An anonymous user should not be able to access the form
   Then I should see "Access denied"
 
 
-Scenario: An authenticated user should see a number of Background Effect choices
+Scenario: Background Effects, Background Colors, Text Colors and Content Background choices
 Given  I am logged in as a user with the "site_owner" role
 And am on "block/add/block-section"
+# BACKGROUND EFFECTS
 When I select "Fixed" from "edit-field-block-section-bg-effect-und"
 When I select "Scroll" from "edit-field-block-section-bg-effect-und"
 When I select "Parallax" from "edit-field-block-section-bg-effect-und"
-    
-
-Scenario: An authenticated user should see a number of Background Color choices
-Given  I am logged in as a user with the "site_owner" role
-And am on "block/add/block-section"
+# BACKGROUND COLOR CHOICES
 When I select "White" from "edit-field-hero-unit-bg-color-und"
 When I select "Gray" from "edit-field-hero-unit-bg-color-und"
 When I select "Black" from "edit-field-hero-unit-bg-color-und"
@@ -43,21 +40,13 @@ When I select "Dark Gray" from "edit-field-hero-unit-bg-color-und"
 When I select "Gold" from "edit-field-hero-unit-bg-color-und"
 When I select "Tan" from "edit-field-hero-unit-bg-color-und"
 When I select "Light Blue" from "edit-field-hero-unit-bg-color-und"
-
-
-Scenario: An authenticated user should see a number of Text Color choices
-Given  I am logged in as a user with the "site_owner" role
-And am on "block/add/block-section"
+# TEXT COLOR CHOICES
 When I select "Black" from "edit-field-hero-unit-text-color-und"
 When I select "White" from "edit-field-hero-unit-text-color-und"
-
-
-Scenario: An authenticated user should see a number of Content Background choices
-Given  I am logged in as a user with the "site_owner" role
-And am on "block/add/block-section"
+# CONTENT BACKGROUND CHOICES
 When I select "Hidden" from "edit-field-block-section-content-bg-und"
 When I select "Transparent" from "edit-field-block-section-content-bg-und"
-When I select "Solid" from "edit-field-block-section-content-bg-und"
+And I select "Solid" from "edit-field-block-section-content-bg-und"
 
 @javascript
 #Note: You can't create a Block Section Block w/o javascript
