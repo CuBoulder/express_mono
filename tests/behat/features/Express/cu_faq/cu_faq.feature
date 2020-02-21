@@ -30,17 +30,23 @@ Scenario: FAQ Access -  An anonymous user cannot add FAQ content
   When I am on "node/add/faqs"
   Then I should see "Access denied"
 
-# 2) CHECK THAT A SIMPLE NODE CAN BE CREATED AND REVISED
+# 2) CHECK THAT A SIMPLE NODE CAN BE CREATED, ADDED TO MENU, AND REVISED
 Scenario: Node Functionality - a simple FAQ node can be created
 Given I am logged in as a user with the "site_owner" role
 And I am on "node/add/faqs"
-And I should see an "#edit-addanother" element
 And fill in "edit-title" with "My FAQs"
 And fill in "Body" with "Lorem ipsum dolor sit amet"
-When I press "edit-submit"
+And the "edit-menu-enabled" checkbox should be checked
+When I uncheck "edit-menu-enabled"
+# NOPE And I should see an "#edit-addanother" element
+And I should see an "#edit-addanother" element
+And I press "edit-submit"
 Then I should be on "/my-faqs"
 And I should see "My FAQs"
 And I should see "Lorem ipsum dolor sit amet"
+And I follow "Edit"
+Then the checkbox "edit-menu-enabled" should be unchecked
+
 
 #  2.5 CREATE REVISIONS TO THE NEW NODE
 Scenario: Node functionality - Create Revision of FAQ
@@ -143,13 +149,3 @@ And I wait 5 seconds
 #THIS IS THE ID FOR THE TITLE OF THE NEW FAQ SECTION
 Then the response should contain "id=\"edit-field-qa-collection-und-1-field-qa-collection-title-und-0-value\""
 # THIS DOESN'T WORK Then I should see an "edit-field-qa-collection-und-1-field-qa-collection-title-und-0-value" element
-
-Scenario: The provide menu link box should be checked on node creation but remain unchecked if user chooses to uncheck that box.
-Given  I am logged in as a user with the "site_owner" role
-When I go to "node/add/faqs"
-And  I fill in "edit-title" with "New FAQ"
-Then the "edit-menu-enabled" checkbox should be checked
-When I uncheck "edit-menu-enabled"
-And I press "Save"
-And I follow "Edit"
-Then the checkbox "edit-menu-enabled" should be unchecked
