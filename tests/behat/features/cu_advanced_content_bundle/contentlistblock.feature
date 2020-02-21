@@ -53,12 +53,12 @@ Given I am logged in as a user with the "site_owner" role
 And I go to "block/add/content-list"
 And I fill in "edit-label" with "My Content List Block Label"
 And I fill in "edit-title" with "My Content List Block Title"
-And I fill in "edit-field-content-list-reference-und-0-target-id" with "Ducks"
+And I fill in "edit-field-content-list-reference-und-0-target-id" with "TestBasicPage"
 And I press "Add another item"
 # And I wait for the ".ajax-new-content" element to appear
 And I press "Save"
 Then I should see "My Content List Block Title"
-And I should see "Ducks can fly and swim"
+And I should see "This is a Basic Page"
 
 Scenario: An EditOnly can edit but not delete a Content List Block
 Given I am logged in as a user with the "edit_only" role
