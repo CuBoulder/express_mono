@@ -36,12 +36,10 @@ Scenario: Create two articles for use in Newsletter
 Given I am logged in as a user with the "site_owner" role
 And I go to "node/add/article"
 And I fill in "Title" with "Newsletter Article One"
-And I fill in "Body" with "First article about Digital Arts"
 And I press "Save"
 Then I should see "Article Newsletter Article One has been created"
 Then I go to "node/add/article"
 And I fill in "Title" with "Newsletter Article Two"
-And I fill in "Body" with "Second article about Digital Arts"
 And I press "Save"
 Then I should see "Article Newsletter Article Two has been created"
 
