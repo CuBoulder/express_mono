@@ -1,31 +1,29 @@
- @people
+@people
 Feature: People List Page Content Type
-  In order to display a directory list of Person nodes
-  As an authenticated user
-  I should be able to create, edit, and delete People List Page content
+In order to display a directory list of Person nodes
+As an authenticated user
+I should be able to create, edit, and delete People List Page content
 
-  Scenario Outline: An authenticated user should be able to access the form for adding people list page content
-    Given  I am logged in as a user with the <role> role
-    When I go to "node/add/people-list-page"
-    Then I should see <message>
+Scenario Outline: An authenticated user should be able to access the form for adding people list page content
+  Given  I am logged in as a user with the <role> role
+  When I go to "node/add/people-list-page"
+  Then I should see <message>
 
-    Examples:
-      | role                  | message                   |
-      | edit_my_content       | "Access denied"           |
-      | content_editor        | "Create People List Page" |
-      | site_owner            | "Create People List Page" |
-      | administrator         | "Create People List Page" |
-      | developer             | "Create People List Page" |
-      | configuration_manager | "Access denied"           |
-      | site_editor           | "Create People List Page" |
-      | edit_only             | "Access denied"           |
-      | access_manager        | "Access denied"           |
+  Examples:
+  | role                  | message                   |
+  | edit_my_content       | "Access denied"           |
+  | content_editor        | "Create People List Page" |
+  | site_owner            | "Create People List Page" |
+  | administrator         | "Create People List Page" |
+  | developer             | "Create People List Page" |
+  | configuration_manager | "Access denied"           |
+  | site_editor           | "Create People List Page" |
+  | edit_only             | "Access denied"           |
+  | access_manager        | "Access denied"           |
 
-
-  Scenario: An anonymous user should not be able to access the form for adding people list page content
-    When I am on "node/add/people-list-page"
-    Then I should see "Access denied"
-
+Scenario: An anonymous user should not be able to access the form for adding people list page content
+  When I am on "node/add/people-list-page"
+  Then I should see "Access denied"
 
   Scenario: The Provide Menu Link box should be checked on node creation but remain unchecked if unchecked.
     Given I am logged in as a user with the "site_owner" role
@@ -48,67 +46,65 @@ Feature: People List Page Content Type
     
 ## POPULATING DATA TABLE FOR PEOPLE LIST PAGES AND BLOCKS
 
-  Scenario: Create Person 1 - Deshawn Michael StaffGeoMariDes
-    Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/person"
-    And fill in "First Name" with "Deshawn"
-    And fill in "Last Name" with "StaffGeoMariDes"
-    And fill in "edit-field-person-job-type-und" with "Staff"
-    And fill in "edit-field-person-title-und-0-value" with "Director"
-    And fill in "edit-field-person-department-und" with "Geophysics"
-    And fill in "edit-field-person-email-und-0-email" with "deshawn@example.com"
-    And fill in "edit-field-person-phone-und-0-value" with "303-123-4567"
-    And fill in "edit-field-person-filter-1-und" with "Marietta"
-    And fill in "edit-field-person-filter-2-und" with "Design"
-    When I press "Save"
-    Then I should see "Person Deshawn StaffGeoMariDes has been created."
+Scenario: Create Person 1 - Deshawn Michael StaffGeoMariDes
+  Given I am logged in as a user with the "site_owner" role
+  And am on "node/add/person"
+  And fill in "First Name" with "Deshawn"
+  And fill in "Last Name" with "StaffGeoMariDes"
+  And fill in "edit-field-person-job-type-und" with "Staff"
+  And fill in "edit-field-person-title-und-0-value" with "Director"
+  And fill in "edit-field-person-department-und" with "Geophysics"
+  And fill in "edit-field-person-email-und-0-email" with "deshawn@example.com"
+  And fill in "edit-field-person-phone-und-0-value" with "303-123-4567"
+  And fill in "edit-field-person-filter-1-und" with "Marietta"
+  And fill in "edit-field-person-filter-2-und" with "Design"
+  When I press "Save"
+  Then I should see "Person Deshawn StaffGeoMariDes has been created."
 
-  Scenario: Create Person 2 - Alejandro Cruz FacGeoHoneyLaw
-   Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/person"
-    And fill in "First Name" with "Alejandro"
-    And fill in "Last Name" with "FacGeoHoneyLaw"
-    And fill in "edit-field-person-job-type-und" with "Faculty"
-    And fill in "edit-field-person-title-und-0-value" with "Manager"
-    And fill in "edit-field-person-department-und" with "Geophysics"
-    And fill in "edit-field-person-email-und-0-email" with "alejandro@example.com"
-    And fill in "edit-field-person-phone-und-0-value" with "303-444-6789"
-    And fill in "edit-field-person-filter-1-und" with "Honeywell"
-    And fill in "edit-field-person-filter-2-und" with "Law"
-    When I press "Save"
-    Then I should see "Person Alejandro FacGeoHoneyLaw has been created."
+Scenario: Create Person 2 - Alejandro Cruz FacGeoHoneyLaw
+ Given I am logged in as a user with the "site_owner" role
+  And am on "node/add/person"
+  And fill in "First Name" with "Alejandro"
+  And fill in "Last Name" with "FacGeoHoneyLaw"
+  And fill in "edit-field-person-job-type-und" with "Faculty"
+  And fill in "edit-field-person-title-und-0-value" with "Manager"
+  And fill in "edit-field-person-department-und" with "Geophysics"
+  And fill in "edit-field-person-email-und-0-email" with "alejandro@example.com"
+  And fill in "edit-field-person-phone-und-0-value" with "303-444-6789"
+  And fill in "edit-field-person-filter-1-und" with "Honeywell"
+  And fill in "edit-field-person-filter-2-und" with "Law"
+  When I press "Save"
+  Then I should see "Person Alejandro FacGeoHoneyLaw has been created."
 
+Scenario: Create Person 3 - Kendall Hull StaffTechHoneyLaw
+  Given I am logged in as a user with the "site_owner" role
+  And am on "node/add/person"
+  And fill in "First Name" with "Kendall"
+  And fill in "Last Name" with "StaffTechHoneyLaw"
+  And fill in "edit-field-person-job-type-und" with "Staff"
+  And fill in "edit-field-person-title-und-0-value" with "Supervisor"
+  And fill in "edit-field-person-department-und" with "Technology"
+  And fill in "edit-field-person-email-und-0-email" with "kendall@example.com"
+  And fill in "edit-field-person-phone-und-0-value" with "303-333-5567"
+  And fill in "edit-field-person-filter-1-und" with "Honeywell"
+  And fill in "edit-field-person-filter-2-und" with "Law"
+  When I press "Save"
+  Then I should see "Person Kendall StaffTechHoneyLaw has been created."
 
-  Scenario: Create Person 3 - Kendall Hull StaffTechHoneyLaw
-    Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/person"
-    And fill in "First Name" with "Kendall"
-    And fill in "Last Name" with "StaffTechHoneyLaw"
-    And fill in "edit-field-person-job-type-und" with "Staff"
-    And fill in "edit-field-person-title-und-0-value" with "Supervisor"
-    And fill in "edit-field-person-department-und" with "Technology"
-    And fill in "edit-field-person-email-und-0-email" with "kendall@example.com"
-    And fill in "edit-field-person-phone-und-0-value" with "303-333-5567"
-    And fill in "edit-field-person-filter-1-und" with "Honeywell"
-    And fill in "edit-field-person-filter-2-und" with "Law"
-    When I press "Save"
-    Then I should see "Person Kendall StaffTechHoneyLaw has been created."
-
-
-  Scenario: Create Person 4 - Abdullah Lang FacTechMariDes
-   Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/person"
-    And fill in "First Name" with "Abdullah"
-    And fill in "Last Name" with "FacTechMariDes"
-    And fill in "edit-field-person-job-type-und" with "Faculty"
-    And fill in "edit-field-person-title-und-0-value" with "Instructor"
-    And fill in "edit-field-person-department-und" with "Technology"
-    And fill in "edit-field-person-email-und-0-email" with "abdullah@example.com"
-    And fill in "edit-field-person-phone-und-0-value" with "303-123-4567"
-    And fill in "edit-field-person-filter-1-und" with "Marietta"
-    And fill in "edit-field-person-filter-2-und" with "Design"
-    When I press "Save"
-    Then I should see "Person Abdullah FacTechMariDes has been created."
+Scenario: Create Person 4 - Abdullah Lang FacTechMariDes
+  Given I am logged in as a user with the "site_owner" role
+  And am on "node/add/person"
+  And fill in "First Name" with "Abdullah"
+  And fill in "Last Name" with "FacTechMariDes"
+  And fill in "edit-field-person-job-type-und" with "Faculty"
+  And fill in "edit-field-person-title-und-0-value" with "Instructor"
+  And fill in "edit-field-person-department-und" with "Technology"
+  And fill in "edit-field-person-email-und-0-email" with "abdullah@example.com"
+  And fill in "edit-field-person-phone-und-0-value" with "303-123-4567"
+  And fill in "edit-field-person-filter-1-und" with "Marietta"
+  And fill in "edit-field-person-filter-2-und" with "Design"
+  When I press "Save"
+  Then I should see "Person Abdullah FacTechMariDes has been created."
 
    @javascript
   Scenario: Adding taxonomy terms to Persons populates the the People List Page filters

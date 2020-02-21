@@ -1,4 +1,3 @@
-
 @blocks @slider @core
 Feature: Slider Block
 When I login to a Web Express website
@@ -30,8 +29,8 @@ Examples:
  Scenario: Block Access: An anonymous user cannot add a Slider block
   When I am on "block/add/slider"
   Then I should see "Access denied"
-  
-# 2) TEST THAT A SIMPLE BLOCK CAN BE CREATED AND REVISED
+
+# 2) TEST THAT A SIMPLE SLIDER CAN BE CREATED AND REVISED
 Scenario: Block Functionality - A very simple Slider can be created
  Given I am logged in as a user with the "site_owner" role
  And I am on "block/add/slider"
@@ -42,26 +41,26 @@ Scenario: Block Functionality - A very simple Slider can be created
  When I press "edit-submit"
  Then I should be on "block/slider-label/view"
  And I should see "My Slider Title"
- 
+
 #  2.5 CREATE REVISIONS TO THE BLOCK ABOVE
 #Scenario: Block Functionality - Create Revision of block
 #Given I am logged in as a user with the "site_owner" role
 #And I am on "admin/content/blocks"
 #And I follow "Slider Label"
 #And I follow "Edit Block"
-# - And I do stuff to Block content - 
+# - And I do stuff to Block content -
 # And I press "Save"
  #Then I should see "Slider My Slider Title has been updated."
 
 # 3) TEST EDITING AND DELETING PRIVILEGES ON THE BLOCK JUST MADE
 
-Scenario Outline: Block Access - SE, SO and above roles can edit, revise, theme and delete Slider 
+Scenario Outline: Block Access - SE, SO and above roles can edit, revise, theme and delete Slider
 Given I am logged in as a user with the <role> role
 And I am on "admin/content/blocks"
 And I follow "Slider Label"
 Then I should see the link "View"
 And I should see the link "Edit Block"
-And I should see the link "Revisions" 
+And I should see the link "Revisions"
 And I should see the link "Block Designer"
 And I should see the link "Delete Block"
 When I follow "Edit Block"
@@ -69,11 +68,11 @@ Then I should see "Edit Slider: Slider Label"
 And I should see an "#edit-delete" element
 And I follow "View"
 
-Examples: 
+Examples:
 | role |
-| developer       | 
-| administrator   | 
-| site_owner      | 
+| developer       |
+| administrator   |
+| site_owner      |
 | content_editor  |
 | site_editor |
 

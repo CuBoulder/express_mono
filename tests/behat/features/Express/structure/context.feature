@@ -65,4 +65,3 @@ Feature: Context
     And I select "Menu" from "edit-reactions-selector"
     And I select "Regions" from "edit-reactions-selector"
     And I select "Page Title Image" from "edit-reactions-selector"
-

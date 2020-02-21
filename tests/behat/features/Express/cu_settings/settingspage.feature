@@ -21,7 +21,7 @@ Examples:
 | edit_only        | "Settings" |
 | access_manager   | "Access denied" |
 | configuration_manager | "Settings" |
-    
+
 
 Scenario: An anonymous user cannot access the Site Settings page
  When I go to "admin/settings"

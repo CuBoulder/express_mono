@@ -3,7 +3,7 @@ Feature: the Block Section Block
 In order to place a block on a background graphic
 As a user with the proper role
 I should be able to access and use the Block Section Block
-  
+
 
 Scenario Outline: An authenticated user should be able to access the form for adding a block section block
     Given I am logged in as a user with the <role> role

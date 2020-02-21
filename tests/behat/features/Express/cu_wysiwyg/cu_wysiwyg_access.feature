@@ -10,12 +10,13 @@ I should be able to access the functionality of the WYSIWYG editor
       And I wait for the "#cke_1_top" element to appear
     Then I should see a ".cke_button__bold" element
 
-    Examples:
-      | role           |
-      | content_editor |
-      | site_owner     |
-      | administrator  |
-      | developer      |
+  Examples:
+  | role           |
+  | content_editor |
+  | site_editor    |
+  | site_owner     |
+  | administrator  |
+  | developer      |
 
 
   @wysiwyg @javascript

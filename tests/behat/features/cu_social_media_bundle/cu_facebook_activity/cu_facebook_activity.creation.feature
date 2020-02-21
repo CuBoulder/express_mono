@@ -1,8 +1,8 @@
-  @social_media
-  Feature: Facebook Activity Block Creation
-  Tests creation and editing of Facebook Activity Blocks.
+@social_media
+Feature: Facebook Activity Block Creation
+Tests creation and editing of Facebook Activity Blocks.
 
-  Scenario: Create an Facebook Activity Block
+Scenario: Create an Facebook Activity Block
   Given  I am logged in as a user with the "site_editor" role
   And I am on "block/add/facebook-activity"
   And I fill in "Label" with "Facebook Activity Label"

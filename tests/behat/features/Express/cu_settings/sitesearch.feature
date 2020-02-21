@@ -27,4 +27,3 @@ Examples:
 Scenario: An anonymous user should not be able to set Site Search Settings
  When I am on "admin/settings/search/search-settings"
  Then I should see "Access denied"
-  

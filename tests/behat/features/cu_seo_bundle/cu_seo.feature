@@ -24,7 +24,7 @@ Scenario Outline: Only upper-level roles are given the SEO tab
   Given I am logged in as a user with the <role> role
   When I go to "admin/dashboard"
   Then I should see the link "User"
-    And I should see the link "SEO"
+  And I should see the link "SEO"
 
   Examples:
     | role             |
@@ -82,10 +82,10 @@ Scenario Outline: Some roles can access the SEO Link Checker
 Scenario: the SEO Link Checker should work
   Given I am logged in as a user with the "site_owner" role
   When I go to "admin/settings/seo/linkchecker-analyze"
-    And I press "edit-linkchecker-analyze"
-    And I wait for the ".messages" element to appear
+  And I press "edit-linkchecker-analyze"
+  And I wait for the ".messages" element to appear
   Then I should see "nodes have been scanned"
-    And I should see "blocks have been scanned"
+  And I should see "blocks have been scanned"
 
 # Verify access to Google Analytics account ID page
 Scenario Outline: only Devs, Admins and SEOs can access the SEO Link Checker
@@ -106,10 +106,10 @@ Scenario Outline: only Devs, Admins and SEOs can access the SEO Link Checker
 Scenario: A Google Analytics number can be added to site
   Given I am logged in as a user with the "site_owner" role
   When I go to "admin/settings/site-configuration/google-analytics"
-    And I fill in "edit-ga-account" with "UA-654321-1"
-    And I press "edit-submit"
+  And I fill in "edit-ga-account" with "UA-654321-1"
+  And I press "edit-submit"
   Then I should see "The configuration options have been saved"
-    And the "edit-ga-account" field should contain "UA-654321-1"
+  And the "edit-ga-account" field should contain "UA-654321-1"
 
 # Verify access to meta tag description
 Scenario Outline: only Devs, Admins and SEOs can access the Site Description setting
@@ -141,6 +141,6 @@ Scenario: Adding text to site description populates Meta tag "Description" on si
 @broken
 Scenario: Enabling SEO Bundle adds Meta Tag functionality to a Basic Page
   Given I am logged in as a user with the "site_owner" role
-    And I am on "node/add/page"
+  And I am on "node/add/page"
   Then I should see "Meta tags"
-    And I should see a "#edit-metatags" element
+  And I should see a "#edit-metatags" element

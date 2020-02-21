@@ -4,26 +4,26 @@ Feature: Person Content Type
   As an authenticated user
   I should be able to create, edit, and delete a person node
 
-  Scenario Outline: An authenticated user should be able to access the form for adding person content
-    Given I am logged in as a user with the <role> role
-    When I go to "node/add/person"
-    Then I should see <message>
+Scenario Outline: An authenticated user should be able to access the form for adding person content
+  Given I am logged in as a user with the <role> role
+  When I go to "node/add/person"
+  Then I should see <message>
 
-    Examples:
-      | role                  | message         |
-      | edit_my_content       | "Access denied" |
-      | content_editor        | "Create Person" |
-      | site_owner            | "Create Person" |
-      | administrator         | "Create Person" |
-      | developer             | "Create Person" |
-      | configuration_manager | "Access denied" |
-      | site_editor           | "Create Person" |
-      | edit_only             | "Access denied" |
-      | access_manager        | "Access denied" |
+  Examples:
+  | role                  | message         |
+  | edit_my_content       | "Access denied" |
+  | content_editor        | "Create Person" |
+  | site_owner            | "Create Person" |
+  | administrator         | "Create Person" |
+  | developer             | "Create Person" |
+  | configuration_manager | "Access denied" |
+  | site_editor           | "Create Person" |
+  | edit_only             | "Access denied" |
+  | access_manager        | "Access denied" |
 
-  Scenario: An anonymous user should not be able to access the form for adding person content
-    When I am on "node/add/person"
-    Then I should see "Access denied"
+Scenario: An anonymous user should not be able to access the form for adding person content
+  When I am on "node/add/person"
+  Then I should see "Access denied"
 
 # Create a person node to test editing access
   Scenario: A simple Person node can be created

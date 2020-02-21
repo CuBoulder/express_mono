@@ -55,7 +55,6 @@ Then I should see "Frequently Asked Questions My FAQs has been updated."
 And I should see the link "Revisions"
 
 # 3) CHECK EDITING AND DELETING PRIVILEGES ON THE NODE JUST MADE
-
 Scenario Outline: Node Access -  Some roles can edit and delete FAQ
 Given I am logged in as a user with the <role> role
 And I am on "admin/content"

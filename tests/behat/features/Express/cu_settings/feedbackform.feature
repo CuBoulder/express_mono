@@ -14,12 +14,12 @@ Scenario Outline: Devs, Admins, SOs and ConMgrs can see all the options for the 
  And I should see "Feedback Button Label"
  And I should see "Feedback Button Color"
  And I should see "Feedback Form Presentation"
-    
+
 Examples:
-    | role            | 
-    | developer       | 
-    | administrator   | 
-    | site_owner      | 
+    | role            |
+    | developer       |
+    | administrator   |
+    | site_owner      |
     | configuration_manager |
 
 
@@ -33,10 +33,10 @@ Then I should see "Access denied"
 Examples:
 | role |
 | content_editor |
-| edit_my_content  | 
-| site_editor      | 
-| edit_only        | 
-| access_manager   | 
+| edit_my_content  |
+| site_editor      |
+| edit_only        |
+| access_manager   |
 
 
 Scenario: An anonymous user should not be able to access feedback form settings

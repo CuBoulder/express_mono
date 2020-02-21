@@ -115,7 +115,7 @@ And I select "Time" from "edit-add-type"
   #    | form_manager   |
 
  # 4) CHECK MORE COMPLEX NODE CREATION
-  Scenario: Form submission details can be added 
+  Scenario: Form submission details can be added
     Given I am logged in as a user with the "site_owner" role
     And I am on "admin/content/webform"
     And I follow "Simple Test Form"

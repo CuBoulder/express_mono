@@ -5,7 +5,7 @@ As an authenticated user with the right permission
 I should be able to create a newsletter
 
 Scenario Outline: An authenticated user should be able to access the form for adding a newsletter
-Given  I am logged in as a user with the <role> role
+Given I am logged in as a user with the <role> role
 When I go to "node/add/newsletter"
 Then I should see <message>
 

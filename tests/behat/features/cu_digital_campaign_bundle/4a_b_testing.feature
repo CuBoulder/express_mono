@@ -7,7 +7,7 @@ Should be able to access, create and run A/B tests
 @ab_testing
 Scenario: A/B Block has been added to the Blocks page
   Given I am logged in as a user with the "site_owner" role
-    And I am on "block/add"
+  And I am on "block/add"
   Then I should see the link "A/B Block"
 
 @ab_testing @javascript
