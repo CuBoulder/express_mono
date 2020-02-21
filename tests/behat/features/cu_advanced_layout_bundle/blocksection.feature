@@ -65,22 +65,10 @@ And I follow "Disable rich-text"
  And I press "Create block"
 # JAVASCRIPT CANNOT FIND GRAPHIC And I attach the file "ralphieMtns.jpg" to "edit-field-block-section-bg-image-und-0-upload"
 # And I press "edit-field-block-section-bg-image-und-0-upload-button"
-And I click the ".horizontal-tab-button.horizontal-tab-button-1.last a" element
-And I select "White" from "Text Color"
 And I press "Save"
-Then I should see "My Block Section Block Title"
-And I should see "Ralphie Buffalo Title"
-And I should see "Ralphie Handlers run Ralphie around Folsom Field."
-
-@broken 
-# This test depends on the one above, which doesn't get run cuz its javascript
-Scenario: An EditOnly can edit a Block Section Block
-Given I am logged in as a user with the "edit_only" role
-And am on "block/my-block-section-block-label/view"
-Then I should see the link "Edit Block"
-And I follow "Edit Block"
-Then I should see "Edit Block Section: My Block Section Block Label"
-Then I should not see "Delete"
+Then the response should contain "My Block Section Block Title"
+Then the response should contain "Ralphie Buffalo Title"
+Then the response should contain "Ralphie Handlers run Ralphie around Folsom Field"
 
 @javascript
 # This test depends on the one above to create its content
