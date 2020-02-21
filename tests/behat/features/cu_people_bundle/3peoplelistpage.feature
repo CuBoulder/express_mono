@@ -102,69 +102,60 @@ Scenario: Create Person 4 - Abdullah Lang FacTechMariDes
   When I press "Save"
   Then I should see "Person Abdullah FacTechMariDes has been created."
 
-   @javascript
-  Scenario: Adding taxonomy terms to Persons populates the the People List Page filters
-    Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/people-list-page"
-    And I click the ".group-people-list-filter.field-group-fieldset a.fieldset-title" element
-    And I should see "Geophysics"
-    And I should see "Technology"
-    Then I should see "Faculty"
-    Then I should see "Staff"
-    And I should see "Honeywell"
-    And I should see "Marietta"
-    And I should see "Design"
-    And I should see "Law"
+Scenario: Adding taxonomy terms to Persons populates the the People List Page filters
+  Given I am logged in as a user with the "site_owner" role
+  And am on "node/add/people-list-page"
+  And I should see "Geophysics"
+  And I should see "Technology"
+  Then I should see "Faculty"
+  Then I should see "Staff"
+  And I should see "Honeywell"
+  And I should see "Marietta"
+  And I should see "Design"
+  And I should see "Law"
 
+Scenario: A People List Page filters persons correctly
+  Given I am logged in as a user with the "site_owner" role
+  And am on "node/add/people-list-page"
+  And fill in "Title" with "Our Faculty"
+  And I check "Faculty"
+  And I select "Show" from "edit-field-people-pos-filter-show-und"
+  When I press "Save"
+  Then I should be on "our-faculty"
+  And I should see "Our Faculty"
+  And I should see "Alejandro FacGeoHoneyLaw"
+  And I should see "Abdullah FacTechMariDes"
+  And I should not see "Kendall StaffTechHoneyLaw"
+  And I should not see "Deshawn StaffGeoMariDes"
 
-  Scenario: A People List Page filters persons correctly
-    Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/people-list-page"
-    And fill in "Title" with "Our Faculty"
-    And I check "Faculty"
-    When I press "Save"
-    Then I should be on "our-faculty"
-    And I should see "Our Faculty"
-    And I should see "Alejandro FacGeoHoneyLaw"
-    And I should see "Abdullah FacTechMariDes"
-    And I should not see "Kendall StaffTechHoneyLaw"
-    And I should not see "Deshawn StaffGeoMariDes"
+Scenario: A People List Page can group people by chosen filter
+  Given I am logged in as a user with the "site_owner" role
+  And am on "node/add/people-list-page"
+  And fill in "Title" with "Research Groups"
+  And I check "Geophysics"
+  And I select "people_filter_2" from "edit-field-people-group-by-und"
+  And I press "Save"
+  Then I should see "Design"
+  And I should see "Deshawn StaffGeoMariDe"
+  And I should see "Law"
+  And I should see "Alejandro FacGeoHoneyLaw"
 
+Scenario: A People List Page can display all the chosen filters
+  Given I am logged in as a user with the "site_owner" role
+  And am on "node/add/people-list-page"
+  And fill in "Title" with "Directory"
+  And I select "Show" from "edit-field-people-dept-filter-show-und"
+  And I select "Show" from "edit-field-people-pos-filter-show-und"
+  And I select "Show" from "edit-field-people-filter1-show-und"
+  And I select "Show" from "edit-field-people-filter2-show-und"
+  And I press "Save"
+  Then I should see a ".people-list-filter" element
+  Then I should see "Appointment"
+  And I should see "Division"
+  And I should see "Research Group"
+  And I should see "Area of Expertise"
+  And I should not see "Committees"
 
-  Scenario: A People List Page can group people by chosen filter
-    Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/people-list-page"
-    And fill in "Title" with "Research Groups"
-    And I check "Geophysics"
- # And I click the ".group-people-list-filter.field-group-fieldset a.fieldset-title" element
-    And I select "people_filter_2" from "edit-field-people-group-by-und"
-    And I press "Save"
-    Then I should see "Design"
-    And I should see "Deshawn StaffGeoMariDe"
-    And I should see "Law"
-    And I should see "Alejandro FacGeoHoneyLaw"
-
-
-  Scenario: A People List Page can display all the chosen filters
-    Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/people-list-page"
-    And fill in "Title" with "Directory"
-    And I select "Show" from "edit-field-people-dept-filter-show-und"
-    And I select "Show" from "edit-field-people-pos-filter-show-und"
-    And I select "Show" from "edit-field-people-filter1-show-und"
-    And I select "Show" from "edit-field-people-filter2-show-und"
-  # LEAVE DEFAULT And I select "Hide" from "edit-field-people-filter3-show-und"
-    And I press "Save"
-    Then I should see a ".people-list-filter" element
-    #  DUPLICATE CHECK  And the response should contain "class=\"people-list-filter\""
-    Then I should see "Appointment"
-    And I should see "Division"
-    And I should see "Research Group"
-    And I should see "Area of Expertise"
-    And I should not see "Committees"
-      # THIS ONE IS AN ATLAS ERROR
-    # TEST FINDS THIS EVEN THOUGH HIDDEN And I should not see "Leave This Field Blank"
-    
 Scenario: A user with the Edit Only role can edit but not delete People List Pages
   Given I am logged in as a user with the "edit_only" role
   And am on "our-faculty"
