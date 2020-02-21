@@ -116,7 +116,7 @@ Given I am logged in as a user with the "site_owner" role
  And I fill in "edit-field-hero-unit-text-und-0-value" with "Read More About It"
  And I fill in "edit-field-hero-unit-link-und-0-title" with "Click Here"
  And I fill in "edit-field-hero-unit-link-und-0-url" with "node/1"
- And I attach the file "ralphie.jpg" to "edit-field-hero-unit-image-und-0-upload"
+ And I attach the file "ralphieMtns.jpg" to "edit-field-hero-unit-image-und-0-upload"
  And I check "edit-field-hero-unit-overlay-und"
  And I press "Save"
  Then I should see "A New Hero Unit"

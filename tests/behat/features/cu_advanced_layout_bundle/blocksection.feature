@@ -74,7 +74,7 @@ And I fill in "edit-field-blocks-section-blocks-und-form-title" with "Ralphie Bu
 And I follow "Disable rich-text"
  And I fill in "Body" with "Ralphie Handlers run Ralphie around Folsom Field."
  And I press "Create block"
-# JAVASCRIPT CANNOT FIND GRAPHIC And I attach the file "ralphie.jpg" to "edit-field-block-section-bg-image-und-0-upload"
+# JAVASCRIPT CANNOT FIND GRAPHIC And I attach the file "ralphieMtns.jpg" to "edit-field-block-section-bg-image-und-0-upload"
 # And I press "edit-field-block-section-bg-image-und-0-upload-button"
 And I click the ".horizontal-tab-button.horizontal-tab-button-1.last a" element
 And I select "White" from "Text Color"

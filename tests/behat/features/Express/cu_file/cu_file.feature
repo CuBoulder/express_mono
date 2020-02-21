@@ -36,8 +36,8 @@ Examples:
   And I am on "node/add/file"
   And I should see an "#edit-addanother" element
   And fill in "edit-title" with "My File"
-  And I fill in "edit-body-und-0-value" with "A photo of Ralphie and handlers"
-  And I attach the file "ralphie.jpg" to "edit-field-file-attachment-und-0-upload"
+  And I fill in "edit-body-und-0-value" with "Ralphie at Chautauqua"
+  And I attach the file "ralphieMtns.jpg" to "edit-field-file-attachment-und-0-upload"
   And I press "Upload"
     # And I wait for AJAX
   Then I should see "File Information"
