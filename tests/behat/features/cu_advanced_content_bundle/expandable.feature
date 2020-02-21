@@ -54,11 +54,10 @@ And I should see "Heading One"
 And I should see "Cupcake ipsum dolor sit amet ice cream carrot cake"
 And I should see "Heading Two"
 
-Scenario: An EditOnly can edit an Expandable block
+Scenario: An EditOnly can edit but not delete an Expandable block
 Given I am logged in as a user with the "edit_only" role
 And am on "block/expandable-label/view"
 Then I should see the link "Edit Block"
 And I follow "Edit Block"
 Then I should see "Edit Expandable: Expandable Label"
-Then I should not see "Delete"
-
+And I should not see an "edit-delete" element

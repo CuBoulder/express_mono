@@ -36,8 +36,9 @@ And I should see "An article about Ralphie"
 And I should see "Lunch is served at the Center for Community"
 
 Scenario: A user with the Edit Only role can edit but not delete Article List Pages
-    Given I am logged in as a user with the "edit_only" role
-    And am on "news-page"
-    And I follow "Edit"
-    Then I should see "This document is now locked against simultaneous editing."
-    But I should not see "Delete"
+Given I am logged in as a user with the "edit_only" role
+And am on "news-page"
+And I follow "Edit"
+Then I should see "This document is now locked against simultaneous editing."
+And I should not see an "edit-delete" element
+And I press "Cancel edit"

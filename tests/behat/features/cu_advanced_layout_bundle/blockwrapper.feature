@@ -32,10 +32,10 @@ And I select "Footer Menu" from "edit-field-block-wrapper-reference-und"
 And I press "Save"
 Then I should see "Block Wrapper My Block Wrapper has been created."
 
-Scenario: An EditOnly can edit a Block Wrapper Block
+Scenario: An EditOnly can edit but not delete a Block Wrapper Block
 Given I am logged in as a user with the "edit_only" role
 And am on "block/my-block-wrapper/view"
 Then I should see the link "Edit Block"
 And I follow "Edit Block"
 Then I should see "Edit Block Wrapper: My Block Wrapper"
-Then I should not see "Delete"
+And I should not see an "edit-delete" element

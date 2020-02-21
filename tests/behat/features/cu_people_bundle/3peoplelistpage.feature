@@ -25,25 +25,21 @@ Scenario: An anonymous user should not be able to access the form for adding peo
   When I am on "node/add/people-list-page"
   Then I should see "Access denied"
 
-  Scenario: The Provide Menu Link box should be checked on node creation but remain unchecked if unchecked.
-    Given I am logged in as a user with the "site_owner" role
-    When I go to "node/add/people-list-page"
-    And  I fill in "Title" with "New People List Page"
-    Then the "edit-menu-enabled" checkbox should be checked
-    When I uncheck "edit-menu-enabled"
-    And I press "Save"
-    And I follow "Edit"
-    Then the checkbox "edit-menu-enabled" should be unchecked
+Scenario: The People List Page provides several display/format; can be removed from menu
+  Given I am logged in as a user with the "site_owner" role
+  When I go to "node/add/people-list-page"
+  And  I fill in "Title" with "New People List Page"
+  And I select "Table" from "edit-field-people-list-display-und"
+  And I select "Grid" from "edit-field-people-list-display-und"
+  And I select "List" from "edit-field-people-list-display-und"
+  And I select "Show" from "edit-field-people-pos-filter-show-und"
+  Then the "edit-menu-enabled" checkbox should be checked
+  When I uncheck "edit-menu-enabled"
+  And I press "Save"
+  And I follow "Edit"
+  Then the checkbox "edit-menu-enabled" should be unchecked
+  And I press "Cancel edit"
 
-   @javascript
-  Scenario: The People List Page provides several display/format types
-    Given I am logged in as a user with the "site_owner" role
-    And am on "node/add/people-list-page"
-    And I click the ".group-people-list-display.field-group-fieldset a.fieldset-title" element
-    And I select "Table" from "edit-field-people-list-display-und"
-    And I select "Grid" from "edit-field-people-list-display-und"
-    And I select "List" from "edit-field-people-list-display-und"
-    
 ## POPULATING DATA TABLE FOR PEOPLE LIST PAGES AND BLOCKS
 
 Scenario: Create Person 1 - Deshawn Michael StaffGeoMariDes
@@ -170,8 +166,9 @@ Scenario: Create Person 4 - Abdullah Lang FacTechMariDes
     # TEST FINDS THIS EVEN THOUGH HIDDEN And I should not see "Leave This Field Blank"
     
 Scenario: A user with the Edit Only role can edit but not delete People List Pages
-    Given I am logged in as a user with the "edit_only" role 
-    And am on "our-faculty"
-    And I follow "Edit"
-    Then I should see "This document is now locked against simultaneous editing."
-    But I should not see "Delete"
+  Given I am logged in as a user with the "edit_only" role
+  And am on "our-faculty"
+  And I follow "Edit"
+  Then I should see "This document is now locked against simultaneous editing."
+  And I should not see an "edit-delete" element
+  And I press "Cancel edit"

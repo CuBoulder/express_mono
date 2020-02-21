@@ -14,10 +14,10 @@ Scenario: Create an Facebook Like Block.
   Then I should see "Facebook Like Title"
   And The ".iframe-facebook-like" element should have "//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fcuboulder&send=false&layout=standard&show_faces=true&action=recommend&colorscheme=light&font&height=80&appId=137301796349387" in the "src" attribute
 
-Scenario: An EditOnly can edit an Facebook Like Block
-Given I am logged in as a user with the "edit_only" role
-And am on "block/facebook-like-label/view"
-Then I should see the link "Edit Block"
-And I follow "Edit Block"
-Then I should see "Edit Facebook Like Button: Facebook Like Label"
-Then I should not see "Delete"
+Scenario: An EditOnly can edit but not delete an Facebook Like Block
+  Given I am logged in as a user with the "edit_only" role
+  And am on "block/facebook-like-label/view"
+  Then I should see the link "Edit Block"
+  And I follow "Edit Block"
+  Then I should see "Edit Facebook Like Button: Facebook Like Label"
+  And I should not see an "edit-delete" element

@@ -36,12 +36,6 @@ Scenario: An anonymous user should not be able to access the form for adding per
     When I press "Save"
     Then I should see "Person Random Individual has been created."
     
-   Scenario: A user with the Edit Only role can edit but not delete Person nodes
-    Given I am logged in as a user with the "edit_only" role 
-    And am on "random-individual"
-    And I follow "Edit"
-    Then I should see "This document is now locked against simultaneous editing."
-    But I should not see "Delete"
 
   Scenario: Footer, Main Menu, and Secondary Menus should be available when creating a Person
     Given I am logged in as a user with the "content_editor" role
@@ -50,6 +44,13 @@ Scenario: An anonymous user should not be able to access the form for adding per
     Then I select "<Footer Menu>" from "edit-menu-parent"
     And I select "<Main menu>" from "edit-menu-parent"
     And I select "<Secondary Menu>" from "edit-menu-parent"
+Scenario: A user with the Edit Only role can edit but not delete Person nodes
+  Given I am logged in as a user with the "edit_only" role
+  And am on "ralphie-buffalo"
+  And I follow "Edit"
+  Then I should see "This document is now locked against simultaneous editing."
+  And I should not see an "edit-delete" element
+  And I press "Cancel edit"
 
   @javascript @broken
   Scenario: A Person node appears correctly in the mobile menu

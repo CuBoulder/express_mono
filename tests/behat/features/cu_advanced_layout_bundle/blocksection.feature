@@ -93,3 +93,10 @@ And I follow "Edit Block"
 Then I should see "Edit Block Section: My Block Section Block Label"
 Then I should not see "Delete"
 
+@javascript
+# This test depends on the one above to create its content
+Scenario: An EditOnly can edit but not delete a Block Section Block
+  Given I am logged in as a user with the "edit_only" role
+  And am on "block/my-block-section-block-label/edit"
+  Then I should not see "Access denied"
+  And the response should not contain "id=\"edit-delete\""
