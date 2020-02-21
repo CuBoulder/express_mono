@@ -30,10 +30,15 @@ Given I am logged in as a user with the "site_owner" role
 When I go to "node/add/article-list-page"
 And I should see an "#edit-addanother" element
 And  I fill in "edit-title" with "News Page"
+And the "edit-menu-enabled" checkbox should be checked
+When I uncheck "edit-menu-enabled"
 And I press "Save"
 Then I should see "News Page"
 And I should see "An article about Ralphie"
 And I should see "Lunch is served at the Center for Community"
+And I follow "Edit"
+Then the checkbox "edit-menu-enabled" should be unchecked
+And I press "Cancel edit"
 
 Scenario: A user with the Edit Only role can edit but not delete Article List Pages
 Given I am logged in as a user with the "edit_only" role
