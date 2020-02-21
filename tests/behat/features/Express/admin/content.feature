@@ -3,7 +3,7 @@
 # Content is sortable by Title, Type, Author, and Updated Date
 # NOTE: SORT BY AUTHOR IS TURNED OFF IN 2.8.5
 
- @extended_search @rebuild
+ @admin @extended_search @core
  Feature: Content page allows viewing and sorting of content
   When I go to the Admin/Content page
   As a user with the proper role
@@ -20,7 +20,7 @@
     And I should see the link "Add content"
 
     Examples:
-    | role            | 
+    | role            |
     | developer       |
     | administrator   |
     | site_owner      |
@@ -35,7 +35,7 @@
     # LOCKED DOCUMENT TAB IS TURNED OFF FOR NOW
    # But I should not see the link "Locked documents"
     And I should see the link "Add content"
-    
+
  Scenario: EditOnlys get two tabs and and no 'Add content' link
     Given  I am logged in as a user with the "edit_only" role
     When I go to "admin/content"
@@ -43,7 +43,7 @@
     And I should see the link "Blocks"
     # LOCKED DOCUMENT TAB IS TURNED OFF FOR NOW
    # But I should not see the link "Locked documents"
-    And I should not see the link "Add content"    
+    And I should not see the link "Add content"
 
  Scenario: Edit_My_Content editors get no tabs; no 'Add content' link
     Given  I am logged in as a user with the "edit_my_content" role
@@ -75,9 +75,9 @@ Scenario Outline: All authenticated users should see the additional fields for f
   # SORTING BY AUTHOR TURNED OFF FOR NOW
   # And I should see the link "sort by Author"
   And I should see the link "sort by Updated date"
-      
+
   Examples:
-  | role            | 
+  | role            |
   | developer       |
   | administrator   |
   | site_owner      |

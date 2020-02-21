@@ -1,5 +1,6 @@
+@admin @core
 Feature: CU Image Styles
-  As a developer I should see the proper dimensions for image styles.
+As a developer I should see the proper dimensions for image styles.
 
 @image-styles
 Scenario Outline: Image styles should be the correct dimensions
