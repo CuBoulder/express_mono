@@ -25,28 +25,8 @@ Scenario: An anonymous user should not be able to access the form
   Then I should see "Access denied"
 
 #CREATING A CONTENT LIST PAGE
-# @javascript
 Scenario: A content list page can pull in articles, pages and persons
 Given I am logged in as a user with the "site_owner" role
-# CREATE BASIC PAGE
-And I am on "node/add/page"
-And fill in "edit-title" with "List Test Page"
-# And I follow "Disable rich-text"
-And fill in "Body" with "Demo body content"
-When I uncheck "edit-menu-enabled"
-And I press "Save"
-# CREATE ARTICLE
-And I go to "node/add/article"
-And fill in "edit-title" with "List Test Article"
-# And I follow "Disable rich-text"
-And fill in "Body" with "Demo article content"
-And I press "Save"
-# CREATE PERSON
-And I go to "node/add/person"
-And fill in "First Name" with "MyFirst"
-And fill in "Last Name" with "MyLast"
-And I press "Save"
-# CREATE CONTENT LIST PAGE
 And I go to "node/add/content-list-page"
 And I should see an "#edit-addanother" element
 And fill in "edit-title" with "Test Content List Page"
