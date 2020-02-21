@@ -40,3 +40,13 @@ Scenario: An anonymous user should not be able to access the form for adding a c
    When I am on "block/add/campus-news-feature"
    Then I should see "Access denied"
 
+Scenario: Campus News Blocks and Campus Feature News Blocks contain type selection choices 
+    Given I am logged in as a user with the "site_owner" role
+    And I go to "block/add/campus-news"
+    Then I should see "Unit"
+    And I should see "Audience"
+    And I should see "Category"
+    And I go to "block/add/campus-news-feature"
+    Then I should see "Unit"
+    And I should see "Audience"
+    And I should see "Category"
