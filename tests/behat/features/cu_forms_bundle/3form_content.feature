@@ -46,7 +46,8 @@ I should be able to create, edit, and delete Webforms
       Then I should see "The new webform Field Test Form has been created"
       And I follow "Edit"
       Then the checkbox "edit-menu-enabled" should be unchecked
-      When I go to "admin/content/webform"
+      And I press "Cancel edit"
+      And I go to "admin/content/webform"
       Then I should see "site_editor"
       And I should see "developer"
 
@@ -91,6 +92,8 @@ And I select "Select options" from "edit-add-type"
 And I select "Textarea" from "edit-add-type"
 And I select "Textfield" from "edit-add-type"
 And I select "Time" from "edit-add-type"
+And I follow "Edit"
+And I press "Cancel edit"
 
   # 3) CHECK EDITING AND DELETING PRIVILEGES ON THE CONTENT JUST MADE - ONLY SOME ACCESS EDITING FUNCTIONALITY
   Scenario Outline: Node Access -  Some roles can edit and delete Webform content
@@ -132,6 +135,8 @@ And I select "Time" from "edit-add-type"
     And I fill in "Confirmation message" with "Thank you for submitting this form, [submission:values:name]."
     And I press "Save configuration"
     Then I should see "The form settings have been updated."
+    And I follow "Edit"
+    And I press "Cancel edit"
 
 # 5) CHECK WEBFORM RESULTS
   Scenario: Submitting a form creates results
