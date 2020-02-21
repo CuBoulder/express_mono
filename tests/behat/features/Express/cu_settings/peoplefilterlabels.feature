@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: People Filter Labels
 In order to further categorize Persons
 An authenticated user with the proper role

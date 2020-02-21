@@ -1,4 +1,4 @@
-@layout
+@layout @core
 Feature: CU Layout Access
   Developers should be able to modify layout settings.
 

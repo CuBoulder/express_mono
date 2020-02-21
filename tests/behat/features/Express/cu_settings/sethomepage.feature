@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Setting a New Homepage
 In order to create a unique homepage experience
 An authenticated user with the proper role

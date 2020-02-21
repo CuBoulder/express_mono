@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Article Settings allow the user to hide/show an article's published date
 In order to show or hide an article's published date
 An authenticated user with the proper role

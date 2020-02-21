@@ -1,4 +1,4 @@
-@settings
+@settings @core
 #NOTE: THIS FEATURE NEEDS A GA ACCOUNT FOR ADVANCED FUNCTIONALITY; HENCE THE SIMPLE TESTS BELOW
 Feature: Site Search Settings
 In order to improve search capabilities

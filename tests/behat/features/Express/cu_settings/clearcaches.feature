@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Cache Clearing
 In order to get a page to show new edits
 An authenticated user with the proper role

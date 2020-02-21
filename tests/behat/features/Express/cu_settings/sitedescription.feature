@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Site Description populates Meta tag "Description" on site homepage
 In order to optimize search engine results with Meta Tag Description
 Authenticated users with the proper role

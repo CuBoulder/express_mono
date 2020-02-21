@@ -1,4 +1,4 @@
-@menus
+@menus @core
 Feature: Menus control the navigation structure of the site
 When I go to the Admin/Menu page
 As an Admin level user

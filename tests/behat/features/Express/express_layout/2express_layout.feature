@@ -1,4 +1,4 @@
-@layout
+@layout @core
 Feature: CU Layout Creation
   Users should be able to create and edit layouts.
   When I go to the Edit Layout page

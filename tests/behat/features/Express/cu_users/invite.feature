@@ -1,4 +1,4 @@
-@users @invite @broken
+@users @invite @broken @core
 Feature: User External Invite
 Given I am an administrator
 When I login to a Web Express site

@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Social Share Settings encourage your site's visitors to share your site's content through social media
 In order to place social media links on node types
 An authenticated user with the proper role

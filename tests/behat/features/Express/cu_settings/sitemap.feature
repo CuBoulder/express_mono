@@ -1,5 +1,4 @@
-
-@settings
+@settings @core
 Feature: an XML Site Map improves Search Engine results
 In order to communicate the site layout to search engines
 An authenticated user with the proper role

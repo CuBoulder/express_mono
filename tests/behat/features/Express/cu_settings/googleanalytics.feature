@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Google Analytics Account ID
 In order to link my Web Express site with Google Analytics
 An authenticated user with the proper role
