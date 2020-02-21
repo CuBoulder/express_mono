@@ -127,16 +127,6 @@ Scenario Outline: only Devs, Admins and SEOs can access the Site Description set
     | edit_only       | "Access denied"                       |
 
 
-# Verify that adding a site description populates the Site Description meta tag
-@testing_frontpage
-Scenario: Adding text to site description populates Meta tag "Description" on site homepage
-  Given I am logged in as a user with the "site_owner" role
-  When I go to "admin/settings/site-configuration/site-description"
-    And I fill in "edit-site-description" with "My Amazing Site Description"
-    And I press "edit-submit"
-    And I go to "/"
-  Then the response should contain "content=\"My Amazing Site Description\""
-
 # Travis does not add the Meta tag to a basic page; no idea why
 @broken
 Scenario: Enabling SEO Bundle adds Meta Tag functionality to a Basic Page
