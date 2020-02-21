@@ -36,8 +36,8 @@ Scenario: Block Functionality - A very simple Slider can be created
  And I am on "block/add/slider"
  And fill in "edit-label" with "Slider Label"
  And fill in "edit-title" with "My Slider Title"
- And I fill in "edit-field-slider-slide-und-0-field-slider-image-und-0-alt" with "Mountain Fantasy"
- And I attach the file "behatBanner1.jpg" to "edit-field-slider-slide-und-0-field-slider-image-und-0-upload"
+And I attach the file "behatBanner1.jpg" to "edit-field-slider-slide-und-0-field-slider-image-und-0-upload"
+And I fill in "edit-field-slider-slide-und-0-field-slider-image-und-0-alt" with "Mountain Fantasy"
  When I press "edit-submit"
  Then I should be on "block/slider-label/view"
  And I should see "My Slider Title"
@@ -108,4 +108,30 @@ And I go to "block/slider-label/edit"
  Then I should see "Slider My Slider Title has been deleted"
 And I am on "/"
 
+@complex
 # 5) TEST MORE COMPLEX BLOCK CREATION
+Scenario: More complex options can be selected for Slider Block
+Given I am logged in as a user with the "site_owner" role
+And I am on "block/add/slider"
+And fill in "edit-label" with "Test Slider Label"
+And fill in "edit-title" with "Test Slider Title"
+# CHECK THE SLIDER SIZE OPTIONS
+And I select "slider" from "edit-field-slider-size-und"
+And I select "widescreen" from "edit-field-slider-size-und"
+And I select "large" from "edit-field-slider-size-und"
+And I select "slider-large" from "edit-field-slider-size-und"
+# CHECK THE SLIDER STYLE OPTIONS
+And I select "1" from "edit-field-slider-design-style-und"
+And I select "2" from "edit-field-slider-design-style-und"
+And I select "3" from "edit-field-slider-design-style-und"
+And I select "5" from "edit-field-slider-design-style-und"
+And I select "4" from "edit-field-slider-design-style-und"
+And I attach the file "ralphieMtns.jpg" to "edit-field-slider-slide-und-0-field-slider-image-und-0-upload"
+And I fill in "edit-field-slider-slide-und-0-field-slider-image-und-0-alt" with "Ralphie at Chautauqua"
+And I fill in "edit-field-slider-slide-und-0-field-slider-caption-und-0-value" with "Join Ralphie at CU Boulder"
+And I press "edit-field-slider-slide-und-add-more"
+And I attach the file "behatBanner1.jpg" to "edit-field-slider-slide-und-1-field-slider-image-und-0-upload"
+And I fill in "edit-field-slider-slide-und-1-field-slider-image-und-0-alt" with "Mountain Fantasy"
+When I press "edit-submit"
+ Then I should see "Test Slider Title"
+ And I should see "Join Ralphie at CU Boulder"
