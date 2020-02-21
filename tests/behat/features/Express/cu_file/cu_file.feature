@@ -116,7 +116,7 @@ And I follow "Edit"
 And I am on "/"
 
 
-# 5) TEST MORE COMPLEX NODE CREATION
+# 5) TEST FILE UPLOAD CHECK
 
 Scenario: Node Functionality - The File Content Type verifies that a file has been uploaded
 Given I am logged in as a user with the "site_owner" role
