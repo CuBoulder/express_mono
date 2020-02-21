@@ -95,5 +95,6 @@ Scenario: One user can build a feed with the default feed/rss.xml
  Then I should see "Build custom RSS feeds"
  And I fill in "edit-rss-title" with "Exciting News"
  And I press "edit-submit"
+ And I go to "admin/settings/feeds/rss/overview"
  Then I should see "Exciting News"
  And I should see "feed/rss.xml"
