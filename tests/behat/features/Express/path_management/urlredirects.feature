@@ -1,4 +1,4 @@
-@settings @redirects
+@settings @redirects @core
 Feature: URL redirects
   In order to create vanity URLs or fix broken pages
   An authenticated user with the proper role

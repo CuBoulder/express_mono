@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Site Description populates Meta tag "Description" on site homepage
 In order to optimize search engine results with Meta Tag Description
 Authenticated users with the proper role
@@ -35,6 +35,3 @@ Scenario: When Site Description is populated, it shows up on the homepage
   Then I should see "The configuration options have been saved"
   And I go to "/"
   Then the response should contain "content=\"We offer personalized career development\""
-
-
-  

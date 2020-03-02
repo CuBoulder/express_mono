@@ -21,6 +21,8 @@ And the "edit-block" checkbox should not be checked
 And I check "edit-block"
 And I press "Save configuration"
 Then I should see "The form settings have been updated."
+And I follow "Edit"
+And I press "Cancel edit"
 
 # 2) WRAP THE WEBFORM BLOCK IN A BEAN WRAPPER
 Scenario: The Webform block, created above, can be wrapped in a bean wrapper

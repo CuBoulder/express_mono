@@ -4,7 +4,7 @@ When I login to a Web Express website
 As an authenticated user
 I should be able to create, edit, and delete Newsletters
 
-# 1) CREATE NEWSLETTER TAXONOMY 
+# 1) CREATE NEWSLETTER TAXONOMY
 # 2) A VERY SIMPLE NEWSLETTER CAN BE CREATED
 # 3) CREATE SUPPORTING ARTICLES FOR NEWSLETTER
 # 4) FLESH OUT NEWSLETTER WITH MORE CONTENT
@@ -19,7 +19,7 @@ And I press "Save"
 Then I should see "Created new term Digital Arts Magazine"
 
 # 2) A VERY SIMPLE NEWSLETTER CAN BE CREATED
-Scenario: Node Functionality - A very simple Newsletter node can be created 
+Scenario: Node Functionality - A very simple Newsletter node can be created
 Given I am logged in as a user with the "site_owner" role
 And I go to "node/add/newsletter"
 And I fill in "edit-field-newsletter-title-und-0-value" with "Sample Newsletter"
@@ -32,16 +32,14 @@ Then I should be on "/newsletter/digitalarts/sample-newsletter"
 And I should see "Digital Arts Magazine - Sample Newsletter and all attached articles are now published"
 
 # 3) CREATE SUPPORTING ARTICLES FOR NEWSLETTER
-Scenario: Create two articles for use in Newsletter 
+Scenario: Create two articles for use in Newsletter
 Given I am logged in as a user with the "site_owner" role
 And I go to "node/add/article"
 And I fill in "Title" with "Newsletter Article One"
-And I fill in "Body" with "First article about Digital Arts"
 And I press "Save"
 Then I should see "Article Newsletter Article One has been created"
 Then I go to "node/add/article"
 And I fill in "Title" with "Newsletter Article Two"
-And I fill in "Body" with "Second article about Digital Arts"
 And I press "Save"
 Then I should see "Article Newsletter Article Two has been created"
 

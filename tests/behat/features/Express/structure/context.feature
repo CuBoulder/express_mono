@@ -1,4 +1,4 @@
-@structure
+@structure @core
 Feature: Context
   In order to exercise control over my regions, pages and blocks
   As an authenticated user
@@ -65,4 +65,3 @@ Feature: Context
     And I select "Menu" from "edit-reactions-selector"
     And I select "Regions" from "edit-reactions-selector"
     And I select "Page Title Image" from "edit-reactions-selector"
-

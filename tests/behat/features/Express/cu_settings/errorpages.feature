@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Error Pages
   In order to improve a reader's experience when Web Express pages go missing
   An authenticated user with the proper role

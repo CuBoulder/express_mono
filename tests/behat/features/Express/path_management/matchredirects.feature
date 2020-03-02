@@ -1,4 +1,4 @@
-@settings @redirects @matchredirects
+@settings @redirects @matchredirects @core
 Feature: Match redirects
   In order to redirect entire sections
   An authenticated user with the proper role

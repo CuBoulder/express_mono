@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Setting a New Homepage
 In order to create a unique homepage experience
 An authenticated user with the proper role
@@ -22,8 +22,8 @@ Scenario Outline: Devs, Admins, SOs and ConMgrs can access Home Page settings; C
     | edit_only        | "Access denied" |
     | access_manager   | "Access denied" |
     | configuration_manager | "Default front page" |
-    
-    
+
+
 # SETTING A NEW HOME PAGE
 # create a basic page; use it for the new homepage; then change it back
 @testing_frontpage

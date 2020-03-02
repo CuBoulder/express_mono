@@ -1,4 +1,4 @@
-@users @login
+@users @login @core
 Feature: Authentication tasks
   When I install the website
   As a user
