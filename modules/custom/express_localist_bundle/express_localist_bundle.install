@@ -22,5 +22,22 @@ function express_localist_bundle_install() {
     'event_college_school_unit' => 'event_college_school_unit',
     'event_academic_calendar' => 'event_academic_calendar',
     'event_interests' => 'event_interests',
+    'event_faculty_staff_calendar' => 'event_faculty_staff_calendar',
+  ));
+}
+
+/**
+ * Implements hook_update().
+ *
+ * Update available filters.
+ */
+function express_localist_bundle_update_7001() {
+  variable_set('express_localist_filters', array(
+    'event_types' => 'event_types',
+    'event_target_audience' => 'event_target_audience',
+    'event_college_school_unit' => 'event_college_school_unit',
+    'event_academic_calendar' => 'event_academic_calendar',
+    'event_interests' => 'event_interests',
+    'event_faculty_staff_calendar' => 'event_faculty_staff_calendar',
   ));
 }
