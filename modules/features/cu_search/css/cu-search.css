@@ -71,3 +71,7 @@
 .cu-search-box .campus-links ul.inline.inline-menu a { margin-right: 0; }
 .cu-search-box .campus-links ul.inline.inline-menu li:before { content: ' • '; }
 .cu-search-box .campus-links ul.inline.inline-menu li:first-child:before { content: none; }
+
+.cu-search-box-large { font-size: 115%; }
+.cu-search-box-large input { font-size: 115%; }
+.cu-search-box-large .search-form-wrapper { display: flex; flex-direction: column-reverse; }

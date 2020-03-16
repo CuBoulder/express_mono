@@ -77,6 +77,9 @@ function cu_search_block_info() {
   $blocks['cu_search_page'] = array(
     'info' => t('CU Search Page'),
   );
+  $blocks['cu_search_large'] = array(
+    'info' => t('CU Search Large'),
+  );
   return $blocks;
 }
 
@@ -101,6 +104,15 @@ function cu_search_block_view($delta = '') {
       $block['configs'] = $search_configs['configs'];
       break;
     case 'cu_search_page':
+
+      $block['subject'] = '';
+
+      $block['content'] = 'Search';
+      $search_configs = cu_search_configs();
+      $block['options'] = $search_configs['options'];
+      $block['configs'] = $search_configs['configs'];
+      break;
+    case 'cu_search_large':
 
       $block['subject'] = '';
 
