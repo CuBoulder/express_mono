@@ -16,7 +16,20 @@ function cu_home_page_install() {
   _cu_home_page_node();
 }
 
+function cu_home_page_requirements($phase) {
+  $requirements = array();
 
+  if ($phase == 'runtime') {
+    $t = get_t();
+
+    $requirements['cu_sitewide'] = array(
+      'title' => $t('CU Sitewide Status'),
+      'severity' => REQUIREMENT_INFO,
+    );
+  }
+
+  return $requirements;
+}
 /**
  * Creates a default homepage node and vset the site_frontpage.
  */

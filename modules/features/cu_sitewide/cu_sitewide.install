@@ -3,22 +3,6 @@
 /**
  * Enable cu_sitewide_required module.
  */
-
-function cu_sitewide_requirements($phase) {
-  $requirements = array();
-
-  if ($phase == 'runtime') {
-    $t = get_t();
-
-    $requirements['cu_sitewide'] = array(
-      'title' => $t('CU Sitewide Status'),
-      'severity' => REQUIREMENT_INFO,
-    );
-  }
-
-  return $requirements;
-}
-
 function cu_sitewide_update_7001() {
   module_enable(array('cu_sitewide_required'));
 }
