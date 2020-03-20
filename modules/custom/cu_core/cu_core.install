@@ -342,10 +342,10 @@ function cu_core_requirements($phase) {
     $t = get_t();
 
     module_load_include('inc', 'features', 'features.export');
-    
+
     foreach (features_get_features(NULL, TRUE) as $feature) {
       $feature_state = features_get_storage($feature->name);
-      
+
       if ($feature_state == FEATURES_OVERRIDDEN) {
         $requirements[$feature->name] = [
           'title' => $t('Feature ' . $feature->info['name']),
