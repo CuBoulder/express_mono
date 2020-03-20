@@ -340,19 +340,23 @@ function cu_core_requirements($phase) {
   $requirements = array();
   if ($phase === 'runtime') {
     $t = get_t();
+    $overriddenFeatures = array();
 
+    // The features.export.inc is where features_get_storage() is defined.
     module_load_include('inc', 'features', 'features.export');
 
     foreach (features_get_features(NULL, TRUE) as $feature) {
-      $feature_state = features_get_storage($feature->name);
-
-      if ($feature_state == FEATURES_OVERRIDDEN) {
-        $requirements[$feature->name] = [
-          'title' => $t('Feature ' . $feature->info['name']),
-          'value' => 'Overridden',
-          'severity' => REQUIREMENT_INFO,
-        ];
+      if (features_get_storage($feature->name) == FEATURES_OVERRIDDEN) {
+        $overriddenFeatures[] = $feature->info['name'];
       }
+    }
+
+    if (count($overriddenFeatures) > 0){
+      $requirements['overridden_features'] = [
+        'title' => $t('Overridden Features'),
+        'value' => t(implode(', ', $overriddenFeatures)),
+        'severity' => REQUIREMENT_INFO,
+      ];
     }
 
     $enabled_hosting_modules = (array) db_query("SELECT name FROM {system} WHERE type = 'module' AND status = 1 AND name LIKE '%_hosting' ORDER BY weight ASC, name ASC")->fetchCol('name');
