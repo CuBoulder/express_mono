@@ -341,23 +341,20 @@ function cu_core_requirements($phase) {
   if ($phase === 'runtime') {
     $t = get_t();
 
-    // this file is required for features_get_storage() to be defined
     module_load_include('inc', 'features', 'features.export');
-    // loop over all installed features
+    
     foreach (features_get_features(NULL, TRUE) as $feature) {
       $feature_state = features_get_storage($feature->name);
       
-      // check if the state of feature == FEATURES_OVERRRIDDEN == 1
-      // and add information to $requirements array so it is shown on admin/reports/status
       if ($feature_state == FEATURES_OVERRIDDEN) {
         $requirements[$feature->name] = [
           'title' => $t('Feature ' . $feature->info['name']),
           'value' => 'Overridden',
-          'severity' => REQUIREMENT_WARNING,
+          'severity' => REQUIREMENT_INFO,
         ];
       }
     }
-    // Get enabled modules with hosting in the name.
+
     $enabled_hosting_modules = (array) db_query("SELECT name FROM {system} WHERE type = 'module' AND status = 1 AND name LIKE '%_hosting' ORDER BY weight ASC, name ASC")->fetchCol('name');
     $hosting_modules_count = count($enabled_hosting_modules);
 
