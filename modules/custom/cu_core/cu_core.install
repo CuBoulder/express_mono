@@ -343,7 +343,16 @@ function cu_core_requirements($phase) {
     $overriddenFeatures = array();
     // This is a way to hard code (almost never the best?) features we know will be overridden.
     // Just put the sting name of the feature in.
-    $featureStatesToIgnore = ['cu_sitewide', 'other features to overlook...'];
+    $featureStatesToIgnore = [
+      'cu_sitewide',
+      'cu_sitemap',
+      'cu_feature_callout',
+      'cu_social_links',
+      'cu_webform',
+      'cu_mega_menu',
+      'cu_ldap',
+      'other features to overlook...'
+    ];
     // The features.export.inc is where features_get_storage() is defined.
     module_load_include('inc', 'features', 'features.export');
 
@@ -357,7 +366,7 @@ function cu_core_requirements($phase) {
       $requirements['overridden_features'] = [
         'title' => $t('Overridden Features'),
         'value' => t(implode(', ', $overriddenFeatures)),
-        'severity' => REQUIREMENT_WARNING,
+        'severity' => REQUIREMENT_ERROR,
       ];
     }
 
