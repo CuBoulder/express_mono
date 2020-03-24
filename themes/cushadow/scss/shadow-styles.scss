@@ -33,12 +33,12 @@ body {
   }
 }
 // Align hero image to edges.
-.layout-boxed .feature-layout-hero-wrapper img.image-hero {
+.layout-responsive.layout-boxed .feature-layout-hero-wrapper img.image-hero {
     max-width: 1500px;
     margin: 0 auto;
     width:100%;
 }
-.layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper {
+.layout-responsive.layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper {
   @media screen and (min-width:960px) {
     max-width: 920px;
     margin: 0 auto;
