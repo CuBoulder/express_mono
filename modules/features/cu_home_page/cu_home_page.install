@@ -16,7 +16,6 @@ function cu_home_page_install() {
   _cu_home_page_node();
 }
 
-
 /**
  * Creates a default homepage node and vset the site_frontpage.
  */

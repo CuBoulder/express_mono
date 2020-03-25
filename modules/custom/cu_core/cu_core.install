@@ -340,6 +340,34 @@ function cu_core_requirements($phase) {
   $requirements = array();
   if ($phase === 'runtime') {
     $t = get_t();
+    $overriddenFeatures = array();
+    // This is a way to hard code (almost never the best?) features we know will be overridden.
+    // Just put the sting name of the feature in.
+    $featureStatesToIgnore = [
+      'cu_sitewide',
+      'cu_sitemap',
+      'cu_feature_callout',
+      'cu_social_links',
+      'cu_webform',
+      'cu_mega_menu',
+      'cu_ldap',
+    ];
+    // The features.export.inc is where features_get_storage() is defined.
+    module_load_include('inc', 'features', 'features.export');
+
+    foreach (features_get_features(NULL, TRUE) as $feature) {
+      if (features_get_storage($feature->name) == FEATURES_OVERRIDDEN && !in_array($feature->name, $featureStatesToIgnore)) {
+        $overriddenFeatures[] = $feature->info['name'];
+      }
+    }
+
+    if (count($overriddenFeatures) > 0) {
+      $requirements['overridden_features'] = [
+        'title' => $t('Overridden Features'),
+        'value' => t(implode(', ', $overriddenFeatures)),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
 
     // Get enabled modules with hosting in the name.
     $enabled_hosting_modules = (array) db_query("SELECT name FROM {system} WHERE type = 'module' AND status = 1 AND name LIKE '%_hosting' ORDER BY weight ASC, name ASC")->fetchCol('name');
