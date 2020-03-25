@@ -12,7 +12,6 @@ Scenario Outline: An authenticated user should be able to access the form for ad
   Examples:
   | role                  | message                   |
   | edit_my_content       | "Access denied"           |
-  | content_editor        | "Create People List Page" |
   | site_owner            | "Create People List Page" |
   | administrator         | "Create People List Page" |
   | developer             | "Create People List Page" |

@@ -12,7 +12,6 @@ Scenario Outline: An authenticated user should be able to access the form for ad
   Examples:
   | role                  | message         |
   | edit_my_content       | "Access denied" |
-  | content_editor        | "Create Person" |
   | site_owner            | "Create Person" |
   | administrator         | "Create Person" |
   | developer             | "Create Person" |
@@ -45,7 +44,7 @@ Scenario: A user with the Edit Only role can edit but not delete Person nodes
   And I press "Cancel edit"
 
 Scenario: Footer, Main Menu, and Secondary Menus should be available when creating a Person
-  Given I am logged in as a user with the "content_editor" role
+  Given I am logged in as a user with the "site_editor" role
   And I am on "node/add/person"
   And I check "Provide a menu link"
   Then I select "<Footer Menu>" from "edit-menu-parent"
