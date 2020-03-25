@@ -71,7 +71,6 @@ Examples:
 | developer       |
 | administrator   |
 | site_owner      |
-| content_editor  |
 | site_editor |
 
 Scenario: Block Access - The EditOnly role can edit, revise, theme but not delete Hero Unit content
