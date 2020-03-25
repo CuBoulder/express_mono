@@ -24,7 +24,7 @@ Scenario: A user should see the string overrides on the menu add page.
 # Test to cover the regression in FIT-902.
 @broken
 Scenario: A user should not see a subnavigation menu header
-  Given I am logged in as a user with the "content_editor" role
+  Given I am logged in as a user with the "site_editor" role
   When I go to "node/add/page"
   And fill in "Title" with "Basic Page"
   And fill in "Menu link title" with "Basic Page"

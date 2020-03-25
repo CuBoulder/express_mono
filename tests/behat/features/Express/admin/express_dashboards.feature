@@ -20,7 +20,6 @@ I am redirected to my dashboard
       | administrator   |
       | site_owner      |
       | site_editor     |
-      | content_editor  |
       | edit_my_content |
 
 
@@ -38,5 +37,4 @@ I am redirected to my dashboard
       | administrator    |
       | site_owner       |
       | site_editor      |
-      | content_editor   |
       | edit_my_content  |

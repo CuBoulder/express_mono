@@ -11,7 +11,6 @@ Examples:
   | role           |   message     | message1                |
   | site_owner     | jQuery Update | Express Layout Settings |
   | administrator  | jQuery Update | Express Layout Settings |
-  | content_editor | jQuery Update | Express Layout Settings |
 
 
 @permissions
