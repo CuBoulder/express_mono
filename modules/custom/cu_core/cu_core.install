@@ -351,7 +351,6 @@ function cu_core_requirements($phase) {
       'cu_webform',
       'cu_mega_menu',
       'cu_ldap',
-      'other features to overlook...'
     ];
     // The features.export.inc is where features_get_storage() is defined.
     module_load_include('inc', 'features', 'features.export');
@@ -369,7 +368,8 @@ function cu_core_requirements($phase) {
         'severity' => REQUIREMENT_ERROR,
       ];
     }
-
+    
+    // Get enabled modules with hosting in the name.
     $enabled_hosting_modules = (array) db_query("SELECT name FROM {system} WHERE type = 'module' AND status = 1 AND name LIKE '%_hosting' ORDER BY weight ASC, name ASC")->fetchCol('name');
     $hosting_modules_count = count($enabled_hosting_modules);
 
