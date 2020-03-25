@@ -13,7 +13,6 @@ Scenario Outline: A user with the proper role can access the form for adding a c
   | role            | message         |
   | edit_my_content | "Access denied" |
   | edit_only       | "Access denied" |
-  | content_editor  | "Create Content Grid block" |
   | site_owner      | "Create Content Grid block" |
   | administrator   | "Create Content Grid block" |
   | developer       | "Create Content Grid block" |
