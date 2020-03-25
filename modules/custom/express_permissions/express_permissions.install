@@ -57,14 +57,14 @@ function express_permissions_update_7009() {
 /**
  * Remove content editor role.
  */
-function express_permissions_7010() {
-  // Load content editor role to check to see if we have any users with that role
+function express_permissions_update_7010() {
+  // Load content editor role to check to see if we have any users with that role.
   $role = user_role_load_by_name('content_editor');
   $uids = db_select('users_roles', 'ur')
-      ->fields('ur', array('uid'))
-      ->condition('ur.rid', $role->rid, '=')
-      ->execute()
-      ->fetchCol();
+    ->fields('ur', array('uid'))
+    ->condition('ur.rid', $role->rid, '=')
+    ->execute()
+    ->fetchCol();
   $users = user_load_multiple($uids);
   // If users have this role, remove and replace with edit_only role.
   if (!empty($users)) {
@@ -75,4 +75,6 @@ function express_permissions_7010() {
       user_save($users[$key]);
     }
   }
+  // Delete the content_editor role.
+  user_role_delete($role);
 }
