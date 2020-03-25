@@ -72,7 +72,6 @@ Examples:
 | developer       |
 | administrator   |
 | site_owner      |
-| content_editor  |
 | site_editor |
 
 
