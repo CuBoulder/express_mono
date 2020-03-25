@@ -14,7 +14,6 @@ Scenario Outline: Only Devs can verify that the Google Analytics Settings page h
     | developer       | "General Settings" |
     | administrator   | "Access denied"    |
     | site_owner      | "Access denied"    |
-    | content_editor  | "Access denied"    |
     | edit_my_content | "Access denied"    |
     | edit_only       | "Access denied"    |
 
