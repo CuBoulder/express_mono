@@ -31,7 +31,6 @@ Then I should see "Access denied"
 
 Examples:
 | role |
-| content_editor |
 | edit_my_content  |
 | site_editor      |
 | edit_only        |
