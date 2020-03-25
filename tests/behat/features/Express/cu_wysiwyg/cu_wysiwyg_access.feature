@@ -13,7 +13,6 @@ Scenario Outline: An authenticated user should have WYSIWYG selected as the the 
 
   Examples:
   | role           |
-  | content_editor |
   | site_editor    |
   | site_owner     |
   | administrator  |
