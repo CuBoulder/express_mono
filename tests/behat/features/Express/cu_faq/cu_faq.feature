@@ -21,7 +21,6 @@ Examples:
 | developer             | "Create Frequently Asked Questions" |
 | administrator         | "Create Frequently Asked Questions" |
 | site_owner            | "Create Frequently Asked Questions" |
-| content_editor        | "Create Frequently Asked Questions" |
 | edit_my_content       | "Access denied"                     |
 | site_editor           | "Create Frequently Asked Questions" |
 | edit_only             | "Access denied"                     |
@@ -80,7 +79,6 @@ Examples:
 | developer    |
 | administrator |
 | site_owner    |
-| content_editor |
 | site_editor |
 
 Scenario: Node Access -  EditOnly can edit and revise but not delete FAQ; can clear page cache
