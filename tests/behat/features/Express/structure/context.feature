@@ -12,7 +12,6 @@ Feature: Context
     Examples:
       | role                  | message                                              |
       | edit_my_content       | "Access denied"                                      |
-      | content_editor        | "Context allows you to manage contextual conditions" |
       | site_owner            | "Context allows you to manage contextual conditions" |
       | administrator         | "Context allows you to manage contextual conditions" |
       | developer             | "Context allows you to manage contextual conditions" |
@@ -33,7 +32,6 @@ Feature: Context
 
     Examples:
       | role           |
-      | content_editor |
       | site_owner     |
       | administrator  |
       | site_editor    |
