@@ -19,12 +19,6 @@ function cu_content_sequence_bundle_secure_permissions($role) {
       'edit any content_sequence bean',
       'view any content_sequence bean',
     ),
-    'content_editor' => array(
-      'create any content_sequence bean',
-      'delete any content_sequence bean',
-      'edit any content_sequence bean',
-      'view any content_sequence bean',
-    ),
     'developer' => array(
       'create any content_sequence bean',
       'delete any content_sequence bean',
