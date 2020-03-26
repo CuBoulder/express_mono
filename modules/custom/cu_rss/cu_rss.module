@@ -292,12 +292,7 @@ function cu_rss_secure_permissions($role) {
       'administer rss feeds',
     ),
     'edit_my_content' => array(),
-
     'edit_only' => array(),
-
-    'content_editor' => array(
-      'administer rss feeds',
-    ),
     'developer' => array(
       'administer rss feeds',
     ),
