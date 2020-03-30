@@ -179,11 +179,22 @@ function _cu_shortcodes_generate_button_rendered($values) {
   }
   $classes[] = $values['color'] ? 'button-' . $values['color'] : 'button-blue';
   $content = $values['icon'] ? '<i class="fa ' . $values['icon'] . '"></i> ' . $values['text'] : $values['text'];
-  $button = l($content, $values['url'], array(
-              'attributes' => array(
-                'class' => $classes,
-              ),
-              'html' => TRUE,
-            ));
+  $linkOptions = [
+    'attributes' => [
+      'class' => $classes,
+    ],
+    'html' => TRUE,
+  ];
+
+  if (strpos($values['url'], '#')) {
+    $fragmentStartIndex = strpos($values['url'], '#') + 1;
+    $linkOptions['fragment'] = substr($values['url'], $fragmentStartIndex);
+    $button = l($content, '', $linkOptions);
+  }
+
+  else {
+    $button = l($content, $values['url'], $linkOptions);
+  }
+
   return $button;
 }
