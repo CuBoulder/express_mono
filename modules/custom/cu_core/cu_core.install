@@ -394,7 +394,15 @@ function cu_core_requirements($phase) {
     );
   }
 
-
+  // Warn if Secure Permissions are not being loaded from code
+  $securePerm = variable_get('secure_permissions_active', FALSE);
+  if ($securePerm == 0) {
+    $requirements['securePerm'] = array(
+      'title' => $t('Secure Permissions'),
+      'value' => $t('Secure Permissions are not being loaded from code'),
+      'severity' => REQUIREMENT_WARNING,
+    );
+  }
 
   return $requirements;
 }
