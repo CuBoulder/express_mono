@@ -383,7 +383,7 @@ function cu_core_requirements($phase) {
     }
   }
 
-  // Check value LDAP Mixed Mode variable; warn if site is in Mixed Mode
+  // Check value LDAP Mixed Mode variable; warn if site is in Mixed Mode.
   $ldapAuthArray = variable_get('ldap_authentication_conf', FALSE);
   $authMode = $ldapAuthArray[authenticationMode];
   if ($authMode == 1) {
@@ -394,7 +394,7 @@ function cu_core_requirements($phase) {
     );
   }
 
-  // Warn if Secure Permissions are not being loaded from code
+  // Warn if Secure Permissions are not being loaded from code.
   $securePerm = variable_get('secure_permissions_active', FALSE);
   if ($securePerm == 0) {
     $requirements['securePerm'] = array(
