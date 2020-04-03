@@ -40,7 +40,7 @@ function cu_shortcodes_button_generator_form($form, &$form_state) {
   // Button URL.
   $form['button_shortcode_options']['button_shortcode_url'] = array(
     '#title' => t('Button URL'),
-    '#type' => 'textfield',
+    '#type' => 'textfied',
     '#default_value' => 'http://www.colorado.edu',
     '#description' => t('The url the button will link to.'),
   );
@@ -153,6 +153,7 @@ function cu_shortcodes_button_generator_callback($form, $form_state) {
  * Implements hook_submit().
  */
 function cu_shortcodes_generate_form_submit($form, &$form_state) {
+
   $form_state['rebuild'] = TRUE;
 }
 
@@ -174,11 +175,15 @@ function _cu_shortcodes_generate_button_rendered($values) {
   $classes = array();
   $classes[] = 'button-shortcode';
   $classes[] = $values['size'] ? 'button-' . $values['size'] : '';
+
   if ($values['style'] == 'full') {
     $classes[] = 'button-full';
   }
+
   $classes[] = $values['color'] ? 'button-' . $values['color'] : 'button-blue';
   $content = $values['icon'] ? '<i class="fa ' . $values['icon'] . '"></i> ' . $values['text'] : $values['text'];
+
+  $hasUrlFragment = strpos($values['url'], '#');
   $linkOptions = [
     'attributes' => [
       'class' => $classes,
@@ -186,9 +191,9 @@ function _cu_shortcodes_generate_button_rendered($values) {
     'html' => TRUE,
   ];
 
-  if (strpos($values['url'], '#')) {
-    $fragmentStartIndex = strpos($values['url'], '#') + 1;
-    $linkOptions['fragment'] = substr($values['url'], $fragmentStartIndex);
+  if ($hasUrlFragment !== FALSE && $hasUrlFragment === 0) {
+
+    $linkOptions['fragment'] = substr($values['url'], strpos($values['url'], '#') + 1);
     $button = l($content, '', $linkOptions);
   }
 

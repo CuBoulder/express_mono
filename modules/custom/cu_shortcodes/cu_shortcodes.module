@@ -12,6 +12,9 @@
  * Implements hook_menu().
  */
 function cu_shortcodes_menu() {
+  // module_load_include('inc', )
+  // $themes = list_themes();
+  // $registry = theme_get_registry();
   $items['shortcodes'] = array(
     'title' => 'Shortcodes',
     'page callback' => 'cu_shortcodes_demo',
@@ -25,6 +28,14 @@ function cu_shortcodes_menu() {
     'file' => 'inc/cu_shortcodes_button_generator.inc',
     'access arguments' => array('use text format wysiwyg'),
   );
+  // $items['admin/config/content/shortcode/generator/button'] = array(
+  //   'title' => 'Button Shortcode Generator',
+  //   'description' => 'Generate shortcodes for buttons',
+  //   'page callback' => 'button_callback',
+  //   // 'page arguments' => array('cu_shortcodes_button_generator_form'),
+  //   // 'file' => 'inc/cu_shortcodes_button_generator.inc',
+  //   'access arguments' => array('use text format wysiwyg'),
+  // );
   $items['admin/config/content/shortcode/generator/icon'] = array(
     'title' => 'Icon Shortcode Generator',
     'description' => 'Generate shortcodes for icons',
@@ -35,6 +46,12 @@ function cu_shortcodes_menu() {
   );
   return $items;
 }
+
+// me trying to see if I can get code to reflect in rendered pages
+// function button_callback() {
+//   module_load_include('inc', 'cu_shortcodes', '/inc/cu_shortcodes_button_generator');
+//   drupal_get_form(cu_shortcodes_button_generator_form);
+// }
 
 /**
  * Implements hook_libraries_info().
@@ -456,12 +473,21 @@ function cu_shortcodes_button($attrs, $content = NULL) {
   // Only add ID if ID exists.
   if ($id) { $attributes['id'] = $id; }
 
+  // Trying new code here 4/3/20 for issue express_mono #320!
+  $hasUrlFragment = strpos($url, '#');
+
+  if ($hasUrlFragment !== FALSE) {
+    $attributes['fragment'] = substr($url, strpos($values['url'], '#') + 1);
+    $url = substr($url, 0, $hasUrlFragment);
+  }
+
   $content = $icon ? '<i class="fa ' . $icon . '"></i> ' . $content : $content;
-  return l($content, $url, array(
+  $button = l($content, $url, array(
       'attributes' => $attributes,
       'html' => TRUE,
     )
   );
+  return $button;
 }
 
 /**
