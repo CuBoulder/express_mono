@@ -382,6 +382,28 @@ function cu_core_requirements($phase) {
       );
     }
   }
+
+  // Check value LDAP Mixed Mode variable; warn if site is in Mixed Mode.
+  $ldapAuthArray = variable_get('ldap_authentication_conf', FALSE);
+  $authMode = $ldapAuthArray[authenticationMode];
+  if ($authMode == 1) {
+    $requirements['authMode'] = array(
+      'title' => $t('Authentication Mode'),
+      'value' => $t('Site is in Mixed Mode'),
+      'severity' => REQUIREMENT_WARNING,
+    );
+  }
+
+  // Warn if Secure Permissions are not being loaded from code.
+  $securePerm = variable_get('secure_permissions_active', FALSE);
+  if ($securePerm == 0) {
+    $requirements['securePerm'] = array(
+      'title' => $t('Secure Permissions'),
+      'value' => $t('Secure Permissions are not being loaded from code'),
+      'severity' => REQUIREMENT_WARNING,
+    );
+  }
+
   return $requirements;
 }
 
