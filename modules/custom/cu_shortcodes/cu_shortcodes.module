@@ -452,14 +452,22 @@ function cu_shortcodes_box_tips($format, $long) {
  * Button shortcode.
  */
 function cu_shortcodes_button($attrs, $content = NULL) {
-  extract(shortcode_attrs(array(
-        'url'        => '',
-        'style'       => '',
-        'color' => '',
-        'icon' => '',
-        'size' => '',
-        'id' => NULL,
-      ), $attrs));
+//  extract(shortcode_attrs(array(
+//        'url'        => '',
+//        'style'       => '',
+//        'color' => '',
+//        'icon' => '',
+//        'size' => '',
+//        'id' => NULL,
+//      ), $attrs));
+
+  $url = $attrs['url'] ?? '';
+  $style = $attrs['style'] ?? '';
+  $color = $attrs['color'] ?? '';
+  $icon = $attrs['icon'] ?? '';
+  $size = $attrs['size'] ?? '';
+  $id = $attrs['id'];
+
   // Add button classes.
   $classes = array();
   $classes[] = 'button';
@@ -473,11 +481,10 @@ function cu_shortcodes_button($attrs, $content = NULL) {
   // Only add ID if ID exists.
   if ($id) { $attributes['id'] = $id; }
 
-  // Trying new code here 4/3/20 for issue express_mono #320!
   $hasUrlFragment = strpos($url, '#');
 
   if ($hasUrlFragment !== FALSE) {
-    $attributes['fragment'] = substr($url, strpos($values['url'], '#') + 1);
+    $attributes['fragment'] = substr($url, $hasUrlFragment + 1);
     $url = substr($url, 0, $hasUrlFragment);
   }
 
