@@ -26,12 +26,13 @@ body {
   }
 }
 #secondary-menu-wrapper {
+
   background-color: #000;
   color: lighten($gray, 15%);
   nav {
     background-color: #333;
     h2 {
-      padding-left: 8px;
+      padding: 0 5px;
     }
   }
   a {
@@ -43,7 +44,7 @@ body {
   a.active,
   a.active-trail {
     color:#fff;
-    background-color: #444;
+    background-color: #757575;
   }
 }
 #navigation .links a {
@@ -87,7 +88,12 @@ ul#action-menu a {
 #navigation ul.action-menu {
   a {
     margin: 18px 5px;
-    color:#ccc;
+    color:#aaa;
+    &:hover,
+    &.active,
+    &.active-trail {
+      color:#fff;
+    }
   }
 }
 

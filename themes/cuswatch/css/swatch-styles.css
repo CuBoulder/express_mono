@@ -9,9 +9,9 @@ body { background-color: #000; padding-bottom: 20px; }
 
 #secondary-menu-wrapper { background-color: #000; color: white; }
 #secondary-menu-wrapper nav { background-color: #333; }
-#secondary-menu-wrapper nav h2 { padding-left: 8px; }
+#secondary-menu-wrapper nav h2 { padding: 0 5px; }
 #secondary-menu-wrapper a { display: inline-block; color: #fff; }
-#secondary-menu-wrapper a:hover, #secondary-menu-wrapper a:focus, #secondary-menu-wrapper a.active, #secondary-menu-wrapper a.active-trail { color: #fff; background-color: #444; }
+#secondary-menu-wrapper a:hover, #secondary-menu-wrapper a:focus, #secondary-menu-wrapper a.active, #secondary-menu-wrapper a.active-trail { color: #fff; background-color: #757575; }
 
 #main-menu-wrapper { background-color: #222; }
 #main-menu-wrapper ul#main-menu > li > a { color: #ccc; font-size: 90%; font-weight: 600; line-height: 60px; }
@@ -23,7 +23,8 @@ body { background-color: #000; padding-bottom: 20px; }
 
 ul#action-menu a { line-height: 20px; margin: 20px 0 20px 10px; }
 
-#navigation ul.action-menu a { margin: 18px 5px; color: #ccc; }
+#navigation ul.action-menu a { margin: 18px 5px; color: #aaa; }
+#navigation ul.action-menu a:hover, #navigation ul.action-menu a.active, #navigation ul.action-menu a.active-trail { color: #fff; }
 
 .slider-wrapper { padding: 20px; }
 

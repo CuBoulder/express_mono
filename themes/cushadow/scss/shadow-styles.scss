@@ -113,6 +113,9 @@ body {
 }
 #secondary-navigation {
   color:#fff;
+  .secondary-menu-label {
+    padding:0 5px;
+  }
   a {
     color:#fff;
     display: inline-block;

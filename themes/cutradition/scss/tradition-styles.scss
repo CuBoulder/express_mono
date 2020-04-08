@@ -40,7 +40,7 @@ body {
       background-color: $cugold;
     }
     h2 {
-      margin-left: 8px;
+      padding:0 5px;
     }
     a {
       display: inline-block;
@@ -107,7 +107,7 @@ body {
 #navigation #action-menu {
   padding:10px 0;
   a {
-    color: #656565;
+    color: #757575;
   }
   a.active,
   a.active-trail,

@@ -11,7 +11,7 @@ body { background-color: #000; padding-bottom: 20px; }
 .banner-black #header-wrapper { background-color: #000; }
 .banner-black #secondary-menu-wrapper { background-color: #000; color: #000; }
 .banner-black #secondary-menu-wrapper #secondary-menu { background-color: #cfb87c; }
-.banner-black #secondary-menu-wrapper h2 { margin-left: 8px; }
+.banner-black #secondary-menu-wrapper h2 { padding: 0 5px; }
 .banner-black #secondary-menu-wrapper a { display: inline-block; }
 .banner-black #secondary-menu-wrapper a:link, .banner-black #secondary-menu-wrapper a:visited { color: #000; }
 .banner-black #secondary-menu-wrapper a:hover, .banner-black #secondary-menu-wrapper a:focus, .banner-black #secondary-menu-wrapper a.active, .banner-black #secondary-menu-wrapper a.active-trail { color: #fff; background-color: #444; }
@@ -26,7 +26,7 @@ body { background-color: #000; padding-bottom: 20px; }
 #main-menu-wrapper #navigation #main-menu a.home-link { margin-left: -12px; }
 
 #navigation #action-menu { padding: 10px 0; }
-#navigation #action-menu a { color: #656565; }
+#navigation #action-menu a { color: #757575; }
 #navigation #action-menu a.active, #navigation #action-menu a.active-trail, #navigation #action-menu a:hover { color: #111; }
 
 #main { padding-top: 0; }

@@ -64,7 +64,7 @@ body {
     padding-bottom: 20px;
   }
   .banner-black .navigation-wrapper {
-    padding: 40px 0 20px;
+    padding: 20px 0 20px;
   }
 }
 
@@ -72,6 +72,7 @@ body {
 // Secondary Menu
 h2.secondary-menu-label {
   margin-left:8px;
+  padding: 0 5px;
 }
 .banner-white #secondary-menu-wrapper {
   background-color: #fff;
@@ -121,7 +122,12 @@ h2.secondary-menu-label {
   color: #000;
 }
 #main-menu-wrapper ul#action-menu > li > a {
-  color:#fff;
+  color:#aaa;
+  &:hover,
+  &.active,
+  &.active-trail {
+    color:#fff;
+  }
 }
 
 // Backgrounds
