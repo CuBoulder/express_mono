@@ -28,14 +28,6 @@ function cu_shortcodes_menu() {
     'file' => 'inc/cu_shortcodes_button_generator.inc',
     'access arguments' => array('use text format wysiwyg'),
   );
-  // $items['admin/config/content/shortcode/generator/button'] = array(
-  //   'title' => 'Button Shortcode Generator',
-  //   'description' => 'Generate shortcodes for buttons',
-  //   'page callback' => 'button_callback',
-  //   // 'page arguments' => array('cu_shortcodes_button_generator_form'),
-  //   // 'file' => 'inc/cu_shortcodes_button_generator.inc',
-  //   'access arguments' => array('use text format wysiwyg'),
-  // );
   $items['admin/config/content/shortcode/generator/icon'] = array(
     'title' => 'Icon Shortcode Generator',
     'description' => 'Generate shortcodes for icons',
@@ -46,12 +38,6 @@ function cu_shortcodes_menu() {
   );
   return $items;
 }
-
-// me trying to see if I can get code to reflect in rendered pages
-// function button_callback() {
-//   module_load_include('inc', 'cu_shortcodes', '/inc/cu_shortcodes_button_generator');
-//   drupal_get_form(cu_shortcodes_button_generator_form);
-// }
 
 /**
  * Implements hook_libraries_info().
@@ -452,21 +438,17 @@ function cu_shortcodes_box_tips($format, $long) {
  * Button shortcode.
  */
 function cu_shortcodes_button($attrs, $content = NULL) {
-//  extract(shortcode_attrs(array(
-//        'url'        => '',
-//        'style'       => '',
-//        'color' => '',
-//        'icon' => '',
-//        'size' => '',
-//        'id' => NULL,
-//      ), $attrs));
-
   $url = $attrs['url'] ?? '';
   $style = $attrs['style'] ?? '';
   $color = $attrs['color'] ?? '';
   $icon = $attrs['icon'] ?? '';
   $size = $attrs['size'] ?? '';
   $id = $attrs['id'];
+  $fragment = '';
+
+  // debug messages:
+  dpr($url);
+  dpr(current_path());
 
   // Add button classes.
   $classes = array();
@@ -481,16 +463,26 @@ function cu_shortcodes_button($attrs, $content = NULL) {
   // Only add ID if ID exists.
   if ($id) { $attributes['id'] = $id; }
 
-  $hasUrlFragment = strpos($url, '#');
+  // check if the url has a fragment in url starting with '#'
+  $fragmentPostion = strpos($url, '#');
 
-  if ($hasUrlFragment !== FALSE) {
-    $attributes['fragment'] = substr($url, $hasUrlFragment + 1);
-    $url = substr($url, 0, $hasUrlFragment);
+  if ($fragmentPostion !== FALSE && $fragmentPostion === 0) {
+    $fragment = substr($url, $hasUrlFragment + 1);
+    $url = current_path();
+    dpr("Current path: $url");
+    dpr("Fragment: $fragment");
   }
 
+  elseif ($fragmentPostion !== FALSE && $fragmentPostion !== 0) {
+    $urlParts = explode("#", $url);
+    $url = $urlParts[0];
+    $fragment = $urlParts[1];
+  }
+  
   $content = $icon ? '<i class="fa ' . $icon . '"></i> ' . $content : $content;
   $button = l($content, $url, array(
       'attributes' => $attributes,
+      'fragment' => $fragment,
       'html' => TRUE,
     )
   );
