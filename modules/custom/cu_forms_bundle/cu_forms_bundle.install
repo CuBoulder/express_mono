@@ -121,7 +121,7 @@ function cu_forms_bundle_update_7009() {
 }
 
 /**
-* Implements hook_disable which runs whenever this module is disabled 
+* Implements hook_disable().
 */
 function cu_digital_campaign_bundle_disable() {
   remove_module_role('form_manager');

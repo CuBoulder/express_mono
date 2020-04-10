@@ -545,7 +545,9 @@ function cu_core_site_types($type = NULL) {
   }
 }
 
-// takes any number of comma separated string parameters that are the names of module added user roles
+/**
+ * Takes any number of comma separated string parameters that are the names of module added user roles.
+ */
 function remove_module_addon_role() {
   $addOnRoleIds = variable_get('user_external_invite_addon_roles', []);
   $adjustedAddOnRoleIds = [];
@@ -558,6 +560,6 @@ function remove_module_addon_role() {
       }
     }
   }
-  
+
   variable_set('user_external_invite_addon_roles', $adjustedAddOnRoleIds);
 }
