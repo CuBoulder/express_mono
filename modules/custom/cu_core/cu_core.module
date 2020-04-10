@@ -544,3 +544,20 @@ function cu_core_site_types($type = NULL) {
     return $types;
   }
 }
+
+// takes any number of comma separated string parameters that are the names of module added user roles
+function remove_module_addon_role() {
+  $addOnRoleIds = variable_get('user_external_invite_addon_roles', []);
+  $adjustedAddOnRoleIds = [];
+
+  foreach (func_get_args() as $moduleRole) {
+    foreach ($addOnRoleIds as $rid) {
+      $role = user_role_load($rid)->name;
+      if (isset($role) && $role != $moduleRole) {
+        $adjustedAddOnRoleIds[] = $rid;
+      }
+    }
+  }
+  
+  variable_set('user_external_invite_addon_roles', $adjustedAddOnRoleIds);
+}

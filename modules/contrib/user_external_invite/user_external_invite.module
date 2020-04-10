@@ -92,7 +92,6 @@ function user_external_invite_menu() {
  */
 function user_external_invite_page() {
   $build['form'] = drupal_get_form('user_external_invite_form');
-  dpm($build['form']);
   return $build;
 }
 

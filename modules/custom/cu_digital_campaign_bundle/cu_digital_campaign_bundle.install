@@ -12,20 +12,6 @@ function cu_digital_campaign_bundle_enable() {
   $invite_roles[] = $campaign_manager_role->rid;
 
   variable_set('user_external_invite_addon_roles', $invite_roles);
-  
-  // debugging stuff
-  // dpm("campaign_manager_role:");
-  // dpm($campaign_manager_role);
-  dpm("After enable, found these invite_roles:");
-  dpm($invite_roles);
-  // foreach($invite_roles as $invitee) {
-  // }
-
-  $roles = secure_permissions_get_existing_roles();
-  dpm("After enable, found these roles:");
-  foreach ($roles as $role) {
-    dpm($role);
-  }
 }
 
 /**
@@ -48,3 +34,10 @@ function cu_digital_campaign_bundle_update_7002() {
 
   variable_set('user_external_invite_addon_roles', $invite_roles);
 }
+
+/**
+  * Implements hook_disable which runs whenever this module is disabled 
+  */
+  function cu_digital_campaign_bundle_disable() {
+    remove_module_role("campaign_manager");
+  }
