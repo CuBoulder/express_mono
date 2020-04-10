@@ -231,3 +231,12 @@ function cu_digital_campaign_bundle_express_help($variables) {
 
   return $variables;
 }
+
+/**
+  * Implements hook_disable which runs whenever this module is disabled 
+  */
+function cu_digital_campaign_bundle_disable() {
+  $roles = secure_permissions_get_existing_roles();
+  dpm("After disable, found these roles:");
+  dpm($roles);
+}
