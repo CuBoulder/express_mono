@@ -524,3 +524,16 @@ function cu_core_update_7067() {
     }
   }
 }
+
+/**
+ * Disable old tracking pixel modules.
+ */
+function cu_core_update_7068() {
+  $modules = array(
+    'cu_seo_admin_bundle',
+    'cu_tracking_pixel',
+    'cu_tracking_pixel_overview',
+  );
+  module_disable($modules);
+  drupal_uninstall_modules($modules);
+}
