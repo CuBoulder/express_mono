@@ -248,3 +248,25 @@ function cu_search_secure_permissions($role) {
     return $permissions[$role];
   }
 }
+
+/**
+ * Implements hook_form_alter()
+ *
+ * Hide some search blocks from being used with Context.
+ */
+function cu_search_form_alter(&$form, &$form_state, $form_id) {
+  switch($form_id) {
+    case 'ctools_export_ui_edit_item_form':
+      // Rename bean to blocks
+      $form['reactions']['plugins']['block']['selector']['bean']['#title'] = 'blocks';
+
+      if (!user_access('edit locked contexts1')) {
+        $blocks = &$form['reactions']['plugins']['block']['selector'];
+        // Unset search blocks which are not meant to be used in this way.
+        unset($blocks['cu_search']['checkboxes']['#options']['cu_search-cu_search']);
+        unset($blocks['cu_search']['checkboxes']['#options']['cu_search-cu_search_mobile']);
+        unset($blocks['cu_search']['checkboxes']['#options']['cu_search-cu_search_page']);
+      }
+      break;
+  }
+}
