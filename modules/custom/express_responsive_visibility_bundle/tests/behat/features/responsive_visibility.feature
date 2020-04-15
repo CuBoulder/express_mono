@@ -14,7 +14,7 @@ Scenario Outline: An authenticated user should be able to access the form for ad
         | role            | message                  |
         | edit_my_content | "Access Denied"          |
         | edit_only       | "Access Denied"          |
-        | content_editor  | "Create Responsive Visibility block" |
+        | site_editor     | "Create Responsive Visibility block" |
         | site_owner      | "Create Responsive Visibility block" |
         | administrator   | "Create Responsive Visibility block" |
         | developer       | "Create Responsive Visibility block" |

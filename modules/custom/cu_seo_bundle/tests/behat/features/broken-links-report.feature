@@ -10,7 +10,6 @@ Feature: Broken Links Report
             | role            | message        |
             | edit_my_content | "Broken links" |
             | edit_only       | "Broken links" |
-            | content_editor  | "Broken links" |
             | site_editor     | "Broken links" |
             | site_owner      | "Broken links" |
             | administrator   | "Broken links" |
