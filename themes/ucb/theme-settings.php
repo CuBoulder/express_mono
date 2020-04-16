@@ -44,23 +44,6 @@ function ucb_form_system_theme_settings_alter(&$form, &$form_state) {
     ),
     '#description' => 'This setting sets which is the primary sidebar for tablet displays',
 	);
-	$form['expressbase_theme_settings']['typography'] = array(
-		'#type' => 'fieldset',
-		'#title' => t('Typography'),
-		'#collapsible' => TRUE,
-		'#collapsed' => TRUE,
-	);
-
-	$form['expressbase_theme_settings']['typography']['headings'] = array(
-	  '#type' => 'select',
-	  '#title' => t('Heading Style'),
-	  '#default_value' => theme_get_setting('headings', $theme) ? theme_get_setting('headings', $theme) : 'headings-bold',
-	  '#description' => t('Pick a style for your sites headings.'),
-	  '#options' => array(
-      'headings-bold' => t('Bold'),
-      'headings-light' => t('Light'),
-    ),
-	);
 	if (module_exists('cu_title_image')) {
     $form['expressbase_theme_settings']['page_title_image'] = array(
   		'#type' => 'fieldset',

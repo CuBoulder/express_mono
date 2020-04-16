@@ -156,22 +156,7 @@ h5, h6,
 h2.block-title, h2.node-title {
   font-weight:bold;
 }
-.headings-light {
-  h1,
-  .h1,
-  h1#page-title,
-  #page-title-image-title,
-  .page-title-section h1,
-  h2, h2.block-title, h2.node-title,
-  h3, h4, h5, h6
-  .h2,.h3, .h4, .h5, .h6 {
-    font-weight:normal;
-    strong,
-    b {
-      font-weight: bold;
-    }
-  }
-}
+
 
 // Change weights if .brand-fonts is set
 .brand-fonts {
@@ -194,22 +179,6 @@ h2.block-title, h2.node-title {
   }
   h2.block-title, h2.node-title {
     font-weight:700;
-  }
-  &.headings-light {
-    h1,
-    .h1,
-    h1#page-title,
-    #page-title-image-title,
-    .page-title-section h1,
-    h2, h2.block-title, h2.node-title,
-    h3, h4, h5, h6,
-    .h2, .h3, .h4, .h5, .h6 {
-      font-weight:200;
-      strong,
-      b {
-        font-weight: 600;
-      }
-    }
   }
 }
 
