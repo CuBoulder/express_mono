@@ -124,5 +124,15 @@ function cu_forms_bundle_update_7009() {
  * Implements hook_disable().
  */
 function cu_forms_bundle_disable() {
-  remove_module_role('form_manager');
+  $addOnRoleIds = variable_get('user_external_invite_addon_roles', []);
+  $adjustedAddOnRoleIds = [];
+
+  foreach ($addOnRoleIds as $rid) {
+    $role = user_role_load($rid)->name;
+    if (isset($role) && $role != 'form_manager') {
+      $adjustedAddOnRoleIds[] = $rid;
+    }
+  }
+
+  variable_set('user_external_invite_addon_roles', $adjustedAddOnRoleIds);
 }
