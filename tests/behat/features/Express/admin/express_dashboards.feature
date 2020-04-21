@@ -1,6 +1,4 @@
-# WHEN I LOGON I SHOULD BE REDIRECTED TO THE DASHBOARD
-
-@dashboard
+@admin @dashboard @core
 Feature: The Web Express Dashboard
 When I login to a Web Express website
 As an authenticated user
@@ -24,6 +22,7 @@ I am redirected to my dashboard
       | site_editor     |
       | content_editor  |
       | edit_my_content |
+
 
   @usertabs
   Scenario Outline: Authenticated users should see three tabs on their dashboard

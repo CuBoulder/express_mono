@@ -2,7 +2,7 @@
 # SEE ARTICLES FOR TAXONOMY TESTS
 # SEE MENUS FOR MENUS TESTS
 
-@structure
+@structure @core
 Feature: Structure section with links to context, menus, etc
 When I go to the Admin/Structure page
 As an authenticated user

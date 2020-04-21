@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Site Contact populates Site Information region
 In order to provide contact information about the site
 Authenticated users with the proper role

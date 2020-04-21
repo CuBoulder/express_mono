@@ -1,16 +1,15 @@
-@digital_campaign
+@digital_campaign @ab_testing
 Feature: A/B Testing
 In order to test the results of a digital campaign
 A user with the proper role
 Should be able to access, create and run A/B tests
 
-@ab_testing
 Scenario: A/B Block has been added to the Blocks page
   Given I am logged in as a user with the "site_owner" role
-    And I am on "block/add"
+  And I am on "block/add"
   Then I should see the link "A/B Block"
 
-@ab_testing @javascript
+@javascript
 Scenario: An A/B test can be created and its content served according to set percentages
   Given I am logged in as a user with the "developer" role
     # Turning the auto-complete field into a select list doesn't work like on my local...
@@ -20,7 +19,8 @@ Scenario: An A/B test can be created and its content served according to set per
   Then I should see "Changed the widget for field Block."
   Then I go to "block/add/a-b-block"
     And I fill in "Label" with "A/B Block"
-    And I select "Text Block A (Text Block A)" from "field_block_option[und][0][field_block][und]"
+    # And I select "Text Block A (Text Block A)" from "field_block_option[und][0][field_block][und]"
+        And I select "Text Block A (Text Block A)" from "edit-field-block-option-und-0-field-block-und"
     And I fill in "edit-field-block-option-und-0-field-percentage-und-0-value" with "100"
     And I press "Add another item"
     And I wait for the ".ajax-new-content" element to appear

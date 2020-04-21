@@ -4,10 +4,6 @@ In order to create a site feedback form
 An authenticated user with the proper role
 Should be able to select a published form as the site feedback form
 
-Scenario: Functionality - There are no webforms after install on feedback form settings page
-Given I am logged in as a user with the "site_owner" role
-And am on "admin/settings/forms/feedback"
-Then I should see "There are no published webforms available"
 
 #SOME ROLES CAN SELECT A FEEDBACK FORM AND SET OPTIONS FOR IT
  # @javascript IS THIS JS TAG NEEDED?

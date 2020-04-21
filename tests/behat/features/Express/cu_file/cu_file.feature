@@ -1,4 +1,3 @@
-
 @file @core
 Feature: File Content Type
 When I login to a Web Express website
@@ -37,8 +36,8 @@ Examples:
   And I am on "node/add/file"
   And I should see an "#edit-addanother" element
   And fill in "edit-title" with "My File"
-  And I fill in "edit-body-und-0-value" with "A photo of Ralphie and handlers"
-  And I attach the file "ralphie.jpg" to "edit-field-file-attachment-und-0-upload"
+  And I fill in "edit-body-und-0-value" with "Ralphie at Chautauqua"
+  And I attach the file "ralphieMtns.jpg" to "edit-field-file-attachment-und-0-upload"
   And I press "Upload"
     # And I wait for AJAX
   Then I should see "File Information"
@@ -117,12 +116,11 @@ And I follow "Edit"
 And I am on "/"
 
 
-# 5) TEST MORE COMPLEX NODE CREATION
+# 5) TEST FILE UPLOAD CHECK
 
- Scenario: Node Functionality - The File Content Type verifies that a file has been uploaded
- Given I am logged in as a user with the "site_owner" role
-  When I go to "node/add/file"
-   And I fill in "edit-title" with "Test Page"
-    And I fill in "body[und][0][value]" with "Do not keep this page"
-    And I press "Save"
-   Then I should see "File Attachment field is required."
+Scenario: Node Functionality - The File Content Type verifies that a file has been uploaded
+Given I am logged in as a user with the "site_owner" role
+When I go to "node/add/file"
+And I fill in "edit-title" with "Test Page"
+And I press "Save"
+Then I should see "File Attachment field is required."

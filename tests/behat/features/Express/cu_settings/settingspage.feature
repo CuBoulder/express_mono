@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: The Settings page lists the configuration options for all the enabled bundles
 When I am on the admin/settings page
 As a user with the proper role
@@ -21,7 +21,7 @@ Examples:
 | edit_only        | "Settings" |
 | access_manager   | "Access denied" |
 | configuration_manager | "Settings" |
-    
+
 
 Scenario: An anonymous user cannot access the Site Settings page
  When I go to "admin/settings"

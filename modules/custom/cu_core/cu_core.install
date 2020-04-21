@@ -340,6 +340,34 @@ function cu_core_requirements($phase) {
   $requirements = array();
   if ($phase === 'runtime') {
     $t = get_t();
+    $overriddenFeatures = array();
+    // This is a way to hard code (almost never the best?) features we know will be overridden.
+    // Just put the sting name of the feature in.
+    $featureStatesToIgnore = [
+      'cu_sitewide',
+      'cu_sitemap',
+      'cu_feature_callout',
+      'cu_social_links',
+      'cu_webform',
+      'cu_mega_menu',
+      'cu_ldap',
+    ];
+    // The features.export.inc is where features_get_storage() is defined.
+    module_load_include('inc', 'features', 'features.export');
+
+    foreach (features_get_features(NULL, TRUE) as $feature) {
+      if (features_get_storage($feature->name) == FEATURES_OVERRIDDEN && !in_array($feature->name, $featureStatesToIgnore)) {
+        $overriddenFeatures[] = $feature->info['name'];
+      }
+    }
+
+    if (count($overriddenFeatures) > 0) {
+      $requirements['overridden_features'] = [
+        'title' => $t('Overridden Features'),
+        'value' => t(implode(', ', $overriddenFeatures)),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
 
     // Get enabled modules with hosting in the name.
     $enabled_hosting_modules = (array) db_query("SELECT name FROM {system} WHERE type = 'module' AND status = 1 AND name LIKE '%_hosting' ORDER BY weight ASC, name ASC")->fetchCol('name');
@@ -354,6 +382,28 @@ function cu_core_requirements($phase) {
       );
     }
   }
+
+  // Check value LDAP Mixed Mode variable; warn if site is in Mixed Mode.
+  $ldapAuthArray = variable_get('ldap_authentication_conf', FALSE);
+  $authMode = $ldapAuthArray[authenticationMode];
+  if ($authMode == 1) {
+    $requirements['authMode'] = array(
+      'title' => $t('Authentication Mode'),
+      'value' => $t('Site is in Mixed Mode'),
+      'severity' => REQUIREMENT_WARNING,
+    );
+  }
+
+  // Warn if Secure Permissions are not being loaded from code.
+  $securePerm = variable_get('secure_permissions_active', FALSE);
+  if ($securePerm == 0) {
+    $requirements['securePerm'] = array(
+      'title' => $t('Secure Permissions'),
+      'value' => $t('Secure Permissions are not being loaded from code'),
+      'severity' => REQUIREMENT_WARNING,
+    );
+  }
+
   return $requirements;
 }
 
@@ -425,4 +475,65 @@ function cu_core_update_7064() {
  */
 function cu_core_update_7065() {
   secure_permissions_rebuild();
+}
+
+/**
+ * Reset affiliation value to match keys from ATLAS.
+ */
+function cu_core_update_7066() {
+  // This array contains keys of the original config with values of the new config.
+  $values = array(
+    'college_of_arts_sciences' => 'arts_sciences',
+    'leeds_school_business' => 'business',
+    'college_media_communication_information' => 'cmci',
+    'school_education' => 'education',
+    'college_engineering_applied_science' => 'engineering',
+    'institutional_equity' => 'institutional_equity_compliance',
+    'school_law' => 'law',
+    'college_music' => 'music',
+    'diversity_equity_engagement' => 'odece',
+    'research_innovation' => 'research_innovation_office',
+    'strategic_relations_communication' => 'strategic_relations_comm',
+  );
+  // Check to see if the affiliation has been set already.
+  if ($affiliation = variable_get('cu_site_affiliation_options', NULL)) {
+    // Check to see if the saved affiliation matches one of the changing values.
+    if (!empty($values[$affiliation])) {
+      variable_set('cu_site_affiliation_options', $values[$affiliation]);
+    }
+  }
+}
+
+/**
+ * Set affiliation and enable affiliation.
+ */
+function cu_core_update_7067() {
+  $current_affiliation = variable_get('cu_site_affiliation_options', NULL);
+  if (is_null($current_affiliation)) {
+    if ($atlas_id = variable_get('atlas_id', NULL)) {
+      $site_array = atlas_api_request('sites', $atlas_id);
+      if (!empty($site_array['major_unit'])) {
+        $atlas_major_unit = $site_array['major_unit'];
+        // Check to see if major_unit value returns affiliation settings.
+        $affiliation = cu_core_site_affiliation_options($atlas_major_unit);
+        if (!empty($affiliation)) {
+          variable_set('cu_site_affiliation_options', $atlas_major_unit);
+        }
+      }
+      variable_set('cu_affiliation_enable', 1);
+    }
+  }
+}
+
+/**
+ * Disable old tracking pixel modules.
+ */
+function cu_core_update_7068() {
+  $modules = array(
+    'cu_seo_admin_bundle',
+    'cu_tracking_pixel',
+    'cu_tracking_pixel_overview',
+  );
+  module_disable($modules);
+  drupal_uninstall_modules($modules);
 }

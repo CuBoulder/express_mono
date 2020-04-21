@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Enabling Bundles
 In order to add functionality to a Web Express site
 An authenticated user with the proper role

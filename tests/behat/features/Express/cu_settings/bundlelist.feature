@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Web Express bundles its features into three types: Core, Add-on and Request
 In order to simplify the features of a site
 An authenticated user with the proper role
@@ -24,28 +24,28 @@ Given I am logged in as a user with the <role> role
 #  And I should see "Photo Gallery"
 #  And I should see "Search Engine Optimization"
 #  And I should see "Social Media"
-    
+
 Examples:
-    | role            | 
-    | developer       | 
-    | administrator   | 
-    | site_owner      | 
+    | role            |
+    | developer       |
+    | administrator   |
+    | site_owner      |
     | configuration_manager |
-    
-    
+
+
 
 Scenario Outline: Users with a restricted role cannot access the Site Settings page
 Given I am logged in as a user with the <role> role
 When I go to "admin/settings/bundles/list"
 Then I should see "Access denied"
-  
+
  Examples:
-    | role            | 
-    | edit_my_content  | 
-    | site_editor      | 
-    | edit_only        | 
-    | access_manager   | 
-  
+    | role            |
+    | edit_my_content  |
+    | site_editor      |
+    | edit_only        |
+    | access_manager   |
+
 
 Scenario: An anonymous user should not be able to access the Site Settings page
  When I go to "admin/settings/bundles/list"
@@ -65,13 +65,13 @@ Scenario: An anonymous user should not be able to access the Site Settings page
 #   And I should see "Localist Events"
 #   And I should see "Forms"
 #   And I should see "Publication"
-    
+
 #Examples:
-#    | role            | 
-#    | developer       | 
-#    | administrator   | 
-#    | site_owner      | 
-    
+#    | role            |
+#    | developer       |
+#    | administrator   |
+#    | site_owner      |
+
 
 # REQUESTED BUNDLES
 # NOTE THIS TEST CANNOT BE AUTOMATED BECAUSE THE BUNDLES THAT APPEAR IN PROFILE MODULE MANAGER ARE CONTROLLED BY
@@ -88,9 +88,9 @@ Scenario: An anonymous user should not be able to access the Site Settings page
 #  And I should see "Responsive Visibility"
 #  And I should see "Video Hero Unit"
 #  And I should see "Newsletter"
-    
+
 #Examples:
-#    | role            | 
-#    | developer       | 
-#    | administrator   | 
-#    | site_owner      | 
+#    | role            |
+#    | developer       |
+#    | administrator   |
+#    | site_owner      |

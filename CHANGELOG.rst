@@ -5,6 +5,47 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.2.0 (2012-04-15)
+------------
+
+This release adds site affiliation and improves our visibility into the service.
+
+Added
+~~~~~~~
+- Setting and enabling site affiliation. Resolves #422.
+
+- Added code to cu_core.install to check for overridden features so that they are displayed as warnings in the /admin/reports/status page.
+
+- Adding fac staff calendar filter to available filters.
+
+- Add Alan Cole and Brooke Stevens to CU Users.
+
+- Add status check for secure perms and mixed authentication mode.
+
+
+Changed
+~~~~~~~
+- Pin browser version for automated testing.
+
+- Combine scenarios to increase test speed.
+
+- Can now add a link to an anchor on the same page using the pattern #<anchor_name>
+
+Fixed
+~~~~~~~
+- Allow users with form_submitter role to be edited and/or deleted. Resolves #244.
+
+- Fixing issue where external article link did not keep url query parameters when redirecting. Resolves #496.
+
+- Fixing issue where hero style images placed in the wysiwyg field would extend outside the edges of the page on the Shadow theme when responsiveness was disabled. Resolves #490.
+
+- Fixing issue where urls with query parameters would not work with rss feeds. Resolves #476.
+
+Deprecated
+~~~~~~~
+- Disable and uninstall old tracking pixel modules. Resolves #462.
+
+
 v4.1.4 (2012-02-12)
 ------------
 

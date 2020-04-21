@@ -5,7 +5,7 @@ version = 7.x-1.2
 package = CU-LiveChat
 project = cu_livechat_bundle
 project status url = https://github.com/CuBoulder/cu_livechat_bundle
-project_demo_url = https://websupport.colorado.edu/article/64-live-chat
+project_demo_url = https://websupport.colorado.edu/category/466-livechat
 
 files[] = cu_livechat_bundle.context.inc
 
