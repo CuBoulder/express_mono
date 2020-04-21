@@ -443,7 +443,7 @@ function cu_shortcodes_button($attrs, $content = NULL) {
   $color = $attrs['color'] ?? '';
   $icon = $attrs['icon'] ?? '';
   $size = $attrs['size'] ?? '';
-  $id = $attrs['id'];
+  $id = $attrs['id'] ?? NULL;
   $options = array();
   $parsedUrl = parse_url($url);
 
