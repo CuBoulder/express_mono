@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.2.1 (2012-04-21)
+------------
+
+This release reverts a PR with a bug in it and resolves an increase in logging.
+
+Fixed
+~~~~~~~
+- New notice in cu_shortcodes module
+
+- External Article Links not working properly
+
+
 v4.2.0 (2012-04-15)
 ------------
 
