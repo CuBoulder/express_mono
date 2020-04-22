@@ -1,0 +1,124 @@
+<?php
+
+/**
+ * @file
+ * Code for the Faculty Publications feature.
+ */
+
+include_once 'cu_faculty_publications.features.inc';
+
+
+/**
+ * Implements hook_theme_registry_alter().
+ *
+ * Let Drupal know that we've got bean--faculty_publications.tpl.php in our module
+ * directory.
+ */
+function cu_faculty_publications_theme_registry_alter(&$theme_registry) {
+  $module_path = drupal_get_path('module', 'cu_faculty_publications');
+  $theme_registry_copy = $theme_registry;
+  _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'bean', $module_path);
+  $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
+  $hooks = array('bean');
+  foreach ($hooks as $h) {
+    if (isset($theme_registry[$h]['theme paths'])) {
+      $first_element = array_shift($theme_registry[$h]['theme paths']);
+      array_unshift($theme_registry[$h]['theme paths'], array_shift($theme_registry[$h]['theme paths']), $module_path);
+    }
+  }
+}
+
+/**
+  * Implements hook_theme().
+  */
+function cu_faculty_publications_theme(&$existing, $type, $theme, $path) {
+  $registry = array();
+  $template_dir = drupal_get_path('module', 'cu_faculty_publications') . '/templates';
+  $registry['faculty_publication'] = array(
+    'template' => 'faculty-publication',
+    'path' => $template_dir,
+  );
+  return $registry;
+}
+
+
+function cu_faculty_publications_preprocess_entity(&$vars) {
+  $entity_type = $vars['elements']['#entity_type'];
+  $bundle = $vars['elements']['#bundle'];
+  if ($vars['elements']['#bundle'] == 'faculty_publications') {
+    $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
+    $items = array();
+    $response = drupal_http_request($endpoint);
+    if ($response->code == '200') {
+      $result = drupal_json_decode($response->data, true);
+      $total = $result['hits']['total'];
+      $pages = ceil($total/10);
+      $items = $result['hits']['hits'];
+    }
+    if (!empty($items)) {
+      $publications = array();
+      foreach ($items as $item) {
+        $publication = $item['_source'];
+        $publications[]['#markup'] = theme('faculty_publication', $publication);
+      }
+    }
+    if (!empty($publications)) {
+      $vars['content']['publications'] = $publications;
+    }
+    else {
+      $vars['content']['no_results']['#markup'] = 'There are no results for your query.';
+    }
+  }
+}
+
+
+/**
+ * Implements hook_secure_permissions().
+ *
+ * Adding permissions for newsletter
+ */
+function cu_faculty_publications_secure_permissions($role) {
+  $permissions = array(
+    'anonymous user' => array(
+      'view any campus_news bean',
+    ),
+    'authenticated user' => array(
+      'view any faculty_publications bean',
+    ),
+    'administrator' => array(
+      'create any faculty_publications bean',
+      'delete any faculty_publications bean',
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+    'developer' => array(
+      'create any faculty_publications bean',
+      'delete any faculty_publications bean',
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+    'edit_my_content' => array(
+      'view any faculty_publications bean',
+    ),
+    'edit_only' => array(
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+    'site_editor' => array(
+      'create any faculty_publications bean',
+      'delete any faculty_publications bean',
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+    'site_owner' => array(
+      'create any faculty_publications bean',
+      'delete any faculty_publications bean',
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+  );
+
+  if (isset($permissions[$role])) {
+    return $permissions[$role];
+  }
+}
