@@ -100,7 +100,12 @@ body {
       }
     }
     ul#action-menu a {
-      color:#fff;
+      color:#aaa;
+      &:hover,
+      &.active,
+      &.active-trail {
+        color:#fff;
+      }
     }
     nav {
       // margin: 0 -20px;

@@ -14,7 +14,7 @@ body { background-color: #000; }
 
 .banner-black #header-wrapper { background-color: #000; }
 
-h2.secondary-menu-label { margin-left: 8px; }
+h2.secondary-menu-label { margin-left: 8px; padding: 0 5px; }
 
 .banner-white #secondary-menu-wrapper { background-color: #fff; }
 

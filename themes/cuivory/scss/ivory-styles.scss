@@ -46,6 +46,8 @@ body.layout-wide {
   color:#757575;
   a {
     color:#757575;
+    display: block;
+    float: left;
   }
   a:hover,
   a:focus,
@@ -53,7 +55,6 @@ body.layout-wide {
   a.active-trail {
     @include gradient(lighten(#333, 10%), #333);
     color:#fff;
-    display: inline-block;
   }
 }
 #secondary-menu {
@@ -82,7 +83,9 @@ ul#action-menu {
     border: none;
 
     &:hover,
-    &:focus {
+    &:focus,
+    &.active,
+    &.active-trail {
       color:#333;
     }
   }
