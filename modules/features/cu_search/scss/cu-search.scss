@@ -321,3 +321,14 @@ $border_color: #e0e0e0;
   }
 
 }
+
+.cu-search-box-large {
+  font-size: 115%;
+  input {
+    font-size: 115%;
+  }
+  .search-form-wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
