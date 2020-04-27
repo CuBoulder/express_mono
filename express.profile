@@ -231,9 +231,6 @@ function express_secure_permissions($role) {
     'configuration_manager' => array(
       'access express reports',
     ),
-    'content_editor' => array(
-      'access express reports',
-    ),
     'edit_my_content' => array(
       'access express reports',
     ),

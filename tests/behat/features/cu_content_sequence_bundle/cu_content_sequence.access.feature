@@ -13,7 +13,6 @@ Scenario Outline: An authenticated user should be able to access the form for ad
         | role            | message                         |
         | edit_my_content | "Access Denied"                 |
         | edit_only       | "Access Denied"                 |
-        | content_editor  | "Create Content Sequence block" |
         | site_owner      | "Create Content Sequence block" |
         | administrator   | "Create Content Sequence block" |
         | developer       | "Create Content Sequence block" |

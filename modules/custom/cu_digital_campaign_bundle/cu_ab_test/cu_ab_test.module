@@ -30,12 +30,6 @@ function cu_ab_test_secure_permissions($role) {
     'authenticated user' => array(
       'view any a_b_block bean',
     ),
-    'content_editor' => array(
-      'create any a_b_block bean',
-      'edit any a_b_block bean',
-      'view any a_b_block bean',
-      'delete any a_b_block bean',
-    ),
     'developer' => array(
       'create any a_b_block bean',
       'edit any a_b_block bean',
@@ -81,7 +75,7 @@ function cu_ab_test_preprocess_entity(array &$vars) {
       // Load field collection.
       $fc_array = entity_load('field_collection_item', array($item['value']));
       $fc = array_shift($fc_array);
-      
+
       $bean = $fc->field_block[LANGUAGE_NONE][0]['entity'];
       $percentage = $fc->field_percentage['und'][0]['value'];
 

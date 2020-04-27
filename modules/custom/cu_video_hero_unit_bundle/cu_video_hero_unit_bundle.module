@@ -19,12 +19,6 @@ function cu_video_hero_unit_bundle_secure_permissions($role) {
       'edit any video_hero_unit bean',
       'view any video_hero_unit bean',
     ),
-    'content_editor' => array(
-      'create any video_hero_unit bean',
-      'delete any video_hero_unit bean',
-      'edit any video_hero_unit bean',
-      'view any video_hero_unit bean',
-    ),
     'developer' => array(
       'create any video_hero_unit bean',
       'delete any video_hero_unit bean',

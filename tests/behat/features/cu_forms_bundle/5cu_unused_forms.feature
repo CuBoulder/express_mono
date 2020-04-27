@@ -10,7 +10,6 @@ Feature: Unused Forms Report
             | role            | message        |
             | edit_my_content | "Unused Forms" |
             | edit_only       | "Unused Forms" |
-            | content_editor  | "Unused Forms" |
             | site_editor     | "Unused Forms" |
             | site_owner      | "Unused Forms" |
             | administrator   | "Unused Forms" |

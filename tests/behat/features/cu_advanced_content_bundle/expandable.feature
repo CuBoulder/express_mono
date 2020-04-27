@@ -14,7 +14,6 @@ Scenario Outline: An authenticated user should be able to access the form for ad
   | role            | message         |
   | edit_my_content | "Access denied" |
   | edit_only       | "Access denied" |
-  | content_editor  | "Create Expandable block" |
   | site_owner      | "Create Expandable block" |
   | administrator   | "Create Expandable block" |
   | developer       | "Create Expandable block" |

@@ -15,7 +15,6 @@ Examples:
 | developer       | "Create Article" |
 | administrator   | "Create Article" |
 | site_owner      | "Create Article" |
-| content_editor  | "Create Article" |
 | edit_my_content | "Access denied"  |
 | site_editor     | "Create Article" |
 | edit_only       | "Access denied"  |
@@ -127,7 +126,6 @@ Examples:
 | developer       |
 | administrator   |
 | site_owner      |
-| content_editor  |
 | site_editor |
 
 Scenario: Node Access - EditOnly can edit and revise but not delete node; can clear page cache

@@ -14,7 +14,6 @@ Scenario Outline: A user with the proper role should be able to access the conte
   | role            | message         |
   | edit_my_content | "Access denied" |
   | edit_only       | "Access denied" |
-  | content_editor  | "Create Content List Page" |
   | site_owner      | "Create Content List Page" |
   | administrator   | "Create Content List Page" |
   | developer       | "Create Content List Page" |

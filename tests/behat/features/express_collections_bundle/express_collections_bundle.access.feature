@@ -13,7 +13,6 @@ Scenario Outline: An authenticated user should be able to access the form for ad
   | role            | message                  |
   | edit_my_content | "Access Denied"          |
   | edit_only       | "Access Denied"          |
-  | content_editor  | "Create Collection Item" |
   | site_owner      | "Create Collection Item" |
   | administrator   | "Create Collection Item" |
   | developer       | "Create Collection Item" |

@@ -564,16 +564,6 @@ function cu_campus_news_secure_permissions($role) {
       'edit any campus_news_feature bean',
       'view any campus_news_feature bean',
     ),
-    'content_editor' => array(
-      'create any campus_news bean',
-      'delete any campus_news bean',
-      'edit any campus_news bean',
-      'view any campus_news bean',
-      'create any campus_news_feature bean',
-      'delete any campus_news_feature bean',
-      'edit any campus_news_feature bean',
-      'view any campus_news_feature bean',
-    ),
     'developer' => array(
       'create any campus_news bean',
       'delete any campus_news bean',

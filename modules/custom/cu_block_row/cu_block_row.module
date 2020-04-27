@@ -158,12 +158,6 @@ function cu_block_row_secure_permissions($role) {
       'edit any block_row bean',
       'view any block_row bean',
     ),
-    'content_editor' => array(
-      'create any block_row bean',
-      'delete any block_row bean',
-      'edit any block_row bean',
-      'view any block_row bean',
-    ),
     'developer' => array(
       'create any block_row bean',
       'delete any block_row bean',

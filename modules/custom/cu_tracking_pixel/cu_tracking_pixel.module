@@ -210,8 +210,6 @@ function cu_tracking_pixel_secure_permissions($role) {
     'administrator' => array(
       'view tracking pixels overview',
     ),
-    'content_editor' => array(
-    ),
     'developer' => array(
       'administer tracking pixels',
     ),

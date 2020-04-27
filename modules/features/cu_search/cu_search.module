@@ -229,9 +229,6 @@ function cu_search_secure_permissions($role) {
       'administer site search',
       'search Google CSE',
     ),
-    'content_editor' => array(
-      'search Google CSE',
-    ),
     'developer' => array(
       'administer site search',
       'search Google CSE',

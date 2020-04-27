@@ -12,7 +12,6 @@ Then I should see <message>
   Examples:
   | role                  | message                   |
   | edit_my_content       | "Access denied"           |
-  | content_editor        | "Create Article List Page" |
   | site_owner            | "Create Article List Page" |
   | administrator         | "Create Article List Page" |
   | developer             | "Create Article List Page" |
