@@ -5,7 +5,7 @@
  * Code for the Faculty Publications feature.
  */
 
-include_once 'cu_faculty_publications.features.inc';
+include_once 'cu_faculty_publications_bundle.features.inc';
 
 
 /**
@@ -14,8 +14,8 @@ include_once 'cu_faculty_publications.features.inc';
  * Let Drupal know that we've got bean--faculty_publications.tpl.php in our module
  * directory.
  */
-function cu_faculty_publications_theme_registry_alter(&$theme_registry) {
-  $module_path = drupal_get_path('module', 'cu_faculty_publications');
+function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
+  $module_path = drupal_get_path('module', 'cu_faculty_publications_bundle');
   $theme_registry_copy = $theme_registry;
   _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'bean', $module_path);
   $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
@@ -31,9 +31,9 @@ function cu_faculty_publications_theme_registry_alter(&$theme_registry) {
 /**
   * Implements hook_theme().
   */
-function cu_faculty_publications_theme(&$existing, $type, $theme, $path) {
+function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) {
   $registry = array();
-  $template_dir = drupal_get_path('module', 'cu_faculty_publications') . '/templates';
+  $template_dir = drupal_get_path('module', 'cu_faculty_publications_bundle') . '/templates';
   $registry['faculty_publication'] = array(
     'template' => 'faculty-publication',
     'path' => $template_dir,
@@ -42,7 +42,7 @@ function cu_faculty_publications_theme(&$existing, $type, $theme, $path) {
 }
 
 
-function cu_faculty_publications_preprocess_entity(&$vars) {
+function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   $entity_type = $vars['elements']['#entity_type'];
   $bundle = $vars['elements']['#bundle'];
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
@@ -77,7 +77,7 @@ function cu_faculty_publications_preprocess_entity(&$vars) {
  *
  * Adding permissions for newsletter
  */
-function cu_faculty_publications_secure_permissions($role) {
+function cu_faculty_publications_bundle_secure_permissions($role) {
   $permissions = array(
     'anonymous user' => array(
       'view any campus_news bean',
