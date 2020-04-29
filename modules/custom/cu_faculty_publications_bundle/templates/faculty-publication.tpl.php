@@ -1,5 +1,5 @@
 <div class="padding-bottom margin-bottom border-bottom">
-  <h3 class="h5"><?php print l($name, 'https://dx.dor.org/' . $doi); ?></h3>
+  <h3 class="h5"><?php print l($name, 'https://dx.dor.org/' . $doi, array('html' => TRUE)); ?></h3>
   <strong>Authors:</strong>
   <?php
     $names = array();
