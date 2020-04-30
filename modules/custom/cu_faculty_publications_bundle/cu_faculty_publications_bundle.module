@@ -41,24 +41,18 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
   return $registry;
 }
 
-
+// https://experts.colorado.edu/es/_all/_search?from=10&size=1&sort=publicationDate:asc&_source=publicationDate,authors&q=_index:fispubs-v1
 function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   $entity_type = $vars['elements']['#entity_type'];
   $bundle = $vars['elements']['#bundle'];
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
-    $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
-    $arguments = array();
-    // Check for publication date filter.
-    if (!empty($vars['bean']->field_faculty_publication_date)) {
-      $date1 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
-      $date2 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value2']);
+    $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/_search');
 
-      $date1 = date('Y-m-d', $date1);
-      $date2 = date('Y-m-d', $date2);
-      $arguments[] = 'publicationDate:[' . $date1 . '%20TO%20' . $date2 . ']';
-    }
-    // Update endpoint url with filter parameters.
-    $endpoint = $endpoint . '?q=' . join('&', $arguments);
+    // Get the block's field data and create search query.
+    $searchQuery = create_elasticsearch_query($vars['bean']);
+
+    // Update endpoint url with elasticsearch query.
+    $endpoint = url($endpoint, ['query' => $searchQuery]);
     $items = array();
     $response = drupal_http_request($endpoint);
     if ($response->code == '200') {
@@ -83,6 +77,45 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   }
 }
 
+/**
+ * Returns an array that may be passed into url()'s options['query'] property.
+ */
+function create_elasticsearch_query($beanArray) {
+  $queryArr = [];
+  foreach ($beanArray as $key => $value) {
+
+    if (strpos($key, 'field_') !== false && !empty($value)) {
+
+      switch ($key) {
+        case 'field_number_of_results':
+          $queryArr['size'] = $value[LANGUAGE_NONE][0]['value'];
+          break;
+
+        case 'field_faculty_publication_date':
+          $date1 = strtotime($value[LANGUAGE_NONE][0]['value']);
+          $date2 = strtotime($value[LANGUAGE_NONE][0]['value2']);
+
+          $date1 = date('Y-m-d', $date1);
+          $date2 = date('Y-m-d', $date2);
+          $queryArr['q'][] = 'publicationDate:[' . $date1 . ' TO ' . $date2 . ']';
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+
+  // The q property must be a string in order for elasticsearch to work properly.
+  if (count($queryArr['q'] > 1)) {
+    $queryArr['q'] = implode(' AND ', $queryArr['q']);
+  }
+  elseif (count($queryArr['q'] > 0)) {
+    $queryArr['q'] = $queryArr['q'][0];
+  }
+
+  return $queryArr;
+}
 
 /**
  * Implements hook_secure_permissions().
