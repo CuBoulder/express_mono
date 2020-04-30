@@ -41,7 +41,6 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
   return $registry;
 }
 
-// https://experts.colorado.edu/es/_all/_search?from=10&size=1&sort=publicationDate:asc&_source=publicationDate,authors&q=_index:fispubs-v1
 function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   $entity_type = $vars['elements']['#entity_type'];
   $bundle = $vars['elements']['#bundle'];
@@ -77,6 +76,10 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   }
 }
 
+function cu_faculty_publications_results() {
+  return array('25' => '25', '50' => '50', '100' => '100', 'all' => 'ALL');
+}
+
 /**
  * Returns an array that may be passed into url()'s options['query'] property.
  */
@@ -87,7 +90,8 @@ function create_elasticsearch_query($beanArray) {
     if (strpos($key, 'field_') !== false && !empty($value)) {
 
       switch ($key) {
-        case 'field_number_of_results':
+        case 'field_faculty_pub_results':
+          // if ()
           $queryArr['size'] = $value[LANGUAGE_NONE][0]['value'];
           break;
 
