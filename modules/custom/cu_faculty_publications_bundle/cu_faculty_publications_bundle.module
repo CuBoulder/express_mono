@@ -47,6 +47,18 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   $bundle = $vars['elements']['#bundle'];
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
+    $arguments = array();
+    // Check for publication date filter.
+    if (!empty($vars['bean']->field_faculty_publication_date)) {
+      $date1 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
+      $date2 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value2']);
+
+      $date1 = date('Y-m-d', $date1);
+      $date2 = date('Y-m-d', $date2);
+      $arguments[] = 'publicationDate:[' . $date1 . '%20TO%20' . $date2 . ']';
+    }
+    // Update endpoint url with filter parameters.
+    $endpoint = $endpoint . '?q=' . join('&', $arguments);
     $items = array();
     $response = drupal_http_request($endpoint);
     if ($response->code == '200') {
