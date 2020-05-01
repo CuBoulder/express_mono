@@ -48,10 +48,10 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/_search');
 
     // Get the block's field data and create search query.
-    $searchQuery = create_elasticsearch_query($vars['bean']);
-
     // Update endpoint url with elasticsearch query.
-    $endpoint = url($endpoint, ['query' => $searchQuery]);
+    $endpoint = create_elasticsearch_query($vars['bean'], $endpoint);
+
+    // $endpoint = url($endpoint, ['query' => $searchQuery]);
     $items = array();
     $response = drupal_http_request($endpoint);
     if ($response->code == '200') {
@@ -83,42 +83,50 @@ function cu_faculty_publications_results() {
 /**
  * Returns an array that may be passed into url()'s options['query'] property.
  */
-function create_elasticsearch_query($beanArray) {
+function create_elasticsearch_query($beanObject, $urlBase) {
   $queryArr = [];
-  foreach ($beanArray as $key => $value) {
 
-    if (strpos($key, 'field_') !== false && !empty($value)) {
+  if(!empty($beanObject->field_faculty_publication_date)) {
+    $date1 = strtotime($beanObject->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
+    $date2 = strtotime($beanObject->field_faculty_publication_date[LANGUAGE_NONE][0]['value2']);
 
-      switch ($key) {
-        case 'field_faculty_pub_results':
-          // if ()
-          $queryArr['size'] = $value[LANGUAGE_NONE][0]['value'];
-          break;
-
-        case 'field_faculty_publication_date':
-          $date1 = strtotime($value[LANGUAGE_NONE][0]['value']);
-          $date2 = strtotime($value[LANGUAGE_NONE][0]['value2']);
-
-          $date1 = date('Y-m-d', $date1);
-          $date2 = date('Y-m-d', $date2);
-          $queryArr['q'][] = 'publicationDate:[' . $date1 . ' TO ' . $date2 . ']';
-          break;
-
-        default:
-          break;
-      }
-    }
+    $date1 = date('Y-m-d', $date1);
+    $date2 = date('Y-m-d', $date2);
+    $queryArr['q'][] = 'publicationDate:[' . $date1 . ' TO ' . $date2 . ']';
   }
 
   // The q property must be a string in order for elasticsearch to work properly.
   if (count($queryArr['q'] > 1)) {
     $queryArr['q'] = implode(' AND ', $queryArr['q']);
   }
-  elseif (count($queryArr['q'] > 0)) {
+  elseif (count($queryArr['q'] === 1)) {
     $queryArr['q'] = $queryArr['q'][0];
   }
 
-  return $queryArr;
+  // Other field checks will need to go above this.
+  // This will need to go last so that we can check the total search results if faculty_pub_results is set to 'ALL'.
+  if (!empty($beanObject->field_faculty_pub_results)) {
+
+    if ($beanObject->field_faculty_pub_results[LANGUAGE_NONE][0]['value'] === 'all') {
+      $queryArr['size'] = 0;
+      $testEnpoint = url($urlBase, ['query'=> $queryArr]);
+      $response = drupal_http_request($testEnpoint);
+
+      if ($response->code === '200') {
+        $parsedResponse = drupal_json_decode($response->data, true);
+        // The highest allowed size is 10000.
+        // If we want a higher size we need to change this setting in the database.
+        // As it is 10,000 search results often cause an issue as it takes too long to load.
+        $totalPublications = $parsedResponse['hits']['total'] > 10000 ? 10000 : $parsedResponse['hits']['total'];
+        $queryArr['size'] = $totalPublications;
+      }
+    }
+    else {
+      $queryArr['size'] = $beanObject->field_faculty_pub_results[LANGUAGE_NONE][0]['value'];
+    }
+  }
+
+  return url($urlBase, [query => $queryArr]);
 }
 
 /**
