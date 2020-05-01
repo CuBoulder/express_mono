@@ -9,10 +9,10 @@ function expressbase_form_system_theme_settings_alter(&$form, &$form_state) {
 	);
   $collapsed = isset($_GET['responsive']) ? FALSE : TRUE;
   $form['expressbase_theme_settings']['responsive'] = array(
-		'#type' => 'fieldset',
+		'#type' => 'hidden',
 		'#title' => t('Responsive/Mobile Friendly'),
 		'#collapsible' => TRUE,
-		'#collapsed' => $collapsed,
+    '#collapsed' => $collapsed,
 	);
 	$form['expressbase_theme_settings']['responsive']['alpha_responsive'] = array(
 	  '#type' => 'checkbox',
