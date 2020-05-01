@@ -22,28 +22,6 @@ function ucb_form_system_theme_settings_alter(&$form, &$form_state) {
       'white' => 'Black Background/White Logo',
     ),
 	);
-  // $collapsed = isset($_GET['responsive']) ? FALSE : TRUE;
-  // $form['expressbase_theme_settings']['responsive'] = array(
-	// 	'#type' => 'fieldset',
-	// 	'#title' => t('Responsive/Mobile Friendly'),
-	// 	'#collapsible' => TRUE,
-	// 	'#collapsed' => $collapsed,
-	// );
-	// $form['expressbase_theme_settings']['responsive']['alpha_responsive'] = array(
-	//   '#type' => 'checkbox',
-	//   '#title' => t('Enable responsive/mobile friendly design'),
-	//   '#default_value' => theme_get_setting('alpha_responsive', $theme),
-	// );
-	// $form['expressbase_theme_settings']['responsive']['primary_sidebar'] = array(
-	//   '#type' => 'select',
-	//   '#title' => t('Primary Sidebar'),
-	//   '#default_value' => theme_get_setting('primary_sidebar', $theme) ? theme_get_setting('primary_sidebar', $theme) : 'primary-sidebar-second',
-	//   '#options' => array(
-  //     'primary-sidebar-first' => t('First/Left'),
-  //     'primary-sidebar-second' => t('Second/Right'),
-  //   ),
-  //   '#description' => 'This setting sets which is the primary sidebar for tablet displays',
-	// );
 	if (module_exists('cu_title_image')) {
     $form['expressbase_theme_settings']['page_title_image'] = array(
   		'#type' => 'fieldset',
