@@ -59,6 +59,19 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     }
     // Update endpoint url with filter parameters.
     $endpoint = $endpoint . '?q=' . join('&', $arguments);
+
+    // Add desired total search results.
+    if (!empty($vars['bean']->field_faculty_pub_results)) {
+      $numberOfResults = $vars['bean']->field_faculty_pub_results[LANGUAGE_NONE][0]['value'];
+      if ($numberOfResults === 'all') {
+        // 10,000 search results is the default maximum amount of Elastic Search results.
+        // If 'all' results of a search are fewer than 10,000 Elastic Search returns how ever many there are.
+        $endpoint .= '&size=10000';
+      }
+      elseif ($numberOfResults === '25' || $numberOfResults === '50' || $numberOfResults === '100' || $numberOfResults === '200') {
+        $endpoint .= "&size=$numberOfResults";
+      }
+    }
     $items = array();
     $response = drupal_http_request($endpoint);
     if ($response->code == '200') {
@@ -83,6 +96,9 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   }
 }
 
+function cu_faculty_publications_results() {
+  return array('25' => '25', '50' => '50', '100' => '100', '200' => '200', 'all' => 'ALL');
+}
 
 /**
  * Implements hook_secure_permissions().
