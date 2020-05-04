@@ -105,7 +105,7 @@ function create_elasticsearch_query($beanObject, $urlBase) {
   }
 
   // Construct other ElasticSearch parameters.
-  // Sort Order
+  // Sort Order.
   if(!empty($beanObject->field_faculty_publications_sort)) {
 
     if ($beanObject->field_faculty_publications_sort[LANGUAGE_NONE][0]['value'] === 'date-desc') {
@@ -117,7 +117,7 @@ function create_elasticsearch_query($beanObject, $urlBase) {
     }
   }
 
-  // Number of reslts
+  // Number of results.
   if (!empty($beanObject->field_faculty_pub_results)) {
 
     if ($beanObject->field_faculty_pub_results[LANGUAGE_NONE][0]['value'] === 'all') {
