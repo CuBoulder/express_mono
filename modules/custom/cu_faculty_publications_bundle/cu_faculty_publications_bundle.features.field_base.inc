@@ -40,5 +40,28 @@ function cu_faculty_publications_bundle_field_default_field_bases() {
     'type' => 'datetime',
   );
 
+  // Exported field_base: 'field_faculty_publications_sort'.
+  $field_bases['field_faculty_publications_sort'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_faculty_publications_sort',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(),
+      'allowed_values_function' => 'cu_faculty_publications_sort',
+      'allowed_values_php' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   return $field_bases;
 }

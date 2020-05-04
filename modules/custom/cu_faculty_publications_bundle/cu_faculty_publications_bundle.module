@@ -57,8 +57,22 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       $date2 = date('Y-m-d', $date2);
       $arguments[] = 'publicationDate:[' . $date1 . '%20TO%20' . $date2 . ']';
     }
+
     // Update endpoint url with filter parameters.
     $endpoint = $endpoint . '?q=' . join('&', $arguments);
+
+    // Check for sort order and update $endpoint.
+    if (!empty($vars['bean']->field_faculty_publications_sort)) {
+      $order = $vars['bean']->field_faculty_publications_sort[LANGUAGE_NONE][0]['value'];
+
+      if ($order === "date-desc") {
+        $endpoint .= '&sort=publicationDate:desc';
+      }
+      else if ($order === "date-asc") {
+        $endpoint .= '&sort=publicationDate:asc';
+      }
+    }
+
     $items = array();
     $response = drupal_http_request($endpoint);
     if ($response->code == '200') {
@@ -83,7 +97,9 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   }
 }
 
-
+function cu_faculty_publications_sort() {
+  return array('date-desc' => 'Date: most recent first', 'date-asc' => 'Date: most recent last');
+}
 /**
  * Implements hook_secure_permissions().
  *
