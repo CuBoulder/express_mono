@@ -2,13 +2,13 @@
 
 /**
  * @file
- * cu_faculty_publications.bean.inc
+ * cu_faculty_publications_bundle.bean.inc
  */
 
 /**
  * Implements hook_bean_admin_ui_types().
  */
-function cu_faculty_publications_bean_admin_ui_types() {
+function cu_faculty_publications_bundle_bean_admin_ui_types() {
   $export = array();
 
   $bean_type = new stdClass();

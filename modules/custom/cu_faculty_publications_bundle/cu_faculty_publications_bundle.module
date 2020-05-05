@@ -5,7 +5,7 @@
  * Code for the Faculty Publications feature.
  */
 
-include_once 'cu_faculty_publications.features.inc';
+include_once 'cu_faculty_publications_bundle.features.inc';
 
 
 /**
@@ -14,8 +14,8 @@ include_once 'cu_faculty_publications.features.inc';
  * Let Drupal know that we've got bean--faculty_publications.tpl.php in our module
  * directory.
  */
-function cu_faculty_publications_theme_registry_alter(&$theme_registry) {
-  $module_path = drupal_get_path('module', 'cu_faculty_publications');
+function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
+  $module_path = drupal_get_path('module', 'cu_faculty_publications_bundle');
   $theme_registry_copy = $theme_registry;
   _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'bean', $module_path);
   $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
@@ -31,9 +31,9 @@ function cu_faculty_publications_theme_registry_alter(&$theme_registry) {
 /**
   * Implements hook_theme().
   */
-function cu_faculty_publications_theme(&$existing, $type, $theme, $path) {
+function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) {
   $registry = array();
-  $template_dir = drupal_get_path('module', 'cu_faculty_publications') . '/templates';
+  $template_dir = drupal_get_path('module', 'cu_faculty_publications_bundle') . '/templates';
   $registry['faculty_publication'] = array(
     'template' => 'faculty-publication',
     'path' => $template_dir,
@@ -42,11 +42,36 @@ function cu_faculty_publications_theme(&$existing, $type, $theme, $path) {
 }
 
 
-function cu_faculty_publications_preprocess_entity(&$vars) {
+function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   $entity_type = $vars['elements']['#entity_type'];
   $bundle = $vars['elements']['#bundle'];
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
+    $arguments = array();
+    // Check for publication date filter.
+    if (!empty($vars['bean']->field_faculty_publication_date)) {
+      $date1 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
+      $date2 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value2']);
+
+      $date1 = date('Y-m-d', $date1);
+      $date2 = date('Y-m-d', $date2);
+      $arguments[] = 'publicationDate:[' . $date1 . '%20TO%20' . $date2 . ']';
+    }
+    // Update endpoint url with filter parameters.
+    $endpoint = $endpoint . '?q=' . join('&', $arguments);
+
+    // Add desired total search results.
+    if (!empty($vars['bean']->field_faculty_pub_results)) {
+      $numberOfResults = $vars['bean']->field_faculty_pub_results[LANGUAGE_NONE][0]['value'];
+      if ($numberOfResults === 'all') {
+        // 10,000 search results is the default maximum amount of Elastic Search results.
+        // If 'all' results of a search are fewer than 10,000 Elastic Search returns how ever many there are.
+        $endpoint .= '&size=10000';
+      }
+      elseif ($numberOfResults === '25' || $numberOfResults === '50' || $numberOfResults === '100' || $numberOfResults === '200') {
+        $endpoint .= "&size=$numberOfResults";
+      }
+    }
     $items = array();
     $response = drupal_http_request($endpoint);
     if ($response->code == '200') {
@@ -71,13 +96,16 @@ function cu_faculty_publications_preprocess_entity(&$vars) {
   }
 }
 
+function cu_faculty_publications_results() {
+  return array('25' => '25', '50' => '50', '100' => '100', '200' => '200', 'all' => 'ALL');
+}
 
 /**
  * Implements hook_secure_permissions().
  *
  * Adding permissions for newsletter
  */
-function cu_faculty_publications_secure_permissions($role) {
+function cu_faculty_publications_bundle_secure_permissions($role) {
   $permissions = array(
     'anonymous user' => array(
       'view any campus_news bean',
