@@ -63,5 +63,20 @@ function cu_faculty_publications_bundle_field_default_field_bases() {
     'type' => 'datetime',
   );
 
+  // Exported field_base: 'field_faculty_publication_email'.
+  $field_bases['field_faculty_publication_email'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_faculty_publication_email',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'email',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'email',
+  );
+
   return $field_bases;
 }
