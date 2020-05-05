@@ -46,8 +46,14 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   $entity_type = $vars['elements']['#entity_type'];
   $bundle = $vars['elements']['#bundle'];
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
+
+    // This is the endpoint for faculty publications and where we want to display.
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
+    // This is the endpoint to get more information about a particular faculty member.
+    $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
+
     $arguments = array();
+
     // Check for publication date filter.
     if (!empty($vars['bean']->field_faculty_publication_date)) {
       $date1 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
@@ -59,6 +65,27 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     }
     // Update endpoint url with filter parameters.
     $endpoint = $endpoint . '?q=' . join('&', $arguments);
+
+    // Check for author email.
+    if (!empty($vars['bean']->field_faculty_publication_email)) {
+      $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email'];
+        $fisEndpoint .= '?q=email:"' . $email . '"';
+        $emailResponse = drupal_http_request($fisEndpoint);
+
+      if ($emailResponse->code == '200') {
+        $emailResult = drupal_json_decode($emailResponse->data, true);
+        $orcid = $emailResult['hits']['hits'][0]['_source']['orcid'];
+
+        if ($orcid) {
+          $endpoint .= '%20AND%20authors.orcid:"' . $orcid . '"';
+        }
+        else {
+          return $vars['content']['invalid_email']['#markup'] = "No results found for email $email.";
+        }
+      }
+    }
+
+    // Send query to facutly publications database.
     $items = array();
     $response = drupal_http_request($endpoint);
     if ($response->code == '200') {
