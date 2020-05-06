@@ -122,6 +122,9 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   }
 }
 
+function cu_faculty_publications_results() {
+  return array('25' => '25', '50' => '50' , '100' => '100', 'all' => 'ALL');
+}
 
 /**
  * Implements hook_secure_permissions().
