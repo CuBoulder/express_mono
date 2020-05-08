@@ -114,12 +114,9 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     elseif (count($arguments['q']) === 1) {
       $arguments['q'] = $arguments['q'][0];
     }
-    dpm($arguments);
 
     // Send query to facutly publications database and display results.
     $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
-    dpm($elasticSearchRequest);
-
     $items = array();
     $response = drupal_http_request($elasticSearchRequest);
 
