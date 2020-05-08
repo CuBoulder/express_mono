@@ -46,7 +46,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   $bundle = $vars['elements']['#bundle'];
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
 
-    // This is the endpoint for faculty publications and where we want to display.
+    // This is the endpoint for faculty publications data we want to display.
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
     // This is the endpoint to get more information about a particular faculty member.
     $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
@@ -60,30 +60,25 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
       $date1 = date('Y-m-d', $date1);
       $date2 = date('Y-m-d', $date2);
-      $arguments[] = 'publicationDate:[' . $date1 . '%20TO%20' . $date2 . ']';
+      $arguments['q'][] = 'publicationDate:[' . $date1 . ' TO ' . $date2 . ']';
     }
-
-    // Update endpoint url with filter parameters.
-    $endpoint = $endpoint . '?q=' . join('&', $arguments);
-
 
     // Check for sort order and update $endpoint.
     if (!empty($vars['bean']->field_faculty_publications_sort)) {
       $order = $vars['bean']->field_faculty_publications_sort[LANGUAGE_NONE][0]['value'];
 
       if ($order === "date-desc") {
-        $endpoint .= '&sort=publicationDate:desc';
+        $arguments['sort'] = 'publicationDate:desc';
       }
       else if ($order === "date-asc") {
-        $endpoint .= '&sort=publicationDate:asc';
+        $arguments['sort'] = 'publicationDate:asc';
       }
     }
-
 
     // Check for author email.
     if (!empty($vars['bean']->field_faculty_publication_email)) {
       $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email'];
-        $fisEndpoint .= '?q=email:"' . $email . '"';
+        $fisEndpoint .= "?q=email:\"$email\"";
         $emailResponse = drupal_http_request($fisEndpoint);
 
       if ($emailResponse->code == '200') {
@@ -91,10 +86,10 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
         $orcid = $emailResult['hits']['hits'][0]['_source']['orcid'];
 
         if ($orcid) {
-          $endpoint .= '%20AND%20authors.orcid:"' . $orcid . '"';
+          $arguments['q'][] = "authors.orcid:\"$orcid\"";
         }
         else {
-          return $vars['content']['invalid_email']['#markup'] = "No results found for email $email.";
+          $vars['content']['invalid_email']['#markup'] = "No results found for email $email.";
         }
       }
     }
@@ -105,16 +100,29 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       if ($numberOfResults === 'all') {
         // 10,000 search results is the default maximum amount of Elastic Search results.
         // If 'all' results of a search are fewer than 10,000 Elastic Search returns how ever many there are.
-        $endpoint .= '&size=10000';
+        $arguments['size'] = 10000;
       }
       elseif ($numberOfResults === '25' || $numberOfResults === '50' || $numberOfResults === '100' || $numberOfResults === '200') {
-        $endpoint .= "&size=$numberOfResults";
+        $arguments['size'] = $numberOfResults;
       }
     }
 
-    // Send query to facutly publications database.
+    // Convert all 'q' arguments to a string joined by ' AND ' operator.
+    if (count($arguments['q']) > 1) {
+      $arguments['q'] = implode(' AND ', $arguments['q']);
+    }
+    elseif (count($arguments['q']) === 1) {
+      $arguments['q'] = $arguments['q'][0];
+    }
+    dpm($arguments);
+
+    // Send query to facutly publications database and display results.
+    $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
+    dpm($elasticSearchRequest);
+
     $items = array();
-    $response = drupal_http_request($endpoint);
+    $response = drupal_http_request($elasticSearchRequest);
+
     if ($response->code == '200') {
       $result = drupal_json_decode($response->data, true);
       $total = $result['hits']['total'];
@@ -137,7 +145,6 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   }
 }
 
-
 function cu_faculty_publications_sort() {
   return array('date-desc' => 'Date: most recent first', 'date-asc' => 'Date: most recent last');
 }
@@ -145,7 +152,6 @@ function cu_faculty_publications_sort() {
 function cu_faculty_publications_results() {
   return array('25' => '25', '50' => '50' , '100' => '100', 'all' => 'ALL');
 }
-
 
 /**
  * Implements hook_secure_permissions().

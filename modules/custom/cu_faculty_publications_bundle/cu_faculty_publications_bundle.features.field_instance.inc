@@ -65,10 +65,6 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
     'label' => 'Publication Date',
     'required' => 0,
     'settings' => array(
-      'default_value' => 'now',
-      'default_value2' => 'same',
-      'default_value_code' => '',
-      'default_value_code2' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -123,12 +119,10 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'bean-faculty_publications-field_faculty_publications_email'.
-  $field_instances['bean-faculty_publications-field_faculty_publications_email'] = array(
+  // 'bean-faculty_publications-field_faculty_publication_email'.
+  $field_instances['bean-faculty_publications-field_faculty_publication_email'] = array(
     'bundle' => 'faculty_publications',
     'default_value' => NULL,
-    'default_value_function' => '',
-    'default_value_php' => '',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -141,7 +135,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
     ),
     'entity_type' => 'bean',
     'fences_wrapper' => 'div_div_div',
-    'field_name' => 'field_faculty_publications_email',
+    'field_name' => 'field_faculty_publication_email',
     'label' => 'Faculty Email Address',
     'required' => 0,
     'settings' => array(
@@ -150,8 +144,10 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'email',
-      'settings' => array(),
-      'type' => 'email',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'email_textfield',
       'weight' => 6,
     ),
   );
