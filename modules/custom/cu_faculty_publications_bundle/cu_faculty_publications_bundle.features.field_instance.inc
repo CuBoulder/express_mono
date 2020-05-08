@@ -12,6 +12,40 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
+  // 'bean-faculty_publications-field_faculty_pub_results'.
+  $field_instances['bean-faculty_publications-field_faculty_pub_results'] = array(
+    'bundle' => 'faculty_publications',
+    'default_value' => NULL,
+    'default_value_function' => '',
+    'default_value_php' => '',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'bean',
+    'fences_wrapper' => 'div_div_div',
+    'field_name' => 'field_faculty_pub_results',
+    'label' => 'Number of Results',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance:
   // 'bean-faculty_publications-field_faculty_publication_date'.
   $field_instances['bean-faculty_publications-field_faculty_publication_date'] = array(
     'bundle' => 'faculty_publications',
@@ -90,6 +124,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Number of Results');
   t('Publication Date');
   t('Sort');
 
