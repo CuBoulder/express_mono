@@ -1,8 +1,7 @@
-name = Faculty Publication Bundle
+name = Faculty Publications Bundle
 description = "Adds a new block type to display faculty research publications."
 version = 7.x-1.1
 core = 7.x
-project = cu_faculty_publication_bundle
-project status url = https://github.com/CuBoulder/cu_faculty_publication_bundle
+project = cu_faculty_publications_bundle
 
 stylesheets[screen][] = css/cu-faculty-publication-bundle.css
