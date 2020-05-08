@@ -122,9 +122,44 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance:
+  // 'bean-faculty_publications-field_faculty_publications_email'.
+  $field_instances['bean-faculty_publications-field_faculty_publications_email'] = array(
+    'bundle' => 'faculty_publications',
+    'default_value' => NULL,
+    'default_value_function' => '',
+    'default_value_php' => '',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'bean',
+    'fences_wrapper' => 'div_div_div',
+    'field_name' => 'field_faculty_publications_email',
+    'label' => 'Faculty Email Address',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'email',
+      'settings' => array(),
+      'type' => 'email',
+      'weight' => 6,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Number of Results');
+  t('Faculty Email Address');
   t('Publication Date');
   t('Sort');
 
