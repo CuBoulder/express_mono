@@ -142,8 +142,6 @@ function ucb_preprocess_html(&$vars) {
     $vars['head_title'] .= ' | ' . $slogan_title;
   }
   // set classes for theme configs
-  $headings = theme_get_setting('headings') ? theme_get_setting('headings') : 'headings-bold';
-  $vars['classes_array'][]=$headings;
   $page_title_image_background = theme_get_setting('page_title_image_background') ? theme_get_setting('page_title_image_background') : 'page-title-image-background-white';
   $vars['classes_array'][]=$page_title_image_background;
   // Attributes for html element.

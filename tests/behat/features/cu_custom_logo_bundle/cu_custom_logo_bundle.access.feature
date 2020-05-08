@@ -14,7 +14,6 @@ Feature: Add Custom Logo
             | role            | message         |
             | edit_my_content | "Access Denied" |
             | edit_only       | "Access Denied" |
-            | content_editor  | "Access Denied" |
             | site_owner      | "Access Denied" |
             | administrator   | "Access Denied" |
             | developer       | "Custom Logo"   |

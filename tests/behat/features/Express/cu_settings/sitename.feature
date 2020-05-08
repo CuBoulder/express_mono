@@ -14,7 +14,6 @@ Examples:
 | developer        | "Site Name" |
 | administrator    | "Site Name" |
 | site_owner       | "Site Name" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |

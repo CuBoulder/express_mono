@@ -13,7 +13,6 @@ Scenario Outline: A user with the proper role should be able to access the form 
   | role            | message         |
   | edit_my_content | "Access denied" |
   | edit_only       | "Access denied" |
-  | content_editor  | "Create Content List block" |
   | site_owner      | "Create Content List block" |
   | administrator   | "Create Content List block" |
   | developer       | "Create Content List block" |

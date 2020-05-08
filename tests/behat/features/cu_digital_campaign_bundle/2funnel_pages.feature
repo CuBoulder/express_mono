@@ -22,7 +22,6 @@ Scenario Outline:  A user with the proper role can add funnel pages
     | administrator    | "Funnel Pages"  |
     | site_owner       | "Funnel Pages"  |
   #  | campaign_manager | "Funnel Pages"  | ADD ON ROLE
-    | content_editor   | "Access denied" |
     | edit_my_content  | "Access denied" |
     | site_editor      | "Access denied" |
     | edit_only        | "Access denied" |

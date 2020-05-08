@@ -21,7 +21,6 @@ Examples:
  | developer             | "Create Text Block block" |
 | administrator         | "Create Text Block block" |
 | site_owner            | "Create Text Block block" |
-| content_editor        | "Create Text Block block" |
 | edit_my_content       | "Access denied"           |
 | site_editor           | "Create Text Block block" |
 | edit_only             | "Access denied"            |
@@ -73,7 +72,6 @@ Examples:
 | developer       |
 | administrator   |
 | site_owner      |
-| content_editor  |
 | site_editor |
 
 

@@ -13,7 +13,6 @@ Scenario Outline: An authenticated user should be able to access the form for a 
   | role            | message                        |
   | edit_my_content | "Access Denied"                |
   | edit_only       | "Access Denied"                |
-  | content_editor  | "Create Video Hero Unit block" |
   | site_owner      | "Create Video Hero Unit block" |
   | administrator   | "Create Video Hero Unit block" |
   | developer       | "Create Video Hero Unit block" |

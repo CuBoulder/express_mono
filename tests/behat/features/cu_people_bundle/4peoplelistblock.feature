@@ -13,7 +13,6 @@ Scenario Outline: An authenticated user can access the form for adding a people 
   Examples:
   | role                  | message                          |
   | edit_my_content       | "Access denied"                  |
-  | content_editor        | "Create People List Block block" |
   | site_owner            | "Create People List Block block" |
   | administrator         | "Create People List Block block" |
   | developer             | "Create People List Block block" |
@@ -27,7 +26,7 @@ Scenario: An anonymous user cannot access the form for adding a people list bloc
   Then I should see "Access denied"
 
 Scenario Outline: A simple People List Block offers several display views
-  Given I am logged in as a user with the "content_editor" role
+  Given I am logged in as a user with the "site_editor" role
   And am on "block/add/people-list-block"
   When I select <condition> from "edit-field-people-block-thumbnail-und"
 
@@ -51,7 +50,7 @@ Scenario: The People List Block has been populated with Filters
   And I should see "Law"
 
 Scenario: A simple People List Block can be created
-  Given I am logged in as a user with the "content_editor" role
+  Given I am logged in as a user with the "site_editor" role
   And am on "block/add/people-list-block"
   And fill in "edit-label" with "Simple People Block Label"
   And fill in "edit-title" with "Simple People Block Title"

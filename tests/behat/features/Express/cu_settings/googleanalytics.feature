@@ -16,7 +16,6 @@ Examples:
 | developer        | "Google Analytics" |
 | administrator    | "Google Analytics" |
 | site_owner       | "Google Analytics" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |
@@ -48,7 +47,6 @@ Then I should see "Access denied"
     | role            |
     | administrator   |
     | site_owner      |
-    | content_editor |
     | edit_my_content  |
     | site_editor      |
     | edit_only        |

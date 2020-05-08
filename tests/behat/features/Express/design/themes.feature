@@ -14,7 +14,6 @@ Examples:
 | developer        | "Choose a theme" |
 | administrator    | "Choose a theme" |
 | site_owner       | "Choose a theme" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |

@@ -14,7 +14,6 @@ Examples:
 | developer        | "Block Designer Themes give you a quick and easy way" |
 | administrator    | "Block Designer Themes give you a quick and easy way" |
 | site_owner       | "Block Designer Themes give you a quick and easy way" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |
@@ -37,7 +36,6 @@ Examples:
 | developer        | "A name describing your block theme" |
 | administrator    | "A name describing your block theme" |
 | site_owner       | "A name describing your block theme" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 # | site_editor      | "Access denied" | CAN ADD AND USE BLOCK DESIGNER
 | edit_only        | "Access denied" |

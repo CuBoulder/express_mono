@@ -77,6 +77,9 @@ function cu_search_block_info() {
   $blocks['cu_search_page'] = array(
     'info' => t('CU Search Page'),
   );
+  $blocks['cu_search_large'] = array(
+    'info' => t('CU Search Large'),
+  );
   return $blocks;
 }
 
@@ -101,6 +104,15 @@ function cu_search_block_view($delta = '') {
       $block['configs'] = $search_configs['configs'];
       break;
     case 'cu_search_page':
+
+      $block['subject'] = '';
+
+      $block['content'] = 'Search';
+      $search_configs = cu_search_configs();
+      $block['options'] = $search_configs['options'];
+      $block['configs'] = $search_configs['configs'];
+      break;
+    case 'cu_search_large':
 
       $block['subject'] = '';
 
@@ -217,9 +229,6 @@ function cu_search_secure_permissions($role) {
       'administer site search',
       'search Google CSE',
     ),
-    'content_editor' => array(
-      'search Google CSE',
-    ),
     'developer' => array(
       'administer site search',
       'search Google CSE',
@@ -234,5 +243,27 @@ function cu_search_secure_permissions($role) {
 
   if (isset($permissions[$role])) {
     return $permissions[$role];
+  }
+}
+
+/**
+ * Implements hook_form_alter()
+ *
+ * Hide some search blocks from being used with Context.
+ */
+function cu_search_form_alter(&$form, &$form_state, $form_id) {
+  switch($form_id) {
+    case 'ctools_export_ui_edit_item_form':
+      // Rename bean to blocks
+      $form['reactions']['plugins']['block']['selector']['bean']['#title'] = 'blocks';
+
+      if (!user_access('edit locked contexts1')) {
+        $blocks = &$form['reactions']['plugins']['block']['selector'];
+        // Unset search blocks which are not meant to be used in this way.
+        unset($blocks['cu_search']['checkboxes']['#options']['cu_search-cu_search']);
+        unset($blocks['cu_search']['checkboxes']['#options']['cu_search-cu_search_mobile']);
+        unset($blocks['cu_search']['checkboxes']['#options']['cu_search-cu_search_page']);
+      }
+      break;
   }
 }

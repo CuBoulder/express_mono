@@ -27,7 +27,6 @@ Examples:
     | developer       |
     | administrator   |
     | site_owner      |
-    | content_editor  |
     | site_editor      |
 #   | configuration_manager | HIDE FOR NOW; RETEST LATER
 
@@ -64,7 +63,6 @@ Examples:
     | developer       |
     | administrator   |
     | site_owner      |
-    | content_editor  |
     | site_editor      |
 #   | configuration_manager | HIDE FOR NOW; RETEST LATER
 

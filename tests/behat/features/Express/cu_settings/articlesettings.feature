@@ -16,7 +16,6 @@ Examples:
     | developer       | "Article Published Date Display" |
     | administrator   | "Article Published Date Display" |
     | site_owner      | "Article Published Date Display" |
-    | content_editor  | "Access denied" |
     | edit_my_content | "Access denied" |
     | site_editor      | "Access denied" |
     | edit_only        | "Access denied" |
