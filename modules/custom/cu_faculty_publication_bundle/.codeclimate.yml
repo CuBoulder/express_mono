@@ -1,0 +1,29 @@
+engines:
+  phpmd:
+    enabled: true
+    config:
+      file_extensions: "php,inc,module,install"
+      rulesets: ".phpmd.xml"
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: "php,inc,module,install"
+      encoding: utf-8
+      standard: "Drupal"
+      ignore_warnings: true
+    checks:
+      # PHP 5.3 doesn't fully support type hinting.
+      Drupal Commenting FunctionComment TypeHintMissing:
+        enabled: false
+      Drupal NamingConventions ValidClassName StartWithCaptial:
+        enabled: false
+      Drupal NamingConventions ValidClassName NoUnderscores:
+        enabled: false
+ratings:
+  paths:
+  - "*"
+exclude_paths:
+- "**.scss"
+- "**.tpl.php"
+- "**.rb"
+- "tests/"

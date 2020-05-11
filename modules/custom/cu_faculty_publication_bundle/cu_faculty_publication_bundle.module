@@ -1,0 +1,94 @@
+<?php
+/**
+ * Implements hook_block_info().
+ */
+function cu_faculty_publication_bundle_block_info() {
+  $blocks['publications_by_faculty'] = array(
+    'info' => t('Publications by Faculty Member'),
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function cu_faculty_publication_bundle_block_view($delta = '') {
+  if ($delta =='publications_by_faculty') {
+    // Load current node.
+    $node = menu_get_object();
+    if ($node && $node->type == 'person') {
+      // Get id from person node.
+      $fis_id = !empty($node->field_fis_id) ? $node->field_fis_id[LANGUAGE_NONE][0]['value'] : NULL;
+
+      // Both fis id AND publications display type must be set to build block.
+      if ($fis_id){
+        // Initialize block
+        $block = array();
+        $block['subject'] = 'Publications';
+
+        // Get number of publications we want to display in block from
+        // person node.
+        $query_limit = 11;
+        $display_limit = 10;
+
+        // Initialize curl.
+        $es_data = curl_init();
+
+        // Build query.
+        curl_setopt($es_data, CURLOPT_URL, 'https://experts.colorado.edu/es/webex-rc1/_search?q=authors.uri:experts.colorado.edu/display/fisid_'.$fis_id.'&size='.$query_limit);
+        curl_setopt($es_data, CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($es_data, CURLOPT_HEADER, false);
+
+        // Send request to elastic search api.
+        $json = curl_exec($es_data);
+        curl_close($es_data);
+
+        // Turn response into json format.
+        $publications = json_decode($json);
+
+        // Check to see if there is more than the display limit.
+        if (count($publications->hits->hits) == $query_limit) {
+          $view_more = TRUE;
+        }
+        else {
+          $view_more = FALSE;
+        }
+        // Truncate array to display limit.
+        $listings = array_slice($publications->hits->hits, 0, $display_limit);
+        // Loop through json response and display publication in template.
+        foreach ($listings as $listing) {
+          $contents = (array) $listing->_source;
+          $block['content']['publications'][]['#markup'] = theme('faculty_publication_name', $contents);
+        }
+        // Add view more link.
+        if ($view_more) {
+          $block['content']['more']['#markup'] = l('View all', 'https://experts.colorado.edu/display/fisid_' . $fis_id);
+        }
+
+      }
+
+    }
+    return $block;
+  }
+
+}
+
+/**
+ * Implements hook_theme().
+ */
+function cu_faculty_publication_bundle_theme(&$existing, $type, $theme, $path) {
+  $registry = array();
+  $template_dir = drupal_get_path('module', 'cu_faculty_publication_bundle') . '/templates';
+  $registry['faculty_publication_author'] = array(
+    'template' => 'faculty-publication-author',
+    'path' => $template_dir,
+    'render element' => 'elements',
+  );
+  $registry['faculty_publication_name'] = array(
+    'template' => 'faculty-publication-name',
+    'path' => $template_dir,
+    'render element' => 'elements',
+  );
+
+  return $registry;
+}
