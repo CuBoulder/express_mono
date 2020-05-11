@@ -539,7 +539,7 @@ function cu_core_update_7068() {
 }
 
 /**
- * Ensure responsive setting is set as expected now that the option for users to alter this setting has been removed. 
+ * Ensure responsive setting is set as expected now that the option for users to alter this setting has been removed.
  */
 function cu_core_update_7069() {
   $themes = list_themes();
