@@ -48,6 +48,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
     // This is the endpoint for faculty publications data we want to display.
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
+    
     // This is the endpoint to get more information about a particular faculty member.
     $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
 
@@ -158,6 +159,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     }
   }
 }
+
 
 function cu_faculty_publications_sort() {
   return array('date-desc' => 'Date: most recent first', 'date-asc' => 'Date: most recent last');
