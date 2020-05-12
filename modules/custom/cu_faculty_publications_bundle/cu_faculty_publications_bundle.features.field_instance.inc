@@ -12,6 +12,46 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
+  // 'bean-faculty_publications-field_faculty_pub_department'.
+  $field_instances['bean-faculty_publications-field_faculty_pub_department'] = array(
+    'bundle' => 'faculty_publications',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Type a University of Colorado Boulder department ID or name.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'bean',
+    'fences_wrapper' => 'div_div_div',
+    'field_name' => 'field_faculty_pub_department',
+    'label' => 'Department',
+    'required' => 0,
+    'settings' => array(
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance:
   // 'bean-faculty_publications-field_faculty_pub_results'.
   $field_instances['bean-faculty_publications-field_faculty_pub_results'] = array(
     'bundle' => 'faculty_publications',
@@ -25,7 +65,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'bean',
@@ -41,7 +81,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 7,
+      'weight' => 6,
     ),
   );
 
@@ -65,6 +105,10 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
     'label' => 'Publication Date',
     'required' => 0,
     'settings' => array(
+      'default_value' => '',
+      'default_value2' => '',
+      'default_value_code' => '',
+      'default_value_code2' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -80,41 +124,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 5,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'bean-faculty_publications-field_faculty_publications_sort'.
-  $field_instances['bean-faculty_publications-field_faculty_publications_sort'] = array(
-    'bundle' => 'faculty_publications',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'default_value_php' => '',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 3,
-      ),
-    ),
-    'entity_type' => 'bean',
-    'fences_wrapper' => 'div_div_div',
-    'field_name' => 'field_faculty_publications_sort',
-    'label' => 'Sort',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 2,
     ),
   );
 
@@ -130,7 +140,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'bean',
@@ -148,16 +158,52 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'email_textfield',
-      'weight' => 6,
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'bean-faculty_publications-field_faculty_publications_sort'.
+  $field_instances['bean-faculty_publications-field_faculty_publications_sort'] = array(
+    'bundle' => 'faculty_publications',
+    'default_value' => NULL,
+    'default_value_function' => '',
+    'default_value_php' => '',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'bean',
+    'fences_wrapper' => 'div_div_div',
+    'field_name' => 'field_faculty_publications_sort',
+    'label' => 'Sort',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 5,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Number of Results');
+  t('Department');
   t('Faculty Email Address');
+  t('Number of Results');
   t('Publication Date');
   t('Sort');
+  t('Type a University of Colorado Boulder department ID or name.');
 
   return $field_instances;
 }
