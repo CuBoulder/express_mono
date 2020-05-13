@@ -95,8 +95,8 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     // Check for author email.
     if (!empty($vars['bean']->field_faculty_publication_email)) {
       $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email'];
-        $fisEndpoint .= "?q=email:\"$email\"";
-        $emailResponse = drupal_http_request($fisEndpoint);
+      $fisEndpoint .= "?q=email:\"$email\"";
+      $emailResponse = drupal_http_request($fisEndpoint);
 
       if ($emailResponse->code == '200') {
         $emailResult = drupal_json_decode($emailResponse->data, true);
