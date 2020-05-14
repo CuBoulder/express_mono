@@ -11,7 +11,6 @@
 function cu_faculty_publications_bundle_field_default_field_bases() {
   $field_bases = array();
 
-
   // Exported field_base: 'field_faculty_pub_department'.
   $field_bases['field_faculty_pub_department'] = array(
     'active' => 1,
@@ -32,7 +31,6 @@ function cu_faculty_publications_bundle_field_default_field_bases() {
     'translatable' => 0,
     'type' => 'text',
   );
-
 
   // Exported field_base: 'field_faculty_pub_results'.
   $field_bases['field_faculty_pub_results'] = array(
@@ -85,7 +83,6 @@ function cu_faculty_publications_bundle_field_default_field_bases() {
     'translatable' => 0,
     'type' => 'datetime',
   );
-
 
   // Exported field_base: 'field_faculty_publication_email'.
   $field_bases['field_faculty_publication_email'] = array(

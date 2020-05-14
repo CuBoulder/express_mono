@@ -47,7 +47,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 5,
     ),
   );
 
@@ -81,7 +81,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 9,
     ),
   );
 
@@ -124,7 +124,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 2,
+      'weight' => 4,
     ),
   );
 
@@ -158,7 +158,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'email_textfield',
-      'weight' => 4,
+      'weight' => 6,
     ),
   );
 
@@ -192,7 +192,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 8,
     ),
   );
 
