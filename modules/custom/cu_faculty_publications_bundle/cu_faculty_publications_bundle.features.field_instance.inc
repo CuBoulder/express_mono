@@ -55,7 +55,11 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
   // 'bean-faculty_publications-field_faculty_pub_results'.
   $field_instances['bean-faculty_publications-field_faculty_pub_results'] = array(
     'bundle' => 'faculty_publications',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 25,
+      ),
+    ),
     'default_value_function' => '',
     'default_value_php' => '',
     'deleted' => 0,
@@ -72,7 +76,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
     'fences_wrapper' => 'div_div_div',
     'field_name' => 'field_faculty_pub_results',
     'label' => 'Number of Results',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -166,7 +170,11 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
   // 'bean-faculty_publications-field_faculty_publications_sort'.
   $field_instances['bean-faculty_publications-field_faculty_publications_sort'] = array(
     'bundle' => 'faculty_publications',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 'date-desc',
+      ),
+    ),
     'default_value_function' => '',
     'default_value_php' => '',
     'deleted' => 0,
@@ -183,7 +191,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
     'fences_wrapper' => 'div_div_div',
     'field_name' => 'field_faculty_publications_sort',
     'label' => 'Sort',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
     ),

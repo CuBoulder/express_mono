@@ -43,12 +43,12 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
 
 function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   $entity_type = $vars['elements']['#entity_type'];
-  $bundle = $vars['elements']['#bundle'];
+
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
 
     // This is the endpoint for faculty publications data we want to display.
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
-    
+
     // This is the endpoint to get more information about a particular faculty member.
     $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
 
@@ -80,7 +80,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       }
     }
 
-    // Check for sort order and update $endpoint.
+    // Check for sort order.
     if (!empty($vars['bean']->field_faculty_publications_sort)) {
       $order = $vars['bean']->field_faculty_publications_sort[LANGUAGE_NONE][0]['value'];
 
@@ -106,7 +106,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
           $arguments['q'][] = "authors.orcid:\"$orcid\"";
         }
         else {
-          $vars['content']['invalid_email']['#markup'] = "No results found for email $email.";
+          $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
         }
       }
     }
@@ -135,31 +135,32 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     // Send query to facutly publications database and display results.
     $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
 
-    $items = array();
-    $response = drupal_http_request($elasticSearchRequest);
+    if (empty($vars['content']['no_results'])) {
+      // $items = array();
+      $response = drupal_http_request($elasticSearchRequest);
 
-    if ($response->code == '200') {
-      $result = drupal_json_decode($response->data, true);
-      $total = $result['hits']['total'];
-      $pages = ceil($total/10);
-      $items = $result['hits']['hits'];
-    }
-    if (!empty($items)) {
-      $publications = array();
-      foreach ($items as $item) {
-        $publication = $item['_source'];
-        $publications[]['#markup'] = theme('faculty_publication', $publication);
+      if ($response->code == '200') {
+        $result = drupal_json_decode($response->data, true);
+        $total = $result['hits']['total'];
+        $pages = ceil($total/10);
+        $items = $result['hits']['hits'];
       }
-    }
-    if (!empty($publications)) {
-      $vars['content']['publications'] = $publications;
-    }
-    else {
-      $vars['content']['no_results']['#markup'] = 'There are no results for your query.';
+      if (!empty($items)) {
+        $publications = array();
+        foreach ($items as $item) {
+          $publication = $item['_source'];
+          $publications[]['#markup'] = theme('faculty_publication', $publication);
+        }
+      }
+      if (!empty($publications)) {
+        $vars['content']['publications'] = $publications;
+      }
+      else {
+        $vars['content']['no_results']['#markup'] = 'There are no results for your query.';
+      }
     }
   }
 }
-
 
 function cu_faculty_publications_sort() {
   return array('date-desc' => 'Date: most recent first', 'date-asc' => 'Date: most recent last');
