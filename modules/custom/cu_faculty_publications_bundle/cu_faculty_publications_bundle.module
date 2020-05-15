@@ -48,11 +48,11 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
     // This is the endpoint for faculty publications data we want to display.
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
-
     // This is the endpoint to get more information about a particular faculty member.
     $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
-
+    // This is the array we use to store and build query parameters.
     $arguments = array();
+    $numberOfResultsPerPage = 10;
 
     // Check for publication date filter.
     if (!empty($vars['bean']->field_faculty_publication_date)) {
@@ -121,9 +121,13 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       }
       elseif ($numberOfResults === '25' || $numberOfResults === '50' || $numberOfResults === '100') {
         $arguments['size'] = $numberOfResults;
+        $numberOfResultsPerPage = intval($numberOfResults);
       }
+
+      $arguments['from'] = $_GET['page'] ? intval($_GET['page']) * $numberOfResultsPerPage : 0;
     }
 
+    $currentPage = $_GET['page'];
     // Convert all 'q' arguments to a string joined by ' AND ' operator.
     if (count($arguments['q']) > 1) {
       $arguments['q'] = implode(' AND ', $arguments['q']);
@@ -134,27 +138,28 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
     // Send query to facutly publications database and display results.
     $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
-
+    $url = url($_GET['q']);
     if (empty($vars['content']['no_results'])) {
-      // $items = array();
-      $response = drupal_http_request($elasticSearchRequest);
+      $result = drupal_json_decode(drupal_http_request($elasticSearchRequest)->data, true);
 
-      if ($response->code == '200') {
-        $result = drupal_json_decode($response->data, true);
-        $total = $result['hits']['total'];
-        $pages = ceil($total/10);
+      if ($result) {
+        $totalResults = intval($result['hits']['total']);
         $items = $result['hits']['hits'];
-      }
-      if (!empty($items)) {
-        $publications = array();
+
         foreach ($items as $item) {
-          $publication = $item['_source'];
-          $publications[]['#markup'] = theme('faculty_publication', $publication);
+          $vars['content']['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
+        }
+
+        // Make pagination links.
+        $page = 0;
+        while ($numberOfResultsPerPage < $totalResults && $arguments['from'] < $totalResults) {
+          $arguments['from'] = $numberOfResultsPerPage * $page;
+          $vars['content']['publications'][]['#markup'] = l($page + 1, url($_GET['q'] . "?page=$page"), array('html' => TRUE));
+          $page++;
         }
       }
-      if (!empty($publications)) {
-        $vars['content']['publications'] = $publications;
-      }
+
+      // Show message if there is nothing to display.
       else {
         $vars['content']['no_results']['#markup'] = 'There are no results for your query.';
       }
