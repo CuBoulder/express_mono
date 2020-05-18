@@ -1,0 +1,222 @@
+<?php
+
+/**
+ * @file
+ * Code for the Faculty Publications feature.
+ */
+
+include_once 'cu_faculty_publications_bundle.features.inc';
+
+
+/**
+ * Implements hook_theme_registry_alter().
+ *
+ * Let Drupal know that we've got bean--faculty_publications.tpl.php in our module
+ * directory.
+ */
+function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
+  $module_path = drupal_get_path('module', 'cu_faculty_publications_bundle');
+  $theme_registry_copy = $theme_registry;
+  _theme_process_registry($theme_registry_copy, 'phptemplate', 'theme_engine', 'bean', $module_path);
+  $theme_registry += array_diff_key($theme_registry_copy, $theme_registry);
+  $hooks = array('bean');
+  foreach ($hooks as $h) {
+    if (isset($theme_registry[$h]['theme paths'])) {
+      $first_element = array_shift($theme_registry[$h]['theme paths']);
+      array_unshift($theme_registry[$h]['theme paths'], array_shift($theme_registry[$h]['theme paths']), $module_path);
+    }
+  }
+}
+
+/**
+  * Implements hook_theme().
+  */
+function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) {
+  $registry = array();
+  $template_dir = drupal_get_path('module', 'cu_faculty_publications_bundle') . '/templates';
+  $registry['faculty_publication'] = array(
+    'template' => 'faculty-publication',
+    'path' => $template_dir,
+  );
+  return $registry;
+}
+
+function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
+  $entity_type = $vars['elements']['#entity_type'];
+
+  if ($vars['elements']['#bundle'] == 'faculty_publications') {
+
+    // This is the endpoint for faculty publications data we want to display.
+    $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
+
+    // This is the endpoint to get more information about a particular faculty member.
+    $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
+
+    $arguments = array();
+
+    // Check for publication date filter.
+    if (!empty($vars['bean']->field_faculty_publication_date)) {
+      $date1 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
+      $date2 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value2']);
+
+      $date1 = date('Y-m-d', $date1);
+      $date2 = date('Y-m-d', $date2);
+      $arguments['q'][] = 'publicationDate:[' . $date1 . ' TO ' . $date2 . ']';
+    }
+
+    // Check for department id or name
+    if (!empty($vars['bean']->field_faculty_pub_department)) {
+      $department = $vars['bean']->field_faculty_pub_department[LANGUAGE_NONE][0]['value'];
+
+      // Search for a department id number.
+      if (intval($department)) {
+        $arguments['q'][] = "authors.organization.uri:*_$department";
+      }
+
+      // Use name as search term.
+      // TODO: more string validation here?
+      else {
+        $arguments['q'][] = "authors.organization.name:$department";
+      }
+    }
+
+    // Check for sort order.
+    if (!empty($vars['bean']->field_faculty_publications_sort)) {
+      $order = $vars['bean']->field_faculty_publications_sort[LANGUAGE_NONE][0]['value'];
+
+      if ($order === "date-desc") {
+        $arguments['sort'] = 'publicationDate:desc';
+      }
+      else if ($order === "date-asc") {
+        $arguments['sort'] = 'publicationDate:asc';
+      }
+    }
+
+    // Check for author email.
+    if (!empty($vars['bean']->field_faculty_publication_email)) {
+      $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email'];
+      $fisEndpoint .= "?q=email:\"$email\"";
+      $emailResponse = drupal_http_request($fisEndpoint);
+
+      if ($emailResponse->code == '200') {
+        $emailResult = drupal_json_decode($emailResponse->data, true);
+        $orcid = $emailResult['hits']['hits'][0]['_source']['orcid'];
+
+        if ($orcid) {
+          $arguments['q'][] = "authors.orcid:\"$orcid\"";
+        }
+        else {
+          $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
+        }
+      }
+    }
+
+    // Add desired total search results.
+    if (!empty($vars['bean']->field_faculty_pub_results)) {
+      $numberOfResults = $vars['bean']->field_faculty_pub_results[LANGUAGE_NONE][0]['value'];
+      if ($numberOfResults === 'all') {
+        // 10,000 search results is the default maximum amount of Elastic Search results.
+        // If 'all' results of a search are fewer than 10,000 Elastic Search returns how ever many there are.
+        $arguments['size'] = 10000;
+      }
+      elseif ($numberOfResults === '25' || $numberOfResults === '50' || $numberOfResults === '100') {
+        $arguments['size'] = $numberOfResults;
+      }
+    }
+
+    // Convert all 'q' arguments to a string joined by ' AND ' operator.
+    if (count($arguments['q']) > 1) {
+      $arguments['q'] = implode(' AND ', $arguments['q']);
+    }
+    elseif (count($arguments['q']) === 1) {
+      $arguments['q'] = $arguments['q'][0];
+    }
+
+    // Send query to facutly publications database and display results.
+    $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
+
+    if (empty($vars['content']['no_results'])) {
+      // $items = array();
+      $response = drupal_http_request($elasticSearchRequest);
+
+      if ($response->code == '200') {
+        $result = drupal_json_decode($response->data, true);
+        $total = $result['hits']['total'];
+        $pages = ceil($total/10);
+        $items = $result['hits']['hits'];
+      }
+      if (!empty($items)) {
+        $publications = array();
+        foreach ($items as $item) {
+          $publication = $item['_source'];
+          $publications[]['#markup'] = theme('faculty_publication', $publication);
+        }
+      }
+      if (!empty($publications)) {
+        $vars['content']['publications'] = $publications;
+      }
+      else {
+        $vars['content']['no_results']['#markup'] = 'There are no results for your query.';
+      }
+    }
+  }
+}
+
+function cu_faculty_publications_sort() {
+  return array('date-desc' => 'Newest to Oldest', 'date-asc' => 'Oldest to Newest');
+}
+
+function cu_faculty_publications_results() {
+  return array('25' => '25', '50' => '50' , '100' => '100', 'all' => 'ALL');
+}
+
+/**
+ * Implements hook_secure_permissions().
+ *
+ * Adding permissions for newsletter
+ */
+function cu_faculty_publications_bundle_secure_permissions($role) {
+  $permissions = array(
+    'anonymous user' => array(
+      'view any campus_news bean',
+    ),
+    'authenticated user' => array(
+      'view any faculty_publications bean',
+    ),
+    'administrator' => array(
+      'create any faculty_publications bean',
+      'delete any faculty_publications bean',
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+    'developer' => array(
+      'create any faculty_publications bean',
+      'delete any faculty_publications bean',
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+    'edit_my_content' => array(
+      'view any faculty_publications bean',
+    ),
+    'edit_only' => array(
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+    'site_editor' => array(
+      'create any faculty_publications bean',
+      'delete any faculty_publications bean',
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+    'site_owner' => array(
+      'create any faculty_publications bean',
+      'delete any faculty_publications bean',
+      'edit any faculty_publications bean',
+      'view any faculty_publications bean',
+    ),
+  );
+
+  if (isset($permissions[$role])) {
+    return $permissions[$role];
+  }
+}
