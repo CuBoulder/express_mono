@@ -21,7 +21,6 @@ I should be able to create, edit, and delete Webforms
       | developer       | "Create Webform" |
       | administrator   | "Create Webform" |
       | site_owner      | "Create Webform" |
-      | content_editor  | "Access denied" |
       | edit_my_content | "Access denied"  |
       | site_editor     | "Access denied" |
       | edit_only       | "Access denied"  |

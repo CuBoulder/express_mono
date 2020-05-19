@@ -21,7 +21,6 @@ Examples:
  | developer             | "Create File" |
 | administrator         | "Create File" |
 | site_owner            | "Create File" |
-| content_editor        | "Create File" |
 | edit_my_content       | "Access denied"    |
 | site_editor           | "Create File" |
 | edit_only             | "Access denied"    |
@@ -81,7 +80,6 @@ Examples:
 | developer       |
 | administrator   |
 | site_owner      |
-| content_editor  |
 | site_editor |
 
 Scenario: Node Access -  EditOnly can edit and revise but not delete File; can clear page cache

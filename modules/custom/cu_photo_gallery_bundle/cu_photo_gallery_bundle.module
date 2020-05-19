@@ -24,13 +24,6 @@ function cu_photo_gallery_bundle_secure_permissions($role) {
     ),
     'anonymous user' => array(),
     'authenticated user' => array(),
-    'content_editor' => array(
-      'create photo_gallery content',
-      'delete any photo_gallery content',
-      'delete own photo_gallery content',
-      'edit any photo_gallery content',
-      'edit own photo_gallery content',
-    ),
     'developer' => array(
       'create photo_gallery content',
       'delete any photo_gallery content',

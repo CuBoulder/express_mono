@@ -26,7 +26,6 @@ Scenario Outline: An authenticated user can access the form for adding an articl
   Examples:
       | role                  | message                     | message2                       | message3                    | message4                      |
       | edit_my_content       | "Access denied"             | "Access denied"                | "Access denied"             | "Access denied"               |
-      | content_editor        | "Create Article List block" | "Create Article Feature block" | "Create Article Grid block" | "Create Article Slider block" |
       | site_owner            | "Create Article List block" | "Create Article Feature block" | "Create Article Grid block" | "Create Article Slider block" |
       | administrator         | "Create Article List block" | "Create Article Feature block" | "Create Article Grid block" | "Create Article Slider block" |
       | developer             | "Create Article List block" | "Create Article Feature block" | "Create Article Grid block" | "Create Article Slider block" |

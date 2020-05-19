@@ -16,7 +16,6 @@ Examples:
 | developer        | "Site Search Settings" |
 | administrator    | "Site Search Settings" |
 | site_owner       | "Site Search Settings" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |

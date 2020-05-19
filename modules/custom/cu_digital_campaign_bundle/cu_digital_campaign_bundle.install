@@ -34,3 +34,20 @@ function cu_digital_campaign_bundle_update_7002() {
 
   variable_set('user_external_invite_addon_roles', $invite_roles);
 }
+
+/**
+ * Implements hook_disable().
+ */
+function cu_digital_campaign_bundle_disable() {
+  $addOnRoleIds = variable_get('user_external_invite_addon_roles', []);
+  $adjustedAddOnRoleIds = [];
+
+  foreach ($addOnRoleIds as $rid) {
+    $role = user_role_load($rid)->name;
+    if (isset($role) && $role != 'campaign_manager') {
+      $adjustedAddOnRoleIds[] = $rid;
+    }
+  }
+
+  variable_set('user_external_invite_addon_roles', $adjustedAddOnRoleIds);
+}

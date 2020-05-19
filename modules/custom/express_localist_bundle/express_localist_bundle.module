@@ -725,12 +725,6 @@ function express_localist_bundle_secure_permissions($role) {
       'edit any localist_events bean',
       'view any localist_events bean',
     ),
-    'content_editor' => array(
-      'create any localist_events bean',
-      'delete any localist_events bean',
-      'edit any localist_events bean',
-      'view any localist_events bean',
-    ),
     'developer' => array(
       'create any localist_events bean',
       'delete any localist_events bean',

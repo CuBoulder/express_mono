@@ -40,7 +40,6 @@ function _cu_behat_tests_add_users() {
   $users = array(
     'developer',
     'administrator',
-    'content_editor',
     'site_owner',
     'edit_my_content',
     'authenticated user',

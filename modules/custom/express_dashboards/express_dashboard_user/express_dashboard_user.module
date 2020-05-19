@@ -179,9 +179,6 @@ function express_dashboard_user_secure_permissions($role) {
     'administrator' => array(
       'use user dashboard',
     ),
-    'content_editor' => array(
-      'use user dashboard',
-    ),
     'developer' => array(
       'use user dashboard',
     ),

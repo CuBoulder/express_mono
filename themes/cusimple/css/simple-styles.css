@@ -25,8 +25,8 @@ body { background-color: #000; }
 .navigation-wrapper { background-color: #fff; }
 
 @media screen and (min-width: 960px) { .banner-white .navigation-wrapper { padding-bottom: 20px; }
-  .banner-black .navigation-wrapper { padding: 40px 0 20px; } }
-h2.secondary-menu-label { margin-left: 8px; }
+  .banner-black .navigation-wrapper { padding: 20px 0 20px; } }
+h2.secondary-menu-label { margin-left: 8px; padding: 0 5px; }
 
 .banner-white #secondary-menu-wrapper { background-color: #fff; }
 
@@ -47,7 +47,8 @@ h2.secondary-menu-label { margin-left: 8px; }
 
 #main-menu-wrapper ul#main-menu > li > a.active, #main-menu-wrapper ul#main-menu > li > a.active-trail { background-color: #cfb87c; background-image: -webkit-gradient(linear, left top, left bottom, from(#cfb87c), to(#bd9e4c)); background-image: -webkit-linear-gradient(top, #cfb87c, #bd9e4c); background-image: -moz-linear-gradient(top, #cfb87c, #bd9e4c); background-image: -o-linear-gradient(top, #cfb87c, #bd9e4c); background-image: -ms-linear-gradient(top, #cfb87c, #bd9e4c); background-image: linear-gradient(top, #cfb87c, #bd9e4c); filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#FFCFB87C', EndColorStr='#FFBD9E4C'); color: #000; }
 
-#main-menu-wrapper ul#action-menu > li > a { color: #fff; }
+#main-menu-wrapper ul#action-menu > li > a { color: #aaa; }
+#main-menu-wrapper ul#action-menu > li > a:hover, #main-menu-wrapper ul#action-menu > li > a.active, #main-menu-wrapper ul#action-menu > li > a.active-trail { color: #fff; }
 
 .slider-wrapper { padding: 20px; }
 

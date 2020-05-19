@@ -31,7 +31,6 @@ And I should not see "Clear Database Full"
 
 Examples:
 | role |
-| content_editor |
 | site_editor |
 | edit_only |
 
@@ -62,7 +61,6 @@ Examples:
     | developer        | "Repeatedly clearing caches will cause performance problems for you" |
     | administrator    | "Repeatedly clearing caches will cause performance problems for you" |
     | site_owner       | "Repeatedly clearing caches will cause performance problems for you" |
-    | content_editor   | "Access denied" |
     | edit_my_content  | "Access denied" |
     | site_editor      | "Access denied" |
     | edit_only        | "Access denied" |
@@ -80,7 +78,6 @@ Examples:
     | developer        | "Repeatedly clearing caches will cause performance problems for you" |
     | administrator    | "Repeatedly clearing caches will cause performance problems for you" |
     | site_owner       | "Repeatedly clearing caches will cause performance problems for you" |
-    | content_editor   | "Access denied" |
     | edit_my_content  | "Access denied" |
     | site_editor      | "Access denied" |
     | edit_only        | "Access denied" |
@@ -113,7 +110,6 @@ Scenario: The proper status message is displayed when Full Database Cache is cle
 #    | developer      | "node/123" |
 #    | administrator  | "node/234" |
 #    | site_owner     | "node/345" |
-#    | content_editor | "node/456" |
 
 # NOTE: NO VARNISH ON TRAVIS
 # THE PROPER STATUS MESSAGE IS DISPLAYED WHEN FULL PAGE CACHE IS CLEARED

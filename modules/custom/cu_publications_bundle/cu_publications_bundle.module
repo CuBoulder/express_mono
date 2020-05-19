@@ -19,14 +19,6 @@ function cu_publications_bundle_secure_permissions($role) {
       'edit own issue content',
       'view any issue content',
     ),
-    'content_editor' => array(
-      'create issue content',
-      'delete any issue content',
-      'delete own issue content',
-      'edit any issue content',
-      'edit own issue content',
-      'view any issue content',
-    ),
     'developer' => array(
       'create issue content',
       'delete any issue content',

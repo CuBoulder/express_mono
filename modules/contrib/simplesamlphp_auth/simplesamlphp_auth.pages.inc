@@ -91,7 +91,9 @@ function simplesamlphp_auth_loginpage() {
     }
 
     // Require the user to be authenticated.
-    $_simplesamlphp_auth_as->requireAuth();
+    // SSO on Pantheon Patch: Redirect to admin/dashboard after logging in
+    $uri = isset($return_to) ? $return_to : $base_url . '/admin/dashboard';
+    $_simplesamlphp_auth_as->requireAuth(array('ReturnTo' => $uri));
 
     // If the user is authenticated, send them along.
   }

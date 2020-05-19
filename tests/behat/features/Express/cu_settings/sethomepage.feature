@@ -16,7 +16,6 @@ Scenario Outline: Devs, Admins, SOs and ConMgrs can access Home Page settings; C
     | developer       | "Default front page" |
     | administrator   | "Default front page" |
     | site_owner      | "Default front page" |
-    | content_editor  | "Access Denied" |
     | edit_my_content | "Access Denied" |
     | site_editor      | "Access denied" |
     | edit_only        | "Access denied" |

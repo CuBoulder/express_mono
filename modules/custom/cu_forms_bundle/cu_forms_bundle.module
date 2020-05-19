@@ -107,10 +107,6 @@ function cu_forms_bundle_secure_permissions($role) {
       'edit webform components',
       'view unused forms',
     ),
-    'content_editor' => array(
-      'edit webform components',
-      'view unused forms',
-    ),
     'form_submitter' => array(
       'edit own webform submissions',
       'access own webform submissions',

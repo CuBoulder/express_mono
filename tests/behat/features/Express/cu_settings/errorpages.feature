@@ -15,7 +15,6 @@ Feature: Error Pages
       | developer             | "Allows you to set the default \"Not Found\" page." |
       | administrator         | "Allows you to set the default \"Not Found\" page." |
       | site_owner            | "Allows you to set the default \"Not Found\" page." |
-      | content_editor        | "Access Denied"                                     |
       | edit_my_content       | "Access Denied"                                     |
       | site_editor           | "Access denied"                                     |
       | edit_only             | "Access denied"                                     |

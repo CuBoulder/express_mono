@@ -24,7 +24,6 @@ I should be able to create, edit, and delete Basic Pages
       | developer       | "Create Basic page" |
       | administrator   | "Create Basic page" |
       | site_owner      | "Create Basic page" |
-      | content_editor  | "Create Basic page" |
       | edit_my_content | "Access denied"     |
       | site_editor     | "Create Basic page" |
       | edit_only       | "Access denied"     |
@@ -95,7 +94,6 @@ I should be able to create, edit, and delete Basic Pages
       | developer      |
       | administrator  |
       | site_owner     |
-      | content_editor |
       | site_editor    |
 
   Scenario: Node Access -  EditOnly can edit and revise but not delete node

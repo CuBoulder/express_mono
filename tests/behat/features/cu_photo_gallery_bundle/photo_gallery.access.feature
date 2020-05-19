@@ -12,7 +12,6 @@ Then I should see <message>
 
     Examples:
     | role            | message                 |
-    | content_editor  | "Create Photo Gallery"  |
     | site_editor     | "Create Photo Gallery"  |
     | site_owner      | "Create Photo Gallery"  |
     | administrator   | "Create Photo Gallery"  |

@@ -13,7 +13,6 @@ Examples:
  | role            | message             |
  | edit_my_content | "Access Denied"     |
  | edit_only       | "Access Denied"     |
- | content_editor  | "Create Newsletter" |
  | site_editor     | "Create Newsletter" |
  | site_owner      | "Create Newsletter" |
  | administrator   | "Create Newsletter" |

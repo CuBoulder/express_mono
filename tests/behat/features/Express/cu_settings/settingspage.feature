@@ -15,7 +15,6 @@ Examples:
 | developer        | "Settings" |
 | administrator    | "Settings" |
 | site_owner       | "Settings" |
-| content_editor   | "Settings" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Settings" |
 | edit_only        | "Settings" |

@@ -50,8 +50,6 @@ Scenario Outline: Access - A user with limited roles cannot add or edit menus
 
 Examples:
 | role                  |
-# @todo fix for this role.
-# | content_editor        |
 | edit_my_content       |
 | edit_only             |
 | access_manager        |
@@ -82,7 +80,6 @@ Examples:
 | role                  |
 | administrator         |
 | site_owner            |
-| content_editor        |
 | edit_my_content       |
 | site_editor           |
 | edit_only             |

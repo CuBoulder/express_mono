@@ -21,7 +21,6 @@ Examples:
  | developer             | "Create Slider block" |
 | administrator         | "Create Slider block" |
 | site_owner            | "Create Slider block" |
-| content_editor        | "Create Slider block" |
 | edit_my_content       | "Access denied"       |
 | site_editor           | "Create Slider block" |
 | edit_only             | "Access denied"       |
@@ -73,7 +72,6 @@ Examples:
 | developer       |
 | administrator   |
 | site_owner      |
-| content_editor  |
 | site_editor |
 
 
