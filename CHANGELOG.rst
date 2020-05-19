@@ -29,8 +29,6 @@ Removed
 ~~~~~~~
 - Removing deprecated content editor role.
 
-- Removing option for headings to have a light/bold option. Headings will only display as bold.
-
 
 v4.2.1 (2012-04-21)
 ------------
