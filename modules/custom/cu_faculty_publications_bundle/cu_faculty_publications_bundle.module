@@ -46,15 +46,11 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
 
-    // This is the endpoint for faculty publications data we want to display.
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
-    // This is the endpoint to get more information about a particular faculty member.
     $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
-    // This is the array we use to store and build query parameters.
     $arguments = array();
     $numberOfResultsPerPage = 25;
     $requestedNumberOfResults = 10;
-    // $currentPage = intval($_GET['page']);
     $currentPage = pager_find_page();
 
     // Check for publication date filter.
@@ -123,7 +119,6 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
       if ($numberOfResults === 'all') {
         // 10,000 search results is the default maximum amount of Elastic Search results.
-        // If 'all' results of a search are fewer than 10,000 Elastic Search returns how ever many there are.
         $requestedNumberOfResults = 10000;
       }
 
@@ -150,7 +145,6 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       if ($result) {
         $queryTotal = $result['hits']['total'];
         $totalResults = $queryTotal > $requestedNumberOfResults ? $requestedNumberOfResults : $queryTotal;
-        // $totalResults = intval($result['hits']['total']);
         $items = $result['hits']['hits'];
         pager_default_initialize($totalResults, $numberOfResultsPerPage);
 
@@ -159,20 +153,8 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
         }
 
         $vars['content']['publications'][]['#markup'] = theme('pager');
-
-        // Make pagination links.
-        // $style = "text-decoration: none; padding: 0 8px; font-size: 1rem;";
-        // $page = 0;
-        // while ($page * $numberOfResultsPerPage < $totalResults && $numberOfResultsPerPage < $totalResults) {
-        //   $styleAttribute = $page === $currentPage ? $style . " color: #cfb87c; font-size: 1.125rem;" : $style;
-        //   $pageUrl = url($_GET['q'], ['absolute' => true, 'query' => ['page' => $page]]);
-        //   $linkMarkup = l($page + 1, $pageUrl, array('html' => TRUE, 'attributes' => ['style' => $styleAttribute]));
-        //   $vars['content']['publications'][]['#markup'] = $linkMarkup;
-        //   $page++;
-        // }
       }
 
-      // Show message if there is nothing to display.
       else {
         $vars['content']['no_results']['#markup'] = 'There are no results for your query.';
       }
