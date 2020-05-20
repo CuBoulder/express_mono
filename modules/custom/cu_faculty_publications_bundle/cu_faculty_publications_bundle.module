@@ -46,13 +46,12 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
 
-    // This is the endpoint for faculty publications data we want to display.
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
-
-    // This is the endpoint to get more information about a particular faculty member.
     $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
-
     $arguments = array();
+    $numberOfResultsPerPage = 25;
+    $requestedNumberOfResults = 10;
+    $currentPage = pager_find_page();
 
     // Check for publication date filter.
     if (!empty($vars['bean']->field_faculty_publication_date)) {
@@ -111,16 +110,20 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       }
     }
 
-    // Add desired total search results.
+    // Check for requestedNumberOfResults.
     if (!empty($vars['bean']->field_faculty_pub_results)) {
       $numberOfResults = $vars['bean']->field_faculty_pub_results[LANGUAGE_NONE][0]['value'];
+      $offset = $currentPage * $numberOfResultsPerPage;
+      $arguments['from'] = $offset;
+      $arguments['size'] = $numberOfResultsPerPage;
+
       if ($numberOfResults === 'all') {
         // 10,000 search results is the default maximum amount of Elastic Search results.
-        // If 'all' results of a search are fewer than 10,000 Elastic Search returns how ever many there are.
-        $arguments['size'] = 10000;
+        $requestedNumberOfResults = 10000;
       }
+
       elseif ($numberOfResults === '25' || $numberOfResults === '50' || $numberOfResults === '100') {
-        $arguments['size'] = $numberOfResults;
+        $requestedNumberOfResults = intval($numberOfResults);
       }
     }
 
@@ -132,34 +135,32 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       $arguments['q'] = $arguments['q'][0];
     }
 
-    // Send query to facutly publications database and display results.
+    // Form the final request url.
     $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
 
+    // Send query to facutly publications database and display results.
     if (empty($vars['content']['no_results'])) {
-      // $items = array();
-      $response = drupal_http_request($elasticSearchRequest);
+      $result = drupal_json_decode(drupal_http_request($elasticSearchRequest)->data, true);
 
-      if ($response->code == '200') {
-        $result = drupal_json_decode($response->data, true);
-        $total = $result['hits']['total'];
-        $pages = ceil($total/10);
+      if ($result) {
+        $queryTotal = $result['hits']['total'];
+        $totalResults = $queryTotal > $requestedNumberOfResults ? $requestedNumberOfResults : $queryTotal;
         $items = $result['hits']['hits'];
-      }
-      if (!empty($items)) {
-        $publications = array();
+        pager_default_initialize($totalResults, $numberOfResultsPerPage);
+
         foreach ($items as $item) {
-          $publication = $item['_source'];
-          $publications[]['#markup'] = theme('faculty_publication', $publication);
+          $vars['content']['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
         }
+
+        $vars['content']['publications'][]['#markup'] = theme('pager');
       }
-      if (!empty($publications)) {
-        $vars['content']['publications'] = $publications;
-      }
+
       else {
         $vars['content']['no_results']['#markup'] = 'There are no results for your query.';
       }
     }
   }
+  $end = "the end";
 }
 
 function cu_faculty_publications_sort() {
