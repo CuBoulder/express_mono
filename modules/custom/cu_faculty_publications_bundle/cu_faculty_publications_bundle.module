@@ -171,18 +171,21 @@ function get_publication_data($url) {
   
   if ($cache->data['expiration'] <= time() || !isset($cache->data)) {
     $response = drupal_json_decode(drupal_http_request($url)->data, true);
-    $newData = [
-      'publications' => [
-        'total' => $response['hits']['total'],
-        'results' => $response['hits']['hits'],
-      ],
-      'expiration' => time() + (7 * 24 * 60 * 60)
-    ];
-
-    cache_set($url, $newData);
-
-    if (!isset($cache->data)) {
-      $publications = $newData['publications'];
+    
+    if ($response) {
+      $newData = [
+        'publications' => [
+          'total' => $response['hits']['total'],
+          'results' => $response['hits']['hits'],
+        ],
+        'expiration' => time() + (7 * 24 * 60 * 60)
+      ];
+  
+      cache_set($url, $newData);
+  
+      if (!isset($cache->data)) {
+        $publications = $newData['publications'];
+      }
     }
   }
 
