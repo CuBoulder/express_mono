@@ -163,7 +163,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
 function get_publication_data($url, $cid) {
   $publications = [];
-  $cache = cache_get($cid, 'cu_faculty_publications_bundle');
+  $cache = cache_get($cid, 'cache_cu_faculty_publications_bundle');
 
   if (isset($cache->data)) {
     $publications = $cache->data['publications'];
@@ -181,7 +181,7 @@ function get_publication_data($url, $cid) {
         'expiration' => time() + (24 * 60 * 60)
       ];
   
-      cache_set($cid, $newData, 'cu_faculty_publications_bundle');
+      cache_set($cid, $newData, 'cache_cu_faculty_publications_bundle');
       if (!isset($cache->data)) {
         $publications = $newData['publications'];
       }
@@ -254,5 +254,5 @@ function cu_faculty_publications_bundle_secure_permissions($role) {
   * Implements hook_flush_caches().
   */
 function cu_faculty_publications_bundle_flush_caches() {
-  return array('cu_faculty_publications_bundle');
+  return array('cache_cu_faculty_publications_bundle');
 }

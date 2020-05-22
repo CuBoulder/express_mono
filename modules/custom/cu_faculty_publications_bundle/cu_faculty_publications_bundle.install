@@ -4,6 +4,6 @@
   */
 function cu_faculty_publications_bundle_schema() {
   $schema = array();
-  $schema['cu_faculty_publications_bundle'] = drupal_get_schema_unprocessed('system', 'cache');
+  $schema['cache_cu_faculty_publications_bundle'] = drupal_get_schema_unprocessed('system', 'cache');
   return $schema;
 }
