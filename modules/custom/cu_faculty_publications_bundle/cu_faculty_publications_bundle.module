@@ -53,7 +53,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     $numberOfResultsPerPage = 25;
     $requestedNumberOfResults = 10;
     $currentPage = pager_find_page();
-
+    $cacheID = current_path() . "?page=" . $currentPage;
     // Check for publication date filter.
     if (!empty($vars['bean']->field_faculty_publication_date)) {
       $date1 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
@@ -141,7 +141,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
     // Send query to facutly publications database and display results.
     if (empty($vars['content']['no_results'])) {
-      $publications = get_publication_data($elasticSearchRequest);
+      $publications = get_publication_data($elasticSearchRequest, $cacheID);
 
       if ($publications['results']) {
         $totalResults = $publications['total'] > $requestedNumberOfResults ? $requestedNumberOfResults : $publications['total'];
@@ -161,9 +161,9 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   }
 }
 
-function get_publication_data($url) {
+function get_publication_data($url, $cid) {
   $publications = [];
-  $cache = cache_get($url, 'cu_faculty_publications_bundle');
+  $cache = cache_get($cid, 'cu_faculty_publications_bundle');
 
   if (isset($cache->data)) {
     $publications = $cache->data['publications'];
@@ -181,7 +181,7 @@ function get_publication_data($url) {
         'expiration' => time() + (24 * 60 * 60)
       ];
   
-      cache_set($url, $newData, 'cu_faculty_publications_bundle');
+      cache_set($cid, $newData, 'cu_faculty_publications_bundle');
       if (!isset($cache->data)) {
         $publications = $newData['publications'];
       }
