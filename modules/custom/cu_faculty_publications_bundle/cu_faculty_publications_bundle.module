@@ -147,6 +147,10 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
         $totalResults = $publications['total'] > $requestedNumberOfResults ? $requestedNumberOfResults : $publications['total'];
         pager_default_initialize($totalResults, $numberOfResultsPerPage);
 
+        // check if results are from cache;
+        $isFromCache = $publications['isFromCache'] ? "YES" : "NO";
+        $vars['content']['publications'][]['#markup'] = "<!-- Results are from cache: $isFromCache -->";
+
         foreach ($publications['results'] as $item) {
           $vars['content']['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
         }
@@ -167,6 +171,7 @@ function get_publication_data($url, $cid) {
 
   if (isset($cache->data)) {
     $publications = $cache->data['publications'];
+    $publications['isFromCache'] = true;
   }
   
   if ($cache->data['expiration'] <= time() || !isset($cache->data)) {
@@ -184,6 +189,7 @@ function get_publication_data($url, $cid) {
       cache_set($cid, $newData, 'cache_cu_faculty_publications_bundle');
       if (!isset($cache->data)) {
         $publications = $newData['publications'];
+        $publications['isFromCache'] = false;
       }
     }
   }
