@@ -76,5 +76,5 @@ function express_permissions_update_7010() {
     }
   }
   // Delete the content_editor role.
-  user_role_delete($role);
+  user_role_delete('content_editor');
 }
