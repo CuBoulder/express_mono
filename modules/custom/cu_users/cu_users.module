@@ -848,3 +848,37 @@ function cu_users_mail_alter(&$message) {
     $message['body'][0] = $str;
   }
 }
+
+/**
+ * Implements hook_navbar().
+ *
+ * Add 'Switch Back' link for use when Masquerading as another user
+ */
+function cu_users_navbar() {
+  $items = array();
+
+  if (isset($_SESSION['masquerading'])) {
+    $items['cu-masquerade-link'] = array(
+      '#type' => 'navbar_item',
+      'tab' => array(
+        '#type' => 'link',
+        '#title' => t('Switch Back'),
+        '#href' => 'masquerade/unswitch',
+        '#options' => array(
+          'query' => array('token' => drupal_get_token('masquerade/unswitch')),
+          'html' => TRUE,
+          'attributes' => array(
+            'class' => array('navbar-icon navbar-icon-shortcut'),
+          ),
+        ),
+      ),
+      '#weight' => 101,
+      '#wrapper_attributes' => array(
+        'class' => array('pull-right'),
+      ),
+    );
+  }
+
+  return $items;
+}
+
