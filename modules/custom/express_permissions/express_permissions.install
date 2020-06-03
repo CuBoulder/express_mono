@@ -82,7 +82,7 @@ function express_permissions_update_7010() {
 /**
  * Complete removal of content_editor role.
  */
- function express_permissions_update_7011() {
+function express_permissions_update_7011() {
   // Delete the content_editor role. Passing in a string this time, as the user_role_delete function expects.
   user_role_delete('content_editor');
 }
