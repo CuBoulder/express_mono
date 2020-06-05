@@ -108,7 +108,7 @@ function cu_faculty_publications_results() {
 function cu_faculty_publications_bundle_secure_permissions($role) {
   $permissions = array(
     'anonymous user' => array(
-      'view any campus_news bean',
+      'view any faculty_publications bean',
     ),
     'authenticated user' => array(
       'view any faculty_publications bean',
