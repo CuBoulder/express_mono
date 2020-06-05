@@ -1,19 +1,17 @@
 <?php
 
 /**
- * @file
- * Code for the Faculty Publications feature.
- */
-
+  * @file
+  * Code for the Faculty Publications feature.
+  */
 include_once 'cu_faculty_publications_bundle.features.inc';
 
-
 /**
- * Implements hook_theme_registry_alter().
- *
- * Let Drupal know that we've got bean--faculty_publications.tpl.php in our module
- * directory.
- */
+  * Implements hook_theme_registry_alter().
+  *
+  * Let Drupal know that we've got bean--faculty_publications.tpl.php in our module
+  * directory.
+  */
 function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
   $module_path = drupal_get_path('module', 'cu_faculty_publications_bundle');
   $theme_registry_copy = $theme_registry;
@@ -41,13 +39,21 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
   return $registry;
 }
 
-
+/**
+  * Implements hook_preprocess_entity().
+  */
 function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
-  $entity_type = $vars['elements']['#entity_type'];
-  $bundle = $vars['elements']['#bundle'];
+  // $entity_type = $vars['elements']['#entity_type'];
+
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
+
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
+    $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
     $arguments = array();
+    $numberOfResultsPerPage = 25;
+    $requestedNumberOfResults = 10;
+    $currentPage = pager_find_page();
+    $cacheID = current_path() . "?page=" . $currentPage;
     // Check for publication date filter.
     if (!empty($vars['bean']->field_faculty_publication_date)) {
       $date1 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
@@ -55,56 +61,155 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
       $date1 = date('Y-m-d', $date1);
       $date2 = date('Y-m-d', $date2);
-      $arguments[] = 'publicationDate:[' . $date1 . '%20TO%20' . $date2 . ']';
+      $arguments['q'][] = 'publicationDate:[' . $date1 . ' TO ' . $date2 . ']';
     }
-    // Update endpoint url with filter parameters.
-    $endpoint = $endpoint . '?q=' . join('&', $arguments);
 
-    // Add desired total search results.
+    // Check for department id or name
+    if (!empty($vars['bean']->field_faculty_pub_department)) {
+      $department = $vars['bean']->field_faculty_pub_department[LANGUAGE_NONE][0]['value'];
+
+      // Search for a department id number.
+      if (intval($department)) {
+        $arguments['q'][] = "authors.organization.uri:*_$department";
+      }
+
+      // Use name as search term.
+      // TODO: more string validation here?
+      else {
+        $arguments['q'][] = "authors.organization.name:$department";
+      }
+    }
+
+    // Check for sort order.
+    if (!empty($vars['bean']->field_faculty_publications_sort)) {
+      $order = $vars['bean']->field_faculty_publications_sort[LANGUAGE_NONE][0]['value'];
+
+      if ($order === "date-desc") {
+        $arguments['sort'] = 'publicationDate:desc';
+      }
+      else if ($order === "date-asc") {
+        $arguments['sort'] = 'publicationDate:asc';
+      }
+    }
+
+    // Check for author email.
+    if (!empty($vars['bean']->field_faculty_publication_email)) {
+      $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email'];
+      $fisEndpoint .= "?q=email:\"$email\"";
+      $emailResponse = drupal_http_request($fisEndpoint);
+
+      if ($emailResponse->code == '200') {
+        $emailResult = drupal_json_decode($emailResponse->data, true);
+        $orcid = $emailResult['hits']['hits'][0]['_source']['orcid'];
+
+        if ($orcid) {
+          $arguments['q'][] = "authors.orcid:\"$orcid\"";
+        }
+        else {
+          $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
+        }
+      }
+    }
+
+    // Check for requestedNumberOfResults.
     if (!empty($vars['bean']->field_faculty_pub_results)) {
       $numberOfResults = $vars['bean']->field_faculty_pub_results[LANGUAGE_NONE][0]['value'];
+      $offset = $currentPage * $numberOfResultsPerPage;
+      $arguments['from'] = $offset;
+      $arguments['size'] = $numberOfResultsPerPage;
+
       if ($numberOfResults === 'all') {
         // 10,000 search results is the default maximum amount of Elastic Search results.
-        // If 'all' results of a search are fewer than 10,000 Elastic Search returns how ever many there are.
-        $endpoint .= '&size=10000';
+        $requestedNumberOfResults = 10000;
       }
-      elseif ($numberOfResults === '25' || $numberOfResults === '50' || $numberOfResults === '100' || $numberOfResults === '200') {
-        $endpoint .= "&size=$numberOfResults";
-      }
-    }
-    $items = array();
-    $response = drupal_http_request($endpoint);
-    if ($response->code == '200') {
-      $result = drupal_json_decode($response->data, true);
-      $total = $result['hits']['total'];
-      $pages = ceil($total/10);
-      $items = $result['hits']['hits'];
-    }
-    if (!empty($items)) {
-      $publications = array();
-      foreach ($items as $item) {
-        $publication = $item['_source'];
-        $publications[]['#markup'] = theme('faculty_publication', $publication);
+
+      elseif ($numberOfResults === '25' || $numberOfResults === '50' || $numberOfResults === '100') {
+        $requestedNumberOfResults = intval($numberOfResults);
       }
     }
-    if (!empty($publications)) {
-      $vars['content']['publications'] = $publications;
+
+    // Convert all 'q' arguments to a string joined by ' AND ' operator.
+    if (count($arguments['q']) > 1) {
+      $arguments['q'] = implode(' AND ', $arguments['q']);
     }
-    else {
-      $vars['content']['no_results']['#markup'] = 'There are no results for your query.';
+    elseif (count($arguments['q']) === 1) {
+      $arguments['q'] = $arguments['q'][0];
+    }
+
+    // Form the final request url.
+    $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
+
+    // Send query to facutly publications database and display results.
+    if (empty($vars['content']['no_results'])) {
+      $publications = get_publication_data($elasticSearchRequest, $cacheID);
+
+      if ($publications['results']) {
+        $totalResults = $publications['total'] > $requestedNumberOfResults ? $requestedNumberOfResults : $publications['total'];
+        pager_default_initialize($totalResults, $numberOfResultsPerPage);
+
+        // check if results are from cache;
+        $isFromCache = $publications['isFromCache'] ? "YES" : "NO";
+        $vars['content']['publications'][]['#markup'] = "<!-- Results are from cache: $isFromCache -->";
+
+        foreach ($publications['results'] as $item) {
+          $vars['content']['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
+        }
+
+        $vars['content']['publications'][]['#markup'] = theme('pager');
+      }
+
+      else {
+        $vars['content']['no_results']['#markup'] = 'There are no results for your query. Please check your data filters and try again.';
+      }
     }
   }
 }
 
+function get_publication_data($url, $cid) {
+  $publications = [];
+  $cache = cache_get($cid, 'cache_cu_faculty_publications_bundle');
+
+  if (isset($cache->data)) {
+    $publications = $cache->data['publications'];
+    $publications['isFromCache'] = true;
+  }
+  
+  if ($cache->data['expiration'] <= time() || !isset($cache->data)) {
+    $response = drupal_json_decode(drupal_http_request($url)->data, true);
+    
+    if ($response) {
+      $newData = [
+        'publications' => [
+          'total' => $response['hits']['total'],
+          'results' => $response['hits']['hits'],
+        ],
+        'expiration' => time() + (24 * 60 * 60)
+      ];
+  
+      cache_set($cid, $newData, 'cache_cu_faculty_publications_bundle');
+      if (!isset($cache->data)) {
+        $publications = $newData['publications'];
+        $publications['isFromCache'] = false;
+      }
+    }
+  }
+
+  return $publications;
+}
+
+function cu_faculty_publications_sort() {
+  return array('date-desc' => 'Newest to Oldest', 'date-asc' => 'Oldest to Newest');
+}
+
 function cu_faculty_publications_results() {
-  return array('25' => '25', '50' => '50', '100' => '100', '200' => '200', 'all' => 'ALL');
+  return array('25' => '25', '50' => '50' , '100' => '100', 'all' => 'ALL');
 }
 
 /**
- * Implements hook_secure_permissions().
- *
- * Adding permissions for newsletter
- */
+  * Implements hook_secure_permissions().
+  *
+  * Adding permissions for newsletter
+  */
 function cu_faculty_publications_bundle_secure_permissions($role) {
   $permissions = array(
     'anonymous user' => array(
@@ -149,4 +254,11 @@ function cu_faculty_publications_bundle_secure_permissions($role) {
   if (isset($permissions[$role])) {
     return $permissions[$role];
   }
+}
+
+/**
+  * Implements hook_flush_caches().
+  */
+function cu_faculty_publications_bundle_flush_caches() {
+  return array('cache_cu_faculty_publications_bundle');
 }
