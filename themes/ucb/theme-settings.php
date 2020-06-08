@@ -50,7 +50,16 @@ function ucb_form_system_theme_settings_alter(&$form, &$form_state) {
       ),
   	);
 	}
-
+  $form['expressbase_theme_settings']['primary_sidebar'] = array(
+	  '#type' => 'select',
+	  '#title' => t('Primary Sidebar'),
+	  '#default_value' => theme_get_setting('primary_sidebar', $theme) ? theme_get_setting('primary_sidebar', $theme) : 'primary-sidebar-second',
+	  '#options' => array(
+      'primary-sidebar-first' => t('First/Left'),
+      'primary-sidebar-second' => t('Second/Right'),
+    ),
+    '#description' => 'This setting sets which is the primary sidebar.',
+  );
 	$form['expressbase_theme_settings']['columns'] = array(
 		'#type' => 'fieldset',
 		'#title' => t('Column Options'),
