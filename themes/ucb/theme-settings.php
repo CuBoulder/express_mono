@@ -24,10 +24,10 @@ function ucb_form_system_theme_settings_alter(&$form, &$form_state) {
 	);
 	if (module_exists('cu_title_image')) {
     $form['expressbase_theme_settings']['page_title_image'] = array(
-  		'#type' => 'fieldset',
-  		'#title' => t('Page Title Image'),
-  		'#collapsible' => TRUE,
-  		'#collapsed' => TRUE,
+      '#type' => 'fieldset',
+      '#title' => t('Page Title Image'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
   	);
   	$form['expressbase_theme_settings']['page_title_image']['page_title_image_background'] = array(
   	  '#type' => 'select',
