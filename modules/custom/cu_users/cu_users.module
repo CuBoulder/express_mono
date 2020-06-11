@@ -891,7 +891,7 @@ function cu_users_navbar() {
  *
  */
 
-function cu_users_form_item_masquerade_admin_roles_alter(&$form, &$form_state, $form_id) {
+function cu_users_form_masquerade_admin_settings_alter(&$form, &$form_state, $form_id) {
   $theRoles = user_roles();
   $adminRoleArray = array();
   foreach ($theRoles as $key => $value) {
