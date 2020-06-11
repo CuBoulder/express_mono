@@ -519,6 +519,15 @@ function cu_users_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     );
     $form['#submit'][] = 'cu_users_roles_form_submit';
   }
+
+  // change access perms on masquerade fieldset "Enter the users this user is able to masquerade as"
+  // to keep it from being exposed on user edit page,
+  // since we don't allow any WebExp roles but Dev and Admin to masquerade as other people
+  $form['masquerade'] = array(
+    '#access' => FALSE,
+  );
+
+
 }
 
 /**
@@ -902,3 +911,5 @@ function cu_users_form_masquerade_admin_settings_alter(&$form, &$form_state, $fo
   $form['masquerade_admin_roles']['#default_value'] = $adminRoleArray;
   return;
 }
+
+
