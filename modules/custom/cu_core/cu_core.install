@@ -79,11 +79,10 @@ function cu_core_install() {
   variable_set('rave_alerts_network_fail_message', 'Network Failure: Please go directly to http://alerts.colorado.edu for more information.');
   variable_set('rave_alerts_deafult_read_more_url', 'http://alerts.colorado.edu');
 
-  // Set the syslog_identity variable to the SID.
-  $cu_sid = variable_get('cu_sid', '');
-  if ($cu_sid) {
+  // Set the syslog_identity variable to the global $base_url set in bootstrap.inc/drupal_settings_initialize().
+  if ($GLOBAL['base_url']) {
     // Current value
-    $syslog_identity = 'drupal-' . $cu_sid;
+    $syslog_identity = 'drupal-' . $GLOBAL['base_url'];
   }
   else {
     $syslog_identity = 'drupal-no_sid';
