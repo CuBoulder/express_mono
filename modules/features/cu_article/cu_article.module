@@ -1361,7 +1361,7 @@ function cu_article_block_view($delta = '') {
 
           $query->join("field_data_field_article_byline", "bylines", "n.nid = bylines.entity_id");
           $query->fields('bylines', array('field_article_byline_tid'));
-          $query->condition('bylines.field_article_byline_tid', $tid, '=');
+          $query->condition('bylines.field_article_byline_tid', $tid, 'IN');
           $query->distinct();
           $query->groupBy('n.nid');
           // Display the newest first.
