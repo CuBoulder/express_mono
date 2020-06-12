@@ -930,16 +930,3 @@ function cu_users_user_view_alter(&$build) {
   return;
 }
 
-function myfunction()
-{
-  $account->content['masquerade'] = array(
-    '#markup' => l(t('Masquerade as !user', array('!user' => $account->name)),
-      'masquerade/switch/' . $account->uid,
-      array('query' => array(
-        'token' => drupal_get_token('masquerade/switch/' . $account->uid)),
-        'destination' => $_GET['q'],
-        'attributes' => array('class' => array('masquerade-switch btn btn-info')),
-      )),
-    '#weight' => 10,
-  );
-}
