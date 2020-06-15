@@ -29,10 +29,9 @@ function _create_cu_pathologic_paths() {
   $paths = array();
   
   $paths[] = "$base_url/";
-
-  $paths[] = "/$base_path/";
-  $paths[] = "http://www.colorado.edu/$base_path/";
-  $paths[] = "https://www.colorado.edu/$base_path/";
+  $paths[] = "$base_path";
+  $paths[] = "http://www.colorado.edu$base_path";
+  $paths[] = "https://www.colorado.edu$base_path";
   
   // Build pathologic settings on one path per line
   $all_paths = join("\n", $paths);
