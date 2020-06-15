@@ -22,7 +22,7 @@ function cu_wysiwyg_wysiwyg_editor_settings_alter(&$settings, $context) {
  *   A list of pathologic paths for the current site.
  */
 function _create_cu_pathologic_paths() {
-  // Use the global base_path and base_url set in bootstrap.inc/drupal settings initialize.
+  // Use the global base_path and base_url set in bootstrap.inc/drupal_settings_initialize().
   $base_url = $GLOBALS['base_url'];
   $base_path = $GLOBALS['base_path'];
 
@@ -36,13 +36,6 @@ function _create_cu_pathologic_paths() {
   // Build pathologic settings on one path per line
   $all_paths = join("\n", $paths);
   return $all_paths;
-}
-
-/**
- * Implements Pathologic's hook_pathologic_alter().
- */
-function hook_pathologic_alter(&$url_params, $parts, $settings) {
-  $aPlaceToStop = 'here';
 }
 
 /**
