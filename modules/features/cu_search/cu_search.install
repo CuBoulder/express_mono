@@ -4,7 +4,7 @@
  * Implements hook_install().
  */
 function cu_search_install() {
-  variable_set('google_appliance_collection', $GLOBAL['base_url']);
+  variable_set('google_appliance_collection', $GLOBALS['base_url']);
 }
 
 /**
@@ -47,5 +47,5 @@ function cu_search_update_7004() {
  * ReSet custom GSA collection for sites.
  */
 function cu_search_update_7005() {
-  variable_set('google_appliance_collection', $GLOBAL['base_url']);
+  variable_set('google_appliance_collection', $GLOBALS['base_url']);
 }
