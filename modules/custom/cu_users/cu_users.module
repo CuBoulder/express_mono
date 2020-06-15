@@ -877,7 +877,7 @@ function cu_users_navbar() {
           'query' => array('token' => drupal_get_token('masquerade/unswitch')),
           'html' => TRUE,
           'attributes' => array(
-            'class' => array('navbar-icon navbar-icon-shortcut'),
+            'class' => array('navbar-icon navbar-icon-masq'),
           ),
         ),
       ),
