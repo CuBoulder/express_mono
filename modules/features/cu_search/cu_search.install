@@ -1,32 +1,6 @@
 <?php
 
 /**
- * Implements hook_install().
- */
-function cu_search_install() {
-  variable_set('google_appliance_collection', $GLOBALS['base_url']);
-}
-
-/**
- * Implements hook_update_N().
- *
- * Change cusearch.colorado.edu to gsa.colorado.edu
- */
-function cu_search_update_7001() {
-  variable_set('google_appliance_hostname', 'http://gsa.colorado.edu');
-}
-
-/**
- * Set custom GSA collection for sites.
- */
-function cu_search_update_7002() {
-  $cu_path = variable_get('cu_path', FALSE);
-  if ($cu_path) {
-    variable_set('google_appliance_collection', $cu_path);
-  }
-}
-
-/**
  * Enable google_cse. Set search to custom cse if google_cse_cx is set.
  */
 function cu_search_update_7003() {
@@ -41,11 +15,4 @@ function cu_search_update_7003() {
  */
 function cu_search_update_7004() {
   variable_set('google_cse_tag_attributes', 'gname="google_cse" linkTarget="_top"');
-}
-
-/**
- * ReSet custom GSA collection for sites.
- */
-function cu_search_update_7005() {
-  variable_set('google_appliance_collection', $GLOBALS['base_url']);
 }
