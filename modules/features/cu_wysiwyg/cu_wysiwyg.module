@@ -25,7 +25,8 @@ function _create_cu_pathologic_paths() {
   // Use the global base_path and base_url set in bootstrap.inc/drupal_settings_initialize().
   $base_url = $GLOBALS['base_url'];
   $base_path = $GLOBALS['base_path'];
-
+  variable_set('cu_sid', 'p123456789');
+  $cu_sid = variable_get('cu_sid', FALSE);
   $paths = array();
   
   $paths[] = "$base_url/";
@@ -33,6 +34,11 @@ function _create_cu_pathologic_paths() {
   $paths[] = "http://www.colorado.edu$base_path";
   $paths[] = "https://www.colorado.edu$base_path";
   
+  if ($cu_sid) {
+    $paths[] = "/$cu_sid/";
+    $paths[] = "http://www.colorado.edu/$cu_sid/";
+    $paths[] = "https://www.colorado.edu/$cu_sid/";
+  }
   // Build pathologic settings on one path per line
   $all_paths = join("\n", $paths);
   return $all_paths;
