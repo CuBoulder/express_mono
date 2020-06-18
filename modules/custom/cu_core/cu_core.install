@@ -552,5 +552,4 @@ function cu_core_update_7069() {
       variable_set('theme_' . $theme->name . '_settings', $theme_settings);
     }
   }
-  dpm($themes);
 }
