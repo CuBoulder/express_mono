@@ -44,7 +44,6 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
   */
 function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   // $entity_type = $vars['elements']['#entity_type'];
-
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
 
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
@@ -195,6 +194,18 @@ function get_publication_data($url, $cid) {
   }
 
   return $publications;
+}
+
+function cu_faculty_person_type_emails() {
+  $query = db_select('field_data_field_person_email', 'email');
+  $query->join('field_data_field_person_first_name', 'fn', 'email.entity_id = fn.entity_id');
+  $query->join('field_data_field_person_last_name', 'ln', 'email.entity_id = ln.entity_id');
+  $query->addField('email', 'field_person_email_email', 'e_mail');
+  $query->addField('fn', 'field_person_first_name_value', 'first_name');
+  $query->addField('ln', 'field_person_last_name_value', 'last_name');
+  $result = $query->execute();
+  
+    return ['name' => 'email'];
 }
 
 function cu_faculty_publications_sort() {
