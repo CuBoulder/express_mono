@@ -81,9 +81,10 @@ function express_collections_bundle_field_group_info() {
     'label' => 'Filter',
     'weight' => '11',
     'children' => array(
-      0 => 'field_collection_grid_category',
-      1 => 'field_collection_grid_type',
-      2 => 'field_collection_grid_categories',
+      0 => 'field_collection_grid_categories',
+      1 => 'field_collection_grid_category',
+      2 => 'field_collection_grid_type',
+      3 => 'field_collection_multiselect',
     ),
     'format_type' => 'htab',
     'format_settings' => array(
