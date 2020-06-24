@@ -47,7 +47,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 5,
+      'weight' => 3,
     ),
   );
 
@@ -85,7 +85,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 7,
     ),
   );
 
@@ -128,7 +128,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 4,
+      'weight' => 2,
     ),
   );
 
@@ -162,7 +162,42 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'email_textfield',
-      'weight' => 6,
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'bean-faculty_publications-field_faculty_publication_name'.
+  $field_instances['bean-faculty_publications-field_faculty_publication_name'] = array(
+    'bundle' => 'faculty_publications',
+    'default_value' => NULL,
+    'default_value_function' => '',
+    'default_value_php' => FALSE,
+    'deleted' => 0,
+    'description' => 'If you have entered an email address above a name you have selected here will be ignored.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'bean',
+    'fences_wrapper' => 'div_div_div',
+    'field_name' => 'field_faculty_publication_name',
+    'label' => 'Faculty Name',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 5,
     ),
   );
 
@@ -200,7 +235,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 6,
     ),
   );
 
@@ -208,6 +243,8 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Department');
   t('Faculty Email Address');
+  t('Faculty Name');
+  t('If you have entered an email address above a name you have selected here will be ignored.');
   t('Number of Results');
   t('Publication Date');
   t('Sort');
