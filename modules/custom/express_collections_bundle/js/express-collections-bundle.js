@@ -36,14 +36,14 @@
       var type;
       $('#' + collectionTarget + ' .collection-filter-links-single.collection-filter-links-multi-select input:checkbox:checked').each(function () {
         filters.push('.collection-category-' + $(this).val());
-        type = 'single';
+        type = 'multiple';
       });
 
       $('#' + collectionTarget + ' .collection-filter-links-multi-select.collection-filter-links-multiple').each(function () {
         var $groups = $(this);
         $('input:checkbox:checked', $groups).each(function(){
           filters.push('.collection-category-' + $(this).val());
-          type = 'multiple'
+          type = 'multiple';
         });
       });
 
@@ -61,6 +61,7 @@
         //$(filterClasses).fadeIn();
         $('#' + collectionTarget + ' .collection-item' + filterClasses).fadeIn();
       }
+
       updateCollectionResults(collectionTarget);
     });
 

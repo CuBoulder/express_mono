@@ -8,12 +8,14 @@
     </h3>
 
     <div class="collection-filter-links-form collection-filter-links" id="collection-<?php print $collection_id; ?>-filter-links">
-      <?php foreach ($collection_filter_terms as $term): ?>
-        <div class="filter">
-          <input type="checkbox" id="<?php print _express_collections_bundle_clean_string($term->name); ?>" name="collection-<?php print $collection_id; ?>" value="<?php print _express_collections_bundle_clean_string($term->name); ?>" data-collection="collection-<?php print $collection_id; ?>">
-          <label for="<?php print _express_collections_bundle_clean_string($term->name); ?>"><?php print $term->name; ?></label>
-        </div>
-      <?php endforeach; ?>
+      <form>
+        <?php foreach ($collection_filter_terms as $term): ?>
+          <div class="filter">
+            <input type="checkbox" id="<?php print _express_collections_bundle_clean_string($term->name); ?>" name="collection-<?php print $collection_id; ?>" value="<?php print _express_collections_bundle_clean_string($term->name); ?>" data-collection="collection-<?php print $collection_id; ?>">
+            <label for="<?php print _express_collections_bundle_clean_string($term->name); ?>"><?php print $term->name; ?></label>
+          </div>
+        <?php endforeach; ?>
+      </form>
     </div>
 
 </div>

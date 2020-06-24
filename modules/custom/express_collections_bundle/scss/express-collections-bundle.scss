@@ -141,7 +141,19 @@ select.collection-filter {
 .collection-filter-links-wrapper {
   margin-bottom: 20px;
 }
-
+.collection-filter-links-single.collection-filter-links-single.collection-filter-links-multi-select {
+  .collection-filter-links-form .filter {
+    background:#fff;
+    display: inline-block;
+    padding:4px 8px;
+    border:1px solid #d7d7d7;
+    font-size:85%;
+    color: #656565;
+    margin: 0 5px 5px 0;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
 .collection-filter-links-single .collection-filter-links {
 
   button {
@@ -172,7 +184,8 @@ select.collection-filter {
     // border:1px solid #e7e7e7;
     // border-top:none;
 
-    .collection-links-buttons {
+    .collection-links-buttons,
+    .collection-filter-links-form form {
       margin: 0 -20px;
       display: flex;
       flex-direction: column;
@@ -183,7 +196,8 @@ select.collection-filter {
         flex-direction: row;
       }
     }
-    button {
+    button,
+    .filter {
       font-size: 100%;
       padding:8px 16px;
       margin: 0px 20px 20px;
@@ -202,18 +216,21 @@ select.collection-filter {
       }
     }
     @media screen and (min-width:600px) {
-      button {
+      button,
+      .filter {
         margin: 0px 20px 40px;
         width: calc( 50% - 40px);
       }
     }
     @media screen and (min-width:768px) {
-      button {
+      button,
+      .filter {
         width: calc( 33% - 40px);
       }
     }
     @media screen and (min-width:960px) {
-      button {
+      button,
+      .filter {
         width: calc( 25% - 40px);
       }
     }

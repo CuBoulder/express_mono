@@ -38,18 +38,20 @@ select.collection-filter { margin-bottom: 10px; }
 
 .collection-filter-links-wrapper { margin-bottom: 20px; }
 
+.collection-filter-links-single.collection-filter-links-single.collection-filter-links-multi-select .collection-filter-links-form .filter { background: #fff; display: inline-block; padding: 4px 8px; border: 1px solid #d7d7d7; font-size: 85%; color: #656565; margin: 0 5px 5px 0; font-weight: 600; white-space: nowrap; }
+
 .collection-filter-links-single .collection-filter-links button { background: #fff; display: inline-block; padding: 4px 8px; border: 1px solid #d7d7d7; font-size: 85%; color: #656565; margin: 0 5px 5px 0; font-weight: 600; }
 .collection-filter-links-single .collection-filter-links button.active, .collection-filter-links-single .collection-filter-links button:hover { background-color: #d7d7d7; color: #000; }
 
 .collection-filter-links-multiple { background-color: #333; }
 .collection-filter-links-multiple .collection-filter-links { display: none; padding: 10px 20px; }
-.collection-filter-links-multiple .collection-filter-links .collection-links-buttons { margin: 0 -20px; display: flex; flex-direction: column; flex-wrap: wrap; }
+.collection-filter-links-multiple .collection-filter-links .collection-links-buttons, .collection-filter-links-multiple .collection-filter-links .collection-filter-links-form form { margin: 0 -20px; display: flex; flex-direction: column; flex-wrap: wrap; }
 @media screen and (min-width: 600px) { .collection-filter-links-multiple .collection-filter-links .collection-links-buttons { flex-direction: row; } }
-.collection-filter-links-multiple .collection-filter-links button { font-size: 100%; padding: 8px 16px; margin: 0px 20px 20px; width: calc(100% - 40px); background: rgba(0, 0, 0, 0.5); display: inline-block; border: 1px solid #d7d7d7; color: #fff; font-weight: 600; -webkit-transition: background-color 0.3s linear; -moz-transition: background-color 0.3s linear; -ms-transition: background-color 0.3s linear; -o-transition: background-color 0.3s linear; transition: background-color 0.3s linear; }
-.collection-filter-links-multiple .collection-filter-links button.active, .collection-filter-links-multiple .collection-filter-links button:hover { background-color: #fff; color: #000; }
-@media screen and (min-width: 600px) { .collection-filter-links-multiple .collection-filter-links button { margin: 0px 20px 40px; width: calc(50% - 40px); } }
-@media screen and (min-width: 768px) { .collection-filter-links-multiple .collection-filter-links button { width: calc(33% - 40px); } }
-@media screen and (min-width: 960px) { .collection-filter-links-multiple .collection-filter-links button { width: calc(25% - 40px); } }
+.collection-filter-links-multiple .collection-filter-links button, .collection-filter-links-multiple .collection-filter-links .filter { font-size: 100%; padding: 8px 16px; margin: 0px 20px 20px; width: calc( 100% - 40px); background: rgba(0, 0, 0, 0.5); display: inline-block; border: 1px solid #d7d7d7; color: #fff; font-weight: 600; -webkit-transition: background-color 0.3s linear; -moz-transition: background-color 0.3s linear; -ms-transition: background-color 0.3s linear; -o-transition: background-color 0.3s linear; transition: background-color 0.3s linear; }
+.collection-filter-links-multiple .collection-filter-links button.active, .collection-filter-links-multiple .collection-filter-links button:hover, .collection-filter-links-multiple .collection-filter-links .filter.active, .collection-filter-links-multiple .collection-filter-links .filter:hover { background-color: #fff; color: #000; }
+@media screen and (min-width: 600px) { .collection-filter-links-multiple .collection-filter-links button, .collection-filter-links-multiple .collection-filter-links .filter { margin: 0px 20px 40px; width: calc( 50% - 40px); } }
+@media screen and (min-width: 768px) { .collection-filter-links-multiple .collection-filter-links button, .collection-filter-links-multiple .collection-filter-links .filter { width: calc( 33% - 40px); } }
+@media screen and (min-width: 960px) { .collection-filter-links-multiple .collection-filter-links button, .collection-filter-links-multiple .collection-filter-links .filter { width: calc( 25% - 40px); } }
 .collection-filter-links-multiple h3.collection-filter-label { margin: 0; }
 .collection-filter-links-multiple h3.collection-filter-label a { color: #fff !important; padding: 10px; text-align: center; display: block; font-size: 115%; }
 .collection-filter-links-multiple h3.collection-filter-label a span:before { content: '\f067'; font-family: FontAwesome; margin-right: 10px; }
