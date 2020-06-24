@@ -92,8 +92,19 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     }
 
     // Check for author email.
-    if (!empty($vars['bean']->field_faculty_publication_email)) {
-      $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email'];
+    if (!empty($vars['bean']->field_faculty_publication_email) || !empty($vars['bean']->field_faculty_publication_name)) {
+      // TODO: Find out why the below occurs and change it.
+        // For some reason there is data in $vars['content']['field_faculty_publication_name'].
+        // Also in $vars['field_faculty_publication_name']. I do not know why.
+        // They need to be removed as they add to the output of the rendered page.
+      unset($vars['field_faculty_publication_name']);
+      unset($vars['content']['field_faculty_publication_name']);
+
+      // Choose the value for the email. If *_email use it. Otherwise use *_name.
+      $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email']
+        ? $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email']
+        : $vars['bean']->field_faculty_publication_name[LANGUAGE_NONE][0]['value'];
+
       $fisEndpoint .= "?q=email:\"$email\"";
       $emailResponse = drupal_http_request($fisEndpoint);
 
@@ -146,7 +157,8 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
         $totalResults = $publications['total'] > $requestedNumberOfResults ? $requestedNumberOfResults : $publications['total'];
         pager_default_initialize($totalResults, $numberOfResultsPerPage);
 
-        // check if results are from cache;
+        // Check if results are from cache.
+        // Put in an HTML comment to confirm if results are from cache or not.
         $isFromCache = $publications['isFromCache'] ? "YES" : "NO";
         $vars['content']['publications'][]['#markup'] = "<!-- Results are from cache: $isFromCache -->";
 
@@ -196,7 +208,7 @@ function get_publication_data($url, $cid) {
   return $publications;
 }
 
-function cu_faculty_person_type_emails() {
+function cu_faculty_person_type_names() {
   $query = db_select('field_data_field_person_email', 'email');
   $query->join('field_data_field_person_first_name', 'fn', 'email.entity_id = fn.entity_id');
   $query->join('field_data_field_person_last_name', 'ln', 'email.entity_id = ln.entity_id');
@@ -205,7 +217,15 @@ function cu_faculty_person_type_emails() {
   $query->addField('ln', 'field_person_last_name_value', 'last_name');
   $result = $query->execute();
   
-    return ['name' => 'email'];
+  $facultyNamesAndEmails = [];
+  foreach ($result as $record) {
+    $firstName = $record->first_name;
+    $lastName = $record->last_name;
+    $email = $record->e_mail;
+    $facultyNamesAndEmails[$email] = "$firstName $lastName";
+  }
+
+  return $facultyNamesAndEmails;
 }
 
 function cu_faculty_publications_sort() {
