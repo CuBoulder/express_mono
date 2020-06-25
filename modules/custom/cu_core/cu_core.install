@@ -341,22 +341,13 @@ function cu_core_requirements($phase) {
   if ($phase === 'runtime') {
     $t = get_t();
     $overriddenFeatures = array();
-    // This is a way to hard code (almost never the best?) features we know will be overridden.
-    // Just put the sting name of the feature in.
-    $featureStatesToIgnore = [
-      'cu_sitewide',
-      'cu_sitemap',
-      'cu_feature_callout',
-      'cu_social_links',
-      'cu_webform',
-      'cu_mega_menu',
-      'cu_ldap',
-    ];
     // The features.export.inc is where features_get_storage() is defined.
     module_load_include('inc', 'features', 'features.export');
 
+    // This loops over each feature, checking if its state is overridden and if it is expected to be overridden.
+    // If the feature's .info file contains `settings[can_be_overridden] = 1`, it can be overridden and will not show up as an error on the /admin/reports/status page.
     foreach (features_get_features(NULL, TRUE) as $feature) {
-      if (features_get_storage($feature->name) == FEATURES_OVERRIDDEN && !in_array($feature->name, $featureStatesToIgnore)) {
+      if (features_get_storage($feature->name) == FEATURES_OVERRIDDEN && $feature->info['settings']['can_be_overridden'] !== "1") {
         $overriddenFeatures[] = $feature->info['name'];
       }
     }
