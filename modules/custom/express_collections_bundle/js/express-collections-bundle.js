@@ -61,7 +61,7 @@
         //$(filterClasses).fadeIn();
         $('#' + collectionTarget + ' .collection-item' + filterClasses).fadeIn();
       }
-
+      $(this).parent().toggleClass('active');
       updateCollectionResults(collectionTarget);
     });
 
