@@ -546,9 +546,10 @@ function cu_core_update_7069() {
   $hidden_themes = variable_get('express_theme_picker_theme_ignore', array());
 
   foreach ($themes as $theme) {
-    if ($theme->status && empty($hidden_themes[$theme->name])) {
+    if (empty($hidden_themes[$theme->name])) {
       $theme_settings = variable_get('theme_' . $theme->name . '_settings', array());
-      $theme_settings['alpha-responsive'] = 1;
+      // Alpha responsive is set as a string in the theme's .info file. Set it as a string here, too.
+      $theme_settings['alpha-responsive'] = '1';
       variable_set('theme_' . $theme->name . '_settings', $theme_settings);
     }
   }
