@@ -1219,7 +1219,8 @@ function cu_article_node_view($node, $view_mode) {
   switch ($node->type) {
     case 'article':
       if ($view_mode == 'full' && !empty($node->field_article_external_url[LANGUAGE_NONE][0]['url'])) {
-        $redirect = $node->field_article_external_url[LANGUAGE_NONE][0]['url'];
+        $externalUrl = $node->field_article_external_url[LANGUAGE_NONE][0];
+        $redirect = url($externalUrl['url'], ['query' => $externalUrl['query']]);
         if (user_access("edit any article content")) {
           drupal_set_message(t('A user without editing permissions would have been redirected to !redirect',
             array('!redirect' => l($redirect, $redirect))),
