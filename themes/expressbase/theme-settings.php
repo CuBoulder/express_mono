@@ -8,16 +8,16 @@ function expressbase_form_system_theme_settings_alter(&$form, &$form_state) {
     '#description' => 'Customizable options for the design and layout of site content.',
   );
   
-  $form['expressbase_theme_settings']['primary_sidebar'] = array(
+  $form['expressbase_theme_settings']['responsive'] = array(
 		'#type' => 'fieldset',
-		'#title' => t('Primary Sidebar'),
+		'#title' => t('Responsive'),
 		'#collapsible' => TRUE,
 		'#collapsed' => TRUE,
 	);
 
-	$form['expressbase_theme_settings']['choose_primary_sidebar'] = array(
+	$form['expressbase_theme_settings']['responsive']['primary_sidebar'] = array(
 		'#type' => 'select',
-		'#title' => t('Choose Primary Sidebar'),
+		'#title' => t('Primary Sidebar'),
 		'#default_value' => theme_get_setting('primary_sidebar', $theme) ? theme_get_setting('primary_sidebar', $theme) : 'primary-sidebar-second',
 		'#options' => array(
 			'primary-sidebar-first' => t('First/Left'),
@@ -179,7 +179,7 @@ function expressbase_form_system_theme_settings_alter(&$form, &$form_state) {
 	  '#options' => array(
       'footer-menu-gray' => t('Gray'),
       'footer-menu-gold' => t('Gold'),
-    ),
+		),
 	);
 
 	$form['expressbase_theme_settings']['block_icons'] = array(
