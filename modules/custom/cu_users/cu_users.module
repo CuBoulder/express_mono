@@ -520,14 +520,12 @@ function cu_users_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
     $form['#submit'][] = 'cu_users_roles_form_submit';
   }
 
-  // change access perms on masquerade fieldset "Enter the users this user is able to masquerade as"
+  // Change access perms on masquerade fieldset "Enter the users this user is able to masquerade as"
   // to keep it from being exposed on user edit page,
-  // since we don't allow any WebExp roles but Dev and Admin to masquerade as other people
+  // since we don't allow any WebExp roles but Dev and Admin to masquerade as other people.
   $form['masquerade'] = array(
     '#access' => FALSE,
   );
-
-
 }
 
 /**
@@ -861,7 +859,7 @@ function cu_users_mail_alter(&$message) {
 /**
  * Implements hook_navbar().
  *
- * Add 'Switch Back' link for use when Masquerading as another user
+ * Add 'Switch Back' link for use when Masquerading as another user.
  */
 function cu_users_navbar() {
   $items = array();
@@ -894,12 +892,11 @@ function cu_users_navbar() {
 /**
  * Implements hook_form_FORM_ID_alter().
  *
- * Configure Masquerade administrator roles
- * Web Express Developer and Web Express Administrator are set as Masquerade administrators
- * Users with these roles cannot be masqueraded as
+ * Configure Masquerade administrator roles.
+ * Web Express Developer and Web Express Administrator are set as Masquerade administrators.
+ * Users with these roles cannot be masqueraded as.
  *
  */
-
 function cu_users_form_masquerade_admin_settings_alter(&$form, &$form_state, $form_id) {
   $theRoles = user_roles();
   $adminRoleArray = array();
@@ -916,7 +913,7 @@ function cu_users_form_masquerade_admin_settings_alter(&$form, &$form_state, $fo
 /**
  * Implements hook_user_view_alter().
  *
- * add button class to 'Masquerade as current user' link on user view
+ * Add button class to 'Masquerade as current user' link on user view
  *
  */
 function cu_users_user_view_alter(&$build) {
@@ -925,8 +922,9 @@ function cu_users_user_view_alter(&$build) {
     array('query' => array(
       'token' => drupal_get_token('masquerade/switch/' . $build['#account']->uid)),
       'destination' => $_GET['q'],
-      'attributes' => array('class' => array('masquerade-switch btn btn-info')),
+      'attributes' => array('class' => array(
+        'masquerade-switch btn btn-info'
+      )),
     ));
   return;
 }
-

@@ -484,12 +484,9 @@ function cu_users_update_7037() {
   }
 }
 
-
 /**
  * Enabling Masquerade module.
  */
 function cu_users_update_7038() {
   module_enable(array('masquerade'));
 }
-
-
