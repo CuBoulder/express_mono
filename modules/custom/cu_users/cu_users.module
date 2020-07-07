@@ -824,7 +824,7 @@ function cu_users_username_alter(&$name, $account) {
 
 /**
  * Implements hook_user_login().
- * Assign appropriate role to web express team user
+ * Assign appropriate role to web express team user.
  */
 function cu_users_user_login(&$edit, $account)
 {
@@ -895,7 +895,6 @@ function cu_users_navbar() {
  * Configure Masquerade administrator roles.
  * Web Express Developer and Web Express Administrator are set as Masquerade administrators.
  * Users with these roles cannot be masqueraded as.
- *
  */
 function cu_users_form_masquerade_admin_settings_alter(&$form, &$form_state, $form_id) {
   $theRoles = user_roles();
@@ -913,13 +912,11 @@ function cu_users_form_masquerade_admin_settings_alter(&$form, &$form_state, $fo
 /**
  * Implements hook_user_view_alter().
  *
- * Add button class to 'Masquerade as current user' link on user view
- *
+ * Add button class to 'Masquerade as current user' link on user view.
  */
 function cu_users_user_view_alter(&$build) {
   $build['masquerade']['#markup'] = l(t('Masquerade as !user', array('!user' => $build['#account']->name)),
-    'masquerade/switch/' . $build['#account']->uid,
-    array('query' => array(
+    'masquerade/switch/' . $build['#account']->uid, array('query' => array(
       'token' => drupal_get_token('masquerade/switch/' . $build['#account']->uid)),
       'destination' => $_GET['q'],
       'attributes' => array('class' => array(
