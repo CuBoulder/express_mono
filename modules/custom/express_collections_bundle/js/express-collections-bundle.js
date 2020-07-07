@@ -32,39 +32,51 @@
     $('.collection-filter-links-multi-select input').change(function(){
       var collectionTarget = $(this).attr("data-collection");
       var filters = [];
+      var breadcrumbs = [];
       var filterClasses;
       var type;
+      // When a filter is changed, get all checked filters.
       $('#' + collectionTarget + ' .collection-filter-links-single.collection-filter-links-multi-select input:checkbox:checked').each(function () {
         filters.push('.collection-category-' + $(this).val());
         type = 'multiple';
       });
-
+      // When a filter is changed, display a breadcrumb of what was selected.
       $('#' + collectionTarget + ' .collection-filter-links-multi-select.collection-filter-links-multiple').each(function () {
         var $groups = $(this);
         $('input:checkbox:checked', $groups).each(function(){
           filters.push('.collection-category-' + $(this).val());
+          breadcrumbs.push($(this).val());
           type = 'multiple';
         });
       });
-
       if (type == 'single') {
         filterClasses = filters.join(', ');
       }
       else if (type == 'multiple') {
         filterClasses = filters.join('');
+        filterBreadcrumbs = breadcrumbs.join(', ');
       }
       if (filters.length == 0) {
         $('#' + collectionTarget + ' .collection-item').fadeIn();
+        $('#' + collectionTarget + ' .collection-breadcrumbs').html('');
       }
       else {
         $('#' + collectionTarget + ' .collection-item').hide();
         //$(filterClasses).fadeIn();
         $('#' + collectionTarget + ' .collection-item' + filterClasses).fadeIn();
+        $('#' + collectionTarget + ' .collection-breadcrumbs').html('<strong>Selected filters:</strong> ' + filterBreadcrumbs + '. <a href="#" data-collection="' + collectionTarget + '"class="collection-reset">Reset Filters</a>');
       }
       $(this).parent().toggleClass('active');
       updateCollectionResults(collectionTarget);
     });
-
+    $('.collection-reset').click(function(){
+      var collectionTarget = $(this).attr("data-collection");
+      $('#' + collectionTarget + ' .collection-item').fadeIn();
+      $('#' + collectionTarget + ' .collection-breadcrumbs').html('');
+      $('#' + collectionTarget + ' input:checkbox').prop( "checked", false );
+      updateCollectionResults(collectionTarget);
+      return false;
+    });
     // Collection ALL link
     $("button.collection-filter-clear").click(function(){
       // Get the collection to operate on
