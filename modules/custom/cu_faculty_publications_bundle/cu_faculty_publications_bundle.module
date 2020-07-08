@@ -144,7 +144,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       $publications = get_publication_data($elasticSearchRequest, $cacheID);
 
       if ($publications['results']) {
-        $totalResults = $publications['total'] > $requestedNumberOfResults ? $requestedNumberOfResults : $publications['total'];
+        $totalResults = $publications['total'] > $requestedNumberOfResults ? $publications['total'] : $requestedNumberOfResults;
         pager_default_initialize($totalResults, $numberOfResultsPerPage);
 
         // check if results are from cache;
