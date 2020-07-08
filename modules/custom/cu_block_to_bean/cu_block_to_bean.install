@@ -65,3 +65,11 @@ function cu_block_to_bean_update_7003() {
   $excluded_deltas = $excluded_deltas . ',cu_search,cu_search_mobile,cu_search_page';
   variable_set('cu_block_to_bean_delta_exclude', $excluded_deltas);
 }
+
+/**
+ * Fixing issue where excluded deltas wasn't set correctly in the last update.
+ */
+function cu_block_to_bean_update_7004() {
+  $excluded_deltas = 'devel,features,cu_search,cu_search_mobile,cu_search_page';
+  variable_set('cu_block_to_bean_delta_exclude', $excluded_deltas);
+}

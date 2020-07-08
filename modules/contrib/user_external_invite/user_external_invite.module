@@ -906,11 +906,14 @@ function _user_external_invite_load_related_invites($entity) {
  * Removes role from invited roles upon deletion.
  */
 function user_external_invite_user_role_delete($role) {
-  $rids = variable_get('user_external_invite_roles', NULL);
+  $rids = variable_get('user_external_invite_core_roles', NULL);
   $removed_id = $role->rid;
-  if (in_array($removed_id, $rids)) {
-    unset($rids[$removed_id]);
-    variable_set('user_external_invite_roles', $rids);
+  for ($index = 0; $index < count($rids); $index++) {
+    if ($rids[$index] == $removed_id) {
+      unset($rids[$index]);
+      variable_set('user_external_invite_core_roles', $rids);
+      break;
+    }
   }
 }
 

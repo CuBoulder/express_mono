@@ -298,21 +298,6 @@ function express_settings_navbar() {
   return $items;
 }
 
-function express_settings_site_status_page() {
-  global $base_url;
-  global $user;
-  $html = '<div style="float:left"><form action="https://www.colorado.edu/webcentral/support/report-problem" method="GET">';
-  $html .= '<input type="hidden" id="site_url" name="site_url" value="' . $base_url . '">';
-  $html .= '<input type="hidden" id="contact_email" name="contact_email" value="' . $user->mail . '">';
-  $html .= '<input type="submit" value="Report a Problem" class="form-submit btn btn-danger" />';
-  $html .= '</form></div>';
-  $form = drupal_get_form('express_settings_site_status_form');
-  $html .= drupal_render($form);
-
-  return $html;
-
-}
-
 /**
  * Page callback for admin/site-configuration/site-status.
  */
