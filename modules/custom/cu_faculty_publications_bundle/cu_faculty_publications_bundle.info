@@ -22,3 +22,6 @@ features[field_instance][] = bean-faculty_publications-field_faculty_pub_results
 features[field_instance][] = bean-faculty_publications-field_faculty_publication_date
 features[field_instance][] = bean-faculty_publications-field_faculty_publication_email
 features[field_instance][] = bean-faculty_publications-field_faculty_publications_sort
+
+bundle_roles[] = developer
+bundle_roles[] = administrator
