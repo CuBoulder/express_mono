@@ -2321,6 +2321,10 @@ a.link-text-color:hover, a.link-text-color:active, a.link-text-color:focus, a.li
 
 .overlay-black > *, .overlay-white > * { z-index: 1; position: relative; }
 
+.ui-datepicker-next:before { font-family: FontAwesome; content: "\f0a9"; display: block; text-align: center; }
+
+.ui-datepicker-prev:before { font-family: FontAwesome; content: "\f0a8"; display: block; text-align: center; }
+
 /** Global styles */
 html { box-sizing: border-box; }
 
