@@ -264,6 +264,9 @@ function express_permissions_secure_permissions($role) {
       'view scheduled content',
       'administer matchredirect',
       'use add another',
+      // Add Masquerade Permissions.
+      'masquerade as user',
+      'masquerade as any user',
     ),
     'anonymous user' => array(
       'access content',
@@ -497,6 +500,10 @@ function express_permissions_secure_permissions($role) {
       'administer matchredirect',
       'administer add another',
       'use add another',
+      // Add Masquerade Permissions.
+      'masquerade as user',
+      'masquerade as any user',
+      'administer masquerade',
     ),
     'edit_my_content' => array(
       'access ckeditor link',

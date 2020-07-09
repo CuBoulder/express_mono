@@ -100,3 +100,11 @@ h1.page-title.icon-clear-page-cache:before,
 ul.primary li a.clear-page-cache:before {
   content: "\f021";
 }
+
+
+/**
+ * Masquerade Switch Back icon.
+ */
+.navbar-icon-masq:before {
+  background-image: url("../icons/bebebe/chevron-disc-left.png");
+}
