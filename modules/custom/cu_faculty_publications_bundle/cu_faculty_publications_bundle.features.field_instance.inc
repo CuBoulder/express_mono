@@ -23,7 +23,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'bean',
@@ -47,7 +47,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 1,
     ),
   );
 
@@ -69,7 +69,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 5,
       ),
     ),
     'entity_type' => 'bean',
@@ -85,7 +85,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 7,
+      'weight' => 5,
     ),
   );
 
@@ -100,7 +100,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'bean',
@@ -162,7 +162,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'email_textfield',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -181,7 +181,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 6,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'bean',
@@ -197,7 +197,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 5,
+      'weight' => 4,
     ),
   );
 
@@ -219,7 +219,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'bean',
