@@ -404,3 +404,11 @@ function cu_core_update_7062() {
   );
   variable_set('locale_custom_strings_en', $locale_custom_strings_en);
 }
+
+/**
+ * Reverting cu_wysiwyg to add wowza video filter.
+ */
+function cu_core_update_7063() {
+  $features = array('cu_wysiwyg');
+  cu_core_revert_features($features);
+}
