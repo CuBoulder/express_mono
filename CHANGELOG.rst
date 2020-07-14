@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+
+v4.3.0 (2020-04-21)
+------------
+
+Added
+~~~~~~~
+- Adding a setting to hide the subnavigation on mobile devices. Resolves #344.
+
+- Add masquerade module.
+
+
+Changed
+~~~~~~~
+- Removing hard coded array of feature names to ignore when overridden. If a feature is expected to be overridden 'settings[can_be_overridden] = 1' should be added to its .info file.
+
+- cu_googleanalytics 'can_be_overridden'.
+
+- cu_home_page 'can_be_overridden'.
+
+- cu_linkchecker 'can_be_overridden'.
+
+- Fixing issue where the excluded blocks in block wrapper weren't set correctly in the last update. Resolves #564.
+
+- Adjusted user_external_invite_user_role_delete() to search for correct variable and remove content_editor rid.
+
+- Allow multiple bylines in articles. resolves #554.
+
+- Update Drupal core version. [James Fuller]
+
+Fixed
+~~~~~
+- Previous and next icons in datepicker no display correctly.
+
+- Horizontal scroll bar no longer displays with the responsive table shortcode on browsers running on Windows. Resolves #530.
+
+- Fix: Article redirects were ignoring query parameters attached to a url. resolves #496.
+
+
+Removed
+~~~~~~~
+- Removing deprecated content editor role.
+
+- Removed unused function with its broken link. Resolves #581.
+
+
 v4.2.2 (2020-05-14)
 ------------
 
