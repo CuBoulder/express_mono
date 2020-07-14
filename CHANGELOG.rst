@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
-v4.2.2 (2012-05-14)
+v4.2.2 (2020-05-14)
 ------------
 
 Added
@@ -30,7 +30,7 @@ Removed
 - Removing deprecated content editor role.
 
 
-v4.2.1 (2012-04-21)
+v4.2.1 (2020-04-21)
 ------------
 
 This release reverts a PR with a bug in it and resolves an increase in logging.
@@ -42,7 +42,7 @@ Fixed
 - External Article Links not working properly
 
 
-v4.2.0 (2012-04-15)
+v4.2.0 (2020-04-15)
 ------------
 
 This release adds site affiliation and improves our visibility into the service.
@@ -83,7 +83,7 @@ Deprecated
 - Disable and uninstall old tracking pixel modules. Resolves #462.
 
 
-v4.1.4 (2012-02-12)
+v4.1.4 (2020-02-12)
 ------------
 
 This release add content types to the default sitemap and removes configuration that had no impact.
@@ -95,7 +95,7 @@ Changed
 - Removing configuration for Block Icon Color. #434
 
 
-v4.1.3 (2012-01-14)
+v4.1.3 (2020-01-14)
 ------------
 
 This release resolves some display bugs.
