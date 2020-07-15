@@ -64,7 +64,7 @@
         $('#' + collectionTarget + ' .collection-item').hide();
         //$(filterClasses).fadeIn();
         $('#' + collectionTarget + ' .collection-item' + filterClasses).fadeIn();
-        $('#' + collectionTarget + ' .collection-breadcrumbs').html('<strong>Selected filters:</strong> ' + filterBreadcrumbs);
+        $('#' + collectionTarget + ' .collection-breadcrumbs').html('<strong>Selected filters:</strong> ' + filterBreadcrumbs + '. <a href="#" data-collection="' + collectionTarget + '"class="collection-reset">Reset Filters</a>');
       }
       $(this).parent().toggleClass('active');
       updateCollectionResults(collectionTarget);
@@ -73,6 +73,7 @@
       var collectionTarget = $(this).attr("data-collection");
       $('#' + collectionTarget + ' .collection-item').fadeIn();
       $('#' + collectionTarget + ' .collection-breadcrumbs').html('');
+      $('#' + collectionTarget + ' input:checkbox').prop( "checked", false );
       updateCollectionResults(collectionTarget);
       return false;
     });

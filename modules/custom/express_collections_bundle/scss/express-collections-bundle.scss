@@ -141,50 +141,7 @@ select.collection-filter {
 .collection-filter-links-wrapper {
   margin-bottom: 20px;
 }
-.collection-filter-links-single.collection-filter-links-single.collection-filter-links-multi-select {
-  .collection-filter-links-form .filter {
-    background:#fff;
-    display: inline-block;
-    padding:4px 8px;
-    border:1px solid #d7d7d7;
-    font-size:85%;
-    color: #656565;
-    margin: 0 5px 5px 0;
-    font-weight: 600;
-    white-space: nowrap;
-    &.active,
-    &:hover {
-      background-color: #d7d7d7;
-      color:#000;
-    }
-    input {
-      display: none;
-    }
-    label {
-      display: block;
-    }
-  }
-}
-.collection-filter-links-single .collection-filter-links {
 
-  button {
-    background:#fff;
-    display: inline-block;
-    padding:4px 8px;
-    border:1px solid #d7d7d7;
-    font-size:85%;
-    color: #656565;
-    margin: 0 5px 5px 0;
-    font-weight: 600;
-    // text-transform: uppercase;
-
-    &.active,
-    &:hover {
-      background-color: #d7d7d7;
-      color:#000;
-    }
-  }
-}
 
 .collection-filter-links-multiple1 {
   background-color:#333;
