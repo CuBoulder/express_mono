@@ -6,22 +6,13 @@
     $color2: darken($color, 5%);
   }
   background-color: $color;
-  background-image: -webkit-gradient(linear, left top, left bottom, from($color), to($color2));
-  background-image: -webkit-linear-gradient(top, $color, $color2);
-  background-image: -moz-linear-gradient(top, $color, $color2);
-  background-image: -o-linear-gradient(top, $color, $color2);
-  background-image: -ms-linear-gradient(top, $color, $color2);
   background-image: linear-gradient(top, $color, $color2);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{ie_hex_str($color)}', EndColorStr='#{ie_hex_str($color2)}');
 }
 
 @mixin transparentGradient($color, $alpha, $direction) {
   $rgba1: rgba($color,$alpha);
   $rgba2: rgba($color,0);
-  background-image: -webkit-linear-gradient($direction, $rgba1, $rgba2);
-  background-image: -moz-linear-gradient($direction, $rgba1, $rgba2);
-  background-image: -o-linear-gradient($direction, $rgba1, $rgba2);
-  background-image: -ms-linear-gradient($direction, $rgba1, $rgba2);
+  background-color: $color;
   background-image: linear-gradient($direction, $rgba1, $rgba2);
 }
 
@@ -32,6 +23,9 @@
     clear: both;
   }
 }
+// CU Gold
+$cugold: #cfb87c;
+
 /* SLIDER */
 .article-slider-wrapper {
   padding: 10px 0 35px;
@@ -113,15 +107,15 @@
     bottom:0;
     margin:0;
     font-size: 100%;
-
+    color:#fff;
+    display: block;
+    padding:10px;
     padding-top: 50px;
+    font-weight: bold;
     @include gradient($color: rgba(0,0,0,0), $color2: rgba(0,0,0,.85));
-    a:link,
-    a:visited, {
-      display: block;
-      padding:10px;
-      color:#fff;
-      font-weight: bold;
-    }
+  }
+  a.article-slider-link:hover h3 {
+    @include gradient($color: rgba(0,0,0,0), $color2: rgba(0,0,0,1));
+    color:$cugold;
   }
 }
