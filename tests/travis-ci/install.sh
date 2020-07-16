@@ -11,14 +11,15 @@ earlyexit
 
 # Build Codebase.
 cd $ROOT_DIR
-drush dl drupal-7.72
-mkdir drupal && mv drupal-7.72/* drupal/
+# drush dl drupal-7.72
+git clone https://github.com/CuBoulder/d7core.git drupal
+# mkdir drupal && mv drupal-7.72/* drupal/
 mkdir profiles && mv express_mono drupal/profiles/express
 
 # Harden Core.
-cd $ROOT_DIR/drupal/modules
-rm -rf php aggregator blog book color contact translation dashboard forum locale openid overlay poll rdf search statistics toolbar tracker trigger
-earlyexit
+# cd $ROOT_DIR/drupal/modules
+# rm -rf php aggregator blog book color contact translation dashboard forum locale openid overlay poll rdf search statistics toolbar tracker trigger
+# earlyexit
 
 # Apply Patches.
 
