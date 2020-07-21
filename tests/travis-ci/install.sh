@@ -11,7 +11,7 @@ earlyexit
 
 # Build Codebase.
 cd $ROOT_DIR
-git clone https://github.com/CuBoulder/d7core.git drupal
+git clone --depth 1 https://github.com/CuBoulder/d7core.git drupal
 mkdir profiles && mv express_mono drupal/profiles/express
 
 # Harden Core.
