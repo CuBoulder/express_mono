@@ -37,7 +37,7 @@ function cu_help_navbar() {
         ),
       ),
     ),
-    '#weight' => 101,
+    '#weight' => 102,
     '#wrapper_attributes' => array(
       'class' => array('pull-right'),
     ),

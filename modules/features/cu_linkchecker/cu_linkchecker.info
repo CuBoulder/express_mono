@@ -31,3 +31,4 @@ features[variable][] = linkchecker_scan_beans
 features[variable][] = linkchecker_scan_blocks
 features[variable][] = linkchecker_scan_comments
 features[variable][] = linkchecker_scan_nodetypes
+settings[can_be_overridden] = 1

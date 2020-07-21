@@ -5,7 +5,52 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
-v4.2.2 (2012-05-14)
+
+v4.3.0 (2020-04-21)
+------------
+
+Added
+~~~~~~~
+- Adding a setting to hide the subnavigation on mobile devices. Resolves #344.
+
+- Add masquerade module.
+
+
+Changed
+~~~~~~~
+- Removing hard coded array of feature names to ignore when overridden. If a feature is expected to be overridden 'settings[can_be_overridden] = 1' should be added to its .info file.
+
+- cu_googleanalytics 'can_be_overridden'.
+
+- cu_home_page 'can_be_overridden'.
+
+- cu_linkchecker 'can_be_overridden'.
+
+- Fixing issue where the excluded blocks in block wrapper weren't set correctly in the last update. Resolves #564.
+
+- Adjusted user_external_invite_user_role_delete() to search for correct variable and remove content_editor rid.
+
+- Allow multiple bylines in articles. resolves #554.
+
+- Update Drupal core version. [James Fuller]
+
+Fixed
+~~~~~
+- Previous and next icons in datepicker no display correctly.
+
+- Horizontal scroll bar no longer displays with the responsive table shortcode on browsers running on Windows. Resolves #530.
+
+- Fix: Article redirects were ignoring query parameters attached to a url. resolves #496.
+
+
+Removed
+~~~~~~~
+- Removing deprecated content editor role.
+
+- Removed unused function with its broken link. Resolves #581.
+
+
+v4.2.2 (2020-05-14)
 ------------
 
 Added
@@ -30,7 +75,7 @@ Removed
 - Removing deprecated content editor role.
 
 
-v4.2.1 (2012-04-21)
+v4.2.1 (2020-04-21)
 ------------
 
 This release reverts a PR with a bug in it and resolves an increase in logging.
@@ -42,7 +87,7 @@ Fixed
 - External Article Links not working properly
 
 
-v4.2.0 (2012-04-15)
+v4.2.0 (2020-04-15)
 ------------
 
 This release adds site affiliation and improves our visibility into the service.
@@ -83,7 +128,7 @@ Deprecated
 - Disable and uninstall old tracking pixel modules. Resolves #462.
 
 
-v4.1.4 (2012-02-12)
+v4.1.4 (2020-02-12)
 ------------
 
 This release add content types to the default sitemap and removes configuration that had no impact.
@@ -95,7 +140,7 @@ Changed
 - Removing configuration for Block Icon Color. #434
 
 
-v4.1.3 (2012-01-14)
+v4.1.3 (2020-01-14)
 ------------
 
 This release resolves some display bugs.
