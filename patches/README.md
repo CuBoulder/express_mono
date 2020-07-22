@@ -24,7 +24,10 @@ Module: simplesamlphp_auth
 File Patched: simplesamlphp_auth.pages.inc
 Change Made: Redirect to admin/dashboard after logging in (this patches the patch above 'simplesamlphp_auth-2476707-12e')
 
-
+Patch: missing-contextual-link.patch
+Module: bean
+File Patched: bean.module
+Change Made: add contextual link to bean block
 
 
 
