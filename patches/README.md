@@ -48,8 +48,7 @@ Change: implement hood_form_FORM_ID_alter for the bigmenu overview form, if pres
 File changed: css/content_menu.css
 Change: colors and visibility
 
-
-
-
-
-
+Patch: insert-pathologic.patch
+Module: insert
+File Patched: insert.module
+Change Made: change field widget settings from checkboxes to radio buttons; change widget settings styles; create URL
