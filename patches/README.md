@@ -12,13 +12,17 @@ Change Made: create linkchecker_bean module as submodule of linkchecker
 
 ### Patch file: content_menu-bigmenu-support-2054745-6.patch
 Module: content_menu  
-File changed: content_menu.js  
-Change:  Show menu item title input field when clicking on the trigger  
-File changed: content_menu.menu_admin.inc  
+
+File Patched: content_menu.js  
+Change:  Show menu item title input field when clicking on the trigger 
+
+File Patched: content_menu.menu_admin.inc  
 Change: Overhaul the menu_overview_form to improve menu authoring experience  
-File changed: content_menu.module  
-Change: implement hood_form_FORM_ID_alter for the bigmenu overview form, if present  
-File changed: css/content_menu.css  
+
+File Patched: content_menu.module  
+Change: implement hood_form_FORM_ID_alter for the bigmenu overview form, if present 
+
+File Patched: css/content_menu.css  
 Change: colors and visibility  
 
 ### Patch: express-skip-slo-redirect.patch
@@ -41,11 +45,11 @@ File Patched: bean.module
 Change Made: add contextual link to bean block  
 
 ### Patch file: pantheon-sso-dashboard-redirect.patch
-Module: simplesamlphp_auth
-File Patched: simplesamlphp_auth.pages.inc
-Change Made: Redirect to admin/dashboard after logging in (this patches the patch above 'simplesamlphp_auth-2476707-12e')
+Module: simplesamlphp_auth  
+File Patched: simplesamlphp_auth.pages.inc  
+Change Made: Redirect to admin/dashboard after logging in (this patches the patch 'simplesamlphp_auth-2476707-12e')
 
 ### Patch: simplesamlphp_auth-2476707-12.patch
-Module: simplesamlphp_auth
+Module: simplesamlphp_auth  
 File Patched: simplesamlphp_auth.pages.inc  
 Change Made: Require user to authenticated; then send them along
