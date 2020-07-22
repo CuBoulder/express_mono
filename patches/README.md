@@ -29,6 +29,9 @@ Module: bean
 File Patched: bean.module
 Change Made: add contextual link to bean block
 
-
+Patch: bean-integration-2127731-10.patch
+Module: linkchecker
+File Patched: linkchecker/module/linkchecker_bean/ .info and .install and .module
+Change Made: create linkchecker_bean module as submodule of linkchecker
 
 
