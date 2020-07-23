@@ -91,35 +91,51 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       }
     }
 
-    // Check for author email.
-    if (!empty($vars['bean']->field_faculty_publication_email) || !empty($vars['bean']->field_faculty_publication_name)) {
-      // TODO: Find out why the below occurs and change it.
-        // For some reason there is data in $vars['content']['field_faculty_publication_name'].
-        // Also in $vars['field_faculty_publication_name']. I do not know why.
-        // They need to be removed as they add to the output of the rendered page.
-      unset($vars['field_faculty_publication_name']);
-      unset($vars['content']['field_faculty_publication_name']);
-
-      // Choose the value for the email. If *_email use it. Otherwise use *_name.
-      $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email']
-        ? $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email']
-        : $vars['bean']->field_faculty_publication_name[LANGUAGE_NONE][0]['value'];
-
-      $fisEndpoint .= "?q=email:\"$email\"";
-      $emailResponse = drupal_http_request($fisEndpoint);
-
-      if ($emailResponse->code == '200') {
-        $emailResult = drupal_json_decode($emailResponse->data, true);
-        $orcid = $emailResult['hits']['hits'][0]['_source']['orcid'];
-
-        if ($orcid) {
-          $arguments['q'][] = "authors.orcid:\"$orcid\"";
-        }
-        else {
-          $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
-        }
-      }
+    $mockData = [
+      0 => ['value' => "mark.hernandez@Colorado.EDU"],
+      1 => ['value' => "aiden.hughes@example.com"],
+      2 => ['value' => "dwight.stone@example.com"],
+      3 => ['value' => "ethan.warren@example.com"],
+      4 => ['value' => "jackson.knight@example.com"],
+    ];
+    // $orcidResults = get_author_orcids($vars['bean']->field_faculty_publication_name[LANGUAGE_NONE], 'value', $fisEndpoint);
+    $orcidResults = get_author_orcids($mockData, 'value', $fisEndpoint);
+    $orcids = $orcidResults['orcids'];
+    foreach ($orcidResults['noResults'] as $email) {
+      $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
     }
+    $authorOrcidStringQuoted = formQueryStringFromArray($orcids);
+    $arguments['q'][] = "authors.orcid:$authorOrcidStringQuoted";
+
+    // // Check for author email.
+    // if (!empty($vars['bean']->field_faculty_publication_email) || !empty($vars['bean']->field_faculty_publication_name)) {
+    //   // TODO: Find out why the below occurs and change it.
+    //     // For some reason there is data in $vars['content']['field_faculty_publication_name'].
+    //     // Also in $vars['field_faculty_publication_name']. I do not know why.
+    //     // They need to be removed as they add to the output of the rendered page.
+    //   unset($vars['field_faculty_publication_name']);
+    //   unset($vars['content']['field_faculty_publication_name']);
+
+    //   // Choose the value for the email. If *_email use it. Otherwise use *_name.
+    //   $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email']
+    //     ? $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email']
+    //     : $vars['bean']->field_faculty_publication_name[LANGUAGE_NONE][0]['value'];
+
+    //   $fisEndpoint .= "?q=email:\"$email\"";
+    //   $emailResponse = drupal_http_request($fisEndpoint);
+
+    //   if ($emailResponse->code == '200') {
+    //     $emailResult = drupal_json_decode($emailResponse->data, true);
+    //     $orcid = $emailResult['hits']['hits'][0]['_source']['orcid'];
+
+    //     if ($orcid) {
+    //       $arguments['q'][] = "authors.orcid:\"$orcid\"";
+    //     }
+    //     else {
+    //       $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
+    //     }
+    //   }
+    // }
 
     // Check for requestedNumberOfResults.
     if (!empty($vars['bean']->field_faculty_pub_results)) {
@@ -150,7 +166,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
 
     // Send query to facutly publications database and display results.
-    if (empty($vars['content']['no_results'])) {
+    // if (empty($vars['content']['no_results'])) {
       $publications = get_publication_data($elasticSearchRequest, $cacheID);
 
       if ($publications['results']) {
@@ -172,8 +188,63 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       else {
         $vars['content']['no_results']['#markup'] = 'There are no results for your query. Please check your data filters and try again.';
       }
+    // }
+  }
+}
+
+/**
+ * Returns an array of orcids.
+ * The fieldArray is straight from a drupal field so the data is a bit buried.
+ * The fieldArrayFinalIdentifier is a string that will match the final buried property's key.
+ * The dbUrl is the fis database needed to get authors' information.
+ * The previouslResults are the results of this function if called earlier.
+ * @param [array] $fieldArray
+ * @param [string] $fieldArrayFinalIdentifier
+ * @param [string] $dbUrl
+ * @param [array] $previouslResults
+ * @return array of string orcids
+ */
+function get_author_orcids($fieldArray, $fieldArrayFinalIdentifier, $dbUrl, $previousResults = array('orcids' => [], 'noResults' => [])) {
+  // Add quotations to each email address and push it into $authorEmailArray.
+  // The quotation marks force elastic search to search for an exact match to the entire email address, not just parts of it. 
+  $orcids = array();
+  $authorEmailArray = array_map(function($data) use($fieldArrayFinalIdentifier) { return strtolower($data[$fieldArrayFinalIdentifier]); }, $fieldArray);
+  // $authorEmailArrayQuoted = array_map(function($data) { return "\"" . $data . "\""; }, $authorEmailArray);
+  // $authorEmailString = implode(" OR ", $authorEmailArrayQuoted);
+  $authorEmailString = formQueryStringFromArray($authorEmailArray);
+  $queryArray = ['q' => "email:{$authorEmailString}"];
+  $requestUrl = url($dbUrl, ['query' => $queryArray]);
+
+  // Send request to get authors' orcids from their emails
+  $emailResponse = drupal_http_request($requestUrl);
+
+  if ($emailResponse->code =='200') {
+    $emailResult = drupal_json_decode($emailResponse->data, true);
+    $data = $emailResult['hits']['hits'];
+    // get the orcids from each database hit
+    foreach($data as $author) {
+      $authorOrcid = $author['_source']['orcid'];
+      $authorEmail = strtolower($author['_source']['email'][0]);
+      if ($authorOrcid) {
+        array_push($orcids, $authorOrcid);
+        $index = array_search($authorEmail, $authorEmailArray);
+        array_splice($authorEmailArray, $index, 1);
+      }
     }
   }
+
+  // Merge in previosResults, if any, and remove duplicates.
+  $orcids = array_merge($previousResults['orcids'], $orcids);
+  $orcids = array_unique($orcids);
+  $authorEmailArray = array_merge($previousResults['noResults'], $authorEmailArray);
+  $authorEmailArray = array_unique($authorEmailArray);
+
+  return ['orcids' => $orcids, 'noResults' => $authorEmailArray];
+}
+
+function formQueryStringFromArray($arr) {
+  $arrayQuoted = array_map(function($data) { return "\"" . $data . "\""; }, $arr);
+  return implode(" OR ", $arrayQuoted);
 }
 
 function get_publication_data($url, $cid) {

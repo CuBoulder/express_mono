@@ -102,7 +102,7 @@ function cu_faculty_publications_bundle_field_default_field_bases() {
   // Exported field_base: 'field_faculty_publication_name'.
   $field_bases['field_faculty_publication_name'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_faculty_publication_name',
@@ -116,7 +116,7 @@ function cu_faculty_publications_bundle_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(),
       'allowed_values_function' => 'cu_faculty_person_type_names',
-      'allowed_values_php' => FALSE,
+      'allowed_values_php' => '',
     ),
     'translatable' => 0,
     'type' => 'list_text',
