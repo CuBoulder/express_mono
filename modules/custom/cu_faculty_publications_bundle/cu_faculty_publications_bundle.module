@@ -102,11 +102,13 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       $authorEmails = array_merge($authorEmails, get_array_from_field_data($vars['bean']->field_faculty_publication_name[LANGUAGE_NONE], 'value'));
     }
 
-    if (!empty($vars['bean']->field_faculty_pub_job_type)) {
-      $tids = get_array_from_field_data($vars['bean']->field_faculty_pub_job_type[LANGUAGE_NONE], 'tid');
+    if (!empty($vars['bean']->field_people_list_person_type)) {
+      $tids = get_array_from_field_data($vars['bean']->field_people_list_person_type[LANGUAGE_NONE], 'tid');
+      $authorEmails = array_merge($authorEmails, get_emails_assoc_with_jobs($tids));
     }
 
-    array_unique($authorEmails);
+    // Remove any duplicate emails.
+    $authorEmails = array_unique($authorEmails);
     // Get orcids associated with emails, if any.
     $orcidResults = get_author_orcids($authorEmails, $fisEndpoint);
 
@@ -151,7 +153,6 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
 
     // Send query to facutly publications database and display results.
-
     $publications = get_publication_data($elasticSearchRequest, $cacheID);
 
     if ($publications['results']) {
@@ -176,6 +177,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   }
 }
 
+// Here are many helper functions used in cu_faculty_publications_bundle_preprocess_entity() above.
 function get_array_from_field_data($fieldArray, $fieldArrayFinalIdentifier) {
   return array_map(function($data) use($fieldArrayFinalIdentifier) { return strtolower($data[$fieldArrayFinalIdentifier]); }, $fieldArray);
 }
@@ -262,8 +264,14 @@ function cu_faculty_publications_bundle_person_names() {
   return $facultyNamesAndEmails;
 }
 
-function get_emails_assoc_with_jobs($jobsArray) {
+function get_emails_assoc_with_jobs($jobsTidArray) {
+  $query = db_select('field_data_field_person_email', 'email');
+  $query->join('field_data_field_person_job_type', 'job', 'job.entity_id = email.entity_id');
+  $query->addField('email', 'field_person_email_email');
+  $query->condition('job.field_person_job_type_tid', $jobsTidArray, 'IN');
 
+  $result = $query->execute()->fetchCol();
+  return $result;
 }
 
 function cu_faculty_publications_sort() {
@@ -273,6 +281,7 @@ function cu_faculty_publications_sort() {
 function cu_faculty_publications_results() {
   return array('25' => '25', '50' => '50' , '100' => '100', 'all' => 'ALL');
 }
+// End cu_faculty_publications_bundle_preprocess_entity() helper functions.
 
 /**
   * Implements hook_secure_permissions().
