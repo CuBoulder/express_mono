@@ -91,28 +91,36 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       }
     }
 
-    // Check for emails from all sources.
+    // Gather emails from all sources.
+    $authorEmails = array();
+
     if (!empty($vars['bean']->field_faculty_publication_email)) {
-      $orcidResults = get_author_orcids($vars['bean']->field_faculty_publication_email[LANGUAGE_NONE], 'email', $fisEndpoint);
+      $authorEmails = array_merge($authorEmails, get_array_from_field_data($vars['bean']->field_faculty_publication_email[LANGUAGE_NONE], 'email'));
     }    
 
     if (!empty($vars['bean']->field_faculty_publication_name)) {
-      $orcidResults = get_author_orcids($vars['bean']->field_faculty_publication_name[LANGUAGE_NONE], 'value', $fisEndpoint, $orcidResults);
+      $authorEmails = array_merge($authorEmails, get_array_from_field_data($vars['bean']->field_faculty_publication_name[LANGUAGE_NONE], 'value'));
     }
 
-    if ($vars['bean']->field_faculty_pub_job_type) {
-      // Use the array of emails in get_author_orcids().
+    if (!empty($vars['bean']->field_faculty_pub_job_type)) {
+      $tids = get_array_from_field_data($vars['bean']->field_faculty_pub_job_type[LANGUAGE_NONE], 'tid');
     }
 
+    array_unique($authorEmails);
+    // Get orcids associated with emails, if any.
+    $orcidResults = get_author_orcids($authorEmails, $fisEndpoint);
+
+    // Put noResult data in $vars['content']['no_results']['#markup']
+    // Add emails that did not match orcids to the ui for now. Maybe remove this later?
+    foreach ($orcidResults['noResults'] as $email) {
+      $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
+    }
+    
     // Add all of the authors' orcids to arguments['q'] array.
     $orcids = $orcidResults['orcids'];
     $authorOrcidStringQuoted = formQueryStringFromArray($orcids);
     $arguments['q'][] = "authors.orcid:$authorOrcidStringQuoted";
 
-    // Add emails that did not match orcids to the ui for now. Maybe remove this later?
-    foreach ($orcidResults['noResults'] as $email) {
-      $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
-    }
 
     // Check for requestedNumberOfResults.
     if (!empty($vars['bean']->field_faculty_pub_results)) {
@@ -168,18 +176,15 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   }
 }
 
-function get_author_orcids($fieldArray, $fieldArrayFinalIdentifier, $dbUrl, $previousResults = array('orcids' => [], 'noResults' => [])) {
-  // Add quotations to each email address and push it into $authorEmailArray.
-  // The quotation marks force elastic search to search for an exact match to the entire email address, not just parts of it. 
+function get_array_from_field_data($fieldArray, $fieldArrayFinalIdentifier) {
+  return array_map(function($data) use($fieldArrayFinalIdentifier) { return strtolower($data[$fieldArrayFinalIdentifier]); }, $fieldArray);
+}
+
+function get_author_orcids($authorEmailArray, $dbUrl) {
   $orcids = array();
-  $authorEmailArray = array_map(function($data) use($fieldArrayFinalIdentifier) { return strtolower($data[$fieldArrayFinalIdentifier]); }, $fieldArray);
-  // $authorEmailArrayQuoted = array_map(function($data) { return "\"" . $data . "\""; }, $authorEmailArray);
-  // $authorEmailString = implode(" OR ", $authorEmailArrayQuoted);
   $authorEmailString = formQueryStringFromArray($authorEmailArray);
   $queryArray = ['q' => "email:{$authorEmailString}"];
   $requestUrl = url($dbUrl, ['query' => $queryArray]);
-
-  // Send request to get authors' orcids from their emails
   $emailResponse = drupal_http_request($requestUrl);
 
   if ($emailResponse->code =='200') {
@@ -196,12 +201,6 @@ function get_author_orcids($fieldArray, $fieldArrayFinalIdentifier, $dbUrl, $pre
       }
     }
   }
-
-  // Merge in previosResults, if any, and remove duplicates.
-  $orcids = array_merge($previousResults['orcids'], $orcids);
-  $orcids = array_unique($orcids);
-  $authorEmailArray = array_merge($previousResults['noResults'], $authorEmailArray);
-  $authorEmailArray = array_unique($authorEmailArray);
 
   return ['orcids' => $orcids, 'noResults' => $authorEmailArray];
 }
@@ -243,7 +242,7 @@ function get_publication_data($url, $cid) {
   return $publications;
 }
 
-function cu_faculty_person_type_names() {
+function cu_faculty_publications_bundle_person_names() {
   $query = db_select('field_data_field_person_email', 'email');
   $query->join('field_data_field_person_first_name', 'fn', 'email.entity_id = fn.entity_id');
   $query->join('field_data_field_person_last_name', 'ln', 'email.entity_id = ln.entity_id');
@@ -261,6 +260,10 @@ function cu_faculty_person_type_names() {
   }
 
   return $facultyNamesAndEmails;
+}
+
+function get_emails_assoc_with_jobs($jobsArray) {
+
 }
 
 function cu_faculty_publications_sort() {

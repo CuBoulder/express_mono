@@ -115,7 +115,7 @@ function cu_faculty_publications_bundle_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(),
-      'allowed_values_function' => 'cu_faculty_person_type_names',
+      'allowed_values_function' => 'cu_faculty_publications_bundle_person_names',
       'allowed_values_php' => '',
     ),
     'translatable' => 0,
