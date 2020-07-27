@@ -251,6 +251,8 @@ function cu_faculty_publications_bundle_person_names() {
   $query->addField('email', 'field_person_email_email', 'e_mail');
   $query->addField('fn', 'field_person_first_name_value', 'first_name');
   $query->addField('ln', 'field_person_last_name_value', 'last_name');
+  $query->orderBy('last_name', 'ASC');
+  $query->orderBy('first_name', 'ASC');
   $result = $query->execute();
   
   $facultyNamesAndEmails = [];
