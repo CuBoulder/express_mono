@@ -38,6 +38,8 @@
       // When a filter is changed, get all checked filters.
       $('#' + collectionTarget + ' .collection-filter-links-single.collection-filter-links-multi-select input:checkbox:checked').each(function () {
         filters.push('.collection-category-' + $(this).val());
+        var label = $(this).next().text();
+        breadcrumbs.push(label);
         type = 'multiple';
       });
       // When a filter is changed, display a breadcrumb of what was selected.
@@ -45,7 +47,8 @@
         var $groups = $(this);
         $('input:checkbox:checked', $groups).each(function(){
           filters.push('.collection-category-' + $(this).val());
-          breadcrumbs.push($(this).val());
+          var label = $(this).next().text();
+          breadcrumbs.push(label);
           type = 'multiple';
         });
       });
@@ -53,28 +56,31 @@
         filterClasses = filters.join(', ');
       }
       else if (type == 'multiple') {
-        filterClasses = filters.join('');
+        filterClasses = filters.join(', ');
         filterBreadcrumbs = breadcrumbs.join(', ');
       }
       if (filters.length == 0) {
         $('#' + collectionTarget + ' .collection-item').fadeIn();
         $('#' + collectionTarget + ' .collection-breadcrumbs').html('');
+        $('.collection-breadcrumbs-wrapper .collection-reset').hide();
       }
       else {
         $('#' + collectionTarget + ' .collection-item').hide();
         //$(filterClasses).fadeIn();
         $('#' + collectionTarget + ' .collection-item' + filterClasses).fadeIn();
-        $('#' + collectionTarget + ' .collection-breadcrumbs').html('<strong>Selected filters:</strong> ' + filterBreadcrumbs + '. <a href="#" data-collection="' + collectionTarget + '"class="collection-reset">Reset Filters</a>');
+        $('#' + collectionTarget + ' .collection-breadcrumbs').html('<strong>Selected filters:</strong> ' + filterBreadcrumbs);
+        $('.collection-breadcrumbs-wrapper .collection-reset').show();
       }
       $(this).parent().toggleClass('active');
-      updateCollectionResults(collectionTarget);
+      updateCollectionResults(collectionTarget, 'multiple');
     });
     $('.collection-reset').click(function(){
       var collectionTarget = $(this).attr("data-collection");
       $('#' + collectionTarget + ' .collection-item').fadeIn();
       $('#' + collectionTarget + ' .collection-breadcrumbs').html('');
       $('#' + collectionTarget + ' input:checkbox').prop( "checked", false );
-      updateCollectionResults(collectionTarget);
+      $('.collection-breadcrumbs-wrapper .collection-reset').hide();
+      updateCollectionResults(collectionTarget, 'multiple');
       return false;
     });
     // Collection ALL link
@@ -130,10 +136,16 @@
 
 
     // UPdate the items found in a collection grid.
-    function updateCollectionResults(collectionId) {
+    function updateCollectionResults(collectionId, type) {
+
       $('#' + collectionId + ' .collection-item').removeAttr('tabindex');
       var items = $('#' + collectionId + ' .collection-item-active').length;
-      $('#' + collectionId + ' .results').text(items + ' items found.').attr('tabindex','-1').focus();
+      if (type == 'multiple') {
+        $('#' + collectionId + ' .results').text(items + ' items found.');
+      }
+      else {
+        $('#' + collectionId + ' .results').text(items + ' items found.').attr('tabindex','-1').focus();
+      }
       $('.element-item').removeAttr('tabindex');
       $('#' + collectionId + ' .collection-item-active').attr('tabindex',0);
 

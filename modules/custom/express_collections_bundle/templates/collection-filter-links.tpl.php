@@ -18,7 +18,7 @@
   </div>
 <?php else: ?>
 
-<div class="collection-filter-links-wrapper collection-filter-links-multiple  <?php if (isset($image)) { print 'collection-filter-links-bg'; } ?>" <?php
+<div class="collection-filter-links-wrapper collection-filter-links-multiple collection-filter-links-single-select <?php if (isset($image)) { print 'collection-filter-links-bg'; } ?>" <?php
   if (isset($image)) {
     print "style=background-image:url('$image');";
   }
