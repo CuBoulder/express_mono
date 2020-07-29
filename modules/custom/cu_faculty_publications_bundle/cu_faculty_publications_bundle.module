@@ -52,7 +52,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     $numberOfResultsPerPage = 25;
     $requestedNumberOfResults = 10;
     $currentPage = pager_find_page();
-    $cacheID = current_path() . "?page=" . $currentPage;
+
     // Check for publication date filter.
     if (!empty($vars['bean']->field_faculty_publication_date)) {
       $date1 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
@@ -107,21 +107,16 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       $authorEmails = array_merge($authorEmails, get_emails_assoc_with_jobs($tids));
     }
 
-    // Remove any duplicate emails.
     $authorEmails = array_unique($authorEmails);
-    // Get orcids associated with emails, if any.
     $orcidResults = get_author_orcids($authorEmails, $fisEndpoint);
-
-    // Put noResult data in $vars['content']['no_results']['#markup']
-    // Add emails that did not match orcids to the ui for now. Maybe remove this later?
-    foreach ($orcidResults['noResults'] as $email) {
-      $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
-    }
+    $noOrcidResult = get_html_no_result_string($orcidResults['noResults'], 'Orcid');
     
-    // Add all of the authors' orcids to arguments['q'] array.
-    $orcids = $orcidResults['orcids'];
-    $authorOrcidStringQuoted = formQueryStringFromArray($orcids);
-    $arguments['q'][] = "authors.orcid:$authorOrcidStringQuoted";
+    // Add all of the authors' orcids to arguments['q'] array if there are any.
+    if (count($orcidResults['orcids']) > 0) {
+      $orcids = $orcidResults['orcids'];
+      $authorOrcidStringQuoted = formQueryStringFromArray($orcids);
+      $arguments['q'][] = "authors.orcid:$authorOrcidStringQuoted";
+    }
 
 
     // Check for requestedNumberOfResults.
@@ -153,7 +148,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
 
     // Send query to facutly publications database and display results.
-    $publications = get_publication_data($elasticSearchRequest, $cacheID);
+    $publications = get_publication_data($elasticSearchRequest);
 
     if ($publications['results']) {
       $totalResults = $publications['total'] > $requestedNumberOfResults ? $requestedNumberOfResults : $publications['total'];
@@ -172,7 +167,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     }
 
     else {
-      $vars['content']['no_results']['#markup'] = 'There are no results for your query. Please check your data filters and try again.';
+      $vars['content']['no_results']['#markup'] .= '<h4>There are no results for your query. Please check your data filters and try again.</h4>' . $noOrcidResult;
     }
   }
 }
@@ -212,9 +207,19 @@ function formQueryStringFromArray($arr) {
   return implode(" OR ", $arrayQuoted);
 }
 
-function get_publication_data($url, $cid) {
+function get_html_no_result_string($noResultArray, $label) {
+  $warningString = "<p>No {$label} found for:<p><ul>";
+  foreach ($noResultsArray as $data) {
+    $warningString .= "<li>$data.</li>";
+  }
+  $warningString .= "</ul";
+  return $warningString;
+}
+
+function get_publication_data($url) {
   $publications = [];
-  $cache = cache_get($cid, 'cache_cu_faculty_publications_bundle');
+  // Use the elastic search url as the cache id.
+  $cache = cache_get($url, 'cache_cu_faculty_publications_bundle');
 
   if (isset($cache->data)) {
     $publications = $cache->data['publications'];
@@ -233,7 +238,7 @@ function get_publication_data($url, $cid) {
         'expiration' => time() + (24 * 60 * 60)
       ];
   
-      cache_set($cid, $newData, 'cache_cu_faculty_publications_bundle');
+      cache_set($url, $newData, 'cache_cu_faculty_publications_bundle');
       if (!isset($cache->data)) {
         $publications = $newData['publications'];
         $publications['isFromCache'] = false;
@@ -259,7 +264,7 @@ function cu_faculty_publications_bundle_person_names() {
   foreach ($result as $record) {
     $firstName = $record->first_name;
     $lastName = $record->last_name;
-    $email = $record->e_mail;
+    $email = strtolower($record->e_mail);
     $facultyNamesAndEmails[$email] = "$firstName $lastName";
   }
 
@@ -273,7 +278,8 @@ function get_emails_assoc_with_jobs($jobsTidArray) {
   $query->condition('job.field_person_job_type_tid', $jobsTidArray, 'IN');
 
   $result = $query->execute()->fetchCol();
-  return $result;
+  $emails = array_map(function($email) {return strtolower($email);}, $result);
+  return $emails;
 }
 
 function cu_faculty_publications_sort() {
