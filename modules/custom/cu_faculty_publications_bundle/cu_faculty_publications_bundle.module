@@ -204,16 +204,18 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
 
 function formQueryStringFromArray($arr) {
   $arrayQuoted = array_map(function($data) { return "\"" . $data . "\""; }, $arr);
-  return implode(" OR ", $arrayQuoted);
+  return '(' . implode(" OR ", $arrayQuoted) . ')';
 }
 
 function get_html_no_result_string($noResultArray, $label) {
-  $warningString = "<p>No {$label} found for:<p><ul>";
-  foreach ($noResultsArray as $data) {
-    $warningString .= "<li>$data.</li>";
+  if (count($noResultArray) > 0 && $label) {
+    $warningString = "<p>No {$label} found for:<p><ul>";
+    foreach ($noResultArray as $data) {
+      $warningString .= "<li>$data.</li>";
+    }
+    $warningString .= "</ul";
   }
-  $warningString .= "</ul";
-  return $warningString;
+  return $warningString ? $warningString : '';
 }
 
 function get_publication_data($url) {
