@@ -12,5 +12,8 @@ Scenario: Pathologic should change URLs
   And I fill in "edit-title" with "PathologicTest"
   And I follow "Disable rich-text"
   And I fill in "Body" with "<a href=\"http://www.colorado.edu/p1eb825ce549/testpage\" name=\"myPathoName\" id=\"myPathoName\" >Change This Link</a>"
-  And I press "Save"
-Then The "#pathologic-link" element should have "//127.0.0.1:8888/test" in the "href" attribute
+  When I press "Save"
+  # FOR LOCAL TESTING, UNCOMMENT NEXT LINE AND CHANGE DOMAIN TO YOUR LOCAL SERVER
+  # And the "#myPathoName" element should have "http://mylocal.lndo.site/mytestpage" in the "href" attribute
+  # FOR TRAVIS TESTING, UNCOMMENT NEXT LINE
+  Then the "#myPathoName" element should have "//127.0.0.1:8888/mytestpage" in the "href" attribute
