@@ -1,7 +1,7 @@
 @wysiwyg @core
 Feature: WYSIWYG Pathologic tests
 
-@javascript @broken
+@javascript
 # TO DO: Need to setup Pathologic link in testing module install.
 Scenario: Pathologic should change URLs
   Given I am logged in as a user with the "developer" role
