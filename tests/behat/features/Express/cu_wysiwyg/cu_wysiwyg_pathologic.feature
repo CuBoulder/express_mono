@@ -16,4 +16,4 @@ Scenario: Pathologic should change URLs
   # FOR LOCAL TESTING, UNCOMMENT NEXT LINE AND CHANGE DOMAIN TO YOUR LOCAL SERVER
   # And the "#myPathoName" element should have "http://mylocal.lndo.site/mytestpage" in the "href" attribute
   # FOR TRAVIS TESTING, UNCOMMENT NEXT LINE
-  Then the "#myPathoName" element should have "//127.0.0.1:8888/mytestpage" in the "href" attribute
+  Then the "#myPathoName" element should have "http://127.0.0.1:8031/testpage" in the "href" attribute
