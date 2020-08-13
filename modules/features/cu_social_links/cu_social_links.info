@@ -30,3 +30,4 @@ features[field_instance][] = bean-social_links-field_social_links_homepage_url
 features[field_instance][] = bean-social_links-field_social_links_size
 features[field_instance][] = field_collection_item-field_social_links_collection-field_social_link_type
 features[field_instance][] = field_collection_item-field_social_links_collection-field_social_link_url
+settings[can_be_overridden] = 1

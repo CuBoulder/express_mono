@@ -15,3 +15,4 @@ features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[menu_custom][] = main-menu
 features_exclude[dependencies][ctools] = ctools
+settings[can_be_overridden] = 1
