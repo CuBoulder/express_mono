@@ -109,15 +109,17 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
     $authorEmails = array_unique($authorEmails);
     $orcidResults = get_author_orcids($authorEmails, $fisEndpoint);
-    $noOrcidResult = get_html_no_result_string($orcidResults['noResults'], 'Orcid');
-    
+    if (count($orcidResults['noResults'] > 0)) {
+      $noOrcidResult = get_html_no_result_string($orcidResults['noResults'], 'Orcid');
+      $vars['content']['no_results']['#markup'] .= $noOrcidResult;
+    }
+
     // Add all of the authors' orcids to arguments['q'] array if there are any.
     if (count($orcidResults['orcids']) > 0) {
       $orcids = $orcidResults['orcids'];
       $authorOrcidStringQuoted = formQueryStringFromArray($orcids);
       $arguments['q'][] = "authors.orcid:$authorOrcidStringQuoted";
     }
-
 
     // Check for requestedNumberOfResults.
     if (!empty($vars['bean']->field_faculty_pub_results)) {
@@ -167,7 +169,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     }
 
     else {
-      $vars['content']['no_results']['#markup'] .= '<h4>There are no results for your query. Please check your data filters and try again.</h4>' . $noOrcidResult;
+      $vars['content']['no_results']['#markup'] .= '<h4>There are no results for your query. Please check your data filters and try again.</h4>';
     }
   }
 }
@@ -209,11 +211,11 @@ function formQueryStringFromArray($arr) {
 
 function get_html_no_result_string($noResultArray, $label) {
   if (count($noResultArray) > 0 && $label) {
-    $warningString = "<p>No {$label} found for:<p><ul>";
+    $warningString = "<p>No {$label} found for:</p><ul>";
     foreach ($noResultArray as $data) {
       $warningString .= "<li>$data.</li>";
     }
-    $warningString .= "</ul";
+    $warningString .= "</ul>";
   }
   return $warningString ? $warningString : '';
 }
