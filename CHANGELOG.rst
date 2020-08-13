@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.2.2 (2012-05-14)
+------------
+
+Added
+~~~~~
+- Adding large search box block.
+
+
+Changed
+~~~~~~~
+- Improving active states for secondary navigation.
+
+- Improve module uninstall process to remove associated roles as well.
+
+
+Fixed
+~~~~~~~
+- Fixing issue where some block titles weren't styled correctly.
+
+
+Removed
+~~~~~~~
+- Removing deprecated content editor role.
+
+
 v4.2.1 (2012-04-21)
 ------------
 

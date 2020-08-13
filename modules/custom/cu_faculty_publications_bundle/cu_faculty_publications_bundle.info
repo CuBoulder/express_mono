@@ -29,3 +29,5 @@ features[field_instance][] = bean-faculty_publications-field_faculty_publication
 features[field_instance][] = bean-faculty_publications-field_faculty_publication_name
 features[field_instance][] = bean-faculty_publications-field_faculty_publications_sort
 features[field_instance][] = bean-faculty_publications-field_people_list_person_type
+bundle_roles[] = developer
+bundle_roles[] = administrator

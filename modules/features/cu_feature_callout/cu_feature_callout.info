@@ -42,3 +42,4 @@ features_exclude[field][bean-feature_callout-field_callout_image_size] = bean-fe
 features_exclude[field][field_collection_item-field_callouts-field_callout_image] = field_collection_item-field_callouts-field_callout_image
 features_exclude[field][field_collection_item-field_callouts-field_callout_text] = field_collection_item-field_callouts-field_callout_text
 features_exclude[field][field_collection_item-field_callouts-field_callout_title] = field_collection_item-field_callouts-field_callout_title
+settings[can_be_overridden] = 1

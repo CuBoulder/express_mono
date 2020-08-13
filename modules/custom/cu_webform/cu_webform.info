@@ -38,3 +38,4 @@ features[variable][] = node_submitted_webform
 features[variable][] = pathauto_node_webform_pattern
 features[variable][] = recaptcha_secret_key
 features[variable][] = recaptcha_site_key
+settings[can_be_overridden] = 1

@@ -25,3 +25,4 @@ features[field_instance][] = mega_menu-mega_menu-field_mega_menu_links
 features[field_instance][] = mega_menu-mega_menu-field_mega_menu_text_above
 features[field_instance][] = mega_menu-mega_menu-field_mega_menu_text_below
 features_exclude[dependencies][eck] = eck
+settings[can_be_overridden] = 1
