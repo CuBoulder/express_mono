@@ -109,9 +109,13 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
     $authorEmails = array_unique($authorEmails);
     $orcidResults = get_author_orcids($authorEmails, $fisEndpoint);
-    if (count($orcidResults['noResults'] > 0)) {
-      $noOrcidResult = get_html_no_result_string($orcidResults['noResults'], 'Orcid');
-      $vars['content']['no_results']['#markup'] .= $noOrcidResult;
+    if (isset($orcidResults) && count($orcidResults['notFound'] > 0)) {
+      $noOrcidResult = get_html_no_result_string($orcidResults['notFound'], 'publications');
+      $vars['content']['no_results'][]['#markup'] = $noOrcidResult;
+      if ($orcidResults['noResults']) {
+        $vars['content']['no_results'][]['#markup'] = "<h4>No publications were found for any of the selected authors.</h4>";
+        return;
+      }
     }
 
     // Add all of the authors' orcids to arguments['q'] array if there are any.
@@ -169,7 +173,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     }
 
     else {
-      $vars['content']['no_results']['#markup'] .= '<h4>There are no results for your query. Please check your data filters and try again.</h4>';
+      $vars['content']['no_results'][]['#markup'] = '<h4>There are no results for your query. Please check your data filters and try again.</h4>';
     }
   }
 }
@@ -180,6 +184,10 @@ function get_array_from_field_data($fieldArray, $fieldArrayFinalIdentifier) {
 }
 
 function get_author_orcids($authorEmailArray, $dbUrl) {
+  if (count($authorEmailArray) == 0) {
+    return;
+  }
+
   $orcids = array();
   $authorEmailString = formQueryStringFromArray($authorEmailArray);
   $queryArray = ['q' => "email:{$authorEmailString}"];
@@ -201,7 +209,8 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
     }
   }
 
-  return ['orcids' => $orcids, 'noResults' => $authorEmailArray];
+  $noResults = count($orcids) > 0 ? FALSE : TRUE;
+  return ['orcids' => $orcids, 'notFound' => $authorEmailArray, 'noResults' => $noResults];
 }
 
 function formQueryStringFromArray($arr) {
@@ -211,7 +220,7 @@ function formQueryStringFromArray($arr) {
 
 function get_html_no_result_string($noResultArray, $label) {
   if (count($noResultArray) > 0 && $label) {
-    $warningString = "<p>No {$label} found for:</p><ul>";
+    $warningString = "<p style=\"margin: 0;\">No {$label} found for:</p><ul>";
     foreach ($noResultArray as $data) {
       $warningString .= "<li>$data.</li>";
     }
@@ -261,7 +270,6 @@ function cu_faculty_publications_bundle_person_names() {
   $query->addField('fn', 'field_person_first_name_value', 'first_name');
   $query->addField('ln', 'field_person_last_name_value', 'last_name');
   $query->orderBy('last_name', 'ASC');
-  $query->orderBy('first_name', 'ASC');
   $result = $query->execute();
   
   $facultyNamesAndEmails = [];
