@@ -1,6 +1,6 @@
 ## Writing Tests
 
-Writing tests for the Express codebase is [covered in another documentation repository](https://github.com/CuBoulder/express_documentation/blob/master/docs/behat.md).
+Writing tests for the Express codebase is [covered in another documentation repository](https://github.com/CuBoulder/express_documentation/blob/main/docs/behat.md).
 
 ## Local Setup
 
@@ -106,7 +106,7 @@ Once logged in, if using "ng_hosting", make sure that LDAP is in mixed mode by g
 
 If using "local_hosting" users with the same username and password will be created for each role. You can then login via the users, e.g. "developer:developer" for username:password, to your Express site.
 
-Next, the Behat dependencies need to be installed before you can run any tests.  
+Next, the Behat dependencies need to be installed before you can run any tests.
 
 ```bash
 cd <site-path>/profiles/express/tests/behat
@@ -133,6 +133,6 @@ cd site-path/profiles/express/tests/behat
 
 ## Fixing Broken Tests
 
-The `--verbose` tag should spit out as much information as possible about a failed test run. You will oftentimes see the stacktrace around the failed test and should be able to investigate the files and line numbers given. For more guidance on debugging, you can read: https://github.com/CuBoulder/express_documentation/blob/master/docs/behat.md
+The `--verbose` tag should spit out as much information as possible about a failed test run. You will oftentimes see the stacktrace around the failed test and should be able to investigate the files and line numbers given. For more guidance on debugging, you can read: https://github.com/CuBoulder/express_documentation/blob/main/docs/behat.md
 
 For JavaScript tests, Sauce Labs records the test run so you can go back and actually replay the steps to see what happened. You can also watch the test run as it happens on Sauce Labs to see the output of JavaScript tests in real-time. You will need to have a Sauce Labs account to view the results. Ask a team member if you need access.
