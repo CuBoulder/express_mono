@@ -230,7 +230,7 @@ function cu_core_preprocess_html(&$vars) {
     drupal_add_css(drupal_get_path('module', 'cu_core') . '/css/cu-core.css');
     switch ($env) {
       case 'www.colorado.edu':
-        if ($_ENV['OSR_ENV'] == 'master') {
+        if ($_ENV['OSR_ENV'] == 'main') {
           $vars['classes_array'][] = 'indicator-disabled';
         }
         else {
