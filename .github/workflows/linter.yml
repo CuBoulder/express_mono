@@ -1,0 +1,33 @@
+---
+# Lint for Drupal and other Coding Standards.
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+name: Lint Code Base
+
+# Start the job on all pushes and PRs
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      # Setup composer and the Drupal coding standards
+      - run:
+          "curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+          && composer global require drupal/coder squizlabs/php_codesniffer \
+          && phpcs --config-set installed_paths /root/.composer/vendor/drupal/coder/coder_sniffer/ \
+          && phpcs --config-set default_standard Drupal,DrupalPractice"
+      - name: Check coding standards
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          # Will only run linters listed
+          # https://github.com/github/super-linter#environment-variables
+          VALIDATE_PHP_PHPCS: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
