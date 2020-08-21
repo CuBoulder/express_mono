@@ -44,7 +44,6 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
   */
 function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   // $entity_type = $vars['elements']['#entity_type'];
-
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
 
     $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
@@ -53,7 +52,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     $numberOfResultsPerPage = 25;
     $requestedNumberOfResults = 10;
     $currentPage = pager_find_page();
-    $cacheID = current_path() . "?page=" . $currentPage;
+
     // Check for publication date filter.
     if (!empty($vars['bean']->field_faculty_publication_date)) {
       $date1 = strtotime($vars['bean']->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
@@ -92,23 +91,38 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       }
     }
 
-    // Check for author email.
+    // Gather emails from all sources.
+    $authorEmails = array();
+
     if (!empty($vars['bean']->field_faculty_publication_email)) {
-      $email = $vars['bean']->field_faculty_publication_email[LANGUAGE_NONE][0]['email'];
-      $fisEndpoint .= "?q=email:\"$email\"";
-      $emailResponse = drupal_http_request($fisEndpoint);
+      $authorEmails = array_merge($authorEmails, get_array_from_field_data($vars['bean']->field_faculty_publication_email[LANGUAGE_NONE], 'email'));
+    }    
 
-      if ($emailResponse->code == '200') {
-        $emailResult = drupal_json_decode($emailResponse->data, true);
-        $orcid = $emailResult['hits']['hits'][0]['_source']['orcid'];
+    if (!empty($vars['bean']->field_faculty_publication_name)) {
+      $authorEmails = array_merge($authorEmails, get_array_from_field_data($vars['bean']->field_faculty_publication_name[LANGUAGE_NONE], 'value'));
+    }
 
-        if ($orcid) {
-          $arguments['q'][] = "authors.orcid:\"$orcid\"";
-        }
-        else {
-          $vars['content']['no_results']['#markup'] .= "<p>No results found for email $email.</p>";
-        }
+    if (!empty($vars['bean']->field_people_list_person_type)) {
+      $tids = get_array_from_field_data($vars['bean']->field_people_list_person_type[LANGUAGE_NONE], 'tid');
+      $authorEmails = array_merge($authorEmails, get_emails_assoc_with_jobs($tids));
+    }
+
+    $authorEmails = array_unique($authorEmails);
+    $orcidResults = get_author_orcids($authorEmails, $fisEndpoint);
+    if (isset($orcidResults) && count($orcidResults['notFound'] > 0)) {
+      $noOrcidResult = get_html_no_result_string($orcidResults['notFound'], 'publications');
+      $vars['content']['no_results'][]['#markup'] = $noOrcidResult;
+      if ($orcidResults['noResults']) {
+        $vars['content']['no_results'][]['#markup'] = "<h4>No publications were found for any of the selected authors.</h4>";
+        return;
       }
+    }
+
+    // Add all of the authors' orcids to arguments['q'] array if there are any.
+    if (count($orcidResults['orcids']) > 0) {
+      $orcids = $orcidResults['orcids'];
+      $authorOrcidStringQuoted = formQueryStringFromArray($orcids);
+      $arguments['q'][] = "authors.orcid:$authorOrcidStringQuoted";
     }
 
     // Check for requestedNumberOfResults.
@@ -140,34 +154,85 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
     $elasticSearchRequest = url($endpoint, ['query' => $arguments]);
 
     // Send query to facutly publications database and display results.
-    if (empty($vars['content']['no_results'])) {
-      $publications = get_publication_data($elasticSearchRequest, $cacheID);
+    $publications = get_publication_data($elasticSearchRequest);
 
-      if ($publications['results']) {
-        $totalResults = $publications['total'] > $requestedNumberOfResults ? $requestedNumberOfResults : $publications['total'];
-        pager_default_initialize($totalResults, $numberOfResultsPerPage);
+    if ($publications['results']) {
+      $totalResults = $publications['total'] > $requestedNumberOfResults ? $requestedNumberOfResults : $publications['total'];
+      pager_default_initialize($totalResults, $numberOfResultsPerPage);
 
-        // check if results are from cache;
-        $isFromCache = $publications['isFromCache'] ? "YES" : "NO";
-        $vars['content']['publications'][]['#markup'] = "<!-- Results are from cache: $isFromCache -->";
+      // Check if results are from cache.
+      // Put in an HTML comment to confirm if results are from cache or not.
+      $isFromCache = $publications['isFromCache'] ? "YES" : "NO";
+      $vars['content']['publications'][]['#markup'] = "<!-- Results are from cache: $isFromCache -->";
 
-        foreach ($publications['results'] as $item) {
-          $vars['content']['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
-        }
-
-        $vars['content']['publications'][]['#markup'] = theme('pager');
+      foreach ($publications['results'] as $item) {
+        $vars['content']['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
       }
 
-      else {
-        $vars['content']['no_results']['#markup'] = 'There are no results for your query. Please check your data filters and try again.';
-      }
+      $vars['content']['publications'][]['#markup'] = theme('pager');
+    }
+
+    else {
+      $vars['content']['no_results'][]['#markup'] = '<h4>There are no results for your query. Please check your data filters and try again.</h4>';
     }
   }
 }
 
-function get_publication_data($url, $cid) {
+// Here are many helper functions used in cu_faculty_publications_bundle_preprocess_entity() above.
+function get_array_from_field_data($fieldArray, $fieldArrayFinalIdentifier) {
+  return array_map(function($data) use($fieldArrayFinalIdentifier) { return strtolower($data[$fieldArrayFinalIdentifier]); }, $fieldArray);
+}
+
+function get_author_orcids($authorEmailArray, $dbUrl) {
+  if (count($authorEmailArray) == 0) {
+    return;
+  }
+
+  $orcids = array();
+  $authorEmailString = formQueryStringFromArray($authorEmailArray);
+  $queryArray = ['q' => "email:{$authorEmailString}"];
+  $requestUrl = url($dbUrl, ['query' => $queryArray]);
+  $emailResponse = drupal_http_request($requestUrl);
+
+  if ($emailResponse->code =='200') {
+    $emailResult = drupal_json_decode($emailResponse->data, true);
+    $data = $emailResult['hits']['hits'];
+    // get the orcids from each database hit
+    foreach($data as $author) {
+      $authorOrcid = $author['_source']['orcid'];
+      $authorEmail = strtolower($author['_source']['email'][0]);
+      if ($authorOrcid) {
+        array_push($orcids, $authorOrcid);
+        $index = array_search($authorEmail, $authorEmailArray);
+        array_splice($authorEmailArray, $index, 1);
+      }
+    }
+  }
+
+  $noResults = count($orcids) > 0 ? FALSE : TRUE;
+  return ['orcids' => $orcids, 'notFound' => $authorEmailArray, 'noResults' => $noResults];
+}
+
+function formQueryStringFromArray($arr) {
+  $arrayQuoted = array_map(function($data) { return "\"" . $data . "\""; }, $arr);
+  return '(' . implode(" OR ", $arrayQuoted) . ')';
+}
+
+function get_html_no_result_string($noResultArray, $label) {
+  if (count($noResultArray) > 0 && $label) {
+    $warningString = "<p style=\"margin: 0;\">No {$label} found for:</p><ul>";
+    foreach ($noResultArray as $data) {
+      $warningString .= "<li>$data.</li>";
+    }
+    $warningString .= "</ul>";
+  }
+  return $warningString ? $warningString : '';
+}
+
+function get_publication_data($url) {
   $publications = [];
-  $cache = cache_get($cid, 'cache_cu_faculty_publications_bundle');
+  // Use the elastic search url as the cache id.
+  $cache = cache_get($url, 'cache_cu_faculty_publications_bundle');
 
   if (isset($cache->data)) {
     $publications = $cache->data['publications'];
@@ -186,7 +251,7 @@ function get_publication_data($url, $cid) {
         'expiration' => time() + (24 * 60 * 60)
       ];
   
-      cache_set($cid, $newData, 'cache_cu_faculty_publications_bundle');
+      cache_set($url, $newData, 'cache_cu_faculty_publications_bundle');
       if (!isset($cache->data)) {
         $publications = $newData['publications'];
         $publications['isFromCache'] = false;
@@ -197,6 +262,38 @@ function get_publication_data($url, $cid) {
   return $publications;
 }
 
+function cu_faculty_publications_bundle_person_names() {
+  $query = db_select('field_data_field_person_email', 'email');
+  $query->join('field_data_field_person_first_name', 'fn', 'email.entity_id = fn.entity_id');
+  $query->join('field_data_field_person_last_name', 'ln', 'email.entity_id = ln.entity_id');
+  $query->addField('email', 'field_person_email_email', 'e_mail');
+  $query->addField('fn', 'field_person_first_name_value', 'first_name');
+  $query->addField('ln', 'field_person_last_name_value', 'last_name');
+  $query->orderBy('last_name', 'ASC');
+  $result = $query->execute();
+  
+  $facultyNamesAndEmails = [];
+  foreach ($result as $record) {
+    $firstName = $record->first_name;
+    $lastName = $record->last_name;
+    $email = strtolower($record->e_mail);
+    $facultyNamesAndEmails[$email] = "$firstName $lastName";
+  }
+
+  return $facultyNamesAndEmails;
+}
+
+function get_emails_assoc_with_jobs($jobsTidArray) {
+  $query = db_select('field_data_field_person_email', 'email');
+  $query->join('field_data_field_person_job_type', 'job', 'job.entity_id = email.entity_id');
+  $query->addField('email', 'field_person_email_email');
+  $query->condition('job.field_person_job_type_tid', $jobsTidArray, 'IN');
+
+  $result = $query->execute()->fetchCol();
+  $emails = array_map(function($email) {return strtolower($email);}, $result);
+  return $emails;
+}
+
 function cu_faculty_publications_sort() {
   return array('date-desc' => 'Newest to Oldest', 'date-asc' => 'Oldest to Newest');
 }
@@ -204,6 +301,7 @@ function cu_faculty_publications_sort() {
 function cu_faculty_publications_results() {
   return array('25' => '25', '50' => '50' , '100' => '100', 'all' => 'ALL');
 }
+// End cu_faculty_publications_bundle_preprocess_entity() helper functions.
 
 /**
   * Implements hook_secure_permissions().
