@@ -38,6 +38,8 @@
       // When a filter is changed, get all checked filters.
       $('#' + collectionTarget + ' .collection-filter-links-single.collection-filter-links-multi-select input:checkbox:checked').each(function () {
         filters.push('.collection-category-' + $(this).val());
+        var label = $(this).next().text();
+        breadcrumbs.push(label);
         type = 'multiple';
       });
       // When a filter is changed, display a breadcrumb of what was selected.
