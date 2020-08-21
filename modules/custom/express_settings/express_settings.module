@@ -933,17 +933,17 @@ function express_settings_requirements($phase) {
     //Status can be either 0 (disabled) or 1 (enabled)
     $main_administrator_user = user_load($main_administrator_id);
     $main_administrator_status = $main_administrator_user->status;
-    $requirements['administrator_status'] = array ('title' => 'Main Administrator');
+    $requirements['administrator_status'] = array('title' => 'Main Administrator');
 
-    // Check if main admin account is enabled
-    if ($main_administrator_status == True) {
+    // Check if main admin account is enabled.
+    if ($main_administrator_status == TRUE) {
       $requirements['administrator_status']['value'] = 'Enabled';
       $requirements['administrator_status']['description'] = 'The main administrator user should be disabled for non-developers at all times.';
       $requirements['administrator_status']['severity'] = REQUIREMENT_ERROR;
 
     }
 
-    // Main admin account is disabled
+    // Main admin account is disabled.
     else {
       $requirements['administrator_status']['value'] = 'Disabled';
       $requirements['administrator_status']['severity'] = REQUIREMENT_OK;
