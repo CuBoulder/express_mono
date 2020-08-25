@@ -461,28 +461,35 @@ function people_content_type_list_filter_form($form, &$form_state) {
   }
 
   // Loop through the filters array to build the filter fields.
-  foreach ($filters as $key => $filter) {
-    // Load vocabulary for filter
-    $vocabulary = taxonomy_vocabulary_machine_name_load($filter['name']);
-    // Get terms for vocabulary
-    $terms = taxonomy_get_tree($vocabulary->vid);
-    $options = array();
-    // Add 'all' option
-    $options[] = 'All';
-    // Add all terms to options array
-    foreach ($terms as $key => $term) {
-      $options[$term->tid] = $term->name;
-    }
-    // If there are more than 2 options ('All" + 1), build form field.
-    if (count($options) > 2) {
-      $form['people_list_filter'][$filter['machine_name']] = array(
-       '#type' => 'select',
-       '#title' => t($filter['label']),
-       '#options' => $options,
-       '#default_value' => isset($_GET[$filter['machine_name']]) ? $_GET[$filter['machine_name']] : '',
-      );
+  if (!empty($filters)) {
+    include_once 'people_content_type_taxonomy.inc';
+
+    foreach ($filters as $key => $filter) {
+      // Load vocabulary for filter
+      $vocabulary = taxonomy_vocabulary_machine_name_load($filter['name']);
+      // Get terms for vocabulary
+      $terms = taxonomy_get_tree($vocabulary->vid);
+      $options = array();
+      // Add 'all' option
+      $options[] = 'All';
+      // Get terms in a nested tree and create nested select list (Code is basically copied from cu_article.module).
+      $terms = people_content_type_taxonomy_treedata($terms);
+      $options = $options + people_content_type_nested_options($terms);
+      foreach ($terms as $key => $term) {
+        $options[$term->tid] = $term->name;
+      }
+      // If there are more than 2 options ('All" + 1), build form field.
+      if (count($options) > 2) {
+        $form['people_list_filter'][$filter['machine_name']] = array(
+         '#type' => 'select',
+         '#title' => t($filter['label']),
+         '#options' => $options,
+         '#default_value' => isset($_GET[$filter['machine_name']]) ? $_GET[$filter['machine_name']] : '',
+        );
+      }
     }
   }
+
   // If filters are added, also add submit button and set method.
   if (!empty($form)) {
     $form['submit'] = array(
@@ -523,6 +530,7 @@ function people_content_type_list_filter_form_submit($form, &$form_state) {
   $form_state['redirect'] = array('node/' . $nid, $options);
   return;
 }
+
 /**
  * Implments hook_preprocess_entity
  *
