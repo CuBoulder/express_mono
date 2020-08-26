@@ -1,38 +1,42 @@
 <?php
 
 /**
+ * @file
+ * Functions to help display nested taxanomy terms in the filter forms on .
+ */
+
+/**
  * Build a nested array from a taxonomy tree.
  */
 function &people_content_type_taxonomy_treedata(&$nvocs) {
-  //this function will take a flat vocabulary tree and turn it into a multi-tiered array
-  //the return array will simply contain an array of pointers rather then physical objects
+  // This function will take a flat vocabulary tree and turn it into a multi-tiered array.
+  // The return array will simply contain an array of pointers rather then physical objects.
 
   $map = array();
 
-  //go through the tree and find the lowest depth aswell as all available depth levels to scan
+  // Go through the tree and find the lowest depth aswell as all available depth levels to scan.
   $startdepth = FALSE;
   $depthlist = array();
-  foreach ($nvocs as $vocindex => &$vocitem) {
+  foreach ($nvocs as &$vocitem) {
     if ($startdepth === FALSE || $startdepth > $vocitem->depth) {
-      //new start depth found
+      // New start depth found.
       $startdepth = $vocitem->depth;
     }
 
-    //add this item to the speciffic depth level
+    // Add this item to the speciffic depth level.
     $depthlist[$vocitem->depth][$vocitem->tid] = &$vocitem;
   }
 
-  //sort the depthlist so lowest is first
+  // Sort the depthlist so lowest is first.
   ksort($depthlist);
 
-  //scan all depth levels found
-  $lastdepth = NULL;
+  // Scan all depth levels found.
   foreach ($depthlist as $depthlevel => &$depths) {
-    //check for first depth (root) level
+    // Check for first depth (root) level.
     $currentdepthdata = array();
 
     if ($depthlevel == $startdepth) {
-      //add root items to the map
+      // Add root items to the map.
       foreach ($depths as $itemindex => &$item) {
         $mapindex = count($map);
         $map[$mapindex] = array("data" => &$item, "children" => array());
@@ -40,9 +44,9 @@ function &people_content_type_taxonomy_treedata(&$nvocs) {
       }
     }
     else {
-      //scan through all items within this depth
+      // Scan through all items within this depth.
       foreach ($depths as $itemindex => &$item) {
-        //find a matching "map" in the last depth to assign the item too
+        // Find a matching "map" in the last depth to assign the item too.
         foreach ($item->parents as $parentindex) {
           $mapindex = count($lastdepthdata[$parentindex]["children"]);
           $lastdepthdata[$parentindex]["children"][$mapindex] = array(
@@ -61,17 +65,17 @@ function &people_content_type_taxonomy_treedata(&$nvocs) {
 }
 
 /**
- * Build a nested select options list
+ * Build a nested select options list.
  */
 function people_content_type_nested_options($terms) {
   $options = array();
   uasort($terms, 'people_content_type_sort');
   foreach ($terms as $term) {
-    // Use depth to add - to denote children terms
+    // Use depth to add - to denote children terms.
     $indent = cu_article_term_depth($term['data']->depth);
-    // Load full term so we can tell if term should be hidden or not
+    // Load full term so we can tell if term should be hidden or not.
     $term_full = taxonomy_term_load($term['data']->tid);
-    // Term display field is different in catagory and tag
+    // Term display field is different in catagory and tag.
     if (!empty($term_full->field_tag_display)) {
       if ($term_full->field_tag_display[LANGUAGE_NONE][0]['value'] == 'show') {
         $options[$term['data']->tid] = $indent . ' ' . $term['data']->name;
@@ -102,7 +106,7 @@ function people_content_type_nested_options($terms) {
 }
 
 /**
- * Returns - to denote children
+ * Returns - to denote children.
  */
  function people_content_type_term_depth($depth = 0) {
   $indent = '';
@@ -113,13 +117,13 @@ function people_content_type_nested_options($terms) {
 }
 
 /**
- * Sort function for terms array
+ * Sort function for terms array.
  */
-function people_content_type_sort($a, $b) {
-  $a = $a['data']->name;
-  $b = $b['data']->name;
-  if ($a == $b) {
+function people_content_type_sort($comparisonA, $comparisonB) {
+  $termA = $comparisonA['data']->name;
+  $termB = $comparisonB['data']->name;
+  if ($termA == $termB) {
     return 0;
   }
-  return ($a < $b) ? -1 : 1;
+  return ($termA < $termB) ? -1 : 1;
 }

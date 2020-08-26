@@ -475,16 +475,16 @@ function people_content_type_list_filter_form($form, &$form_state) {
       // Get terms in a nested tree and create nested select list (Code is basically copied from cu_article.module).
       $terms = people_content_type_taxonomy_treedata($terms);
       $options = $options + people_content_type_nested_options($terms);
-      foreach ($terms as $key => $term) {
-        $options[$term->tid] = $term->name;
-      }
+      // foreach ($terms as $key => $term) {
+      //   $options[$term->tid] = $term->name;
+      // }
       // If there are more than 2 options ('All" + 1), build form field.
       if (count($options) > 2) {
         $form['people_list_filter'][$filter['machine_name']] = array(
          '#type' => 'select',
          '#title' => t($filter['label']),
          '#options' => $options,
-         '#default_value' => isset($_GET[$filter['machine_name']]) ? $_GET[$filter['machine_name']] : '',
+         '#default_value' => isset($_GET[$filter['machine_name']]) ? $_GET[$filter['machine_name']] : $options[0],
         );
       }
     }
