@@ -108,7 +108,7 @@ function people_content_type_nested_options($terms) {
 /**
  * Returns - to denote children.
  */
- function people_content_type_term_depth($depth = 0) {
+function people_content_type_term_depth($depth = 0) {
   $indent = '';
   for ($i = 0; $i < $depth; $i++) {
     $indent = $indent . '-';
