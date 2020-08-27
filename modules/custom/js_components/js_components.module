@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * @file
+ * A way for us to include javascript components. Built with either vanilla javascript or javascript frameworks like Vue.js
+ */
+
+/**
+ * Implements hook_node_access()
+ */
+function js_components_node_access($node, $op, $account) {
+  // dpm($node);
+  if ($node === 'js_component') {
+    return NODE_ACCESS_ALLOW;
+  }
+}
+
+/**
+ * Implements hook_node_info().
+ */
+ function js_components_node_info() {
+  $items = array(
+    'js_component' => array(
+      'name' => t('JS Component'),
+      'base' => 'node_content',
+      'description' => t('Insert JavaScript components into a page.'),
+      'has_title' => '1',
+      'title_label' => t('JS Component'),
+      'help' => 'No help. You are on your own :(',
+    )
+  );
+  drupal_alter('node_info', $items);
+  return $items;
+}
+
+/**
+ * Implements hook_node_view()
+ */
+function js_components_node_view($node, $view_mode, $langcode) {
+  if ($node->content['#bundle'] == 'js_component') {
+    $component = $node->field_component_name[LANGUAGE_NONE][0]['value'];
+    
+    // Todo: Find a better way to save and load the component data. Right now just hard coding it below.
+    $config = [
+      'ucbArticle' => [
+        'tagname' => 'div',
+        'attributes' => [ 'id' => 'ucb-vue-app' ],
+        'scriptpath' => 'ucbArticle/ucbArticle.bundle.js'
+      ],
+      'ucbCovidStats' => [
+        'tagname' => 'div',
+        'attributes' => [ 'id' => 'ucb-vue-app' ],
+        'scriptpath' => 'ucbCovidStats/ucbCovidStats.bundle.js'
+      ]
+    ];
+
+    if (isset($config[$component])) {
+      $scriptPath = drupal_get_path('module', 'js_components') . '/components/' . $config[$component]['scriptpath'];
+      drupal_add_js($scriptPath, [ 'scope' => 'footer', 'defer' => true ]);
+
+      // Build the component tag like this for now.
+      $attributes = '';
+      foreach ($config[$component]['attributes'] as $att => $value) {
+        $attributes .=  $att . '="' . $value . '" ';
+      }
+      $componentMarkup = '<' . $config[$component]['tagname'] . ' ' . $attributes . '></' . $config[$component]['tagname'] . '>';
+      // Add the component tag to the page.
+      $node->content['content']['#markup'] = $componentMarkup;
+    }
+    else {
+      $node->content['content']['#markup'] = "<p><em>" . $node->field_component_name[LANGUAGE_NONE][0]['value'] . "</em> is unable to load at this time. Try again later.</p>";
+    }
+  }
+}
+
+function get_component_data() {
+  $componentsDir = scandir(drupal_get_path('module', 'js_components') . '/components');
+  $components = [];
+  for ($component = 2; $component < count($componentsDir); $component += 1) {
+    $components[$componentsDir[$component]] = $componentsDir[$component];
+  }
+  return $components;
+}
+
+function get_component_dir_path() {
+  return drupal_get_path('module', 'js_components') . '/components';
+}
