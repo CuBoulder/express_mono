@@ -1,0 +1,4 @@
+name = CU Web Components
+description = Provides access to the CU Web Components Library
+core = 7.x
+package = CU Web Components
