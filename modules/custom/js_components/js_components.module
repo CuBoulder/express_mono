@@ -81,7 +81,3 @@ function get_component_data() {
   }
   return $components;
 }
-
-function get_component_dir_path() {
-  return drupal_get_path('module', 'js_components') . '/components';
-}

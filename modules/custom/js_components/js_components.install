@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * A way for us to include javascript components. Built with either vanilla javascript or javascript frameworks like Vue.js
+ */
+
+function js_components_install() {
+  $field = array(
+    'field_name' => 'component_name',
+    'type' => 'list_text',
+    'settings' => array(
+      'allowed_values_function' => 'get_component_names',
+    ),
+  );
+  field_create_field($field);
+  
+  $instance = array(
+    'field_name' => 'component_name',
+    'label' => t('Component Name'),
+    'entity_type' => 'node',
+    'bundle' => 'js_component',
+    'widget' => array(
+      'type' => 'options_select',
+    ),
+  );
+  
+  field_create_instance($instance);
+}
+
+function get_component_names() {
+  $componentsDir = scandir(drupal_get_path('module', 'js_components') . '/components');
+  $components = [];
+  for ($component = 2; $component < count($componentsDir); $component += 1) {
+    $components[$componentsDir[$component]] = $componentsDir[$component];
+  }
+  return $components;
+}
