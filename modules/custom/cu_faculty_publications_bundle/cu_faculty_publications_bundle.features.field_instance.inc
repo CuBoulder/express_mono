@@ -47,7 +47,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 7,
     ),
   );
 
@@ -85,7 +85,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 5,
     ),
   );
 
@@ -128,7 +128,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 3,
+      'weight' => 6,
     ),
   );
 
@@ -162,7 +162,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'email_textfield',
-      'weight' => 3,
+      'weight' => 8,
     ),
   );
 
@@ -178,7 +178,6 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 4,
@@ -197,7 +196,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 5,
+      'weight' => 10,
     ),
   );
 
@@ -235,7 +234,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 6,
     ),
   );
 
@@ -249,7 +248,6 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 8,
@@ -268,7 +266,7 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 6,
+      'weight' => 11,
     ),
   );
 
@@ -277,7 +275,6 @@ function cu_faculty_publications_bundle_field_default_field_instances() {
   t('Department');
   t('Faculty Email Address');
   t('Faculty Name');
-  t('If you have entered an email address above a name you have selected here will be ignored.');
   t('Job Type');
   t('Number of Results');
   t('Publication Date');
