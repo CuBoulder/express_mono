@@ -45,32 +45,42 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
 function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
 
-    $endpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
-    $fisEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
     $nodePath = drupal_get_normal_path($_GET['q']);
     global $user;
     $skipCache = in_array('developer', $user->roles) || in_array('administrator', $user->roles);
 
     $publicationData = get_publication_data($nodePath, false, $vars['bean']);
 
-    if ($publicationData['results']) {
-      $totalResults = $publicationData['total'] > $publicationData['requestedNumberOfResults'] ? $publicationData['requestedNumberOfResults'] : $publicationData['total'];
-      pager_default_initialize($totalResults, 25);
-
-      // Check if results are from cache.
-      // Put in an HTML comment to confirm if results are from cache or not.
-      $isFromCache = $publicationData['isFromCache'] ? "YES" : "NO";
-      $vars['content']['publications'][]['#markup'] = "<!-- Publication data are from cache: $isFromCache -->";
-
-      foreach ($publicationData['results'] as $item) {
-        $vars['content']['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
-      }
-
-      $vars['content']['publications'][]['#markup'] = theme('pager');
+    if (isset($publicationData['error'])) {
+      $vars['content']['error'][]['#markup'] = $publicationData['error'];
     }
 
     else {
-      $vars['content']['no_results'][]['#markup'] = '<h4>There are no results for your query. Please check your data filters and try again.</h4>';
+      if ($publicationData['messages']) {
+        foreach ($publicationData['messages'] as $message) {
+          $vars['content']['messages'][]['#markup'] = $message;
+        }
+      }
+  
+      if ($publicationData['results']) {
+        $totalResults = $publicationData['total'] > $publicationData['requestedNumberOfResults'] ? $publicationData['requestedNumberOfResults'] : $publicationData['total'];
+        pager_default_initialize($totalResults, 25);
+  
+        // Check if results are from cache.
+        // Put in an HTML comment to confirm if results are from cache or not.
+        $isFromCache = $publicationData['isFromCache'] ? "YES" : "NO";
+        $vars['content']['publications'][]['#markup'] = "<!-- Publication data are from cache: $isFromCache -->";
+  
+        foreach ($publicationData['results'] as $item) {
+          $vars['content']['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
+        }
+  
+        $vars['content']['publications'][]['#markup'] = theme('pager');
+      }
+  
+      else {
+        $vars['content']['no_results'][]['#markup'] = '<h4>There are no results for your query. Please check your data filters and try again.</h4>';
+      }
     }
   }
 }
@@ -91,7 +101,7 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
   $requestUrl = url($dbUrl, ['query' => $queryArray]);
   $emailResponse = drupal_http_request($requestUrl);
 
-  if ($emailResponse->code =='200') {
+  if ($emailResponse->code == '200') {
     $emailResult = drupal_json_decode($emailResponse->data, true);
     $data = $emailResult['hits']['hits'];
     // get the orcids from each database hit
@@ -104,10 +114,20 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
         array_splice($authorEmailArray, $index, 1);
       }
     }
+    $noResults = count($orcids) > 0 ? FALSE : TRUE;
   }
 
-  $noResults = count($orcids) > 0 ? FALSE : TRUE;
-  return ['orcids' => $orcids, 'notFound' => $authorEmailArray, 'noResults' => $noResults];
+  else {
+    return [ 'error' => "<p style=\"color: red;\">{$emailResponse->code}: There was a problem connecting to the experts 'people' database. Could not create a proper query.</p>" ];
+  }
+
+  if ($noResults) {
+    return ['error' => "<h5>There was no publication data found for the selected author(s)</h5>"];
+  }
+
+  else {
+    return ['orcids' => $orcids, 'authorsNotFound' => $authorEmailArray];
+  }
 }
 
 function formQueryStringFromArray($arr) {
@@ -126,49 +146,76 @@ function get_html_no_result_string($noResultArray, $label) {
   return $warningString ? $warningString : '';
 }
 
-/**
- * Undocumented function
- *
- * @param [string] $url
- * @return array of publication data
- */
 function get_publication_data($url, $skipCache, $beanObject) {
   $cache = cache_get($url, 'cache_cu_faculty_publications_bundle');
-
+  $newExpiration = time() + (24 * 60 * 60);
   // First check if there is data in the cache and that it has not expired.
   // If so there is no need to build elastic search url, just return the cache.
   if (isset($cache->data) && $cache->data['expiration'] > time() && $skipCache === FALSE) {
-    $publications = $cache->data['publications'];
+    $publications = $cache->data;
     $publications['isFromCache'] = true;
-    $publications['isFresh'] = true;
     return $publications;
   }
   
   // If the cache has expired try to refresh it and load new data.
   else if (isset($cache->data) && $cache->data['expiration'] <= time()) {
-    $reqData = [ 'reqUrl' => $cache->data['reqUrl'], 'requestedNumberOfResults' => $cache->data['publications']['requestedNumberOfResults'] ];
-    $response = drupal_json_decode(drupal_http_request($reqData['reqUrl'])->data, true);
-    
-    if ($response) {
-      $newData = build_publication_data($response, $reqData, false, true);
-      cache_set($url, $newData['cacheData'], 'cache_cu_faculty_publications_bundle');
-      return $newData['publications'];
-    }
+    $reqData = [ 'reqUrl' => $cache->data['reqUrl'], 'requestedNumberOfResults' => $cache->data['requestedNumberOfResults'] ];
+    $response = drupal_http_request($cache->data['reqUrl']);
 
-    // If there is no response simply load cache even though it is expired.
+    if ($response->code == '200') {
+      $parsedResponse = drupal_json_decode($response->data, true);
+      $newData = [
+        'total' => $parsedResponse['hits']['total'],
+        'results' => $parsedResponse['hits']['hits'],
+        'requestedNumberOfResults' => $reqData['requestedNumberOfResults'],
+        'expiration' => $newExpiration,
+        'reqUrl' => $cache->data['reqUrl']
+      ];
+
+      cache_set($url, $newData, 'cache_cu_faculty_publications_bundle');
+      $newData['isFromCache'] = false;
+      return $newData;
+    }
+    // If the request failed still load from the cache but with a warning.
     else {
-      return build_publication_data($cache->data, '', true, false)['publications'];
+      $publications = $cache->data;
+      $publications['messages']['publications'] = "<p style=\"color: orange;\">{$response->code}: There was a problem refreshing publication data. The results shown may not be the most up to date. Please check again later.</p>"; 
+      $publications['isFromCache'] = true;
+      return $publications;
     }
   }
-  // If there is no cached data.
+
+  // There is no cached data. Build the elasticsearch request url using filter/field settngs.
   else {
-    $requestData = build_request_data($beanObject);
-    $response = drupal_json_decode(drupal_http_request($requestData['reqUrl'])->data, true);
-    
-    if ($response) {
-      $newData = build_publication_data($response, $requestData, false, true);
-      cache_set($url, $newData['cacheData'], 'cache_cu_faculty_publications_bundle');
-      return $newData['publications'];
+    $reqData = build_request_data($beanObject);
+
+    if (isset($reqData['error'])) {
+      return [
+        'total' => null,
+        'results' => null,
+        'requestedNumberOfResults' => null,
+        'error' => $reqData['error']
+      ];
+    }
+
+    else {
+      $response = drupal_http_request($reqData['reqUrl']);
+
+      if ($response->code == '200') {
+        $parsedResponse = drupal_json_decode($response->data, true);
+        $newData = [
+          'total' => $parsedResponse['hits']['total'],
+          'results' => $parsedResponse['hits']['hits'],
+          'requestedNumberOfResults' => $reqData['requestedNumberOfResults'],
+          'expiration' => $newExpiration,
+          'reqUrl' => $reqData['reqUrl'],
+          'messages' => $reqData['messages']
+        ];
+
+        cache_set($url, $newData, 'cache_cu_faculty_publications_bundle');
+        $newData['isFromCache'] = false;
+        return $newData;
+      }
     }
   }
 }
@@ -176,31 +223,32 @@ function get_publication_data($url, $skipCache, $beanObject) {
 function build_publication_data($pubData, $reqData, $isFromCache, $isFresh) {
   // Build data to save to the cache.
   $cacheData = [
-    'publications' => [
-      'total' => $pubData['hits']['total'],
-      'results' => $pubData['hits']['hits'],
-      'requestedNumberOfResults' => $reqData['requestedNumberOfResults']
-    ],
+    'total' => $pubData['hits']['total'],
+    'results' => $pubData['hits']['hits'],
+    'requestedNumberOfResults' => $reqData['requestedNumberOfResults'],
     'expiration' => time() + (24 * 60 * 60),
     'reqUrl' => $reqData['reqUrl']
   ];
 
   // The $publications array is all of the data we need to render the UI.
-  $publications = $cacheData['publications'];
+  $publications = array();
+  $publications['results'] = $pubData['hits']['hits'];
+  $publications['total'] = $pubData['hits']['total'];
   $publications['isFromCache'] = $isFromCache;
-  $publications['isFresh'] = $isFresh;
+  $publications['errors'] = $reqData['errors'];
 
   return [ 'cacheData' => $cacheData, 'publications' => $publications ];
 }
 
 // This is where the request for elastic search is constructed.
 function build_request_data($beanObject) {
-  $fisPubsEndpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
-  $fisPersonEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
+  $fisPubsEndpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_searc');
+  $fisPeopleEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
   $numberOfResultsPerPage = 25;
   $requestedNumberOfResults = 10;
   $currentPage = pager_find_page();
   $arguments = array();
+  $messages = array();
 
   if (!empty($beanObject->field_faculty_publication_date)) {
     $date1 = strtotime($beanObject->field_faculty_publication_date[LANGUAGE_NONE][0]['value']);
@@ -256,14 +304,15 @@ function build_request_data($beanObject) {
   }
 
   $authorEmails = array_unique($authorEmails);
-  $orcidResults = get_author_orcids($authorEmails, $fisPersonEndpoint);
-  if (isset($orcidResults) && count($orcidResults['notFound'] > 0)) {
-    $noOrcidResult = get_html_no_result_string($orcidResults['notFound'], 'publications');
-    $vars['content']['no_results'][]['#markup'] = $noOrcidResult;
-    if ($orcidResults['noResults']) {
-      $vars['content']['no_results'][]['#markup'] = "<h4>No publications were found for any of the selected authors.</h4>";
-      return;
-    }
+  // Call experts people database and search for author email addresses. Return an orcid for each mathcing email found there.
+  $orcidResults = get_author_orcids($authorEmails, $fisPeopleEndpoint);
+
+  if (isset($orcidResults['error'])) {
+    return $orcidResults;
+  }
+
+  else if (isset($orcidResults) && count($orcidResults['notFound'] > 0)) {
+    $messages['authorsNotFound'] = get_html_no_result_string($orcidResults['authorsNotFound'], 'publications');;
   }
 
   // Add all of the authors' orcids to arguments['q'] array if there are any.
@@ -300,7 +349,7 @@ function build_request_data($beanObject) {
 
   // Form the final request url.
   $elasticSearchRequest = url($fisPubsEndpoint, ['query' => $arguments]);
-  return [ 'reqUrl' => $elasticSearchRequest, 'requestedNumberOfResults' => $requestedNumberOfResults ];
+  return [ 'reqUrl' => $elasticSearchRequest, 'requestedNumberOfResults' => $requestedNumberOfResults, 'messages' => $messages ];
 }
 
 function cu_faculty_publications_bundle_person_names() {
