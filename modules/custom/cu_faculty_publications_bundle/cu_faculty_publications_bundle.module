@@ -220,7 +220,7 @@ function get_publication_data($url, $skipCache, $beanObject) {
   }
 }
 
-function build_publication_data($pubData, $reqData, $isFromCache, $isFresh) {
+function build_publication_data($pubData, $reqData, $isFromCache) {
   // Build data to save to the cache.
   $cacheData = [
     'total' => $pubData['hits']['total'],
@@ -231,13 +231,13 @@ function build_publication_data($pubData, $reqData, $isFromCache, $isFresh) {
   ];
 
   // The $publications array is all of the data we need to render the UI.
-  $publications = array();
-  $publications['results'] = $pubData['hits']['hits'];
-  $publications['total'] = $pubData['hits']['total'];
-  $publications['isFromCache'] = $isFromCache;
-  $publications['errors'] = $reqData['errors'];
+  $publicationData = array();
+  $publicationData['results'] = $pubData['hits']['hits'];
+  $publicationData['total'] = $pubData['hits']['total'];
+  $publicationData['isFromCache'] = $isFromCache;
+  $publicationData['messages'] = $reqData['messages'];
 
-  return [ 'cacheData' => $cacheData, 'publications' => $publications ];
+  return [ 'cacheData' => $cacheData, 'publicationData' => $publicationData ];
 }
 
 // This is where the request for elastic search is constructed.
