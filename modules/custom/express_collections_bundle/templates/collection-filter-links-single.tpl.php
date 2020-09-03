@@ -1,3 +1,10 @@
+<?php 
+/**
+* @file
+* Template for a single group of collection filters.
+*/
+?>
+
 <?php if ($multiple): ?>
   <div class="collection-filter-links-wrapper collection-filter-links-single collection-filter-links-multi-select">
     <?php if ($label): ?>
@@ -13,7 +20,7 @@
             <label for="<?php print _express_collections_bundle_clean_string($term->name); ?>"><?php print $term->name; ?></label>
           </div>
         <?php endforeach; ?>
-      
+
     </div>
   </div>
 <?php else: ?>
