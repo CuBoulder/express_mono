@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * people_content_type.features.field_instance.inc
@@ -262,6 +263,49 @@ function people_content_type_field_default_field_instances() {
       ),
       'type' => 'text_textarea_with_summary',
       'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'node-people_list_page-field_people_childterms'.
+  $field_instances['node-people_list_page-field_people_childterms'] = array(
+    'bundle' => 'people_list_page',
+    'default_value' => array(
+      0 => array(
+        'value' => 'all',
+      ),
+    ),
+    'default_value_function' => '',
+    'default_value_php' => '',
+    'deleted' => 0,
+    'description' => 'All child terms will be shown in the filter menu if no terms are selected in a vocabulary.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'fences_wrapper' => 'no_wrapper',
+    'field_name' => 'field_people_childterms',
+    'label' => 'Child Terms',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 12,
     ),
   );
 
@@ -2087,7 +2131,9 @@ function people_content_type_field_default_field_instances() {
       'default' => array(
         'label' => 'hidden',
         'module' => 'link',
-        'settings' => array(),
+        'settings' => array(
+          'custom_title' => '',
+        ),
         'type' => 'link_default',
         'weight' => 9,
       ),
@@ -2173,7 +2219,9 @@ function people_content_type_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Address');
+  t('All child terms will be shown in the filter menu if no terms are selected in a vocabulary.');
   t('Body');
+  t('Child Terms');
   t('Choose how the people are displayed in the list.');
   t('Department');
   t('Display');
