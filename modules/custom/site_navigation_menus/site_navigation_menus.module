@@ -355,9 +355,11 @@ function site_navigation_menus_configure_update($form_id, &$form_state) {
  * Add css class to menu block if it is set to be hidden on mobile.
  */
 function site_navigation_menus_preprocess_block(&$variables) {
-  $block_name = $variables['block']->bid . '-hide_on_mobile';
-  if (variable_get($block_name, 0)) {
-    // Using classes from styleguide.colorado.edu.
-    $variables['classes_array'][] = 'visible-sm visible-md visible-lg';
+  if (isset($variables['block']->bid)) {
+    $block_name = $variables['block']->bid . '-hide_on_mobile';
+    if (variable_get($block_name, 0)) {
+      // Using classes from styleguide.colorado.edu.
+      $variables['classes_array'][] = 'visible-sm visible-md visible-lg';
+    }
   }
 }
