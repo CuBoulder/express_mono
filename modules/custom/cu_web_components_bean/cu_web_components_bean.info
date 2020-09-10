@@ -1,0 +1,6 @@
+name = CU Web Component Bean
+description = Provides a custom bean to display Vue Web Components
+core = 7.x
+dependencies[] = bean
+dependencies[] = web_component_taxonomy_terms
+package = Web Components

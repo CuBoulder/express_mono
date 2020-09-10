@@ -1,0 +1,5 @@
+<?php
+
+function cu_web_components_bean_uninstall(){
+    entity_delete('bean', 'cu_web_components_bean');
+}
