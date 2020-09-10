@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.3.1 (2020-09-10)
+------------
+
+Changed
+~~~~~~~
+- Replace poor language choices 'master/slave'; 'whitelist/blacklist'.
+
+- Checking to see if alerts xml is valid. Resolves #677.
+
+- Adding back in settings option for sidebars. resolves #517.
+
+- Updated contributed modules
+
+- We now test using our modified Drupal core
+
+
+Deprecated
+~~~~~~~
+- All themes are responsive. Fixed width sites have been deprecated. Removed toggle for responsive settings.
+
+
+Fixed
+~~~~~~~
+- Fixing notice if a block did not have a bid value. Resolves #696.
+
+- Article slider links are now the correct color. Removed extra/empty links. Resolves #548.
+
+
 
 v4.3.0 (2020-04-21)
 ------------
@@ -32,7 +60,8 @@ Changed
 
 - Allow multiple bylines in articles. resolves #554.
 
-- Update Drupal core version. [James Fuller]
+- Update Drupal core version.
+
 
 Fixed
 ~~~~~
