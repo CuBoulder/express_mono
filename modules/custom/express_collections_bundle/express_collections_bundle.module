@@ -100,19 +100,27 @@ function express_collections_bundle_preprocess_entity(&$vars) {
       }
     }
 
-    // Add all items to output
-    $vars['content']['items']['all'] = _express_collections_bundle_category_query($types, array_keys($tids), $summary);
-    $vars['content']['items']['all']['#prefix'] = '<div class="collection-items" id="' . $anchor .'all"><h3 class="element-invisible">All</h3><div class="clear clearfix row">';
-    $vars['content']['items']['all']['#suffix'] = '</div></div>';
+    if (!empty($types)) {
+      // Add all items to output
+      $vars['content']['items']['all'] = _express_collections_bundle_category_query($types, array_keys($tids), $summary);
+      $vars['content']['items']['all']['#prefix'] = '<div class="collection-items" id="' . $anchor .'all"><h3 class="element-invisible">All</h3><div class="clear clearfix row">';
+      $vars['content']['items']['all']['#suffix'] = '</div></div>';
 
-    // Add categories of items to output.
-    // Only do separate groups if there are more than 2 categories selected
+      // Add categories of items to output.
+      // Only do separate groups if there are more than 2 categories selected
 
-    // Add wrapper for collections to give specificity to selectors
-    $vars['collection']['filter_effect'] = $filter_effect;
-    $vars['collection']['collection_id'] = $vars['bean']->bid;
-    $vars['content']['#prefix'] = '<div id="collection-' . $vars['bean']->bid. '" class="collection-filter-effect-' . $filter_effect . '">';
-    $vars['content']['#suffix'] = '</div>';
+      // Add wrapper for collections to give specificity to selectors
+      $vars['collection']['filter_effect'] = $filter_effect;
+      $vars['collection']['collection_id'] = $vars['bean']->bid;
+      $vars['content']['#prefix'] = '<div id="collection-' . $vars['bean']->bid. '" class="collection-filter-effect-' . $filter_effect . '">';
+      $vars['content']['#suffix'] = '</div>';
+    }
+    else {
+      if (user_access('administer collection_type vocabulary terms')) {
+        $vars['content'] = array();
+        $vars['content']['items']['#markup'] = '<div class="messages warning">The collection type is missing. It is possible the term has been deleted from the collection type vocabulary.</div>';
+      }
+    }
   }
 }
 
