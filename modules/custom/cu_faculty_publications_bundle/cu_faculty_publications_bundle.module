@@ -102,7 +102,7 @@ function get_publication_data($url, $skipCache, $beanObject) {
   }
   
   // If the cache has expired try to refresh it and load new data.
-  else if (isset($cache->data) && $cache->data['expiration'] <= time()) {
+  else if (isset($cache->data) && $cache->data['expiration'] <= time() && $skipCache === FALSE) {
     $reqData = [ 'reqUrl' => $cache->data['reqUrl'], 'requestedNumberOfResults' => $cache->data['requestedNumberOfResults'] ];
     $response = drupal_http_request($cache->data['reqUrl']);
 
@@ -123,7 +123,7 @@ function get_publication_data($url, $skipCache, $beanObject) {
     // If the request failed still load from the cache but with a warning.
     else {
       $publicationData = $cache->data;
-      $publicationData['messages']['publications'] = "<p style=\"color: orange;\">{$response->code}: There was a problem refreshing publication data. The results shown may not be the most up to date. Please check again later.</p>"; 
+      $publicationData['messages']['publications'] = "<div class=\"messages warning\">{$response->code}: There was a problem refreshing publication data. The results shown may not be the most up to date. Please check again later.</div>"; 
       $publicationData['isFromCache'] = true;
       return $publicationData;
     }
@@ -138,7 +138,7 @@ function get_publication_data($url, $skipCache, $beanObject) {
         'total' => null,
         'results' => null,
         'requestedNumberOfResults' => null,
-        'error' => $reqData['error']
+        'error' => "<div class=\"messages error\">{$reqData['error']}: There was a problem connecting to the experts 'people' database.</div>"
       ];
     }
 
@@ -320,7 +320,7 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
   }
 
   else {
-    return [ 'error' => "<p style=\"color: red;\">{$emailResponse->code}: There was a problem connecting to the experts 'people' database. Could not create a proper query.</p>" ];
+    return [ 'error' => $emailResponse->code ];
   }
 
   if ($noResults) {
