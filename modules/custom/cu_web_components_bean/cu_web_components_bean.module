@@ -35,27 +35,31 @@ function cu_web_components_bean_bean_types_api_info() {
 * Ajax callback for the Bean config form
 */
 function ajax_wc_data_options_callback($form, $form_state) {
-    //dpm($form_state['input']['wc_name']);
+    $data_options = $form['wc_name']['#args']; //this is the extra data from the radios
     $selected_wc = $form_state['input']['wc_name'];
-    // load the taxonomy terms and only show available options
-    $vocabulary = taxonomy_vocabulary_machine_name_load('web_component_data_options');
-    $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vocabulary->vid));
-    // sort the terms
-    $arr =[];
-    foreach($terms as $i){
-        $wc = taxonomy_term_load(($i->field_web_component)['und'][0]['tid']);
-        if($wc->name === $selected_wc){
-            $arr[$i->tid] = $i->name;
+    $arr = []; $options = []; $url = '';
+    foreach($data_options as $key => $i){
+        if($key == $selected_wc){
+            $url = $i['api_endpoint'];
+            if($i['options'] !== 'none'){
+                $arr = explode(', ', $i['options']);
+            }
+            break;
         }
     }
     if(count($arr) === 0){
      $form['data_options']['#description'] = 'There are no data options for this web component';
-     $form['data_options']['selected']['#options'] = ['default' => '-- WC Data Options --'];
+     $form['data_options']['wc_data_option']['#options'] = ['default' => '-- WC Data Options --'];
     }
     else{
+        // re-key the array for the values we want
+        foreach($arr as $key => $i){
+            $options[$i] = $i;
+        }
         $form['data_options']['#description'] = 'Please select what data you want to show from this data source.';
-        $form['data_options']['wc_data_option']['#options'] = $arr;
+        $form['data_options']['wc_data_option']['#options'] = $options;
     }
+    $form['data_options']['api_endpoint']['#value'] = $url;
     return $form['data_options'];
 }
 
