@@ -406,59 +406,104 @@ function _people_content_type_allowed_sorting() {
  * Provide a set of filters for people list pages that vistors can use to further filter list.
  */
 function people_content_type_list_filter_form($form, &$form_state) {
+  $node = menu_get_object();
   $form = array();
-
+  $filters = array();
+  $filter_count = 0;
+  $use_child_terms = $node->field_people_childterms[LANGUAGE_NONE][0]['value'] == 'all' ? true : false;
   // Get saved filter settings.
   $settings = variable_get('people_content_type_label_settings', '');
 
-  // Create array of filter types.
-  $filters = array();
-  $filters['person_type']['name'] = 'person_type';
-  $filters['person_type']['machine_name'] = 'type';
-  $filters['person_type']['label'] = isset($settings['person_type']) ? $settings['person_type'] : 'Type';
-
-  $filters['department']['name'] = 'department';
-  $filters['department']['machine_name'] = 'department';
-  $filters['department']['label'] = isset($settings['person_department']) ? $settings['person_department'] : 'Department';
-
-  $filters['people_filter_1']['name'] = 'people_filter_1';
-  $filters['people_filter_1']['machine_name'] = 'filter1';
-  $filters['people_filter_1']['label'] = isset($settings['person_filter_one']) ? $settings['person_filter_one'] : '';
-
-  $filters['people_filter_2']['name'] = 'people_filter_2';
-  $filters['people_filter_2']['machine_name'] = 'filter2';
-  $filters['people_filter_2']['label'] = isset($settings['person_filter_two']) ? $settings['person_filter_two'] : '';
-
-  $filters['people_filter_3']['name'] = 'people_filter_3';
-  $filters['people_filter_3']['machine_name'] = 'filter3';
-  $filters['people_filter_3']['label'] = isset($settings['person_filter_three']) ? $settings['person_filter_three'] : '';
-
-  $filter_count = 5;
-
-  // Load people list page node.
-  $node = menu_get_object();
-
-  // If filters are already set on node, remove them from filter array so they are not built/don't display.
-  if (!empty($node->field_people_list_person_type) || ($node->field_people_pos_filter_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['person_type']);
-    $filter_count--;
+  if ($node->field_people_dept_filter_show[LANGUAGE_NONE][0]['value'] == 'TRUE' ) {
+    $departments = $node->field_people_list_department[LANGUAGE_NONE];
+    $filters['department']['vocabulary'] = 'department';
+    $filters['department']['label'] = isset($settings['person_department']) ? $settings['person_department'] : 'Department';
+    if (!empty($departments)) {
+      $filters['department']['pre_filters'] = people_content_type_pre_filter_map($departments, $filters['department']['vocabulary'], $use_child_terms);
+    }
   }
-  if (!empty($node->field_people_list_department) || ($node->field_people_dept_filter_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['department']);
-    $filter_count--;
+  // ToDo rename the fields in each of the following conditions to match people's fields.
+  if ($node->field_people_pos_filter_show[LANGUAGE_NONE][0]['value'] == 'TRUE' ) {
+    $types = $node->field_people_list_person_type[LANGUAGE_NONE];
+    $filters['type']['vocabulary'] = 'person_type';
+    $filters['type']['label'] = isset($settings['person_type']) ? $settings['person_type'] : 'Type';
+    if (!empty($types)) {
+      $filters['type']['pre_filters'] = people_content_type_pre_filter_map($types, $filters['type']['vocabulary'], $use_child_terms);
+    }
   }
-  if (!empty($node->field_people_filter_1) || ($node->field_people_filter1_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['people_filter_1']);
-    $filter_count--;
+
+  if ($node->field_people_filter1_show[LANGUAGE_NONE][0]['value'] == 'TRUE' ) {
+    $filter1 = $node->field_people_filter_1[LANGUAGE_NONE];
+    $filters['filter1']['vocabulary'] = 'people_filter_1';
+    $filters['filter1']['label'] = isset($settings['people_filter_one']) ? $settings['people_filter_one'] : '';
+    if (!empty($filter1)) {
+      $filters['filter1']['pre_filters'] = people_content_type_pre_filter_map($filter1, $filters['filter1']['vocabulary'], $use_child_terms);
+    }
   }
-  if (!empty($node->field_people_filter_2) || ($node->field_people_filter2_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['people_filter_2']);
-    $filter_count--;
+
+  if ($node->field_people_filter2_show[LANGUAGE_NONE][0]['value'] == 'TRUE' ) {
+    $filter2 = $node->field_people_filter_2[LANGUAGE_NONE];
+    $filters['filter2']['vocabulary'] = 'people_filter_2';
+    $filters['filter2']['label'] = isset($settings['person_filter_two']) ? $settings['person_filter_two'] : '';
+    if (!empty($filter2)) {
+      $filters['filter2']['pre_filters'] = people_content_type_pre_filter_map($filter2, $filters['filter2']['vocabulary'], $use_child_terms);
+    }
   }
-  if (!empty($node->field_people_filter_3) || ($node->field_people_filter3_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['people_filter_3']);
-    $filter_count--;
+
+  if ($node->field_people_filter3_show[LANGUAGE_NONE][0]['value'] == 'TRUE' ) {
+    $filter3 = $node->field_people_filter_3[LANGUAGE_NONE];
+    $filters['filter3']['vocabulary'] = 'people_filter_3';
+    $filters['filter3']['label'] = isset($settings['person_filter_three']) ? $settings['person_filter_three'] : '';
+    if (!empty($filter3)) {
+      $filters['filter3']['pre_filters'] = people_content_type_pre_filter_map($filter3, $filters['filter3']['vocabulary'], $use_child_terms);
+    }
   }
+
+  // // Create array of filter types.
+  // $filters = array();
+  // $filters['person_type']['name'] = 'person_type';
+  // $filters['person_type']['machine_name'] = 'type';
+  // $filters['person_type']['label'] = isset($settings['person_type']) ? $settings['person_type'] : 'Type';
+
+  // $filters['department']['name'] = 'department';
+  // $filters['department']['machine_name'] = 'department';
+  // $filters['department']['label'] = isset($settings['person_department']) ? $settings['person_department'] : 'Department';
+
+  // $filters['people_filter_1']['name'] = 'people_filter_1';
+  // $filters['people_filter_1']['machine_name'] = 'filter1';
+  // $filters['people_filter_1']['label'] = isset($settings['person_filter_one']) ? $settings['person_filter_one'] : '';
+
+  // $filters['people_filter_2']['name'] = 'people_filter_2';
+  // $filters['people_filter_2']['machine_name'] = 'filter2';
+  // $filters['people_filter_2']['label'] = isset($settings['person_filter_two']) ? $settings['person_filter_two'] : '';
+
+  // $filters['people_filter_3']['name'] = 'people_filter_3';
+  // $filters['people_filter_3']['machine_name'] = 'filter3';
+  // $filters['people_filter_3']['label'] = isset($settings['person_filter_three']) ? $settings['person_filter_three'] : '';
+
+  // $filter_count = 5;
+
+  // // If filters are already set on node, remove them from filter array so they are not built/don't display.
+  // if (!empty($node->field_people_list_person_type) || ($node->field_people_pos_filter_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
+  //   unset($filters['person_type']);
+  //   $filter_count--;
+  // }
+  // if (!empty($node->field_people_list_department) || ($node->field_people_dept_filter_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
+  //   unset($filters['department']);
+  //   $filter_count--;
+  // }
+  // if (!empty($node->field_people_filter_1) || ($node->field_people_filter1_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
+  //   unset($filters['people_filter_1']);
+  //   $filter_count--;
+  // }
+  // if (!empty($node->field_people_filter_2) || ($node->field_people_filter2_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
+  //   unset($filters['people_filter_2']);
+  //   $filter_count--;
+  // }
+  // if (!empty($node->field_people_filter_3) || ($node->field_people_filter3_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
+  //   unset($filters['people_filter_3']);
+  //   $filter_count--;
+  // }
 
   // Loop through the filters array to build the filter fields.
   if (!empty($filters)) {
@@ -466,7 +511,7 @@ function people_content_type_list_filter_form($form, &$form_state) {
 
     foreach ($filters as $filter) {
       // Load vocabulary for filter
-      $vocabulary = taxonomy_vocabulary_machine_name_load($filter['name']);
+      $vocabulary = taxonomy_vocabulary_machine_name_load($filter['vocabulary']);
       // Get terms for vocabulary
       $terms = taxonomy_get_tree($vocabulary->vid);
       $options = array();
@@ -475,14 +520,18 @@ function people_content_type_list_filter_form($form, &$form_state) {
       // Get terms in a nested tree and create nested select list (Code is basically copied from cu_article.module).
       $terms = people_content_type_taxonomy_treedata($terms);
       $options = $options + people_content_type_nested_options($terms);
-
+      // If pre_filters were added, only show those options
+      if (!empty($filter['pre_filters'])) {
+        $options = array_intersect_key($options, $filter['pre_filters']);
+      }
       // If there are more than 2 options ('All" + 1), build form field.
       if (count($options) > 2) {
-        $form['people_list_filter'][$filter['machine_name']] = array(
+        $filter_count++;
+        $form['people_list_filter'][$filter['vocabulary']] = array(
           '#type' => 'select',
           '#title' => t($filter['label']),
           '#options' => $options,
-          '#default_value' => isset($_GET[$filter['machine_name']]) ? $_GET[$filter['machine_name']] : $options[0],
+          '#default_value' => isset($_GET[$filter['vocabulary']]) ? $_GET[$filter['vocabulary']] : $options[0],
         );
       }
     }
@@ -498,9 +547,31 @@ function people_content_type_list_filter_form($form, &$form_state) {
     if ($filter_count > 0) {
       $form['#prefix'] = '<div class="people-list-filter">';
       $form['#suffix'] = '</div>';
+      return $form;
     }
   }
-  return $form;
+}
+
+/**
+ * Maps array items to a simple array of term ids to compare.
+ */
+ function people_content_type_pre_filter_map($filter_array, $vocabulary = NULL, $use_child_terms = 0) {
+  if (!empty($filter_array)) {
+    $filter_tids = array();
+    $filter_tids[] = 'All';
+    foreach ($filter_array as $filter) {
+      $filter_tids[$filter['tid']] = $filter['tid'];
+      // Get descendents if asked for
+      if ($vocabulary && $use_child_terms) {
+        $v = taxonomy_vocabulary_machine_name_load($vocabulary);
+        $children = taxonomy_get_tree($v->vid, $filter['tid']);
+        foreach ($children as $child) {
+          $filter_tids[$child->tid] = $child->tid;
+        }
+      }
+    }
+    return $filter_tids;
+  }
 }
 
 /**
@@ -514,7 +585,7 @@ function people_content_type_list_filter_form_submit($form, &$form_state) {
   $nid = $node->nid;
 
   // Get filters if they were submitted
-  foreach (array('type', 'department', 'filter1', 'filter2', 'filter3') as $name) {
+  foreach (array('person_type', 'department', 'filter1', 'filter2', 'filter3') as $name) {
     if (!empty($form_state['values'][$name])) {
       $keys[$name] = $form_state['values'][$name];
     }
