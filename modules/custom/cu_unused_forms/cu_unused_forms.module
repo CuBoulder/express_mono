@@ -54,7 +54,7 @@ function cu_unused_forms_list() {
   }
   // Load all the webform nids to use later on.
   $nodes = node_load_multiple($form_nids);
-  $disabled_count = NULL;
+  $disabled_count = array();
   foreach ($nodes as $node) {
     if ($node->webform['status'] == 0) {
       $disabled_count[] = $node;

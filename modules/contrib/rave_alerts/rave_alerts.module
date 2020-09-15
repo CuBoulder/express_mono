@@ -108,30 +108,34 @@ function rave_alerts_remote_data() {
       $response = drupal_http_request($url, array('timeout' => 15));
       if ($response->code == '200') {
 
-        //@TODO: Add check to see if the response is XML to avoid
-        // Exception: String could not be parsed as XML
+        // Check to see if the response is XML
+        $is_xml = simplexml_load_string($response->data);
+        if($is_xml===FALSE) {
+          $watchdog_message = 'Alerts xml is not valid: ' . $url;
+          watchdog('rave_alerts', $watchdog_message, array(), WATCHDOG_NOTICE, NULL);
+        } else {
+          // Create new XMLElement
+          $data = new SimpleXMLElement($response->data);
 
-        // Create new XMLElement
-        $data = new SimpleXMLElement($response->data);
+          // Convert into a nice array for us to work with.
+          $data = json_encode($data);
+          $data = json_decode($data, true);
+          //@TODO: Make the cache timeout configurable
+          cache_set('rave_alert', $data, 'cache_rave_alerts', time() + 60);
+          // There is a new RSS item.  Evaluate the description for triggers.
+          // assume we are going to display this
+          variable_set('rave_alerts_display', 1);
+          variable_set('rave_alerts_pubdate', $data['channel']['item']['pubDate']);
 
-        // Convert into a nice array for us to work with.
-        $data = json_encode($data);
-        $data = json_decode($data, true);
-        //@TODO: Make the cache timeout configurable
-        cache_set('rave_alert', $data, 'cache_rave_alerts', time() + 60);
-        // There is a new RSS item.  Evaluate the description for triggers.
-        // assume we are going to display this
-        variable_set('rave_alerts_display', 1);
-        variable_set('rave_alerts_pubdate', $data['channel']['item']['pubDate']);
+          if (strpos($data['channel']['item']['title'], variable_get('rave_alerts_active_text', '[ACTIVE]'))) {
+             variable_set('rave_alerts_active_event', 1);
+             watchdog('rave_alerts', 'ACTIVE token found');
+          }
 
-        if (strpos($data['channel']['item']['title'], variable_get('rave_alerts_active_text', '[ACTIVE]'))) {
-           variable_set('rave_alerts_active_event', 1);
-           watchdog('rave_alerts', 'ACTIVE token found');
-        }
-
-        if (strpos($data['channel']['item']['title'], variable_get('rave_alerts_clear_text', '[CLEAR]')) !== FALSE) {
-           variable_set('rave_alerts_active_event', 0);
-           variable_set('rave_alerts_display', 0);
+          if (strpos($data['channel']['item']['title'], variable_get('rave_alerts_clear_text', '[CLEAR]')) !== FALSE) {
+             variable_set('rave_alerts_active_event', 0);
+             variable_set('rave_alerts_display', 0);
+          }
         }
         // @TODO: Add option to leave all clear message up for X hours
       }

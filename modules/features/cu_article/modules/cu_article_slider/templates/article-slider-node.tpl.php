@@ -1,6 +1,8 @@
 <div class="article-slider-node">
   <div class="article-slider-node-inner">
-    <h3><?php print l($title, 'node/' . $nid); ?></h3>
-    <?php print l(render($image), 'node/' . $nid, array('html' => true)); ?>
+    <a href="<?php print ('node/' . $nid); ?>" class="article-slider-link">
+      <h3><span class="article-slider-title"><?php print $title; ?></span></h3>
+      <?php print render($image); ?>
+    </a>
   </div>
 </div>
