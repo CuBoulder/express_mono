@@ -1,4 +1,6 @@
 .bean-type-cu_web_components_bean > div.block-inner-wrapper > div:first-child {display: none;}
+.bean-type-cu_web_components_bean > div.block-inner-wrapper > h2 {display: none;}
+
 p[data-v-2452ef20]{
      color: red;
 }
