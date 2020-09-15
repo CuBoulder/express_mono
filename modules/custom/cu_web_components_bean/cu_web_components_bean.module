@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @return {array} A new library for the Vue 3 Web Components
+ */
 function cu_web_components_bean_library() {
   $libraries['ucb-vue-lib'] = array(
     'title' => 'UCB Vue Component Library',
@@ -17,11 +20,58 @@ function cu_web_components_bean_library() {
 }
 
 /**
- * Implements hook_page_alter().
- *
+ * Implements hook_page_alter()
  */
 function cu_web_components_bean_page_alter(&$page) {
   drupal_add_library('cu_web_components_bean', 'ucb-vue-lib');
+}
+
+/**
+ * Implements hook_secure_permissions()
+ */
+function cu_web_components_bean_secure_permissions($role) {
+  $permissions = array(
+    'anonymous user' => array(
+      'view any cu_web_components_bean bean',
+    ),
+    'authenticated user' => array(
+      'view any cu_web_components_bean bean',
+    ),
+    'administrator' => array(
+      'create any cu_web_components_bean bean',
+      'delete any cu_web_components_bean bean',
+      'edit any cu_web_components_bean bean',
+      'view any cu_web_components_bean bean',
+    ),
+    'edit_my_content' => array(
+      'view any cu_web_components_bean bean',
+    ),
+    'edit_only' => array(
+      'edit any cu_web_components_bean bean',
+      'view any cu_web_components_bean bean',
+    ),
+    'developer' => array(
+      'create any cu_web_components_bean bean',
+      'delete any cu_web_components_bean bean',
+      'edit any cu_web_components_bean bean',
+      'view any cu_web_components_bean bean',
+    ),
+    'site_editor' => array(
+      'create any cu_web_components_bean bean',
+      'delete any cu_web_components_bean bean',
+      'edit any cu_web_components_bean bean',
+      'view any cu_web_components_bean bean',
+    ),
+    'site_owner' => array(
+      'create any cu_web_components_bean bean',
+      'delete any cu_web_components_bean bean',
+      'edit any cu_web_components_bean bean',
+      'view any cu_web_components_bean bean',
+    ),
+  );
+  if (isset($permissions[$role])) {
+    return $permissions[$role];
+  }
 }
 
 /**
@@ -31,28 +81,29 @@ function cu_web_components_bean_bean_types_api_info() {
   return array('api' => 4);
 }
 
-/*
-* Ajax callback for the Bean config form
-*/
+/**
+ * Ajax callback for the Bean config form. Callback updates the options dropdown and sets the API endpoint URL
+ *
+ * @return {array} Return the form element that is  being updated
+ */
 function ajax_wc_data_options_callback($form, $form_state) {
-  $data_options = $form['wc_name']['#args']; //this is the extra data from the radios
+  $data_options = $form['wc_name']['#args'];
   $selected_wc = $form_state['input']['wc_name'];
   $arr = []; $options = []; $url = '';
-  foreach($data_options as $key => $i){
+  foreach($data_options as $key => $i) {
     if($key == $selected_wc){
       $url = $i['api_endpoint'];
-      if($i['options'] !== 'none'){
+      if($i['options'] !== 'none') {
         $arr = explode(', ', $i['options']);
       }
       break;
     }
   }
-  if(count($arr) === 0){
+  if(count($arr) === 0) {
    $form['data_options']['#description'] = 'There are no data options for this web component';
    $form['data_options']['wc_data_option']['#options'] = ['default' => '-- WC Data Options --'];
   }
   else{
-    // re-key the array for the values we want
     foreach($arr as $key => $i) {
       $options[$i] = $i;
     }
@@ -63,29 +114,30 @@ function ajax_wc_data_options_callback($form, $form_state) {
   return $form['data_options'];
 }
 
-
 /**
- * Implements hook_bean_types().
  * Bean appears in UI but cannot be edited
+ *
+ * Implements hook_bean_types()
  */
 function cu_web_components_bean_bean_types() {
   $plugins = array();
   $plugins['cu_web_components_bean'] = array(
-  'label' => t('CU Web Component'),
-  'description' => t('A list of web components created in Vue'),
-  'handler' => array(
-    'class' => 'CUWebComponent',
-    'parent' => 'bean',
-    'path' => drupal_get_path('module', 'cu_web_components_bean') . '/plugins/bean',
-    'file' => 'CUWebComponent.class.php',
-     ),
-   );
+    'label' => t('CU Web Component'),
+    'description' => t('A list of web components created in Vue'),
+    'handler' => array(
+      'class' => 'CUWebComponent',
+      'parent' => 'bean',
+      'path' => drupal_get_path('module', 'cu_web_components_bean') . '/plugins/bean',
+      'file' => 'CUWebComponent.class.php',
+    )
+  );
   return $plugins;
 }
 
 /**
- * Implements hook_theme()
  * Create a new theme
+ * 
+ * Implements hook_theme()
  */
 function cu_web_components_bean_theme($existing, $type, $theme, $path) {
   $theme = array();
@@ -94,6 +146,6 @@ function cu_web_components_bean_theme($existing, $type, $theme, $path) {
     'template' => 'bean--cu_web_components_bean',
     'path' => drupal_get_path('module', 'cu_web_components_bean'),
     'variables' => ['api_endpoint' => NULL, 'wc_name' => NULL, 'resource_id' => NULL, 'wc_data_option' => NULL, 'bean_title' => NULL]
-   );
+  );
   return $theme;
 }
