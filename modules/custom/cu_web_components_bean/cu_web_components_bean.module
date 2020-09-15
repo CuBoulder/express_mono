@@ -1,19 +1,19 @@
 <?php
 
-function cu_web_components_bean_library(){
-    $libraries['ucb-vue-lib'] = array(
-        'title' => 'UCB Vue Component Library',
-        'website' => 'https://github.com/CuBoulder/vue3-sandbox',
-        'version' => '1.0',
-        'js' => array(
-            libraries_get_path('vue') . '/vue.global.prod.js' => array('scope' => 'header'),
-            libraries_get_path('vue') . '/dist/bundle.js' => array('scope' => 'footer', 'defer' => true)
-        ),
-        'css' => array(
-            libraries_get_path('vue') . '/dist/ucbWebComponentLib.css' => array('scope' => 'header')
-        )
-    );
-    return $libraries;
+function cu_web_components_bean_library() {
+  $libraries['ucb-vue-lib'] = array(
+    'title' => 'UCB Vue Component Library',
+    'website' => 'https://github.com/CuBoulder/vue3-sandbox',
+    'version' => '1.0',
+    'js' => array(
+      libraries_get_path('vue') . '/vue.global.prod.js' => array('scope' => 'header'),
+      libraries_get_path('vue') . '/dist/bundle.js' => array('scope' => 'footer', 'defer' => TRUE)
+    ),
+    'css' => array(
+      libraries_get_path('vue') . '/dist/ucbWebComponentLib.css' => array('scope' => 'header')
+    )
+  );
+  return $libraries;
 }
 
 /**
@@ -21,7 +21,7 @@ function cu_web_components_bean_library(){
  *
  */
 function cu_web_components_bean_page_alter(&$page) {
-    drupal_add_library('cu_web_components_bean', 'ucb-vue-lib');
+  drupal_add_library('cu_web_components_bean', 'ucb-vue-lib');
 }
 
 /**
@@ -35,32 +35,32 @@ function cu_web_components_bean_bean_types_api_info() {
 * Ajax callback for the Bean config form
 */
 function ajax_wc_data_options_callback($form, $form_state) {
-    $data_options = $form['wc_name']['#args']; //this is the extra data from the radios
-    $selected_wc = $form_state['input']['wc_name'];
-    $arr = []; $options = []; $url = '';
-    foreach($data_options as $key => $i){
-        if($key == $selected_wc){
-            $url = $i['api_endpoint'];
-            if($i['options'] !== 'none'){
-                $arr = explode(', ', $i['options']);
-            }
-            break;
-        }
+  $data_options = $form['wc_name']['#args']; //this is the extra data from the radios
+  $selected_wc = $form_state['input']['wc_name'];
+  $arr = []; $options = []; $url = '';
+  foreach($data_options as $key => $i){
+    if($key == $selected_wc){
+      $url = $i['api_endpoint'];
+      if($i['options'] !== 'none'){
+        $arr = explode(', ', $i['options']);
+      }
+      break;
     }
-    if(count($arr) === 0){
-     $form['data_options']['#description'] = 'There are no data options for this web component';
-     $form['data_options']['wc_data_option']['#options'] = ['default' => '-- WC Data Options --'];
+  }
+  if(count($arr) === 0){
+   $form['data_options']['#description'] = 'There are no data options for this web component';
+   $form['data_options']['wc_data_option']['#options'] = ['default' => '-- WC Data Options --'];
+  }
+  else{
+    // re-key the array for the values we want
+    foreach($arr as $key => $i) {
+      $options[$i] = $i;
     }
-    else{
-        // re-key the array for the values we want
-        foreach($arr as $key => $i){
-            $options[$i] = $i;
-        }
-        $form['data_options']['#description'] = 'Please select what data you want to show from this data source.';
-        $form['data_options']['wc_data_option']['#options'] = $options;
-    }
-    $form['data_options']['api_endpoint']['#value'] = $url;
-    return $form['data_options'];
+    $form['data_options']['#description'] = 'Please select what data you want to show from this data source.';
+    $form['data_options']['wc_data_option']['#options'] = $options;
+  }
+  $form['data_options']['api_endpoint']['#value'] = $url;
+  return $form['data_options'];
 }
 
 
@@ -93,7 +93,7 @@ function cu_web_components_bean_theme($existing, $type, $theme, $path) {
     'base hook' => 'bean',
     'template' => 'bean--cu_web_components_bean',
     'path' => drupal_get_path('module', 'cu_web_components_bean'),
-    'variables' => ['api_endpoint' => NULL, 'wc_name' => NULL, 'resource_id' => NULL, 'wc_data_option' => NULL]
+    'variables' => ['api_endpoint' => NULL, 'wc_name' => NULL, 'resource_id' => NULL, 'wc_data_option' => NULL, 'bean_title' => NULL]
    );
   return $theme;
 }

@@ -5,7 +5,7 @@
  * WC Bean.
  */
 class CUWebComponent extends BeanPlugin {
-    private $components, $data_options;
+  private $components, $data_options;
   
   /**
    * Declares default block settings. values must match the form ids or they wont save
@@ -86,7 +86,7 @@ class CUWebComponent extends BeanPlugin {
         $this->components = [];
     }
     else{
-        $res = json_decode($res->data, true);
+        $res = json_decode($res->data, TRUE);
         foreach($res['feed']['entry'] as $i){
             $this->components[$i['gsx$webcomponentname']['$t']] = $i['gsx$webcomponentlabel']['$t'];
             $this->data_options[$i['gsx$webcomponentname']['$t']] = ['options' => $i['gsx$dataoptions']['$t'], 'api_endpoint' => $i['gsx$apiendpoint']['$t'] ];
@@ -117,7 +117,7 @@ class CUWebComponent extends BeanPlugin {
         }
     }
     return $default;
-}
+  }
 
   /**
    * Displays the bean.
@@ -128,6 +128,7 @@ class CUWebComponent extends BeanPlugin {
     $content['#resource_id'] = $bean->resource_id;
     $content['#api_endpoint'] = str_replace('[id]', $bean->resource_id, $bean->api_endpoint);
     $content['#wc_data_option'] = $bean->wc_data_option;
+    $content['#bean_title'] = $bean->title;
 
     return $content;
   }
