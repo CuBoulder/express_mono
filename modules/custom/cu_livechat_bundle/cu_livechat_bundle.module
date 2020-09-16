@@ -123,6 +123,10 @@ function _cu_livechat_bundle_config_form_validate($form, &$form_state) {
     }
     drupal_set_message(t($error), 'error');
   }
+  if (!is_numeric($form_state['values']['livechat_license_number']) && !empty($form_state['values']['livechat_license_number'])) {
+    $error = t('The livechat license number must only contain numbers.');
+    form_set_error('livechat_license_number', $error);
+  }
 }
 
 /**
