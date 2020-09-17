@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.3.2 (2020-09-17)
+------------
+
+Fixed
+~~~~~~~
+- Revert Google Tag Manager contrib update. Resolves #707.
+
 v4.3.1 (2020-09-10)
 ------------
 
