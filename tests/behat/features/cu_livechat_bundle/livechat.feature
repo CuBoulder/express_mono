@@ -15,7 +15,10 @@ When I fill in "LiveChatINC.com license number" with "1234567"
 And I fill in "AdmitHub.com license number" with "1234567"
 And I press "Save configuration"
 Then I should see "Only one license number should be entered."
-
+When I fill in "LiveChatINC.com license number" with ""
+And I fill in "AdmitHub.com license number" with "1234567"
+And I press "Save configuration"
+Then I should see "The configuration options have been saved."
 
 # This scenario uses the LiveChat config set up in the last scenario.
 @testing_frontpage @javascript
