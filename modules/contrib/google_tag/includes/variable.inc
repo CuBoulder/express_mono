@@ -26,7 +26,7 @@ function _google_tag_variable_group_info() {
  */
 function _google_tag_variable_info($options) {
   // Gather data.
-  $groups = array('general', 'advanced', 'path', 'role', 'status', 'settings', 'internal');
+  $groups = array('general', 'path', 'role', 'status', 'advanced', 'internal');
   $common = array(
     'group' => 'google_tag',
     'localize' => TRUE,
@@ -42,14 +42,6 @@ function _google_tag_variable_info($options) {
   foreach ($variables as $key => $variable) {
     $variables[$key] += $common;
   }
-  if (!empty($options['use_prefix'])) {
-    // Deal with schema 7200 version change.
-    $retro = array();
-    foreach ($variables as $key => $variable) {
-      $retro["google_tag_$key"] = $variable;
-    }
-    $variables = $retro;
-  }
 
   return $variables;
 }
@@ -63,7 +55,7 @@ function _google_tag_variable_info_general($options) {
   $description = t('The ID assigned by Google Tag Manager (GTM) for this website container. To get a container ID, <a href="@path">sign up for GTM</a> and create a container for your website.', $args, $options);
 
   // Build variables.
-  $variables['container_id'] = array(
+  $variables['google_tag_container_id'] = array(
     'type' => 'string',
     'title' => t('Container ID', array(), $options),
     'description' => $description,
@@ -77,11 +69,41 @@ function _google_tag_variable_info_general($options) {
     ),
   );
 
-  $variables['weight'] = array(
+  return $variables;
+}
+
+/**
+ * Implements hook_variable_info().
+ */
+function _google_tag_variable_info_path($options) {
+  // Gather data.
+  $args = array(
+    '%blog' => 'blog',
+    '%blog-wildcard' => 'blog/*',
+    '%front' => '<front>',
+  );
+  $list_description = t('Enter one relative path per line using the "*" character as a wildcard. Example paths are: "%blog" for the blog page, "%blog-wildcard" for each individual blog, and "%front" for the front page.', $args, $options);
+
+  // Build variables.
+  $variables['google_tag_path_toggle'] = array(
     'type' => 'select',
-    'type' => 'weight',
-    'title' => t('Weight', array(), $options),
-    'default' => 1,
+    'title' => t('Add snippet on specific paths', array(), $options),
+    'options' => array(
+      GOOGLE_TAG_EXCLUDE_LISTED => t('All paths except the listed paths', array(), $options),
+      GOOGLE_TAG_INCLUDE_LISTED => t('Only the listed paths', array(), $options),
+    ),
+    'default' => GOOGLE_TAG_EXCLUDE_LISTED,
+  );
+
+  $variables['google_tag_path_list'] = array(
+    'type' => 'text',
+    'title' => t('Listed paths', array(), $options),
+    'description' => $list_description,
+    'default' => GOOGLE_TAG_PATHS,
+    'validate callback' => '_google_tag_validate_text',
+    'element' => array(
+      '#rows' => 10,
+    ),
   );
 
   return $variables;
@@ -90,30 +112,10 @@ function _google_tag_variable_info_general($options) {
 /**
  * Implements hook_variable_info().
  */
-function _google_tag_variable_info_path($options) {
-  $args = array(
-    '%node' => '/node',
-    '%user-wildcard' => '/user/*',
-    '%front' => '<front>',
-  );
-  $description = t('Enter one relative path per line using the "*" character as a wildcard. Example paths are: "%node" for the node page, "%user-wildcard" for each individual user, and "%front" for the front page.', $args, $options);
-  $default = GOOGLE_TAG_PATHS;
-  $rows = 10;
-
-  $toggle = 'path_toggle';
-  $list = 'path_list';
-  $plural = 'paths';
-  $adjective = 'listed';
-  $config = compact(array('toggle', 'list', 'plural', 'adjective', 'description', 'default', 'rows'));
-  return _google_tag_variable_info_generic($config, $options);
-}
-
-/**
- * Implements hook_variable_info().
- */
 function _google_tag_variable_info_role($options) {
   global $language;
 
+  // Gather data.
   // Set language code to default to prevent role names from being translated.
   // Use role name in default language as array key as this matches the values
   // attached to global user object (used when evaluating role condition). Set
@@ -124,158 +126,66 @@ function _google_tag_variable_info_role($options) {
   // roles not just the anonymous and authenticated roles.
   $language_keep = $language->language;
   $language->language = 'en';
-  $options = user_roles();
+  $roles = user_roles();
   $language->language = $language_keep;
-  foreach ($options as $rid => $role) {
+  foreach ($roles as $rid => $role) {
     // Set display value to translated role name.
-    $options[$role] = t($role);
-    unset($options[$rid]);
+    $roles[$role] = t($role);
+    unset($roles[$rid]);
   }
 
-  $toggle = 'role_toggle';
-  $list = 'role_list';
-  $plural = 'roles';
-  $config = compact(array('toggle', 'list', 'plural', 'options'));
-  return _google_tag_variable_info_generic($config, $options);
+  // Build variables.
+  $variables['google_tag_role_toggle'] = array(
+    'type' => 'select',
+    'title' => t('Add snippet for specific roles', array(), $options),
+    'options' => array(
+      GOOGLE_TAG_EXCLUDE_LISTED => t('All roles except the selected roles', array(), $options),
+      GOOGLE_TAG_INCLUDE_LISTED => t('Only the selected roles', array(), $options),
+    ),
+    'default' => GOOGLE_TAG_EXCLUDE_LISTED,
+  );
+
+  $variables['google_tag_role_list'] = array(
+    'type' => 'options',
+    'title' => t('Selected roles', array(), $options),
+    'default' => array(),
+    'options' => $roles,
+  );
+
+  return $variables;
 }
 
 /**
  * Implements hook_variable_info().
  */
 function _google_tag_variable_info_status($options) {
-  $args = array('@path' => 'http://en.wikipedia.org/wiki/List_of_HTTP_status_codes');
-  $description = t('Enter one response status per line. For more information, refer to the <a href="@path">list of HTTP status codes</a>.', $args, $options);
-  $default = GOOGLE_TAG_STATUSES;
-  $rows = 5;
-
-  $toggle = 'status_toggle';
-  $list = 'status_list';
-  $plural = 'statuses';
-  $adjective = 'listed';
-  $config = compact(array('toggle', 'list', 'plural', 'adjective', 'description', 'default', 'rows'));
-  return _google_tag_variable_info_generic($config, $options);
-}
-
-/**
- * Implements hook_variable_info().
- */
-function _google_tag_variable_info_realm($options) {
-  // @todo Does google_tag_condition_filter() obviate this gate check?
-  if (!module_exists('variable_realm') || !module_exists('variable_store')) {
-    return array();
-  }
-
-  $options = array();
-  $realms = variable_realm_list();
-  foreach ($realms as $realm_name => $realm_title) {
-    $keys = variable_realm_keys($realm_name);
-    foreach ($keys as $key_name => $key_title) {
-      $options["$realm_name:$key_name"] = "$realm_name:$key_name";
-    }
-  }
-  $toggle = 'realm_toggle';
-  $list = 'realm_list';
-  $plural = 'keys';
-  $config = compact(array('toggle', 'list', 'plural', 'options'));
-  return _google_tag_variable_info_generic($config, $options);
-}
-
-/**
- * Implements hook_variable_info().
- */
-function _google_tag_variable_info_domain($options) {
-  // @todo Does google_tag_condition_filter() obviate this gate check?
-  if (!module_exists('domain')) {
-    return array();
-  }
-
-  $options = array();
-  foreach (domain_domains() as $key => $value) {
-    $options[$value['machine_name']] = $value['sitename'];
-  }
-  $toggle = 'domain_toggle';
-  $list = 'domain_list';
-  $plural = 'domains';
-  $config = compact(array('toggle', 'list', 'plural', 'options'));
-  return _google_tag_variable_info_generic($config, $options);
-}
-
-/**
- * Implements hook_variable_info().
- */
-function _google_tag_variable_info_language($options) {
-  // @todo Does google_tag_condition_filter() obviate this gate check?
-  if (!module_exists('locale')) {
-    return array();
-  }
-
-  $toggle = 'language_toggle';
-  $list = 'language_list';
-  $plural = 'languages';
-  $options = locale_language_list();
-  $config = compact(array('toggle', 'list', 'plural', 'options'));
-  return _google_tag_variable_info_generic($config, $options);
-}
-
-/**
- * Implements hook_variable_info().
- */
-function _google_tag_variable_info_generic($config, $options) {
   // Gather data.
-  $config += array('adjective' => 'selected', 'element' => 'options');
-  extract($config);
-  $args = array(
-    '@adjective' => $adjective,
-    '@uc_adjective' => ucfirst($adjective),
-    '@plural' => $plural,
-  );
+  $args = array('@path' => 'http://en.wikipedia.org/wiki/List_of_HTTP_status_codes');
+  $list_description = t('Enter one response status per line. For more information, refer to the <a href="@path">list of HTTP status codes</a>.', $args, $options);
 
   // Build variables.
-  $variables[$toggle] = array(
+  $variables['google_tag_status_toggle'] = array(
     'type' => 'select',
-    'title' => special_t('Insert snippet for specific @plural', $args, $options),
+    'title' => t('Add snippet for specific statuses', array(), $options),
     'options' => array(
-      GOOGLE_TAG_EXCLUDE_LISTED => special_t('All @plural except the @adjective @plural', $args, $options),
-      GOOGLE_TAG_INCLUDE_LISTED => special_t('Only the @adjective @plural', $args, $options),
+      GOOGLE_TAG_EXCLUDE_LISTED => t('All statuses except the listed statuses', array(), $options),
+      GOOGLE_TAG_INCLUDE_LISTED => t('Only the listed statuses', array(), $options),
     ),
     'default' => GOOGLE_TAG_EXCLUDE_LISTED,
   );
 
-  if ($adjective == 'selected') {
-    $variables[$list] = array(
-      'type' => 'options',
-      'title' => special_t('@uc_adjective @plural', $args, $options),
-      'default' => array(),
-      'options' => $options,
-    );
-  }
-  else {
-    $variables[$list] = array(
-      'type' => 'text',
-      'title' => special_t('@uc_adjective @plural', $args, $options),
-      'description' => $description,
-      'default' => $default,
-      'validate callback' => '_google_tag_validate_text',
-      'element' => array(
-        '#rows' => $rows,
-      ),
-    );
-  }
+  $variables['google_tag_status_list'] = array(
+    'type' => 'text',
+    'title' => t('Listed statuses', array(), $options),
+    'description' => $list_description,
+    'default' => GOOGLE_TAG_STATUSES,
+    'validate callback' => '_google_tag_validate_text',
+    'element' => array(
+      '#rows' => 5,
+    ),
+  );
 
   return $variables;
-}
-
-/**
- * Returns a translated string after placeholder substitution.
- *
- * @param string $string
- *   The string to manipulate.
- *
- * @return string
- *   The translated string.
- */
-function special_t($string, $args) {
-  return t(strtr($string, $args));
 }
 
 /**
@@ -293,9 +203,30 @@ function _google_tag_variable_info_advanced($options) {
   $description2 = t('The environment ID to use with this website container. To get an environment ID, <a href="@path">select Environments</a>, create an environment, then click the "Get Snippet" action. The environment ID and token will be in the snippet.', $args, $options);
 
   // Build variables.
+  $variables['google_tag_compact_snippet'] = array(
+    'type' => 'boolean',
+    'title' => t('Compact the JavaScript snippet', array(), $options),
+    'description' => t('If checked, then the JavaScript snippet will be compacted to remove unnecessary whitespace. This is <strong>recommended on production sites</strong>. Leave unchecked to output a snippet that can be examined using a JavaScript debugger in the browser.', array(), $options),
+    'default' => 1,
+  );
+
+  $variables['google_tag_include_file'] = array(
+    'type' => 'boolean',
+    'title' => t('Include the snippet as a file', array(), $options),
+    'description' => t('If checked, then each JavaScript snippet will be included as a file. This is <strong>recommended</strong>. Leave unchecked to inline each snippet into the page. This only applies to data layer and script snippets.', array(), $options),
+    'default' => 1,
+  );
+
+  $variables['google_tag_debug_output'] = array(
+    'type' => 'boolean',
+    'title' => t('Show debug output', array(), $options),
+    'description' => t('If checked, then the result of each snippet insertion condition will be shown in the message area. Enable <strong>only for development</strong> purposes.', array(), $options),
+    'default' => 0,
+  );
+
   $disabled = !module_exists('datalayer');
 
-  $variables['data_layer'] = array(
+  $variables['google_tag_data_layer'] = array(
     'type' => 'string',
     'title' => t('Data layer', array(), $options),
     'description' => t('The name of the data layer. Default value is "dataLayer". In most cases, use the default.', array(), $options),
@@ -308,7 +239,7 @@ function _google_tag_variable_info_advanced($options) {
     ),
   );
 
-  $variables['include_classes'] = array(
+  $variables['google_tag_include_classes'] = array(
     'type' => 'boolean',
     'title' => t('Add classes to the data layer', array(), $options),
     'description' => t('If checked, then the listed classes will be added to the data layer.', array(), $options),
@@ -316,7 +247,7 @@ function _google_tag_variable_info_advanced($options) {
     'validate callback' => '_google_tag_validate_listed_classes',
   );
 
-  $variables['whitelist_classes'] = array(
+  $variables['google_tag_whitelist_classes'] = array(
     'type' => 'text',
     'title' => t('White-listed classes', array(), $options),
     'description' => $description,
@@ -324,11 +255,11 @@ function _google_tag_variable_info_advanced($options) {
     'validate callback' => '_google_tag_validate_text',
     'element' => array(
       '#rows' => 5,
-      '#states' => _google_tag_variable_states('include_classes'),
+      '#states' => _google_tag_variable_states('google_tag_include_classes'),
     ),
   );
 
-  $variables['blacklist_classes'] = array(
+  $variables['google_tag_blacklist_classes'] = array(
     'type' => 'text',
     'title' => t('Black-listed classes', array(), $options),
     'description' => t('The types of tags, triggers, and variables <strong>forbidden</strong> on a page. Enter one class per line.', array(), $options),
@@ -336,18 +267,18 @@ function _google_tag_variable_info_advanced($options) {
     'validate callback' => '_google_tag_validate_text',
     'element' => array(
       '#rows' => 5,
-      '#states' => _google_tag_variable_states('include_classes'),
+      '#states' => _google_tag_variable_states('google_tag_include_classes'),
     ),
   );
 
-  $variables['include_environment'] = array(
+  $variables['google_tag_include_environment'] = array(
     'type' => 'boolean',
     'title' => t('Include an environment', array(), $options),
     'description' => t('If checked, then the applicable snippets will include the environment items below. Enable <strong>only for development</strong> purposes.', array(), $options),
     'default' => 0,
   );
 
-  $variables['environment_id'] = array(
+  $variables['google_tag_environment_id'] = array(
     'type' => 'string',
     'title' => t('Environment ID', array(), $options),
     'description' => $description2,
@@ -357,11 +288,11 @@ function _google_tag_variable_info_advanced($options) {
       '#attributes' => array('placeholder' => array('env-x')),
       '#size' => 10,
       '#maxlength' => 7,
-      '#states' => _google_tag_variable_states('include_environment'),
+      '#states' => _google_tag_variable_states('google_tag_include_environment'),
     ),
   );
 
-  $variables['environment_token'] = array(
+  $variables['google_tag_environment_token'] = array(
     'type' => 'string',
     'title' => t('Environment token', array(), $options),
     'description' => t('The authentication token for this environment.', array(), $options),
@@ -370,7 +301,7 @@ function _google_tag_variable_info_advanced($options) {
       '#attributes' => array('placeholder' => array('xxxxxxxxxxxxxxxxxxxxxx')),
       '#size' => 20,
       '#maxlength' => 25,
-      '#states' => _google_tag_variable_states('include_environment'),
+      '#states' => _google_tag_variable_states('google_tag_include_environment'),
     ),
   );
 
@@ -379,62 +310,6 @@ function _google_tag_variable_info_advanced($options) {
 
 /**
  * Implements hook_variable_info().
- */
-function _google_tag_variable_info_settings($options) {
-  // Build variables.
-  $variables['uri'] = array(
-    'type' => 'string',
-    'title' => t('Snippet parent URI'),
-    'description' => t('The parent URI for saving snippet files. Snippet files will be saved to "[uri]/google_tag". Enter a plain stream wrapper with a single trailing slash like "public:/".', array(), $options),
-    'default' => 'public:/',
-    'validate callback' => '_google_tag_validate_uri',
-    'element' => array(
-      '#attributes' => array('placeholder' => array('public:/')),
-      '#required' => TRUE,
-    ),
-  );
-
-  $variables['compact_snippet'] = array(
-    'type' => 'boolean',
-    'title' => t('Compact the JavaScript snippet', array(), $options),
-    'description' => t('If checked, then the JavaScript snippet will be compacted to remove unnecessary whitespace. This is <strong>recommended on production sites</strong>. Leave unchecked to output a snippet that can be examined using a JavaScript debugger in the browser.', array(), $options),
-    'default' => 1,
-  );
-
-  $variables['include_file'] = array(
-    'type' => 'boolean',
-    'title' => t('Include the snippet as a file', array(), $options),
-    'description' => t('If checked, then each JavaScript snippet will be included as a file. This is <strong>recommended</strong>. Leave unchecked to inline each snippet into the page. This only applies to data layer and script snippets.', array(), $options),
-    'default' => 1,
-  );
-
-  $variables['rebuild_snippets'] = array(
-    'type' => 'boolean',
-    'title' => t('Recreate snippets on cache rebuild'),
-    'description' => t('If checked, then the JavaScript snippet files will be created during a cache rebuild. This is <strong>recommended on production sites</strong>.', array(), $options),
-    'default' => 1,
-  );
-
-  $variables['flush_snippets'] = array(
-    'type' => 'boolean',
-    'title' => t('Flush snippet directory on cache rebuild'),
-    'description' => t('If checked, then the snippet directory will be deleted and recreated during a cache rebuild. If not checked, then manual intervention may be required to tidy up the snippet directory (e.g. remove snippet files for a deleted container).', array(), $options),
-    'default' => 0,
-  );
-
-  $variables['debug_output'] = array(
-    'type' => 'boolean',
-    'title' => t('Show debug output', array(), $options),
-    'description' => t('If checked, then the result of each snippet insertion condition will be shown in the message area. Enable <strong>only for development</strong> purposes.', array(), $options),
-    'default' => 0,
-  );
-
-  return $variables;
-}
-
-/**
- * Implements hook_variable_info().
- * @deprecated
  */
 function _google_tag_variable_info_internal($options) {
   // Gather data.
@@ -444,13 +319,13 @@ function _google_tag_variable_info_internal($options) {
   // Build variables.
   $visible = module_exists('datalayer') && module_exists('variable_realm');
 
-  $variables['data_layer_classes'] = array(
+  $variables['google_tag_data_layer_classes'] = array(
     'type' => 'properties',
     'title' => t('Data layer classes', array(), $options),
     'description' => t('The associative array of data layer classes. <strong>NOTE: If using the dataLayer module to insert these values and variable realms are in effect, then check this item.</strong>', array(), $options),
     'default' => array(),
     'element' => array(
-      // '#prefix' => $visible ? '<span>' . $markup . '</span>' : '',
+//       '#prefix' => $visible ? '<span>' . $markup . '</span>' : '',
       '#attributes' => array('class' => array('element-invisible')),
     ),
   );
@@ -511,7 +386,7 @@ function _google_tag_validate_environment_id($variable, $options, $element, $for
   // variable edit form and never setting the 'environment_id'.
   $parents = $element['#parents'];
   array_pop($parents);
-  $parents[] = 'include_environment';
+  $parents[] = 'google_tag_include_environment';
   $include_environment = drupal_array_get_nested_value($form_state['values'], $parents);
 
   $value = drupal_array_get_nested_value($form_state['values'], $element['#parents']);
@@ -542,12 +417,12 @@ function _google_tag_validate_listed_classes($variable, $options, $element, $for
     return;
   }
 
-  $keys = array('whitelist_classes', 'blacklist_classes');
+  $keys = array('google_tag_whitelist_classes', 'google_tag_blacklist_classes');
   $variables = isset($form['#variable_edit_form']) ? $form['#variable_edit_form'] : array();
   $items = array_diff($keys, $variables);
   if (!empty($items)) {
     // Need both variables on form to validate.
-    form_set_error('include_classes', t('To validate listed classes, include the whitelist and blacklist variables in the realm variables.'));
+    form_set_error('google_tag_include_classes', t('To validate listed classes, include the whitelist and blacklist variables in the realm variables.'));
     return;
   }
 
@@ -560,9 +435,9 @@ function _google_tag_validate_listed_classes($variable, $options, $element, $for
     $empty &= empty($classes);
   }
   if ($empty) {
-    form_set_error('include_classes', t('Enter listed classes in at least one field, or uncheck the box.'));
-    form_set_error('whitelist_classes', '');
-    form_set_error('blacklist_classes', '');
+    form_set_error('google_tag_include_classes', t('Enter listed classes in at least one field, or uncheck the box.'));
+    form_set_error('google_tag_whitelist_classes', '');
+    form_set_error('google_tag_blacklist_classes', '');
   }
 }
 

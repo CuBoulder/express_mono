@@ -13,7 +13,6 @@
 function google_tag_enable() {
   global $_google_tag_display_message;
   $_google_tag_display_message = TRUE;
-  google_tag_settings_create();
   google_tag_assets_create();
 }
 
@@ -21,8 +20,6 @@ function google_tag_enable() {
  * Implements hook_uninstall().
  */
 function google_tag_uninstall() {
-/*
-  // Does not apply to 2.x branch; move to hook_update_N.
   db_delete('variable')
     ->condition('name', db_like('google_tag_') . '%', 'LIKE')
     ->execute();
@@ -46,16 +43,8 @@ function google_tag_uninstall() {
       }
     }
   }
-*/
-  $row = db_query('SELECT * FROM {gtag_config} WHERE name = \'google_tag.settings\'')->fetchAllKeyed();;
-  $settings = unserialize(array_shift($row));
-  if (!empty($settings['flush_snippets'])) {
-    $directory = $settings['uri'];
-    if (!empty($directory)) {
-      // Remove snippet file directory.
-      file_unmanaged_delete_recursive($directory . '/google_tag');
-    }
-  }
+
+  @file_unmanaged_delete_recursive('public://google_tag');
 
   // @todo Is this relevant here or in _google_tag_snippets_save()?
   drupal_clear_js_cache();
@@ -68,15 +57,10 @@ function google_tag_requirements($phase) {
   $t = get_t();
   $requirements = array();
   if ($phase == 'runtime') {
-    $manager = \GTMContainerManager::getInstance();
-    $containers = $manager->loadContainers();
-    if (empty($containers)) {
+    if (!preg_match('/^GTM-\w{4,}$/', variable_get('google_tag_container_id', ''))) {
       // Google Tag Manager container ID has not been set.
-      $args = array(
-        '@url1' => '/admin/config/system/google_tag/settings',
-        '@url2' => '/admin/config/system/google_tag',
-      );
-      $description = $t('Configure default settings on the <a href="@url1">module settings page</a>. Afterwards, add a container on the <a href="@url2">container management page</a>.', $args);
+      $args = array('@path' => '/admin/config/system/google_tag');
+      $description = $t('Configure this integration module on its <a href="@path">settings page</a>.', $args);
       $requirements['google_tag'] = array(
         'title' => $t('Google Tag Manager'),
         'description' => $description,
@@ -86,19 +70,9 @@ function google_tag_requirements($phase) {
     }
   }
   if ($phase == 'runtime' || $phase == 'update' || $phase == 'install') {
-    $phase == 'install' ? require_once __DIR__ . '/google_tag.module' : '';
     // Adapted from system_requirements().
-    $directory = $phase == 'install' ? 'public:/' : \GTMSettings::getInstance()->get('uri');
-    if (empty($directory)) {
-      $requirements['google_tag_snippet_parent_directory'] = array(
-        'title' => t('Google Tag Manager'),
-        'description' => $t('The snippet parent directory is not set. Configure default settings on the <a href="@url1">module settings page</a>.', array('@url1' => '/admin/config/system/google_tag/settings')),
-        'severity' => REQUIREMENT_ERROR,
-        'value' => t('Not configured'),
-      );
-      return $requirements;
-    }
-    $directory .= '/google_tag';
+    $directory = 'public://google_tag';
+    module_load_include('inc', 'google_tag', 'includes/admin');
     if (!is_dir($directory) || !_google_tag_is_writable($directory) || !_google_tag_is_executable($directory)) {
       _file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
     }
@@ -148,46 +122,6 @@ function google_tag_requirements($phase) {
     }
   }
   return $requirements;
-}
-
-/**
- * Implements hook_schema().
- */
-function google_tag_schema() {
-  $schema = array();
-  // Configuration table.
-  $schema['gtag_config'] = array(
-    'description' => 'The base table for configuration data.',
-    'export' => array(
-      'admin_title' => 'label',
-      'key' => 'name',
-      'key name' => 'Machine-readable name',
-      'primary key' => 'name',
-      'identifier' => 'gtag',
-      'object factory' => 'google_tag_object_factory',
-      'load all callback' => 'google_tag_export_load',
-      'cache defaults' => TRUE,
-    ),
-    'fields' => array(
-      'name' => array(
-        'description' => 'The configuration object name (primary identifier).',
-        'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
-        'default' => '',
-      ),
-      'data' => array(
-        'description' => 'The serialized configuration data.',
-        'type' => 'text',
-        'serialize' => TRUE,
-      ),
-    ),
-    'primary key' => array('name'),
-    'unique keys' => array(
-      'machine_name' => array('name'),
-    ),
-  );
-  return $schema;
 }
 
 /**
@@ -284,19 +218,15 @@ function google_tag_update_7104(&$sandbox) {
   $count = 0;
   $tables = array('variable');
   if (module_exists('variable_realm') && module_exists('variable_store')) {
-    global $conf;
     $tables[] = 'variable_store';
-    $realms = variable_realm_list();
-    foreach ($realms as $realm_name => $realm_title) {
-      if (!empty($conf["variable_realm_list_{$realm_name}"])) {
-        $items = $conf["variable_realm_list_{$realm_name}"];
-        if ($key = array_search('google_tag_compact_tag', $items, TRUE)) {
-          $items[$key] = 'google_tag_compact_snippet';
-          variable_set("variable_realm_list_{$realm_name}", $items);
-          $count++;
-        }
-      }
-    }
+    $args = array(
+      ':old' => 's:22:"google_tag_compact_tag"',
+      ':new' => 's:26:"google_tag_compact_snippet"',
+    );
+    $count += db_update('variable')
+      ->expression('value', 'REPLACE(value, :old, :new)', $args)
+      ->condition('name', 'variable_realm_list_language')
+      ->execute();
   }
 
   foreach ($tables as $table) {
@@ -329,177 +259,4 @@ function google_tag_update_7105(&$sandbox) {
 function google_tag_update_7106(&$sandbox) {
   // This update used to [re]create the snippet files, but this is no longer
   // necessary here as hook_enable() and hook_cron() were implemented.
-}
-
-/**
- * Migrate variables to settings and container config items.
- */
-function google_tag_update_7200(&$sandbox) {
-  // @todo Retain variables until next hook_update_N to avoid migration issues.
-  // Extract the delete variables code from hook_uninstall().
-  // google_tag_uninstall();
-
-  $chema = drupal_get_schema_unprocessed('google_tag', 'gtag_config');
-  db_create_table('gtag_config', $chema);
-
-  // Do first while the realm keys are hopefully on defaults.
-  _google_tag_settings_migrate();
-
-  if (module_exists('variable_realm') && module_exists('variable_store')) {
-    // Backup global config as switching realm overwrites this array.
-    $backup = $GLOBALS['conf'];
-    // i18n_variable module depends on variable_realm, variable_store
-    $realms = variable_realm_list();
-    // @todo If realm enabled but only realm is global, then do that.
-    foreach ($realms as $realm_name => $realm_title) {
-      $keys = variable_realm_keys($realm_name);
-      foreach ($keys as $key_name => $key_title) {
-        variable_realm_switch($realm_name, $key_name);
-        _google_tag_container_migrate($realm_name, $key_name);
-      }
-    }
-    $GLOBALS['conf'] = $backup;
-  }
-  else {
-    _google_tag_container_migrate();
-  }
-
-  return t('Migrate variables to settings and container config items');
-}
-
-/**
- * Migrates module settings to settings configuration entity.
- */
-function _google_tag_settings_migrate() {
-  google_tag_settings_create(FALSE);
-}
-
-/**
- * Migrates container variables to container configuration entities.
- *
- * @param string $realm_name
- *   The realm name.
- * @param string $key_name
- *   The realm key name.
- */
-function _google_tag_container_migrate($realm_name = '', $key_name = '') {
-  ctools_include('export');
-  module_load_include('inc', 'google_tag', 'includes/variable');
-
-  $machine_name = $key_name ? str_replace(':', '_', $key_name) : 'primary';
-  $result = gtag_export_crud_load('gtag_config', "google_tag.container.$machine_name");
-  if ($result) {
-    return;
-  }
-
-  // Gather data.
-  $groups = array('general', 'advanced', 'path', 'role', 'status', /*'realm'*/);
-  $data['name'] = $machine_name;
-  $data['label'] = $key_name ? $key_name : 'Primary';
-  $data['status'] = TRUE;
-
-  // Build variables.
-  $variables = _google_tag_variable_list($groups);
-  foreach ($variables as $name => $variable) {
-    // Stodo Restore the 'google_tag_' prefix to the variable name.
-    $key = $name;
-    $name = 'google_tag_' . $name;
-    $data[$key] = variable_get($name, '');
-  }
-  $data['weight'] = 1;
-  // Ensure default values for new settings.
-  $data['realm_toggle'] = $variables['realm_toggle']['default'];
-  $data['realm_list'] = $variables['realm_list']['default'];
-  if ($realm_name && $key_name) {
-    $data['realm_toggle'] = GOOGLE_TAG_INCLUDE_LISTED;
-    $data['realm_list']["$realm_name:$key_name"] = "$realm_name:$key_name";
-  }
-  // Prune the list.
-  $data['role_list'] = array_filter($data['role_list']);
-
-  $object['name'] = "google_tag.container.$machine_name";
-  $object['data'] = $data;
-  $object['export_type'] = NULL;
-  $object = (object) $object;
-
-  $result = ctools_export_crud_save('gtag_config', $object);
-}
-
-/**
- * Installs module settings as a settings configuration entity.
- *
- * @param bool $use_install_config
- *   (optional) Whether to populate settings from existing variable values or
- *   default configuration values.
- */
-function google_tag_settings_create($use_install_config = TRUE) {
-  ctools_include('export');
-  module_load_include('inc', 'google_tag', 'includes/variable');
-
-  $result = gtag_export_crud_load('gtag_config', 'google_tag.settings');
-  if ($result) {
-    return;
-  }
-
-  // Gather data.
-  $data['name'] = 'settings';
-  $data['label'] = 'Module settings';
-  $data['status'] = TRUE;
-
-  // Build module settings.
-  $groups = array('settings');
-  $variables = _google_tag_variable_list($groups);
-  foreach ($variables as $name => $variable) {
-    // Stodo Restore the 'google_tag_' prefix to the variable name.
-    $key = $name;
-    $name = 'google_tag_' . $name;
-    $data[$key] = $use_install_config ? $variable['default'] : variable_get($name, '');
-  }
-  // Ensure default values for new settings.
-  $data['uri'] = 'public:/';
-  $data['rebuild_snippets'] = $variables['rebuild_snippets']['default'];
-  $data['flush_snippets'] = $variables['flush_snippets']['default'];
-
-  // Build default container settings.
-  $groups = array('advanced', 'path', 'role', 'status', 'realm');
-  $variables = _google_tag_variable_list($groups);
-  foreach ($variables as $name => $variable) {
-    // Stodo Restore the 'google_tag_' prefix to the variable name.
-    $key = $name;
-    $name = 'google_tag_' . $name;
-    $data[$key] = $use_install_config ? $variable['default'] : variable_get($name, '');
-  }
-  // Prune the list.
-  $data['role_list'] = array_filter($data['role_list']);
-
-  $object['name'] = 'google_tag.settings';
-  $object['data'] = $data;
-  $object['export_type'] = NULL;
-  $object = (object) $object;
-
-  $result = ctools_export_crud_save('gtag_config', $object);
-}
-
-/**
- * Returns a list of variables in the groups.
- *
- * @param array $groups
- *   The variable groups.
- *
- * @return array
- *   Associative array of variables keyed by variable name.
- */
-function _google_tag_variable_list(array $groups = array()) {
-  static $variables;
-
-  $key = implode(':', $groups);
-  if (!isset($variables[$key])) {
-    // Build variables.
-    $variables[$key] = array();
-    foreach ($groups as $group) {
-      $function = "_google_tag_variable_info_$group";
-      $variables[$key] += $function($options = array());
-    }
-  }
-  return $variables[$key];
 }
