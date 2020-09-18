@@ -31,7 +31,7 @@ And I fill in "AdmitHub.com license number" with ""
 And I press "Save configuration"
 And I go to "node/1"
 Then the response should contain "#livechat-compact-container"
-And the response should not contain "window.adminHubBot"
+And the response should not contain "window.admitHubBot"
 
 @testing_frontpage
 Scenario: The AdmitHub code is placed on page
