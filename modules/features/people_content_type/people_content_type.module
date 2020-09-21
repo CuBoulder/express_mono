@@ -520,7 +520,7 @@ function people_content_type_list_filter_form($form, &$form_state) {
   if ($node->field_people_filter1_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
     $filter1 = $node->field_people_filter_1[LANGUAGE_NONE];
     $filters['filter1']['vocabulary'] = 'people_filter_1';
-    $filters['filter1']['label'] = isset($settings['people_filter_one']) ? $settings['people_filter_one'] : 'Filter 1';
+    $filters['filter1']['label'] = isset($settings['person_filter_one']) ? $settings['person_filter_one'] : 'Filter 1';
     if (!empty($filter1)) {
       $filters['filter1']['pre_filters'] = people_content_type_pre_filter_map($filter1, $filters['filter1']['vocabulary'], $use_child_terms);
     }
