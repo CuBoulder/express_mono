@@ -335,7 +335,7 @@ function people_content_type_preprocess_node(&$vars) {
       }
 
       // Build filter 3 argument
-      if (isset($vars['node']->field_people_filter_3[LANGUAGE_NONE]) && empty($_GET['people_filter_3']) ) {
+      if (isset($vars['node']->field_people_filter_3[LANGUAGE_NONE]) && empty($_GET['people_filter_3'])) {
         $filter_3 = array();
         foreach ($vars['node']->field_people_filter_3[LANGUAGE_NONE] as $key=>$value) {
           $filter_3[$value['tid']] = $value['tid'];
@@ -520,7 +520,7 @@ function people_content_type_list_filter_form($form, &$form_state) {
   if ($node->field_people_filter1_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
     $filter1 = $node->field_people_filter_1[LANGUAGE_NONE];
     $filters['filter1']['vocabulary'] = 'people_filter_1';
-    $filters['filter1']['label'] = isset($settings['people_filter_one']) ? $settings['people_filter_one'] : '';
+    $filters['filter1']['label'] = isset($settings['people_filter_one']) ? $settings['people_filter_one'] : 'Filter 1';
     if (!empty($filter1)) {
       $filters['filter1']['pre_filters'] = people_content_type_pre_filter_map($filter1, $filters['filter1']['vocabulary'], $use_child_terms);
     }
@@ -529,7 +529,7 @@ function people_content_type_list_filter_form($form, &$form_state) {
   if ($node->field_people_filter2_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
     $filter2 = $node->field_people_filter_2[LANGUAGE_NONE];
     $filters['filter2']['vocabulary'] = 'people_filter_2';
-    $filters['filter2']['label'] = isset($settings['person_filter_two']) ? $settings['person_filter_two'] : '';
+    $filters['filter2']['label'] = isset($settings['person_filter_two']) ? $settings['person_filter_two'] : 'Filter 2';
     if (!empty($filter2)) {
       $filters['filter2']['pre_filters'] = people_content_type_pre_filter_map($filter2, $filters['filter2']['vocabulary'], $use_child_terms);
     }
@@ -538,7 +538,7 @@ function people_content_type_list_filter_form($form, &$form_state) {
   if ($node->field_people_filter3_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
     $filter3 = $node->field_people_filter_3[LANGUAGE_NONE];
     $filters['filter3']['vocabulary'] = 'people_filter_3';
-    $filters['filter3']['label'] = isset($settings['person_filter_three']) ? $settings['person_filter_three'] : '';
+    $filters['filter3']['label'] = isset($settings['person_filter_three']) ? $settings['person_filter_three'] : 'Filter 3';
     if (!empty($filter3)) {
       $filters['filter3']['pre_filters'] = people_content_type_pre_filter_map($filter3, $filters['filter3']['vocabulary'], $use_child_terms);
     }
@@ -631,7 +631,7 @@ function people_content_type_list_filter_form_submit($form, &$form_state) {
     'people_filter_2',
     'people_filter_3'
   );
-  
+
   foreach ($filter_names as $name) {
     if (!empty($form_state['values'][$name])) {
       $keys[$name] = $form_state['values'][$name];
