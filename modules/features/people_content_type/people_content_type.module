@@ -493,59 +493,10 @@ function _people_content_type_allowed_sorting() {
 function people_content_type_list_filter_form($form, &$form_state) {
   $node = menu_get_object();
   $form = array();
+  $filters = array();
   $filter_count = 0;
   $use_child_terms = $node->field_people_childterms[LANGUAGE_NONE][0]['value'] == 'all' ? TRUE : FALSE;
   $settings = variable_get('people_content_type_label_settings', '');
-
-  $filters = add_filters($node, $settings, $use_child_terms);
-  if (!empty($filters)) {
-    include_once 'people_content_type_taxonomy.inc';
-
-    foreach ($filters as $filter) {
-      // Load vocabulary for filter
-      $vocabulary = taxonomy_vocabulary_machine_name_load($filter['vocabulary']);
-      // Get terms for vocabulary
-      $terms = taxonomy_get_tree($vocabulary->vid);
-      $options = array();
-      // Add 'all' option
-      $options[] = 'All';
-      // Get terms in a nested tree and create nested select list (Code is basically copied from cu_article.module).
-      $terms = people_content_type_taxonomy_treedata($terms);
-      $options = $options + people_content_type_nested_options($terms);
-      // If pre_filters were added, only show those options.
-      if (!empty($filter['pre_filters'])) {
-        $options = array_intersect_key($options, $filter['pre_filters']);
-      }
-      // If there are more than 2 options ('All" + 1), build form field.
-      if (count($options) > 2) {
-        $filter_count++;
-        $form['people_list_filter'][$filter['vocabulary']] = array(
-          '#type' => 'select',
-          '#title' => t($filter['label']),
-          '#options' => $options,
-          '#default_value' => isset($_GET[$filter['vocabulary']]) ? $_GET[$filter['vocabulary']] : $options[0],
-        );
-      }
-    }
-  }
-
-  // If filters are added, also add submit button and set method.
-  if (!empty($form)) {
-    $form['submit'] = array(
-      '#type' => 'submit',
-      '#value' => 'Filter',
-    );
-    // Set form method to get because this is only filtering values
-    if ($filter_count > 0) {
-      $form['#prefix'] = '<div class="people-list-filter">';
-      $form['#suffix'] = '</div>';
-      return $form;
-    }
-  }
-}
-
-function add_filters($node, $settings, $use_child_terms) {
-  $filters = array();
 
   if ($node->field_people_dept_filter_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
     $departments = $node->field_people_list_department[LANGUAGE_NONE];
@@ -591,7 +542,52 @@ function add_filters($node, $settings, $use_child_terms) {
       $filters['filter3']['pre_filters'] = people_content_type_pre_filter_map($filter3, $filters['filter3']['vocabulary'], $use_child_terms);
     }
   }
-  return $filters;
+
+  // Loop through the filters array to build the filter fields.
+  if (!empty($filters)) {
+    include_once 'people_content_type_taxonomy.inc';
+
+    foreach ($filters as $filter) {
+      // Load vocabulary for filter
+      $vocabulary = taxonomy_vocabulary_machine_name_load($filter['vocabulary']);
+      // Get terms for vocabulary
+      $terms = taxonomy_get_tree($vocabulary->vid);
+      $options = array();
+      // Add 'all' option
+      $options[] = 'All';
+      // Get terms in a nested tree and create nested select list (Code is basically copied from cu_article.module).
+      $terms = people_content_type_taxonomy_treedata($terms);
+      $options = $options + people_content_type_nested_options($terms);
+      // If pre_filters were added, only show those options.
+      if (!empty($filter['pre_filters'])) {
+        $options = array_intersect_key($options, $filter['pre_filters']);
+      }
+      // If there are more than 2 options ('All" + 1), build form field.
+      if (count($options) > 2) {
+        $filter_count++;
+        $form['people_list_filter'][$filter['vocabulary']] = array(
+          '#type' => 'select',
+          '#title' => t($filter['label']),
+          '#options' => $options,
+          '#default_value' => isset($_GET[$filter['vocabulary']]) ? $_GET[$filter['vocabulary']] : $options[0],
+        );
+      }
+    }
+  }
+
+  // If filters are added, also add submit button and set method.
+  if (!empty($form)) {
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => 'Filter',
+    );
+    // Set form method to get because this is only filtering values
+    if ($filter_count > 0) {
+      $form['#prefix'] = '<div class="people-list-filter">';
+      $form['#suffix'] = '</div>';
+      return $form;
+    }
+  }
 }
 
 /**
