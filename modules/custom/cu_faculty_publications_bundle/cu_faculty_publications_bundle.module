@@ -142,6 +142,15 @@ function get_publication_data($url, $skipCache, $beanObject) {
       ];
     }
 
+    elseif (isset($reqData['warning'])) {
+      return [
+        'total' => null,
+        'results' => null,
+        'requestedNumberOfResults' => null,
+        'error' => "<div class=\"messages warning\">{$reqData['warning']}</div>"
+      ];
+    }
+
     else {
       $response = drupal_http_request($reqData['reqUrl']);
 
@@ -243,7 +252,7 @@ function build_request_data($beanObject) {
   // Call experts people database and search for author email addresses. Return an orcid for each mathcing email found there.
   $orcidResults = get_author_orcids($authorEmails, $fisPeopleEndpoint);
 
-  if (isset($orcidResults['error'])) {
+  if (isset($orcidResults['error']) || isset($orcidResults['warning'])) {
     return $orcidResults;
   }
 
@@ -324,11 +333,11 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
   }
 
   if ($noResults) {
-    return ['error' => "<h5>There was no publication data found for the selected author(s)</h5>"];
+    return [ 'warning' => "There was no publication data found for the selected author(s)" ];
   }
 
   else {
-    return ['orcids' => $orcids, 'authorsNotFound' => $authorEmailArray];
+    return [ 'orcids' => $orcids, 'authorsNotFound' => $authorEmailArray ];
   }
 }
 
