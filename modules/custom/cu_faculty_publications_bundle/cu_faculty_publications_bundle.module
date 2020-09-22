@@ -1,17 +1,17 @@
 <?php
 
 /**
-  * @file
-  * Code for the Faculty Publications feature.
-  */
+ * @file
+ * Code for the Faculty Publications feature.
+ */
 include_once 'cu_faculty_publications_bundle.features.inc';
 
 /**
-  * Implements hook_theme_registry_alter().
-  *
-  * Let Drupal know that we've got bean--faculty_publications.tpl.php in our module
-  * directory.
-  */
+ * Implements hook_theme_registry_alter().
+ *
+ * Let Drupal know that we've got bean--faculty_publications.tpl.php in our module
+ * directory.
+ */
 function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
   $module_path = drupal_get_path('module', 'cu_faculty_publications_bundle');
   $theme_registry_copy = $theme_registry;
@@ -27,8 +27,8 @@ function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
 }
 
 /**
-  * Implements hook_theme().
-  */
+ * Implements hook_theme().
+ */
 function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) {
   $registry = array();
   $template_dir = drupal_get_path('module', 'cu_faculty_publications_bundle') . '/templates';
@@ -40,8 +40,8 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
 }
 
 /**
-  * Implements hook_preprocess_entity().
-  */
+ * Implements hook_preprocess_entity().
+ */
 function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   // $entity_type = $vars['elements']['#entity_type'];
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
@@ -63,7 +63,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       $arguments['q'][] = 'publicationDate:[' . $date1 . ' TO ' . $date2 . ']';
     }
 
-    // Check for department id or name
+    // Check for department id or name.
     if (!empty($vars['bean']->field_faculty_pub_department)) {
       $department = $vars['bean']->field_faculty_pub_department[LANGUAGE_NONE][0]['value'];
 
@@ -86,7 +86,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
       if ($order === "date-desc") {
         $arguments['sort'] = 'publicationDate:desc';
       }
-      else if ($order === "date-asc") {
+      elseif ($order === "date-asc") {
         $arguments['sort'] = 'publicationDate:asc';
       }
     }
@@ -96,7 +96,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
     if (!empty($vars['bean']->field_faculty_publication_email)) {
       $authorEmails = array_merge($authorEmails, get_array_from_field_data($vars['bean']->field_faculty_publication_email[LANGUAGE_NONE], 'email'));
-    }    
+    }
 
     if (!empty($vars['bean']->field_faculty_publication_name)) {
       $authorEmails = array_merge($authorEmails, get_array_from_field_data($vars['bean']->field_faculty_publication_name[LANGUAGE_NONE], 'value'));
@@ -180,7 +180,11 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
 // Here are many helper functions used in cu_faculty_publications_bundle_preprocess_entity() above.
 function get_array_from_field_data($fieldArray, $fieldArrayFinalIdentifier) {
-  return array_map(function($data) use($fieldArrayFinalIdentifier) { return strtolower($data[$fieldArrayFinalIdentifier]); }, $fieldArray);
+  return array_map(
+    function ($data) use ($fieldArrayFinalIdentifier) {
+      return strtolower($data[$fieldArrayFinalIdentifier]);
+    },
+  $fieldArray);
 }
 
 function get_author_orcids($authorEmailArray, $dbUrl) {
@@ -194,11 +198,11 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
   $requestUrl = url($dbUrl, ['query' => $queryArray]);
   $emailResponse = drupal_http_request($requestUrl);
 
-  if ($emailResponse->code =='200') {
-    $emailResult = drupal_json_decode($emailResponse->data, true);
+  if ($emailResponse->code == '200') {
+    $emailResult = drupal_json_decode($emailResponse->data, TRUE);
     $data = $emailResult['hits']['hits'];
-    // get the orcids from each database hit
-    foreach($data as $author) {
+    // Get the orcids from each database hit.
+    foreach ($data as $author) {
       $authorOrcid = $author['_source']['orcid'];
       $authorEmail = strtolower($author['_source']['email'][0]);
       if ($authorOrcid) {
@@ -214,7 +218,11 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
 }
 
 function formQueryStringFromArray($arr) {
-  $arrayQuoted = array_map(function($data) { return "\"" . $data . "\""; }, $arr);
+  $arrayQuoted = array_map(
+    function ($data) {
+      return "\"" . $data . "\"";
+    },
+  $arr);
   return '(' . implode(" OR ", $arrayQuoted) . ')';
 }
 
@@ -236,12 +244,12 @@ function get_publication_data($url) {
 
   if (isset($cache->data)) {
     $publications = $cache->data['publications'];
-    $publications['isFromCache'] = true;
+    $publications['isFromCache'] = TRUE;
   }
-  
+
   if ($cache->data['expiration'] <= time() || !isset($cache->data)) {
-    $response = drupal_json_decode(drupal_http_request($url)->data, true);
-    
+    $response = drupal_json_decode(drupal_http_request($url)->data, TRUE);
+
     if ($response) {
       $newData = [
         'publications' => [
@@ -250,11 +258,11 @@ function get_publication_data($url) {
         ],
         'expiration' => time() + (24 * 60 * 60)
       ];
-  
+
       cache_set($url, $newData, 'cache_cu_faculty_publications_bundle');
       if (!isset($cache->data)) {
         $publications = $newData['publications'];
-        $publications['isFromCache'] = false;
+        $publications['isFromCache'] = FALSE;
       }
     }
   }
@@ -271,7 +279,7 @@ function cu_faculty_publications_bundle_person_names() {
   $query->addField('ln', 'field_person_last_name_value', 'last_name');
   $query->orderBy('last_name', 'ASC');
   $result = $query->execute();
-  
+
   $facultyNamesAndEmails = [];
   foreach ($result as $record) {
     $firstName = $record->first_name;
@@ -290,7 +298,11 @@ function get_emails_assoc_with_jobs($jobsTidArray) {
   $query->condition('job.field_person_job_type_tid', $jobsTidArray, 'IN');
 
   $result = $query->execute()->fetchCol();
-  $emails = array_map(function($email) {return strtolower($email);}, $result);
+  $emails = array_map(
+    function ($email) {
+      return strtolower($email);
+    },
+  $result);
   return $emails;
 }
 
@@ -304,10 +316,10 @@ function cu_faculty_publications_results() {
 // End cu_faculty_publications_bundle_preprocess_entity() helper functions.
 
 /**
-  * Implements hook_secure_permissions().
-  *
-  * Adding permissions for newsletter
-  */
+ * Implements hook_secure_permissions().
+ *
+ * Adding permissions for publications bundle.
+ */
 function cu_faculty_publications_bundle_secure_permissions($role) {
   $permissions = array(
     'anonymous user' => array(
@@ -355,8 +367,8 @@ function cu_faculty_publications_bundle_secure_permissions($role) {
 }
 
 /**
-  * Implements hook_flush_caches().
-  */
+ * Implements hook_flush_caches().
+ */
 function cu_faculty_publications_bundle_flush_caches() {
   return array('cache_cu_faculty_publications_bundle');
 }
