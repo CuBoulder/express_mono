@@ -496,7 +496,6 @@ function people_content_type_list_filter_form($form, &$form_state) {
   $filters = array();
   $filter_count = 0;
   $use_child_terms = $node->field_people_childterms[LANGUAGE_NONE][0]['value'] == 'all' ? TRUE : FALSE;
-  // Get saved filter settings.
   $settings = variable_get('people_content_type_label_settings', '');
 
   if ($node->field_people_dept_filter_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
