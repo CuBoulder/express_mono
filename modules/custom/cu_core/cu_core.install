@@ -376,7 +376,7 @@ function cu_core_requirements($phase) {
 
   // Check value LDAP Mixed Mode variable; warn if site is in Mixed Mode.
   $ldapAuthArray = variable_get('ldap_authentication_conf', FALSE);
-  $authMode = $ldapAuthArray[authenticationMode];
+  $authMode = $ldapAuthArray['authenticationMode'];
   if ($authMode == 1) {
     $requirements['authMode'] = array(
       'title' => $t('Authentication Mode'),
