@@ -1,10 +1,10 @@
-<?php 
-/**
-* @file
-* Template for a single group of collection filters.
-*/
-?>
+<?php
 
+/**
+ * @file
+ * Template for a single group of collection filters.
+ */
+?>
 <?php if ($multiple): ?>
   <div class="collection-filter-links-wrapper collection-filter-links-single collection-filter-links-multi-select">
     <?php if ($label): ?>

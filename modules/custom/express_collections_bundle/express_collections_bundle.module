@@ -95,13 +95,31 @@ function express_collections_bundle_preprocess_entity(&$vars) {
       // Filter background image
       $image = !empty($fc->field_collection_category_bg) ? image_style_url('large', $fc->field_collection_category_bg[LANGUAGE_NONE][0]['uri']) : NULL;
       if (count($items) > 1) {
-        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links', array('label' => $label, 'collection_filter_terms' => $terms, 'collection_id' => $vars['bean']->bid, 'image' => $image, 'multiple' => $multiple));
+        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links', array(
+          'label' => $label,
+          'collection_filter_terms' => $terms,
+          'collection_id' => $vars['bean']->bid,
+          'image' => $image,
+          'multiple' => $multiple
+        ));
       }
       elseif (count($items) == 1 && $image) {
-        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links', array('label' => $label, 'collection_filter_terms' => $terms, 'collection_id' => $vars['bean']->bid, 'image' => $image, 'multiple' => $multiple));
+        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links', array(
+          'label' => $label,
+          'collection_filter_terms' => $terms,
+          'collection_id' => $vars['bean']->bid,
+          'image' => $image,
+          'multiple' => $multiple
+        ));
       }
       else {
-        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links_single', array('label' => $label, 'collection_filter_terms' => $terms, 'collection_id' => $vars['bean']->bid, 'image' => $image, 'multiple' => $multiple));
+        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links_single', array(
+          'label' => $label,
+          'collection_filter_terms' => $terms,
+          'collection_id' => $vars['bean']->bid,
+          'image' => $image,
+          'multiple' => $multiple
+        ));
       }
     }
 

@@ -1,8 +1,9 @@
 <?php
+
 /**
-* @file
-* Template for allowing multiple filters to be selected.
-*/
+ * @file
+ * Template for allowing multiple filters to be selected.
+ */
 ?>
 <div id="collection-<?php print $collection['collection_id']; ?>" class="collection-grid collection-filter-effect-<?php print $collection['filter_effect']; ?>">
   <div class="row">
