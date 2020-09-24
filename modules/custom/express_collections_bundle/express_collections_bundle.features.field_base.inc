@@ -274,6 +274,32 @@ function express_collections_bundle_field_default_field_bases() {
     'type' => 'image',
   );
 
+  // Exported field_base: 'field_collection_multiselect'.
+  $field_bases['field_collection_multiselect'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_collection_multiselect',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Single Item Select',
+        1 => 'Multi Item Select',
+      ),
+      'allowed_values_function' => '',
+      'allowed_values_php' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_integer',
+  );
+
   // Exported field_base: 'field_collection_preview'.
   $field_bases['field_collection_preview'] = array(
     'active' => 1,
