@@ -3,26 +3,26 @@
 /**
  * Implements hook_menu().
  */
- function cu_livechat_bundle_menu() {
-   $items['admin/settings/livechat'] = array(
-     'title' => 'Chat',
-     'description' => 'Menu Options Related to chat services.',
-     'position' => 'right',
-     'page callback' => 'system_admin_menu_block_page',
-     'access arguments' => array('administer express settings'),
-     'file' => 'system.admin.inc',
-     'file path' => drupal_get_path('module', 'system'),
-     'weight' => 1,
-   );
-   $items['admin/settings/livechat/configuration'] = array(
-     'title' => 'Chat',
-     'description' => 'Configure the license for the chat services.',
-     'type' => MENU_NORMAL_ITEM,
-     'page callback' => 'drupal_get_form',
-     'page arguments' => array('cu_livechat_bundle_admin_form'),
-     'access arguments' => array('administer express settings'),
-     'weight' => -50,
-   );
+function cu_livechat_bundle_menu() {
+  $items['admin/settings/livechat'] = array(
+    'title' => 'Chat',
+    'description' => 'Menu Options Related to chat services.',
+    'position' => 'right',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer express settings'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+    'weight' => 1,
+  );
+  $items['admin/settings/livechat/configuration'] = array(
+    'title' => 'Chat',
+    'description' => 'Configure the license for the chat services.',
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cu_livechat_bundle_admin_form'),
+    'access arguments' => array('administer express settings'),
+    'weight' => -50,
+  );
 
   return $items;
 }
@@ -62,8 +62,8 @@ function cu_livechat_bundle_preprocess_html(&$vars) {
     // AdmitHub embed.
     if ($livechat && ($admithub_license = variable_get('admithub_license_number', NULL))) {
       $vars['page']['page_bottom']['admithub']['#markup'] = '<script>window.admitHubBot = {botToken: "' . $admithub_license . '" };</script>
-        <script src="https://webbot.admithub.com/static/js/webchat.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://webbot.admithub.com/static/css/webchat.css">';
+      <script src="https://webbot.admithub.com/static/js/webchat.js"></script>
+      <link rel="stylesheet" type="text/css" href="https://webbot.admithub.com/static/css/webchat.css">';
     }
   }
 }
