@@ -5,8 +5,8 @@
  */
  function cu_livechat_bundle_menu() {
    $items['admin/settings/livechat'] = array(
-     'title' => 'LiveChat',
-     'description' => 'Menu Options Related to LiveChat',
+     'title' => 'Chat',
+     'description' => 'Menu Options Related to chat services.',
      'position' => 'right',
      'page callback' => 'system_admin_menu_block_page',
      'access arguments' => array('administer express settings'),
@@ -15,8 +15,8 @@
      'weight' => 1,
    );
    $items['admin/settings/livechat/configuration'] = array(
-     'title' => 'Livechat',
-     'description' => 'Configure the license for your Livechat license',
+     'title' => 'Chat',
+     'description' => 'Configure the license for the chat services.',
      'type' => MENU_NORMAL_ITEM,
      'page callback' => 'drupal_get_form',
      'page arguments' => array('cu_livechat_bundle_admin_form'),
@@ -81,7 +81,7 @@ function cu_livechat_bundle_admin_form() {
 
   $form['livechat'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Live Chat'),
+    '#title' => t('LiveChat'),
     '#description' => 'A paid real-time chat solution from LiveChat (<a href="http://www.livechatinc.com/">http://www.livechatinc.com/</a>). The department or academic unit will need to purchase a license in order to use this service. A free trial is available.',
   );
   $form['livechat']['livechat_license_number'] = array(
@@ -94,8 +94,8 @@ function cu_livechat_bundle_admin_form() {
 
   $form['admithub'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Live Chat'),
-    '#description' => 'A paid real-time chat solution from LiveChat (<a href="http://www.livechatinc.com/">http://www.livechatinc.com/</a>). The department or academic unit will need to purchase a license in order to use this service. A free trial is available.',
+    '#title' => t('AdmitHub'),
+    '#description' => 'A paid real-time chat solution from admithub (<a href="http://www.admithub.com/">http://www.admithub.com/</a>). The department or academic unit will need to purchase a license in order to use this service.',
   );
   $form['admithub']['admithub_license_number'] = array(
     '#type' => 'textfield',
