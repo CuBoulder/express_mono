@@ -24,8 +24,8 @@
      'weight' => -50,
    );
 
-   return $items;
- }
+  return $items;
+}
 
 /**
  * Preprocess html.
@@ -33,7 +33,7 @@
 function cu_livechat_bundle_preprocess_html(&$vars) {
   if ($plugin = context_get_plugin('reaction', 'livechat')) {
     $livechat = $plugin->execute($vars);
-    //LiveChatINC embed.
+    // LiveChatINC embed.
     if ($livechat && ($livechat_license = variable_get('livechat_license_number', NULL))) {
       $livechat = "var __lc = {}; __lc.license = " . $livechat_license . ";
       (function() {
@@ -61,7 +61,7 @@ function cu_livechat_bundle_preprocess_html(&$vars) {
 
     // AdmitHub embed.
     if ($livechat && ($admithub_license = variable_get('admithub_license_number', NULL))) {
-      $vars['page']['page_bottom']['admithub']['#markup'] = '<script>window.admitHubBot = {botToken: "' . $admithub_license .'" };</script>
+      $vars['page']['page_bottom']['admithub']['#markup'] = '<script>window.admitHubBot = {botToken: "' . $admithub_license . '" };</script>
         <script src="https://webbot.admithub.com/static/js/webchat.js"></script>
         <link rel="stylesheet" type="text/css" href="https://webbot.admithub.com/static/css/webchat.css">';
     }
@@ -78,7 +78,6 @@ function cu_livechat_bundle_admin_form() {
     '#type' => 'markup',
     '#markup' => '<p>Fill in one of the license numbers below.</p>'
   );
-
   $form['livechat'] = array(
     '#type' => 'fieldset',
     '#title' => t('LiveChat'),
@@ -91,7 +90,6 @@ function cu_livechat_bundle_admin_form() {
     '#title' => 'LiveChatINC.com license number',
     '#description' => '<em>Example: 1234567</em>',
   );
-
   $form['admithub'] = array(
     '#type' => 'fieldset',
     '#title' => t('AdmitHub'),
