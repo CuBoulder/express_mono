@@ -17,7 +17,7 @@
             var t = e(this),
                 r = n,
                 i = function() {
-                    var e = [],
+                    var e = [t.text()],
                         n = r.time / r.delay,
                         i = t.text(),
                         s = /[0-9]+,[0-9]+/.test(i);
