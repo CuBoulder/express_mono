@@ -177,7 +177,7 @@ function get_publication_data($url, $skipCache, $beanObject) {
           'requestedNumberOfResults' => $cache->data['requestedNumberOfResults'],
           'expiration' => $newExpiration,
           'reqUrl' => $cache->data['reqUrl'],
-          'error' => "<p style=\"color: red;\">{$response->code}: There was a problem fetching publication data. Please check again later.</p>"
+          'error' => "<div class=\"messages error\">{$response->code}: There was a problem fetching publication data. Please check again later.</div>"
         ];
         return $publicationData;
       }
