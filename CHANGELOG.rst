@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.3.3 (2020-09-29)
+------------
+
+Changed
+~~~~~~~
+- Remove hard-coded Google Analytics ID from Express code base, we will add it during deployment.
+- Adding field for multiselect option #599.
+
+Fixed
+~~~~~~~
+- Degrading gracefully if the collection type term used in the collection block has been deleted. Resolves #685.
+
 v4.3.2 (2020-09-17)
 ------------
 

@@ -448,9 +448,6 @@ function express_settings_google_analytics_form_submit($form, &$form_state) {
   if ($ga_codes = variable_get('ga_account', '')) {
     // Explode the string and trim whitespace.
     $ga_codes = array_map('trim', explode(',', $ga_codes));
-
-    // Add Express specific code to array.
-    $ga_codes[] = 'UA-105731679-1';
     foreach ($ga_codes as $key => $code) {
       $js_code_before .= format_string('ga("create", "@ga_account", "auto", {"name":"customTracker@key"});', array(
         '@ga_account' => $code,

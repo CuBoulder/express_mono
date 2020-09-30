@@ -47,6 +47,11 @@ function express_collections_bundle_preprocess_entity(&$vars) {
     // Collection grid options
     $summary = ($vars['bean']->field_collection_display_summary[LANGUAGE_NONE][0]['value'] == 'show') ? 1 : 0;
     $filter_effect = !empty($vars['bean']->field_collection_filter_effect) ? $vars['bean']->field_collection_filter_effect[LANGUAGE_NONE][0]['value'] : 'fade';
+    $multiple = !empty($vars['bean']->field_collection_multiselect[LANGUAGE_NONE][0]['value']) ? 1 : 0;
+    // If multiple selections is set, add a different template.
+    if ($multiple) {
+      $vars['theme_hook_suggestions'][] = 'bean__collection_grid__multiple';
+    }
     // Build anchor link prefix
     $anchor = 'collection-' . $vars['bean']->bid . '-';
     $vars['content'] = array();
@@ -90,29 +95,55 @@ function express_collections_bundle_preprocess_entity(&$vars) {
       // Filter background image
       $image = !empty($fc->field_collection_category_bg) ? image_style_url('large', $fc->field_collection_category_bg[LANGUAGE_NONE][0]['uri']) : NULL;
       if (count($items) > 1) {
-        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links', array('label' => $label, 'collection_filter_terms' => $terms, 'collection_id' => $vars['bean']->bid, 'image' => $image));
+        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links', array(
+          'label' => $label,
+          'collection_filter_terms' => $terms,
+          'collection_id' => $vars['bean']->bid,
+          'image' => $image,
+          'multiple' => $multiple
+        ));
       }
       elseif (count($items) == 1 && $image) {
-        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links', array('label' => $label, 'collection_filter_terms' => $terms, 'collection_id' => $vars['bean']->bid, 'image' => $image));
+        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links', array(
+          'label' => $label,
+          'collection_filter_terms' => $terms,
+          'collection_id' => $vars['bean']->bid,
+          'image' => $image,
+          'multiple' => $multiple
+        ));
       }
       else {
-        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links_single', array('label' => $label, 'collection_filter_terms' => $terms, 'collection_id' => $vars['bean']->bid, 'image' => $image));
+        $vars['content']['filters'][$key]['#markup'] = theme('collection_filter_links_single', array(
+          'label' => $label,
+          'collection_filter_terms' => $terms,
+          'collection_id' => $vars['bean']->bid,
+          'image' => $image,
+          'multiple' => $multiple
+        ));
       }
     }
 
-    // Add all items to output
-    $vars['content']['items']['all'] = _express_collections_bundle_category_query($types, array_keys($tids), $summary);
-    $vars['content']['items']['all']['#prefix'] = '<div class="collection-items" id="' . $anchor .'all"><h3 class="element-invisible">All</h3><div class="clear clearfix row">';
-    $vars['content']['items']['all']['#suffix'] = '</div></div>';
+    if (!empty($types)) {
+      // Add all items to output
+      $vars['content']['items']['all'] = _express_collections_bundle_category_query($types, array_keys($tids), $summary);
+      $vars['content']['items']['all']['#prefix'] = '<div class="collection-items" id="' . $anchor .'all"><h3 class="element-invisible">All</h3><div class="clear clearfix row">';
+      $vars['content']['items']['all']['#suffix'] = '</div></div>';
 
-    // Add categories of items to output.
-    // Only do separate groups if there are more than 2 categories selected
+      // Add categories of items to output.
+      // Only do separate groups if there are more than 2 categories selected
 
-    // Add wrapper for collections to give specificity to selectors
-    $vars['collection']['filter_effect'] = $filter_effect;
-    $vars['collection']['collection_id'] = $vars['bean']->bid;
-    $vars['content']['#prefix'] = '<div id="collection-' . $vars['bean']->bid. '" class="collection-filter-effect-' . $filter_effect . '">';
-    $vars['content']['#suffix'] = '</div>';
+      // Add wrapper for collections to give specificity to selectors
+      $vars['collection']['filter_effect'] = $filter_effect;
+      $vars['collection']['collection_id'] = $vars['bean']->bid;
+      $vars['content']['#prefix'] = '<div id="collection-' . $vars['bean']->bid. '" class="collection-filter-effect-' . $filter_effect . '">';
+      $vars['content']['#suffix'] = '</div>';
+    }
+    else {
+      if (user_access('administer collection_type vocabulary terms')) {
+        $vars['content'] = array();
+        $vars['content']['items']['#markup'] = '<div class="messages warning">The collection type is missing. It is possible the term has been deleted from the collection type vocabulary.</div>';
+      }
+    }
   }
 }
 

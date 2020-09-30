@@ -221,6 +221,45 @@ function express_collections_bundle_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'bean-collection_grid-field_collection_multiselect'.
+  $field_instances['bean-collection_grid-field_collection_multiselect'] = array(
+    'bundle' => 'collection_grid',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'default_value_function' => '',
+    'default_value_php' => FALSE,
+    'deleted' => 0,
+    'description' => 'Choosing multi item select will allow the user to select multiple items to filter the collection list.  The resulting items must contain all filters selected.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'bean',
+    'fences_wrapper' => 'no_wrapper',
+    'field_name' => 'field_collection_multiselect',
+    'label' => 'Multiselect',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_collection_grid_categories-field_collection_category_bg'.
   $field_instances['field_collection_item-field_collection_grid_categories-field_collection_category_bg'] = array(
     'bundle' => 'field_collection_grid_categories',
@@ -1018,11 +1057,13 @@ function express_collections_bundle_field_default_field_instances() {
   t('Categories');
   t('Categories of collection type, such as major, minor, certificate, etc. A collection item can have multiple categories.');
   t('Category');
+  t('Choosing multi item select will allow the user to select multiple items to filter the collection list.  The resulting items must contain all filters selected.');
   t('Display Summary');
   t('Filter Effect');
   t('Filter Type');
   t('Label');
   t('Links appear in a row above the grid as clickable buttons. Select list appears as a dropdown above the grid.');
+  t('Multiselect');
   t('Photo');
   t('Preview');
   t('Select how filtered items are displayed for desktop and tablet users. The remove option is applied for mobile users regardless of the setting.');
