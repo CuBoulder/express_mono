@@ -1,0 +1,4 @@
+name = JS Embed - Chat Widgets
+description = Provides chat widget embed types.
+core = 7.x
+dependencies[] = cu_js_embed
