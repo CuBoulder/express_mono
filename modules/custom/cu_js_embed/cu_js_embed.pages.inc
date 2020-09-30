@@ -26,5 +26,6 @@ function cu_js_embed_add_page() {
   if (is_string($output) && strpos($output, 'You have not created any content types yet') != FALSE) {
     $output = '<p>You have not created any JS Embed types yet. </p>';
   }
+  
   return $output;
 }

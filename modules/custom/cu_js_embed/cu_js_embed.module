@@ -31,34 +31,6 @@ function cu_js_embed_entity_info() {
 }
 
 /**
- * Implements hook_cu_js_embed_status().
- *
- * @return array
- *   A list of custom status definitions.
- */
-function cu_js_embed_cu_js_embed_status() {
-  $custom_status = array();
-
-  $custom_status['published'] = array(
-    'label' => 'Published',
-    'operation_callback' => NULL,
-    'bulk_operation_label' => 'Publish Embed Codes',
-    'confirmation_label' => 'Publish',
-    'add_permission' => 'publish embeds',
-  );
-
-  $custom_status['unpublished'] = array(
-    'label' => 'Unpublished',
-    'operation_callback' => NULL,
-    'bulk_operation_label' => 'Unpublish Embed Codes',
-    'confirmation_label' => 'Unpublish',
-    'add_permission' => 'unpublish embeds',
-  );
-
-  return $custom_status;
-}
-
-/**
  * Implements hook_entity_presave().
  *
  * Calls status operation callback if one exists.
@@ -248,9 +220,31 @@ function cu_js_embed_get_embeds($conditions = array(), $sortable_header = NULL) 
   // Loop through options array and add conditions.
   // Conditions have to match the db columns.
   foreach ($conditions as $key => $condition) {
-    $query->condition($key, $condition, 'IN');
+    $query->condition($key, $condition, '=');
   }
 
+  return $query->execute()->fetchAllAssoc('id');
+}
+
+function cu_js_embed_get_embeds_by_type($types = array()) {
+  // Loop through options array and add conditions.
+  // Conditions have to match the db columns.
+  $query = db_select('cu_js_embed', 'tp');
+  $query->fields('tp');
+  if (!empty($types)) {
+    $query->condition('type', $types, 'IN');
+  }
+  return $query->execute()->fetchAllAssoc('id');
+}
+
+function cu_js_embed_get_embeds_by_id($id = NULL) {
+  // Loop through options array and add conditions.
+  // Conditions have to match the db columns.
+  $query = db_select('cu_js_embed', 'tp');
+  $query->fields('tp');
+  if ($id) {
+    $query->condition('id', $id, '=');
+  }
   return $query->execute()->fetchAllAssoc('id');
 }
 

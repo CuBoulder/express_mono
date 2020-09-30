@@ -85,3 +85,107 @@ function cu_embed_chat_widget_livechat_form(&$form, &$form_state, $id = NULL, $d
     '#size' => 128,
   );
 }
+
+/**
+ * Implements hook_ctools_plugin_api().
+ *
+ * Notify CTools that we'll be using the plugin API with Context module.
+ */
+function cu_embed_chat_widget_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
+
+/**
+ * Implements hook_context_plugins().
+ *
+ * CTools plugin API hook for Context.
+ *
+ * @return array
+ *   Config details for each reaction.
+ *
+ * @see hook_context_plugins()
+ */
+function cu_embed_chat_widget_context_plugins() {
+  $plugins = array();
+
+  $plugins['context_reaction_embed_chat_widget'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'cu_embed_chat_widget') . '/plugins',
+      'file' => 'cu_embed_chat_widget.inc',
+      'class' => 'context_reaction_embed_chat_widget',
+      'parent' => 'context_reaction',
+    ),
+  );
+
+  return $plugins;
+}
+
+/**
+ * Implements hook_context_registry().
+ *
+ * Registry hook for conditions & reactions.
+ *
+ * @see hook_context_registry()
+ */
+function cu_embed_chat_widget_context_registry() {
+  return array(
+    'reactions' => array(
+      'embed_chat_widget' => array(
+        'title' => t('Embed Chat Widget'),
+        'description' => t('Add a chat widget to the page.'),
+        'plugin' => 'context_reaction_embed_chat_widget',
+      ),
+    ),
+  );
+}
+
+function cu_embed_chat_widget_context_page_reaction() {
+  if ($plugin = context_get_plugin('reaction', 'embed_chat_widget')) {
+   $plugin->execute();
+  }
+}
+
+/**
+ * Preprocess html.
+ */
+function cu_embed_chat_widget_preprocess_html(&$vars) {
+  if ($plugin = context_get_plugin('condition', 'path')) {
+    $plugin->execute();
+  }
+  if ($plugin = context_get_plugin('condition', 'language')) {
+    global $language;
+    $plugin->execute($language->language);
+  }
+  if ($plugin = context_get_plugin('condition', 'user')) {
+    global $user;
+    $plugin->execute($user);
+  }
+
+  if ($plugin = context_get_plugin('reaction', 'embed_chat_widget')) {
+    if ($embed = $plugin->execute()) {
+
+      $id = $embed['chat_widget_embed'];
+      $match = current(cu_js_embed_get_embeds_by_id($id));
+      $data = unserialize($match->data);
+
+
+      $embed_code = theme('cu_js_embed_' . $match->type, $data);
+      if (!path_is_admin(current_path())) {
+        if ($match->type == 'livechat') {
+          drupal_add_js($embed_code, 'inline');
+        }
+        elseif ($match->type == 'admithub') {
+          $vars['page']['page_bottom']['admithub']['#markup'] = $embed_code;
+        }
+      }
+    }
+  }
+}
+
+function _et_page_top_bottom_get_js($data = array(), $type = NULL) {
+
+  // Pass data to proper template.
+  return theme('embed_templates_' . $type, $data);
+}
