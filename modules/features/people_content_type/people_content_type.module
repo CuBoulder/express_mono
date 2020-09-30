@@ -219,62 +219,147 @@ function people_content_type_preprocess_node(&$vars) {
       // Build filter arguments that are set on each node
 
       // Build department argument
-      if (isset($vars['node']->field_people_list_department[LANGUAGE_NONE])) {
+      if (isset($vars['node']->field_people_list_department[LANGUAGE_NONE]) && empty($_GET['department'])) {
         $department = array();
         foreach ($vars['node']->field_people_list_department[LANGUAGE_NONE] as $key=>$value) {
-          $department[$key] = $value['tid'];
+          $department[$value['tid']] = $value['tid'];
+          $vocab = taxonomy_vocabulary_machine_name_load('department');
+          $childTermTree = taxonomy_get_tree($vocab->vid, $value['tid']);
+
+          foreach ($childTermTree as $childTerm) {
+            $department[$childTerm->tid] = $childTerm->tid;
+          }
         }
-      } elseif (isset($_GET['department'])) {
-        $department = array(check_plain($_GET['department']));
-      } else {
+      }
+      elseif (isset($_GET['department'])) {
+        $department = array();
+        $tid = check_plain($_GET['department']);
+        $department[$tid] = $tid;
+
+        $vocab = taxonomy_vocabulary_machine_name_load('department');
+        $childTermTree = taxonomy_get_tree($vocab->vid, $tid);
+
+        foreach ($childTermTree as $childTerm) {
+          $department[$childTerm->tid] = $childTerm->tid;
+        }
+      }
+      else {
         $department = NULL;
       }
 
       // Build type argument
-      if (isset($vars['node']->field_people_list_person_type[LANGUAGE_NONE])) {
+      if (isset($vars['node']->field_people_list_person_type[LANGUAGE_NONE]) && empty($_GET['person_type'])) {
         $type = array();
         foreach ($vars['node']->field_people_list_person_type[LANGUAGE_NONE] as $key=>$value) {
-          $type[$key] = $value['tid'];
+          $type[$value['tid']] = $value['tid'];
+          $vocab = taxonomy_vocabulary_machine_name_load('person_type');
+          $childTermTree = taxonomy_get_tree($vocab->vid, $value['tid']);
+
+          foreach ($childTermTree as $childTerm) {
+            $type[$childTerm->tid] = $childTerm->tid;
+          }
         }
-      } elseif (isset($_GET['type'])) {
-        $type = array(check_plain($_GET['type']));
-      } else {
+      }
+      elseif (isset($_GET['person_type'])) {
+        $type = array();
+        $tid = check_plain($_GET['person_type']);
+        $type[$tid] = $tid;
+
+        $vocab = taxonomy_vocabulary_machine_name_load('person_type');
+        $childTermTree = taxonomy_get_tree($vocab->vid, $tid);
+
+        foreach ($childTermTree as $childTerm) {
+          $type[$childTerm->tid] = $childTerm->tid;
+        }
+      }
+      else {
         $type = NULL;
       }
 
       // Build filter 1 argument
-      if (isset($vars['node']->field_people_filter_1[LANGUAGE_NONE])) {
+      if (isset($vars['node']->field_people_filter_1[LANGUAGE_NONE]) && empty($_GET['people_filter_1'])) {
         $filter_1 = array();
         foreach ($vars['node']->field_people_filter_1[LANGUAGE_NONE] as $key=>$value) {
-          $filter_1[$key] = $value['tid'];
+          $filter_1[$value['tid']] = $value['tid'];
+          $vocab = taxonomy_vocabulary_machine_name_load('people_filter_1');
+          $childTermTree = taxonomy_get_tree($vocab->vid, $value['tid']);
+
+          foreach ($childTermTree as $childTerm) {
+            $filter_1[$childTerm->tid] = $childTerm->tid;
+          }
         }
-      } elseif (isset($_GET['filter1'])) {
-        $filter_1 = array(check_plain($_GET['filter1']));
-      } else {
+      }
+      elseif (isset($_GET['people_filter_1'])) {
+        $filter_1 = array();
+        $tid = check_plain($_GET['people_filter_1']);
+        $filter_1[$tid] = $tid;
+
+        $vocab = taxonomy_vocabulary_machine_name_load('people_filter_1');
+        $childTermTree = taxonomy_get_tree($vocab->vid, $tid);
+
+        foreach ($childTermTree as $childTerm) {
+          $filter_1[$childTerm->tid] = $childTerm->tid;
+        }
+      }
+      else {
         $filter_1 = NULL;
       }
 
       // Build filter 2 argument
-      if (isset($vars['node']->field_people_filter_2[LANGUAGE_NONE])) {
+      if (isset($vars['node']->field_people_filter_2[LANGUAGE_NONE]) && empty($_GET['people_filter_2'])) {
         $filter_2 = array();
         foreach ($vars['node']->field_people_filter_2[LANGUAGE_NONE] as $key=>$value) {
-          $filter_2[$key] = $value['tid'];
+          $filter_2[$value['tid']] = $value['tid'];
+          $vocab = taxonomy_vocabulary_machine_name_load('people_filter_2');
+          $childTermTree = taxonomy_get_tree($vocab->vid, $value['tid']);
+
+          foreach ($childTermTree as $childTerm) {
+            $filter_2[$childTerm->tid] = $childTerm->tid;
+          }
         }
-      } elseif (isset($_GET['filter2'])) {
-        $filter_2 = array(check_plain($_GET['filter2']));
-      } else {
+      }
+      elseif (isset($_GET['people_filter_2'])) {
+        $filter_2 = array();
+        $tid = check_plain($_GET['people_filter_2']);
+        $filter_2[$tid] = $tid;
+
+        $vocab = taxonomy_vocabulary_machine_name_load('people_filter_2');
+        $childTermTree = taxonomy_get_tree($vocab->vid, $tid);
+
+        foreach ($childTermTree as $childTerm) {
+          $filter_2[$childTerm->tid] = $childTerm->tid;
+        }
+      }
+      else {
         $filter_2 = NULL;
       }
 
       // Build filter 3 argument
-      if (isset($vars['node']->field_people_filter_3[LANGUAGE_NONE])) {
+      if (isset($vars['node']->field_people_filter_3[LANGUAGE_NONE]) && empty($_GET['people_filter_3'])) {
         $filter_3 = array();
         foreach ($vars['node']->field_people_filter_3[LANGUAGE_NONE] as $key=>$value) {
-          $filter_3[$key] = $value['tid'];
+          $filter_3[$value['tid']] = $value['tid'];
+          $vocab = taxonomy_vocabulary_machine_name_load('people_filter_3');
+          $childTermTree = taxonomy_get_tree($vocab->vid, $value['tid']);
+
+          foreach ($childTermTree as $childTerm) {
+            $filter_3[$childTerm->tid] = $childTerm->tid;
+          }
         }
-      } elseif (isset($_GET['filter3'])) {
-        $filter_3 = array(check_plain($_GET['filter3']));
-      } else {
+      }
+      elseif (isset($_GET['people_filter_3'])) {
+        $filter_3 = array();
+        $tid = check_plain($_GET['people_filter_3']);
+        $filter_3[$tid] = $tid;
+
+        $vocab = taxonomy_vocabulary_machine_name_load('people_filter_3');
+        $childTermTree = taxonomy_get_tree($vocab->vid, $tid);
+
+        foreach ($childTermTree as $childTerm) {
+          $filter_3[$childTerm->tid] = $childTerm->tid;
+        }
+      }
+      else {
         $filter_3 = NULL;
       }
 
@@ -406,83 +491,90 @@ function _people_content_type_allowed_sorting() {
  * Provide a set of filters for people list pages that vistors can use to further filter list.
  */
 function people_content_type_list_filter_form($form, &$form_state) {
+  $node = menu_get_object();
   $form = array();
-
-  // Get saved filter settings.
+  $filters = array();
+  $filter_count = 0;
+  $use_child_terms = $node->field_people_childterms[LANGUAGE_NONE][0]['value'] == 'all' ? TRUE : FALSE;
   $settings = variable_get('people_content_type_label_settings', '');
 
-  // Create array of filter types.
-  $filters = array();
-  $filters['person_type']['name'] = 'person_type';
-  $filters['person_type']['machine_name'] = 'type';
-  $filters['person_type']['label'] = isset($settings['person_type']) ? $settings['person_type'] : 'Type';
-
-  $filters['department']['name'] = 'department';
-  $filters['department']['machine_name'] = 'department';
-  $filters['department']['label'] = isset($settings['person_department']) ? $settings['person_department'] : 'Department';
-
-  $filters['people_filter_1']['name'] = 'people_filter_1';
-  $filters['people_filter_1']['machine_name'] = 'filter1';
-  $filters['people_filter_1']['label'] = isset($settings['person_filter_one']) ? $settings['person_filter_one'] : '';
-
-  $filters['people_filter_2']['name'] = 'people_filter_2';
-  $filters['people_filter_2']['machine_name'] = 'filter2';
-  $filters['people_filter_2']['label'] = isset($settings['person_filter_two']) ? $settings['person_filter_two'] : '';
-
-  $filters['people_filter_3']['name'] = 'people_filter_3';
-  $filters['people_filter_3']['machine_name'] = 'filter3';
-  $filters['people_filter_3']['label'] = isset($settings['person_filter_three']) ? $settings['person_filter_three'] : '';
-
-  $filter_count = 5;
-
-  // Load people list page node.
-  $node = menu_get_object();
-
-  // If filters are already set on node, remove them from filter array so they are not built/don't display.
-  if (!empty($node->field_people_list_person_type) || ($node->field_people_pos_filter_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['person_type']);
-    $filter_count--;
+  if ($node->field_people_dept_filter_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
+    $departments = $node->field_people_list_department[LANGUAGE_NONE];
+    $filters['department']['vocabulary'] = 'department';
+    $filters['department']['label'] = isset($settings['person_department']) ? $settings['person_department'] : 'Department';
+    if (!empty($departments)) {
+      $filters['department']['pre_filters'] = people_content_type_pre_filter_map($departments, $filters['department']['vocabulary'], $use_child_terms);
+    }
   }
-  if (!empty($node->field_people_list_department) || ($node->field_people_dept_filter_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['department']);
-    $filter_count--;
+  // ToDo rename the fields in each of the following conditions to match people's fields.
+  if ($node->field_people_pos_filter_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
+    $types = $node->field_people_list_person_type[LANGUAGE_NONE];
+    $filters['type']['vocabulary'] = 'person_type';
+    $filters['type']['label'] = isset($settings['person_type']) ? $settings['person_type'] : 'Type';
+    if (!empty($types)) {
+      $filters['type']['pre_filters'] = people_content_type_pre_filter_map($types, $filters['type']['vocabulary'], $use_child_terms);
+    }
   }
-  if (!empty($node->field_people_filter_1) || ($node->field_people_filter1_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['people_filter_1']);
-    $filter_count--;
+
+  if ($node->field_people_filter1_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
+    $filter1 = $node->field_people_filter_1[LANGUAGE_NONE];
+    $filters['filter1']['vocabulary'] = 'people_filter_1';
+    $filters['filter1']['label'] = isset($settings['person_filter_one']) ? $settings['person_filter_one'] : 'Filter 1';
+    if (!empty($filter1)) {
+      $filters['filter1']['pre_filters'] = people_content_type_pre_filter_map($filter1, $filters['filter1']['vocabulary'], $use_child_terms);
+    }
   }
-  if (!empty($node->field_people_filter_2) || ($node->field_people_filter2_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['people_filter_2']);
-    $filter_count--;
+
+  if ($node->field_people_filter2_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
+    $filter2 = $node->field_people_filter_2[LANGUAGE_NONE];
+    $filters['filter2']['vocabulary'] = 'people_filter_2';
+    $filters['filter2']['label'] = isset($settings['person_filter_two']) ? $settings['person_filter_two'] : 'Filter 2';
+    if (!empty($filter2)) {
+      $filters['filter2']['pre_filters'] = people_content_type_pre_filter_map($filter2, $filters['filter2']['vocabulary'], $use_child_terms);
+    }
   }
-  if (!empty($node->field_people_filter_3) || ($node->field_people_filter3_show[LANGUAGE_NONE][0]['value'] == 'FALSE')) {
-    unset($filters['people_filter_3']);
-    $filter_count--;
+
+  if ($node->field_people_filter3_show[LANGUAGE_NONE][0]['value'] == 'TRUE') {
+    $filter3 = $node->field_people_filter_3[LANGUAGE_NONE];
+    $filters['filter3']['vocabulary'] = 'people_filter_3';
+    $filters['filter3']['label'] = isset($settings['person_filter_three']) ? $settings['person_filter_three'] : 'Filter 3';
+    if (!empty($filter3)) {
+      $filters['filter3']['pre_filters'] = people_content_type_pre_filter_map($filter3, $filters['filter3']['vocabulary'], $use_child_terms);
+    }
   }
 
   // Loop through the filters array to build the filter fields.
-  foreach ($filters as $key => $filter) {
-    // Load vocabulary for filter
-    $vocabulary = taxonomy_vocabulary_machine_name_load($filter['name']);
-    // Get terms for vocabulary
-    $terms = taxonomy_get_tree($vocabulary->vid);
-    $options = array();
-    // Add 'all' option
-    $options[] = 'All';
-    // Add all terms to options array
-    foreach ($terms as $key => $term) {
-      $options[$term->tid] = $term->name;
-    }
-    // If there are more than 2 options ('All" + 1), build form field.
-    if (count($options) > 2) {
-      $form['people_list_filter'][$filter['machine_name']] = array(
-       '#type' => 'select',
-       '#title' => t($filter['label']),
-       '#options' => $options,
-       '#default_value' => isset($_GET[$filter['machine_name']]) ? $_GET[$filter['machine_name']] : '',
-      );
+  if (!empty($filters)) {
+    include_once 'people_content_type_taxonomy.inc';
+
+    foreach ($filters as $filter) {
+      // Load vocabulary for filter
+      $vocabulary = taxonomy_vocabulary_machine_name_load($filter['vocabulary']);
+      // Get terms for vocabulary
+      $terms = taxonomy_get_tree($vocabulary->vid);
+      $options = array();
+      // Add 'all' option
+      $options[] = 'All';
+      // Get terms in a nested tree and create nested select list (Code is basically copied from cu_article.module).
+      $terms = people_content_type_taxonomy_treedata($terms);
+      $options = $options + people_content_type_nested_options($terms);
+      // If pre_filters were added, only show those options.
+      if (!empty($filter['pre_filters'])) {
+        $options = array_intersect_key($options, $filter['pre_filters']);
+      }
+      // If there are more than 2 options ('All" + 1), build form field.
+      if (count($options) > 2) {
+        $filter_count++;
+        $form['people_list_filter'][$filter['vocabulary']] = array(
+          '#type' => 'select',
+          '#title' => t($filter['label']),
+          '#options' => $options,
+          '#default_value' => isset($_GET[$filter['vocabulary']]) ? $_GET[$filter['vocabulary']] : $options[0],
+        );
+      }
     }
   }
+
   // If filters are added, also add submit button and set method.
   if (!empty($form)) {
     $form['submit'] = array(
@@ -493,9 +585,31 @@ function people_content_type_list_filter_form($form, &$form_state) {
     if ($filter_count > 0) {
       $form['#prefix'] = '<div class="people-list-filter">';
       $form['#suffix'] = '</div>';
+      return $form;
     }
   }
-  return $form;
+}
+
+/**
+ * Maps array items to a simple array of term ids to compare.
+ */
+function people_content_type_pre_filter_map($filter_array, $vocabulary = NULL, $use_child_terms = 0) {
+  if (!empty($filter_array)) {
+    $filter_tids = array();
+    $filter_tids[] = 'All';
+    foreach ($filter_array as $filter) {
+      $filter_tids[$filter['tid']] = $filter['tid'];
+      // Get descendents if asked for.
+      if ($vocabulary && $use_child_terms) {
+        $v = taxonomy_vocabulary_machine_name_load($vocabulary);
+        $children = taxonomy_get_tree($v->vid, $filter['tid']);
+        foreach ($children as $child) {
+          $filter_tids[$child->tid] = $child->tid;
+        }
+      }
+    }
+    return $filter_tids;
+  }
 }
 
 /**
@@ -509,7 +623,15 @@ function people_content_type_list_filter_form_submit($form, &$form_state) {
   $nid = $node->nid;
 
   // Get filters if they were submitted
-  foreach (array('type', 'department', 'filter1', 'filter2', 'filter3') as $name) {
+  $filter_names = array(
+    'person_type',
+    'department',
+    'people_filter_1',
+    'people_filter_2',
+    'people_filter_3'
+  );
+
+  foreach ($filter_names as $name) {
     if (!empty($form_state['values'][$name])) {
       $keys[$name] = $form_state['values'][$name];
     }
@@ -523,6 +645,7 @@ function people_content_type_list_filter_form_submit($form, &$form_state) {
   $form_state['redirect'] = array('node/' . $nid, $options);
   return;
 }
+
 /**
  * Implments hook_preprocess_entity
  *

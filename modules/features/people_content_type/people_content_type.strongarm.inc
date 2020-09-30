@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * people_content_type.strongarm.inc
@@ -178,6 +179,9 @@ function people_content_type_strongarm() {
         ),
         'metatags' => array(
           'weight' => '40',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '30',
         ),
       ),
       'display' => array(
