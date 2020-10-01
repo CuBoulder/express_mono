@@ -423,11 +423,11 @@ function cu_js_includes_ctools_plugin_api($module, $api) {
 function cu_js_includes_context_plugins() {
   $plugins = array();
 
-  $plugins['context_reaction_embed_chat_widget'] = array(
+  $plugins['context_reaction_js_include'] = array(
     'handler' => array(
-      'path' => drupal_get_path('module', 'cu_js_includes') . '/plugins',
-      'file' => 'cu_js_includes.inc',
-      'class' => 'context_reaction_embed_chat_widget',
+      'path' => drupal_get_path('module', 'cu_js_includes') . '/includes',
+      'file' => 'cu_js_includes.context.inc',
+      'class' => 'context_reaction_js_include',
       'parent' => 'context_reaction',
     ),
   );
@@ -445,17 +445,17 @@ function cu_js_includes_context_plugins() {
 function cu_js_includes_context_registry() {
   return array(
     'reactions' => array(
-      'embed_chat_widget' => array(
-        'title' => t('Embed Chat Widget'),
-        'description' => t('Add a chat widget to the page.'),
-        'plugin' => 'context_reaction_embed_chat_widget',
+      'js_include' => array(
+        'title' => t('Include Javascript'),
+        'description' => t('Add javascript to the page.'),
+        'plugin' => 'context_reaction_js_include',
       ),
     ),
   );
 }
 
 function cu_js_includes_context_page_reaction() {
-  if ($plugin = context_get_plugin('reaction', 'embed_chat_widget')) {
+  if ($plugin = context_get_plugin('reaction', 'js_include')) {
    $plugin->execute();
   }
 }
@@ -466,10 +466,10 @@ function cu_js_includes_context_page_reaction() {
  * Process contexts for chat widgets.
  */
 function cu_js_includes_preprocess_html(&$vars) {
-  if ($plugin = context_get_plugin('reaction', 'embed_chat_widget')) {
+  if ($plugin = context_get_plugin('reaction', 'js_include')) {
     if ($embed = $plugin->execute()) {
 
-      $id = $embed['chat_widget_embed'];
+      $id = $embed['js_include'];
       $match = current(cu_js_includes_get_includes_by_id($id));
       $data = unserialize($match->data);
 

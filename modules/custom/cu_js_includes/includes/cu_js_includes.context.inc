@@ -8,7 +8,7 @@
 /**
  * Expose themes as context reactions.
  */
-class context_reaction_embed_chat_widget extends context_reaction {
+class context_reaction_js_include extends context_reaction {
 
   /**
    * Grab the available themes and provide them as a reaction for context.
@@ -26,19 +26,19 @@ class context_reaction_embed_chat_widget extends context_reaction {
       'admithub',
       'livechat',
     );
-    $embeds = cu_js_includes_get_includes_by_type($filter);
+    $includes = cu_js_includes_get_includes_by_type($filter);
     $options = array();
-    foreach ($embeds as $key => $embed) {
-      $options[$key] = $embed->name;
+    foreach ($includes as $key => $include) {
+      $options[$key] = $include->name;
     }
     $form = array(
       '#tree' => TRUE,
-      '#title' => t('Embed Chat Widget'),
-      'chat_widget_embed' => array(
-        '#title' => t('Chat Widget Embeds'),
-        '#description' => t('Choose one of the available chat widgets.'),
+      '#title' => t('Include JS'),
+      'js_include' => array(
+        '#title' => t('Include Javascript'),
+        '#description' => t('Choose one of the available javascript Includes.'),
         '#type' => 'select',
-        '#default_value' => isset($settings['chat_widget_embed']) ? $settings['chat_widget_embed'] : '',
+        '#default_value' => isset($settings['js_include']) ? $settings['js_include'] : '',
         '#options' => $options,
       ),
     );
@@ -52,13 +52,13 @@ class context_reaction_embed_chat_widget extends context_reaction {
    *   String of the theme name, or NULL if not to be altered.
    */
   function execute() {
-    $embed_chat_widget = NULL;
+    $js_include = NULL;
     foreach ($this->get_contexts() as $context) {
-      if (isset($context->reactions['embed_chat_widget'])) {
-        $embed_chat_widget = $context->reactions['embed_chat_widget'];
+      if (isset($context->reactions['js_include'])) {
+        $js_include = $context->reactions['js_include'];
       }
     }
-    return $embed_chat_widget;
+    return $js_include;
   }
 
 }
