@@ -407,17 +407,6 @@ function cu_js_includes_get_operations() {
 }
 
 /**
- * Implements hook_ctools_plugin_api().
- *
- * Notify CTools that we'll be using the plugin API with Context module.
- */
-function cu_js_includes_ctools_plugin_api($module, $api) {
-  if ($module == 'context' && $api == 'plugins') {
-    return array('version' => 3);
-  }
-}
-
-/**
  * Implements hook_context_plugins().
  *
  * CTools plugin API hook for Context.
