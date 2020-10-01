@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * @file
+ * Code for the JS Includes feature.
+ */
+
+include_once 'cu_js_includes.features.inc';
+
+/**
  * Add includes for types, forms, permissions.
  */
 
