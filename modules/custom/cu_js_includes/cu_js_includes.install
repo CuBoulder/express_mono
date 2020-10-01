@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Installation and schema hooks for the cu_js_embed module.
+ * Installation and schema hooks for the cu_js_includes module.
  */
 
 /**
@@ -11,27 +11,27 @@
  * @return array
  *   An array of schemas to be added to the database.
  */
-function cu_js_embed_schema() {
+function cu_js_includes_schema() {
   $schema = array();
 
-  $schema['cu_js_embed'] = array(
-    'description' => 'The base table for the embed entity.',
+  $schema['cu_js_includes'] = array(
+    'description' => 'The base table for the include entity.',
     'fields' => array(
       'id' => array(
-        'description' => 'Primary key of the embed entity.',
+        'description' => 'Primary key of the include entity.',
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
       'author' => array(
-        'description' => 'The user who created the embed.',
+        'description' => 'The user who created the include.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
         'default' => 'N/A',
       ),
       'name' => array(
-        'description' => 'Human readable name of the embed.',
+        'description' => 'Human readable name of the include.',
         'type' => 'varchar',
         'length' => '255',
         'not null' => TRUE,
@@ -43,20 +43,20 @@ function cu_js_embed_schema() {
         'not null' => TRUE,
       ),
       'type' => array(
-        'description' => 'Pre-defined type of embed.',
+        'description' => 'Pre-defined type of include.',
         'type' => 'varchar',
         'length' => '255',
         'not null' => TRUE,
       ),
       'updated' => array(
         'type' => 'int',
-        'description' => 'Timestamp when the embed was last updated.',
+        'description' => 'Timestamp when the include was last updated.',
         'not null' => TRUE,
         'unsigned' => TRUE,
         'default' => 0,
       ),
       'data' => array(
-        'description' => 'Custom options for embed.',
+        'description' => 'Custom options for include.',
         'type' => 'blob',
         'not null' => TRUE,
         'size' => 'big',
@@ -72,27 +72,27 @@ function cu_js_embed_schema() {
  *
  * Add uid and updated fields.
  */
-function cu_js_embed_update_7001() {
+function cu_js_includes_update_7001() {
 
-  if (!db_field_exists('cu_js_embed', 'author')) {
+  if (!db_field_exists('cu_js_includes', 'author')) {
     $spec = array(
-      'description' => 'The user who created the embed.',
+      'description' => 'The user who created the include.',
       'type' => 'varchar',
       'length' => 255,
       'not null' => TRUE,
       'default' => 'N/A',
     );
-    db_add_field('cu_js_embed', 'author', $spec);
+    db_add_field('cu_js_includes', 'author', $spec);
   }
 
-  if (!db_field_exists('cu_js_embed', 'updated')) {
+  if (!db_field_exists('cu_js_includes', 'updated')) {
     $spec = array(
-      'description' => 'Timestamp when the embed was last updated.',
+      'description' => 'Timestamp when the include was last updated.',
       'type' => 'int',
       'not null' => TRUE,
       'unsigned' => TRUE,
       'default' => 0,
     );
-    db_add_field('cu_js_embed', 'updated', $spec);
+    db_add_field('cu_js_includes', 'updated', $spec);
   }
 }

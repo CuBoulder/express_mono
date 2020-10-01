@@ -1,6 +1,8 @@
-name = JS Embed
+name = JS Includes
 description = Add third party Javascript to an Express site.
 core = 7.x
 package = Other
 version = 7.x-1.0
 dependencies[] = entity
+
+stylesheets[all][] = css/cu-js-includes.css

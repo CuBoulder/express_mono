@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Form functions for cu_js_embed module.
+ * Form functions for cu_js_includes module.
  */
 
 /**
@@ -13,8 +13,8 @@
  * @param array $form_state
  *   Used to redirect user if they cancel confirmation.
  */
-function embed_code_form_cancel($form, &$form_state) {
-  $form_state['redirect'] = 'admin/content/embeds';
+function js_include_code_form_cancel($form, &$form_state) {
+  $form_state['redirect'] = 'admin/content/js-includes';
 }
 
 /**
@@ -28,19 +28,19 @@ function embed_code_form_cancel($form, &$form_state) {
  * @return array|mixed|null
  *   The confirm form with names of embeds being operated on.
  */
-function cu_js_embed_confirm(&$form, &$form_state) {
+function cu_js_includes_confirm(&$form, &$form_state) {
   // Initialize default variables.
-  $path = 'admin/content/embeds';
+  $path = 'admin/content/js-includes';
   $form = array();
 
   // The operation key differs depending on whether coming from edit or overview form.
   $op = isset($form_state['input']['select']) ? $form_state['input']['select'] : $form_state['input']['op'];
 
   // Make sure there are embed codes to operation on.
-  if (isset($form_state['cu_js_embed'])) {
+  if (isset($form_state['cu_js_includes'])) {
     // If only one embed code...
-    if (isset($form_state['cu_js_embed']->name)) {
-      $embed_names = array($form_state['cu_js_embed']->name);
+    if (isset($form_state['cu_js_includes']->name)) {
+      $embed_names = array($form_state['cu_js_includes']->name);
     }
     else {
       // For multiple pixels, we need to match array key positions with embed IDs.
@@ -48,28 +48,28 @@ function cu_js_embed_confirm(&$form, &$form_state) {
       $selected_options = $form_state['storage']['form_state']['input']['table'];
 
       // Loop through selected rows and add pixel name.
-      $embed_names = array();
+      $include_names = array();
       foreach ($selected_options as $key => $option) {
         if ($option != NULL) {
-          $embed_names[] = $table_options[$key]['name'];
+          $include_names[] = $table_options[$key]['name'];
         }
         else {
           // Replace embeds in form_state array with selected embed codes.
-          unset($form_state['cu_js_embed'][$table_options[$key]['id']]);
+          unset($form_state['cu_js_includes'][$table_options[$key]['id']]);
         }
       }
     }
 
     // Build confirm form that is sent back to user.
     $list = theme_item_list(array(
-      'items' => $embed_names,
+      'items' => $include_names,
       'title' => NULL,
       'type' => 'ul',
       'attributes' => array(),
     ));
 
     // Find confirmation label for operation.
-    $operations = cu_js_embed_get_operations();
+    $operations = cu_js_includes_get_operations();
     foreach ($operations as $key => $operation) {
       if ($key == $op) {
         $operation_label = $operation['confirmation_label'];
@@ -83,7 +83,7 @@ function cu_js_embed_confirm(&$form, &$form_state) {
 
     return confirm_form(
       $form,
-      t('Do you really want to !op the following embeds?', array('!op' => $operation_label)),
+      t('Do you really want to !op the following includes?', array('!op' => $operation_label)),
       $path,
       $list,
       $operation_label,
@@ -92,5 +92,5 @@ function cu_js_embed_confirm(&$form, &$form_state) {
   }
 
   // Account for the case where somehow no embed entities made it to the confirm function.
-  return drupal_set_message(t('No embeds selected for operations. Please take appropriate action from the !link.', array('!link' => l(t('Embeds overview page'), $path))), 'error');
+  return drupal_set_message(t('No includes selected for operations. Please take appropriate action from the !link.', array('!link' => l(t('Includes overview page'), $path))), 'error');
 }

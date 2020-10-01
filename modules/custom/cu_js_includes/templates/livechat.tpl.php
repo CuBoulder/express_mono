@@ -1,4 +1,4 @@
-var __lc = {}; __lc.license = <?php print $account_id; ?>;
+var __lc = {}; __lc.license = <?php print check_plain($account_id); ?>;
 (function() {
   var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
   lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';

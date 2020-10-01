@@ -11,7 +11,7 @@
  * @return string
  *   Markup for list of embed types.
  */
-function cu_js_embed_add_page() {
+function cu_js_includes_add_page() {
   $item = menu_get_item();
   $content = system_admin_menu_block($item);
 
@@ -21,11 +21,11 @@ function cu_js_embed_add_page() {
     drupal_goto($item['href']);
   }
   $output = theme('node_add_list', array('content' => $content));
-
+  
   // Need to check and see if output is empty so we can change the help message sent to the user.
   if (is_string($output) && strpos($output, 'You have not created any content types yet') != FALSE) {
-    $output = '<p>You have not created any JS Embed types yet. </p>';
+    $output = '<p>You have not created any JS Include types yet. </p>';
   }
-  
+
   return $output;
 }

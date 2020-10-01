@@ -25,10 +25,10 @@
  * @return array
  *   An array with your custom embed definitions.
  */
-function hook_cu_js_embed_types() {
-  $custom_embeds = array();
+function hook_cu_js_includes_types() {
+  $custom_includes = array();
 
-  $custom_embeds['my_pixel'] = array(
+  $custom_includes['my_pixel'] = array(
     'label' => 'My Tracking Pixel',
     'form_callback' => 'my_pixel_form',
     'submission_callback' => 'my_pixel_form_submit',
@@ -38,7 +38,7 @@ function hook_cu_js_embed_types() {
     'template' => 'templates/tracking-pixel-custom-service',
   );
 
-  return $custom_embeds;
+  return $custom_includes;
 }
 
 /**
@@ -47,7 +47,7 @@ function hook_cu_js_embed_types() {
  * @param array $types
  *   Custom embed types declared by other modules.
  */
-function hook_cu_js_embed_types_alter(&$types) {
+function hook_cu_js_includes_types_alter(&$types) {
   $types['my_pixel']['label'] = 'A Different Label';
 }
 
@@ -77,6 +77,6 @@ function hook_cu_js_embed_types_alter(&$types) {
  * @param array $statuses
  *   Custom embed statuses declared by other modules.
  */
-function hook_cu_js_embed_status_alter(&$statuses) {
+function hook_cu_js_includes_status_alter(&$statuses) {
   $statuses['in_review']['add_permission'] = 'a different permission name';
 }

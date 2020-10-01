@@ -26,7 +26,7 @@ class context_reaction_embed_chat_widget extends context_reaction {
       'admithub',
       'livechat',
     );
-    $embeds = cu_js_embed_get_embeds_by_type($filter);
+    $embeds = cu_js_includes_get_includes_by_type($filter);
     $options = array();
     foreach ($embeds as $key => $embed) {
       $options[$key] = $embed->name;

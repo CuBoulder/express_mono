@@ -1,0 +1,526 @@
+<?php
+
+/**
+ * Add includes for types, forms, permissions.
+ */
+
+module_load_include('inc', 'cu_js_includes', 'includes/cu_js_includes.types');
+module_load_include('inc', 'cu_js_includes', 'includes/cu_js_includes.forms');
+module_load_include('inc', 'cu_js_includes', 'includes/cu_js_includes.permissions');
+
+/**
+ * @file
+ * Provides a custom entity for adding embed codes to pages.
+ */
+
+/**
+ * Implements hook_entity_info().
+ *
+ * @return array
+ *   Entity information for embed templates.
+ */
+function cu_js_includes_entity_info() {
+  $info = array();
+
+  $info['cu_js_includes'] = array(
+    'label' => t('Include'),
+    'base table' => 'cu_js_includes',
+    'entity keys' => array(
+      'id' => 'id',
+    ),
+    'uri callback' => 'entity_class_uri',
+    'entity class' => 'Entity',
+    'controller class' => 'EntityAPIController',
+    'module' => 'cu_js_includes',
+    'fieldable' => FALSE,
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * Calls status operation callback if one exists.
+ */
+function cu_js_includes_entity_presave($entity, $type) {
+  // Only look for callback if the status has actually changed.
+  if ($type == 'cu_js_includes' && ((isset($entity->original) && $entity->status != $entity->original->status) || $entity->is_new)) {
+    // Gather operation from status.
+    $operations = cu_js_includes_get_operations();
+    foreach ($operations as $key => $value) {
+      // Call function if there is one.
+      if ($key == $entity->status && $value['operation_callback'] != NULL) {
+        call_user_func($value['operation_callback'], $entity);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_menu().
+ *
+ * @return array
+ *   List of menu items.
+ */
+function cu_js_includes_menu() {
+  $items = array();
+  $access_permission = array('administer js include templates');
+
+  $items['admin/content/js-includes'] = array(
+    'title' => 'Includes',
+    'page callback' => 'drupal_get_form',
+    'file' => 'pages/cu_js_includes.overview_form.inc',
+    'page arguments' => array('cu_js_includes_overview_form'),
+    'access arguments' => $access_permission,
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['admin/content/js-includes/add'] = array(
+    'title' => 'Add Include',
+    'page callback' => 'cu_js_includes_add_page',
+    'file' => 'pages/cu_js_includes.pages.inc',
+    'access arguments' => $access_permission,
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  // Add CRUD paths for each custom include type.
+  $include_types = cu_js_includes_get_include_types();
+  foreach ($include_types as $key => $type) {
+    // Need to create permission string before declaring it in menu array.
+    $access_permission = array('edit ' . $key . ' js includes');
+
+    $items['admin/content/js-includes/add/' . $key] = array(
+      'title' => 'Add ' . $type['label'] . ' Include',
+      'description' => 'Create an include entity of type: ' . $type['label'] . '.',
+      'page callback' => 'drupal_get_form',
+      'file' => 'pages/cu_js_includes.include_form.inc',
+      'page arguments' => array('cu_js_includes_form'),
+      'access arguments' => $access_permission,
+      'type' => MENU_NORMAL_ITEM,
+    );
+
+    $items['admin/content/js-includes/' . $key . '/%/edit'] = array(
+      'title' => 'Edit Include',
+      'page callback' => 'drupal_get_form',
+      'file' => 'pages/cu_js_includes.include_form.inc',
+      'page arguments' => array('cu_js_includes_form', 4),
+      'access arguments' => $access_permission,
+      'type' => MENU_NORMAL_ITEM,
+    );
+  }
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ *
+ * Adds an action link for creating includes to the includes overview page.
+ */
+function cu_js_includes_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  // Add action link to 'admin/content/js-includes' page.
+  if ($root_path == 'admin/content/js-includes') {
+    $data['actions']['output'][] = array(
+      '#theme' => 'menu_local_action',
+      '#link' => array(
+        'title' => t('Add Includes'),
+        'href' => 'admin/content/js-includes/add',
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_permission().
+ *
+ * @return array
+ *   List of permissions.
+ */
+function cu_js_includes_permission() {
+  $permissions['administer js includes'] = array(
+    'title' => t('Administer JS Includes'),
+  );
+
+  // Add permissions for each embed type.
+  $include_types = cu_js_includes_get_include_types();
+  foreach ($include_types as $key => $type) {
+    $permissions['edit ' . $key . ' js includes'] = array(
+      'title' => t('Edit !type Includes', array('!type' => $type['label'])),
+    );
+    $permissions['view ' . $key . ' js includes'] = array(
+      'title' => t('View !type Includes', array('!type' => $type['label'])),
+    );
+  }
+  $permissions['delete js includes'] = array(
+    'title' => t('Delete JS Includes'),
+  );
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Create a theme template for each embed type.
+ *
+ * @param array $existing
+ *   An array of existing theme definitions.
+ * @param string $type
+ *   Whether a theme, module, etc. is being processed.
+ * @param string $theme
+ *   Name of the thing being processed.
+ * @param string $path
+ *   The directory path of the theme or module.
+ *
+ * @return array
+ *   List of new theme definitions.
+ */
+function cu_js_includes_theme($existing, $type, $theme, $path) {
+  $include_types = cu_js_includes_get_include_types();
+  $templates = array();
+
+  foreach ($include_types as $key => $include_type) {
+    // Check for template path in case we have includes added through API hook.
+    $template = $include_type['template'] != NULL ? $include_type['template'] : 'templates/js-include-templates-' . $key;
+    $path = $include_type['path'] != NULL ? $include_type['path'] : drupal_get_path('module', 'cu_js_includes');
+
+    $templates['cu_js_includes_' . $key] = array(
+      'variables' => array('data' => NULL),
+      'path' => $path,
+      'template' => $template,
+    );
+  }
+
+  // Add custom template.
+  $templates['cu_js_includes_custom'] = array(
+    'variables' => array('data' => NULL),
+    'template' => 'templates/include-sanitizer-custom',
+  );
+
+  return $templates;
+}
+
+/**
+ * Get all includes from database.
+ *
+ * @return array
+ *   A list of all includes with correct headers for table display.
+ */
+function cu_js_includes_get_includes($conditions = array(), $sortable_header = NULL) {
+
+  // If headers sent in, then add sortable.
+  if ($sortable_header) {
+    $query = db_select('cu_js_includes', 'tp')->extend('TableSort');
+    $query->orderByHeader($sortable_header);
+  }
+  else {
+    $query = db_select('cu_js_includes', 'tp');
+  }
+
+  $query->fields('tp');
+
+  // Loop through options array and add conditions.
+  // Conditions have to match the db columns.
+  foreach ($conditions as $key => $condition) {
+    $query->condition($key, $condition, '=');
+  }
+
+  return $query->execute()->fetchAllAssoc('id');
+}
+
+/**
+ * Get includes by type.
+ */
+function cu_js_includes_get_includes_by_type($types = array()) {
+  $query = db_select('cu_js_includes', 'tp');
+  $query->fields('tp');
+  if (!empty($types)) {
+    $query->condition('type', $types, 'IN');
+  }
+  return $query->execute()->fetchAllAssoc('id');
+}
+
+/**
+ * Get includes by id.
+ */
+function cu_js_includes_get_includes_by_id($id = NULL) {
+  $query = db_select('cu_js_includes', 'tp');
+  $query->fields('tp');
+  if ($id) {
+    $query->condition('id', $id, '=');
+  }
+  return $query->execute()->fetchAllAssoc('id');
+}
+
+/**
+ * Return all include types that are available.
+ *
+ * @return array
+ *   A list of all include types.
+ */
+function cu_js_includes_get_include_types() {
+  $types = array();
+
+  // Add custom types other modules may have created.
+  $types = module_invoke_all('cu_js_includes_types');
+
+  // Allow other modules to alter the final array.
+  drupal_alter('cu_js_includes_types', $types);
+
+  // I saw the cast in the actions_list() function, but it wasn't fully explained.
+  // they say...See module_implements() for an explanation of this cast.
+  return (array) $types;
+}
+
+/**
+ * Return an include type.
+ *
+ * @return array|null
+ *   Definition of a specific embed type if it exists.
+ */
+function cu_js_includes_get_include_type($type = NULL) {
+  // If no declared type set error message.
+  if ($type == NULL) {
+    drupal_set_message('No include type sent to query.', 'error');
+    watchdog('cu_js_includes', 'No include type sent to cu_js_includes_get_include_type().');
+    return NULL;
+  }
+
+  // Get all embed types.
+  $include_types = cu_js_includes_get_include_types();
+
+  // Return the desired embed type.
+  foreach ($include_types as $key => $value) {
+    if ($type == $key) {
+      return $value;
+    }
+  }
+}
+
+/**
+ * Returns a list of all renderers associated to an include type.
+ *
+ * @return array
+ *   List of renderers.
+ */
+function cu_js_includes_get_renderers() {
+  $include_types = cu_js_includes_get_include_types();
+  return array_map(function ($arr) {
+    return $arr['renderer'];
+  }, $include_types);
+}
+
+/**
+ * Return the renderer that matches an include type.
+ *
+ * @param null $type
+ *   Embed type to search.
+ *
+ * @return mixed|null
+ *   Name of the renderer.
+ */
+function cu_js_includes_get_renderer($type = NULL) {
+  $renderers = cu_js_includes_get_renderers();
+
+  // Return type if found.
+  foreach ($renderers as $key => $value) {
+    if ($key === $type) {
+      return $value;
+    }
+  }
+
+  // Return error.
+  drupal_set_message('Include Renderer could not be found.', 'error');
+  return NULL;
+}
+
+/**
+ * Looks for a form submission callback for an embed type.
+ *
+ * @param null $type
+ *   Type to search for.
+ *
+ * @return null|string
+ *   Name of submission callback or NULL if none.
+ */
+function cu_js_includes_get_submission_callback($type = NULL) {
+  $include_types = cu_js_includes_get_include_types();
+
+  foreach ($include_types as $key => $value) {
+    if ($key === $type) {
+      return $value['submission_callback'];
+    }
+  }
+
+  // Return error.
+  drupal_set_message('Submission callback could not be found.', 'error');
+  return NULL;
+}
+
+/**
+ * Looks for embed add/edit form definition for embed type.
+ *
+ * @param null $type
+ *   Type to search for.
+ *
+ * @return null|string
+ *   Name of from callback or NULL if none.
+ */
+function cu_js_includes_get_form_callback($type = NULL) {
+  $include_types = cu_js_includes_get_include_types();
+
+  foreach ($include_types as $key => $value) {
+    if ($key === $type) {
+      return $value['form_callback'];
+    }
+  }
+
+  // Return error.
+  drupal_set_message('Form callback could not be found.', 'error');
+  return NULL;
+}
+
+/**
+ * Gets all statuses for editing embeds.
+ *
+ * @return array
+ *   List of status definitions.
+ */
+function cu_js_includes_get_operations() {
+  $custom_statuses = array();
+  $custom_statuses = module_invoke_all('cu_js_includes_status');
+
+  // Allow other modules to alter the final array.
+  drupal_alter('cu_js_includes_status', $custom_statuses);
+
+  // I saw the cast in the actions_list() function, but it wasn't fully explained.
+  // they say...See module_implements() for an explanation of this cast.
+  return (array) $custom_statuses;
+}
+
+/**
+ * Implements hook_ctools_plugin_api().
+ *
+ * Notify CTools that we'll be using the plugin API with Context module.
+ */
+function cu_js_includes_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
+
+/**
+ * Implements hook_context_plugins().
+ *
+ * CTools plugin API hook for Context.
+ *
+ * @return array
+ *   Config details for each reaction.
+ *
+ * @see hook_context_plugins()
+ */
+function cu_js_includes_context_plugins() {
+  $plugins = array();
+
+  $plugins['context_reaction_embed_chat_widget'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'cu_js_includes') . '/plugins',
+      'file' => 'cu_js_includes.inc',
+      'class' => 'context_reaction_embed_chat_widget',
+      'parent' => 'context_reaction',
+    ),
+  );
+
+  return $plugins;
+}
+
+/**
+ * Implements hook_context_registry().
+ *
+ * Registry hook for conditions & reactions.
+ *
+ * @see hook_context_registry()
+ */
+function cu_js_includes_context_registry() {
+  return array(
+    'reactions' => array(
+      'embed_chat_widget' => array(
+        'title' => t('Embed Chat Widget'),
+        'description' => t('Add a chat widget to the page.'),
+        'plugin' => 'context_reaction_embed_chat_widget',
+      ),
+    ),
+  );
+}
+
+function cu_js_includes_context_page_reaction() {
+  if ($plugin = context_get_plugin('reaction', 'embed_chat_widget')) {
+   $plugin->execute();
+  }
+}
+
+/**
+ * Preprocess html.
+ *
+ * Process contexts for chat widgets.
+ */
+function cu_js_includes_preprocess_html(&$vars) {
+  if ($plugin = context_get_plugin('reaction', 'embed_chat_widget')) {
+    if ($embed = $plugin->execute()) {
+
+      $id = $embed['chat_widget_embed'];
+      $match = current(cu_js_includes_get_includes_by_id($id));
+      $data = unserialize($match->data);
+
+
+      $embed_code = theme('cu_js_includes_' . $match->type, $data);
+      if (!path_is_admin(current_path())) {
+        if ($match->type == 'livechat') {
+          drupal_add_js($embed_code, array('type' => 'inline','scope' => 'footer'));
+        }
+        elseif ($match->type == 'admithub') {
+          $vars['page']['page_bottom']['admithub']['#markup'] = $embed_code;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Provides options for JS Include Block Type.
+ *
+ * Add additional options via $filter array.
+ */
+function cu_js_includes_block_options() {
+  $filter = array('statuspage', 'slateform');
+  $includes = cu_js_includes_get_includes_by_type($filter);
+  $options = array();
+  $options['none'] = 'None';
+  foreach ($includes as $key => $include) {
+    $options[$key] = $include->name;
+  }
+  return $options;
+}
+
+
+/**
+ * Implements hook_preprocess_entity().
+ *
+ * Gets data, template, markup for JS Include blocks.
+ */
+function cu_js_includes_preprocess_entity(&$vars) {
+  $entity_type = $vars['elements']['#entity_type'];
+  $bundle = $vars['elements']['#bundle'];
+
+  // Only preprocess hero unit beans.
+  if ($entity_type == 'bean' && $bundle == 'js_include') {
+    $id = $vars['bean']->field_js_include[LANGUAGE_NONE][0]['value'];
+    if ($id != 'none') {
+      $match = current(cu_js_includes_get_includes_by_id($id));
+      $data = unserialize($match->data);
+      $js_include = theme('cu_js_includes_' . $match->type, $data);
+      $vars['content']['js_embed']['#markup'] = $js_include;
+    }
+  }
+}
