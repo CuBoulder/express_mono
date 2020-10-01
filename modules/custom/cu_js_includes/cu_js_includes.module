@@ -72,7 +72,7 @@ function cu_js_includes_entity_presave($entity, $type) {
  */
 function cu_js_includes_menu() {
   $items = array();
-  $access_permission = array('administer js include templates');
+  $access_permission = array('administer js includes');
 
   $items['admin/content/js-includes'] = array(
     'title' => 'Includes',
