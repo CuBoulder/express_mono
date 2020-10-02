@@ -6,7 +6,7 @@
  * @return array
  *   List of custom embed types.
  */
-function cu_js_includes_cu_js_includes_types() {
+function cu_js_includes_get_include_types() {
   // Create a few initial embed types.
   $custom_types = array();
   $module_path = drupal_get_path('module', 'cu_js_includes');

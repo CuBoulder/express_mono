@@ -185,9 +185,6 @@ function cu_js_includes_form_submit(&$form, &$form_state) {
       }
     }
 
-    // Account for embed with no paths. Used for Context and Beans.
-    $path = !empty($form_state['values']['path']) ? $form_state['values']['path'] : 'N/A';
-
     // Need user for embed overview page.
     global $user;
 
@@ -196,8 +193,9 @@ function cu_js_includes_form_submit(&$form, &$form_state) {
     if (isset($form_state['cu_js_includes']->id)) {
       $cu_js_includes = $form_state['cu_js_includes'];
       $cu_js_includes->name = $form_state['values']['label'];
-      $cu_js_includes->author = $user->name  ?: 'N/A';
-      $cu_js_includes->updated = REQUEST_TIME;
+      $cu_js_includes->uid = $user->uid  ?: 0;
+      $cu_js_includes->created = $cu_js_includes->created;
+      $cu_js_includes->changed = REQUEST_TIME;
       $cu_js_includes->type = $type;
       $cu_js_includes->renderer = $renderer;
       $cu_js_includes->data = serialize($data);
@@ -205,8 +203,9 @@ function cu_js_includes_form_submit(&$form, &$form_state) {
     else {
       $values = array(
         'name' => $form_state['values']['label'],
-        'author' => $user->name ?: 'N/A',
-        'updated' => REQUEST_TIME,
+        'uid' => $user->uid  ?: 0,
+        'created' => REQUEST_TIME,
+        'changed' => REQUEST_TIME,
         'type' => $type,
         'renderer' => $renderer,
         'data' => serialize($data),

@@ -39,8 +39,8 @@ function cu_js_includes_overview_form($form, &$form_state) {
   $headers = array(
     'name' => array('data' => t('Name'), 'field' => 'tp.name'),
     'type' => array('data' => t('Type'), 'field' => 'tp.type'),
-    'author' => array('data' => t('Author'), 'field' => 'tp.author'),
-    'updated' => array('data' => t('Updated'), 'field' => 'tp.updated', 'sort' => 'desc'),
+    'author' => array('data' => t('Author'), 'field' => 'tp.uid'),
+    'updated' => array('data' => t('Updated'), 'field' => 'tp.changed', 'sort' => 'desc'),
     'edit' => array('data' => t('Edit')),
   );
 
@@ -101,14 +101,6 @@ function cu_js_includes_search_form($form, $form_state) {
     '#default_value' => isset($form_state['storage']['search_name']) ? $form_state['storage']['search_name'] : '',
   );
 
-  // Search by author.
-  $form['search']['author'] = array(
-    '#title' => t('Include Author'),
-    '#description' => t('Search for includes by the last user who updated the include.'),
-    '#type' => 'textfield',
-    '#default_value' => isset($form_state['storage']['search_author']) ? $form_state['storage']['search_author'] : '',
-  );
-
   // Search by type.
   $types_options = array_flip(array_keys(cu_js_includes_get_include_types()));
   // Make values human readable.
@@ -131,9 +123,6 @@ function cu_js_includes_search_form($form, $form_state) {
     '#value' => t('Search'),
     '#submit' => array('cu_js_includes_overview_form_submit'),
   );
-
-  // Add select list for choosing operations.
-  $operations = cu_js_includes_get_operations();
 
   // Remove operations that user doesn't have permissions to perform.
   foreach ($operations as $key => $value) {
@@ -193,8 +182,7 @@ function cu_js_includes_includes_table($form, $form_state) {
   foreach ($form_state['cu_js_includes'] as $result) {
     $edit_link = l(t('Edit'), 'admin/content/js-includes/' . $result->type . '/' . $result->id . '/edit');
     $path_link = $result->path === 'N/A' ? 'N/A' : l(drupal_get_path_alias($result->path), $result->path);
-
-    $author = user_load_by_name($result->author);
+    $author = user_load($result->uid);
     $author_link = isset($author->name) ? "<a title=\"{$author->name}\" href=\"/users/{$author->name}\">{$author->name}</a>" : "N/A";
 
     $rows[] = array(
@@ -203,7 +191,7 @@ function cu_js_includes_includes_table($form, $form_state) {
       'type' => $result->type,
       'author' => $author_link,
       'renderer' => $result->renderer,
-      'updated' => format_date($result->updated, 'short'),
+      'updated' => format_date($result->changed, 'short'),
       'edit' => $edit_link,
     );
   }
@@ -240,7 +228,6 @@ function cu_js_includes_overview_form_submit(&$form, &$form_state) {
   $name = !empty($form_state['values']['name']) ? $form_state['values']['name'] : NULL;
   $renderer = !empty($form_state['values']['renderer']) ? $form_state['values']['renderer'] : NULL;
   $type = !empty($form_state['values']['type']) ? $form_state['values']['type'] : NULL;
-  $author = !empty($form_state['values']['author']) ? $form_state['values']['author'] : NULL;
 
   // If input for search, then pass to search function.
   if ($form_state['values']['op'] === 'Search') {
@@ -249,7 +236,6 @@ function cu_js_includes_overview_form_submit(&$form, &$form_state) {
       'name' => $name,
       'renderer' => $renderer,
       'type' => $type,
-      'author' => $author,
     );
 
     // Betting on !empty() working for NULL values in array.
@@ -357,11 +343,6 @@ function cu_js_includes_form_search(&$form_state, $options = array()) {
   if ($options['name'] != NULL) {
     $or = db_or();
     $or->condition('tp.name', '%' . db_like($options['name']) . '%', 'LIKE');
-  }
-
-  if ($options['author'] != NULL) {
-    $or = db_or();
-    $or->condition('tp.author', '%' . db_like($options['author']) . '%', 'LIKE');
   }
 
   // Search by path.

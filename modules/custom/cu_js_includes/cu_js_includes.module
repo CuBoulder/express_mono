@@ -16,11 +16,6 @@ module_load_include('inc', 'cu_js_includes', 'includes/cu_js_includes.forms');
 module_load_include('inc', 'cu_js_includes', 'includes/cu_js_includes.permissions');
 
 /**
- * @file
- * Provides a custom entity for adding embed codes to pages.
- */
-
-/**
  * Implements hook_entity_info().
  *
  * @return array
@@ -239,26 +234,6 @@ function cu_js_includes_get_includes_by_id($id = NULL) {
     $query->condition('id', $id, '=');
   }
   return $query->execute()->fetchAllAssoc('id');
-}
-
-/**
- * Return all include types that are available.
- *
- * @return array
- *   A list of all include types.
- */
-function cu_js_includes_get_include_types() {
-  $types = array();
-
-  // Add custom types other modules may have created.
-  $types = module_invoke_all('cu_js_includes_types');
-
-  // Allow other modules to alter the final array.
-  drupal_alter('cu_js_includes_types', $types);
-
-  // I saw the cast in the actions_list() function, but it wasn't fully explained.
-  // they say...See module_implements() for an explanation of this cast.
-  return (array) $types;
 }
 
 /**
