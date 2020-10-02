@@ -23,12 +23,11 @@ function cu_js_includes_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
-      'author' => array(
+      'uid' => array(
         'description' => 'The user who created the include.',
-        'type' => 'varchar',
-        'length' => 255,
+        'type' => 'int',
         'not null' => TRUE,
-        'default' => 'N/A',
+        'default' => 0,
       ),
       'name' => array(
         'description' => 'Human readable name of the include.',
@@ -48,7 +47,14 @@ function cu_js_includes_schema() {
         'length' => '255',
         'not null' => TRUE,
       ),
-      'updated' => array(
+      'created' => array(
+        'type' => 'int',
+        'description' => 'Timestamp when the include was created.',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
         'type' => 'int',
         'description' => 'Timestamp when the include was last updated.',
         'not null' => TRUE,
