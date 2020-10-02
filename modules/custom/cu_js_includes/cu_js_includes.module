@@ -46,25 +46,6 @@ function cu_js_includes_entity_info() {
 }
 
 /**
- * Implements hook_entity_presave().
- *
- * Calls status operation callback if one exists.
- */
-function cu_js_includes_entity_presave($entity, $type) {
-  // Only look for callback if the status has actually changed.
-  if ($type == 'cu_js_includes' && ((isset($entity->original) && $entity->status != $entity->original->status) || $entity->is_new)) {
-    // Gather operation from status.
-    $operations = cu_js_includes_get_operations();
-    foreach ($operations as $key => $value) {
-      // Call function if there is one.
-      if ($key == $entity->status && $value['operation_callback'] != NULL) {
-        call_user_func($value['operation_callback'], $entity);
-      }
-    }
-  }
-}
-
-/**
  * Implements hook_menu().
  *
  * @return array
@@ -386,24 +367,6 @@ function cu_js_includes_get_form_callback($type = NULL) {
   // Return error.
   drupal_set_message('Form callback could not be found.', 'error');
   return NULL;
-}
-
-/**
- * Gets all statuses for editing embeds.
- *
- * @return array
- *   List of status definitions.
- */
-function cu_js_includes_get_operations() {
-  $custom_statuses = array();
-  $custom_statuses = module_invoke_all('cu_js_includes_status');
-
-  // Allow other modules to alter the final array.
-  drupal_alter('cu_js_includes_status', $custom_statuses);
-
-  // I saw the cast in the actions_list() function, but it wasn't fully explained.
-  // they say...See module_implements() for an explanation of this cast.
-  return (array) $custom_statuses;
 }
 
 /**
