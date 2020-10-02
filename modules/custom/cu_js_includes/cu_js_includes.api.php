@@ -50,33 +50,3 @@ function hook_cu_js_includes_types() {
 function hook_cu_js_includes_types_alter(&$types) {
   $types['my_pixel']['label'] = 'A Different Label';
 }
-
-/**
- * Add custom statuses for embeds.
- *
- * You need to return an array with the following keys.
- *
- * array $custom_status
- *   - label: The human-readable name of your status.
- *   - operation_callback: Callback for if someone selects a change to this
- *       status. NULL if no operation.
- *   - bulk_operation_label: Label for Embed Overview bulk operation select list.
- *       NULL if no operation.
- *   - confirmation_label: Label for confirmation screen.
- *   - add_permission: String of the permission to check for when changing statuses
- *       This should map to your hook_permission(). NULL if no permission needed.
- *
- * @return array
- *   An array with your custom status definitions.
- */
-
-
-/**
- * Allows you to alter the statuses array after type declarations have been gathered.
- *
- * @param array $statuses
- *   Custom embed statuses declared by other modules.
- */
-function hook_cu_js_includes_status_alter(&$statuses) {
-  $statuses['in_review']['add_permission'] = 'a different permission name';
-}
