@@ -66,33 +66,3 @@ function cu_js_includes_schema() {
   );
   return $schema;
 }
-
-/**
- * Implements hook_update_N().
- *
- * Add uid and updated fields.
- */
-function cu_js_includes_update_7001() {
-
-  if (!db_field_exists('cu_js_includes', 'author')) {
-    $spec = array(
-      'description' => 'The user who created the include.',
-      'type' => 'varchar',
-      'length' => 255,
-      'not null' => TRUE,
-      'default' => 'N/A',
-    );
-    db_add_field('cu_js_includes', 'author', $spec);
-  }
-
-  if (!db_field_exists('cu_js_includes', 'updated')) {
-    $spec = array(
-      'description' => 'Timestamp when the include was last updated.',
-      'type' => 'int',
-      'not null' => TRUE,
-      'unsigned' => TRUE,
-      'default' => 0,
-    );
-    db_add_field('cu_js_includes', 'updated', $spec);
-  }
-}
