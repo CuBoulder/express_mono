@@ -70,7 +70,7 @@ function cu_js_includes_overview_form($form, &$form_state) {
     $form = cu_js_includes_includes_table($form, $form_state);
   }
   else {
-    drupal_set_message(t('No include codes exist. You can create one by clicking the action link below.'), 'warning');
+    drupal_set_message(t('No includes exist. You can create one by clicking the action link below.'), 'warning');
   }
   return $form;
 }
@@ -125,6 +125,7 @@ function cu_js_includes_search_form($form, $form_state) {
   );
 
   // Remove operations that user doesn't have permissions to perform.
+  $operations = array();
   foreach ($operations as $key => $value) {
     if ($value['add_permission'] != NULL && !user_access($value['add_permission'])) {
       unset($operations[$key]);
@@ -137,7 +138,7 @@ function cu_js_includes_search_form($form, $form_state) {
   });
 
   // Add delete operation if user has permission.
-  if (user_access('delete includes')) {
+  if (user_access('delete js includes')) {
     $operations = $operations + array('delete' => 'Delete Include Codes');
   }
 
@@ -273,7 +274,7 @@ function cu_js_includes_overview_form_submit(&$form, &$form_state) {
   // @todo Refactor this if another operation doesn't fit into the add/edit screen.
   if (lcfirst($operation) == 'delete') {
     // Check for permission.
-    if (!user_access('delete includes')) {
+    if (!user_access('delete js includes')) {
       drupal_set_message('You do not have sufficient permissions to delete these includes.', 'error');
       return NULL;
     }

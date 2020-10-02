@@ -260,7 +260,9 @@ function cu_js_includes_get_include_type($type = NULL) {
     }
   }
 }
-
+function cu_js_includes_get_operations() {
+  return array();
+}
 /**
  * Returns a list of all renderers associated to an include type.
  *
