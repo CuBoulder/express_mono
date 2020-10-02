@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * people_content_type.features.field_base.inc
@@ -31,6 +32,32 @@ function people_content_type_field_default_field_bases() {
       ),
       'allowed_values_function' => '_people_list_block_display_options',
       'allowed_values_php' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
+  // Exported field_base: 'field_people_childterms'.
+  $field_bases['field_people_childterms'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_people_childterms',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'all' => 'Include all child terms of the terms selected in the filter menu',
+        'checked' => 'Only include the terms selected in the filter menu',
+      ),
+      'allowed_values_function' => '',
+      'allowed_values_php' => '',
     ),
     'translatable' => 0,
     'type' => 'list_text',
