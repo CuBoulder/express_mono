@@ -10,7 +10,6 @@ function cu_js_includes_get_include_types() {
   // Create a few initial embed types.
   $custom_types = array();
   $module_path = drupal_get_path('module', 'cu_js_includes');
-  $default_status = 'unpublished';
 
   $custom_types['admithub'] = array(
     'label' => 'AdmitHub',
@@ -45,4 +44,18 @@ function cu_js_includes_get_include_types() {
   );
 
   return $custom_types;
+}
+
+/**
+ * Implements hook_node_list_groups().
+ *
+ * Adds grouping/labels for includes since they use the node list function.
+ */
+function cu_js_includes_express_node_list_groups($bundles) {
+  $bundles['inlcudes']['title'] = 'Include Types';
+  $bundles['inlcudes']['types'][] = 'Add AdmitHub Include';
+  $bundles['inlcudes']['types'][] = 'Add LiveChat Include';
+  $bundles['inlcudes']['types'][] = 'Add Slate Form Include';
+  $bundles['inlcudes']['types'][] = 'Add StatusPage Include';
+  return $bundles;
 }

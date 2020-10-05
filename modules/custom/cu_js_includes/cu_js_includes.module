@@ -256,9 +256,7 @@ function cu_js_includes_get_include_type($type = NULL) {
     }
   }
 }
-function cu_js_includes_get_operations() {
-  return array();
-}
+
 /**
  * Returns a list of all renderers associated to an include type.
  *
@@ -363,6 +361,9 @@ function cu_js_includes_context_registry() {
   );
 }
 
+/**
+ * Implements hook_page_reaction().
+ */
 function cu_js_includes_context_page_reaction() {
   if ($plugin = context_get_plugin('reaction', 'js_include')) {
    $plugin->execute();
@@ -432,15 +433,4 @@ function cu_js_includes_preprocess_entity(&$vars) {
       $vars['content']['js_embed']['#markup'] = $js_include;
     }
   }
-}
-
-function cu_js_includes_express_node_list_groups($bundles) {
-
-
-  $bundles['inlcudes']['title'] = 'Include Types';
-  $bundles['inlcudes']['types'][] = 'Add AdmitHub Include';
-  $bundles['inlcudes']['types'][] = 'Add LiveChat Include';
-  $bundles['inlcudes']['types'][] = 'Add Slate Form Include';
-  $bundles['inlcudes']['types'][] = 'Add StatusPage Include';
-  return $bundles;
 }
