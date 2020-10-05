@@ -51,7 +51,7 @@ function cu_js_includes_overview_form($form, &$form_state) {
       return $value->id;
     }, $form_state['storage']['search_includes']);
 
-    $cu_js_includes = cu_js_includes_get_embeds(array('id' => $embed_ids), $headers);
+    $cu_js_includes = cu_js_includes_get_includes(array('id' => $embed_ids), $headers);
   }
   else {
     // Get existing embed codes with no conditions and a sortable header.
@@ -124,6 +124,11 @@ function cu_js_includes_search_form($form, $form_state) {
     '#value' => t('Search'),
     '#submit' => array('cu_js_includes_overview_form_submit'),
   );
+  $form['search']['reset'] = array(
+    '#type' => 'submit',
+    '#value' => t('Reset'),
+    '#submit' => array('cu_js_includes_form_overview_reset'),
+  );
 
   // Remove operations that user doesn't have permissions to perform.
   $operations = array();
@@ -154,6 +159,10 @@ function cu_js_includes_search_form($form, $form_state) {
   }
 
   return $form;
+}
+
+function cu_js_includes_form_overview_reset($form, &$form_state) {
+  $form_state['rebuild'] = FALSE;
 }
 
 /**
