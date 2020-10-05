@@ -127,17 +127,6 @@ function cu_js_includes_search_form($form, $form_state) {
 
   // Remove operations that user doesn't have permissions to perform.
   $operations = array();
-  foreach ($operations as $key => $value) {
-    if ($value['add_permission'] != NULL && !user_access($value['add_permission'])) {
-      unset($operations[$key]);
-    }
-  }
-
-  // Make select list into operation => label.
-  array_walk($operations, function (&$value) {
-    $value = $value['bulk_operation_label'];
-  });
-
   // Add delete operation if user has permission.
   if (user_access('delete js includes')) {
     $operations = $operations + array('delete' => 'Delete Include Codes');
@@ -281,42 +270,10 @@ function cu_js_includes_overview_form_submit(&$form, &$form_state) {
       return NULL;
     }
 
-    foreach ($form_state['cu_js_includes'] as $pixel) {
-      // Call submission callback in case embeds need to do something for deletion.
-      if ($submission_callback = cu_js_includes_get_submission_callback($pixel->type)) {
-        call_user_func($submission_callback, $pixel, 'delete');
-      }
-      entity_delete('cu_js_includes', $pixel->id);
+    foreach ($form_state['cu_js_includes'] as $include) {
+      entity_delete('cu_js_includes', $include->id);
     }
     return NULL;
-  }
-
-  // Get statuses to check for operations.
-  $operations = cu_js_includes_get_operations();
-
-  // If operation exists act on it.
-  foreach ($operations as $key => $value) {
-    if ($value['confirmation_label'] == $operation) {
-      // Check for permission.
-      if (!user_access($value['add_permission'])) {
-        return NULL;
-      }
-
-      // Switch operation machine name for label.
-      $operation = $key;
-
-      // Pass in each embed to submission/callback functions.
-      foreach ($form_state['cu_js_includes'] as $include) {
-        // Call submission callback in case embeds need to do something before operation.
-        if ($submission_callback = cu_js_includes_get_submission_callback($include->type)) {
-          call_user_func($submission_callback, $include, $operation);
-        }
-
-        // Operation callback invocation has been moved to cu_js_includes_entity_presave().
-        entity_save('cu_js_includes', $include);
-      }
-      return NULL;
-    }
   }
 
   // Otherwise, set an error message.
