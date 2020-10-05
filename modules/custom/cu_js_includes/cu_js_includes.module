@@ -301,29 +301,6 @@ function cu_js_includes_get_renderer($type = NULL) {
 }
 
 /**
- * Looks for a form submission callback for an embed type.
- *
- * @param null $type
- *   Type to search for.
- *
- * @return null|string
- *   Name of submission callback or NULL if none.
- */
-function cu_js_includes_get_submission_callback($type = NULL) {
-  $include_types = cu_js_includes_get_include_types();
-
-  foreach ($include_types as $key => $value) {
-    if ($key === $type) {
-      return $value['submission_callback'];
-    }
-  }
-
-  // Return error.
-  drupal_set_message('Submission callback could not be found.', 'error');
-  return NULL;
-}
-
-/**
  * Looks for embed add/edit form definition for embed type.
  *
  * @param null $type

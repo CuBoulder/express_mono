@@ -145,11 +145,6 @@ function cu_js_includes_form_submit(&$form, &$form_state) {
       return $form_state;
     }
     else {
-      // Call submission callback in case embeds need to do something for deletion.
-      if ($submission_callback = cu_js_includes_get_submission_callback($form_state['cu_js_includes']->type)) {
-        call_user_func($submission_callback, $form_state['cu_js_includes'], 'delete');
-      }
-
       // Finally delete embed and redirect to the embed codes overview form.
       entity_delete('cu_js_includes', $form_state['cu_js_includes']->id);
       $form_state['redirect'] = 'admin/content/js-includes';
@@ -211,11 +206,6 @@ function cu_js_includes_form_submit(&$form, &$form_state) {
         'data' => serialize($data),
       );
       $cu_js_includes = entity_create('cu_js_includes', $values);
-    }
-
-    // Call submission callback in case embeds need to do something for creation/save.
-    if ($submission_callback = cu_js_includes_get_submission_callback($type)) {
-      call_user_func($submission_callback, $cu_js_includes, 'save');
     }
 
     // @todo make sure that the type + name is unique and send form error if not. Probably best to do in validation function.
