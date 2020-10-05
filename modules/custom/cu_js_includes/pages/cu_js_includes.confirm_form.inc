@@ -40,7 +40,7 @@ function cu_js_includes_confirm(&$form, &$form_state) {
   if (isset($form_state['cu_js_includes'])) {
     // If only one embed code...
     if (isset($form_state['cu_js_includes']->name)) {
-      $embed_names = array($form_state['cu_js_includes']->name);
+      $include_names = array($form_state['cu_js_includes']->name);
     }
     else {
       // For multiple pixels, we need to match array key positions with embed IDs.
