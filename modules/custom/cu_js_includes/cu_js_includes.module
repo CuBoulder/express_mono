@@ -160,22 +160,12 @@ function cu_js_includes_theme($existing, $type, $theme, $path) {
   $templates = array();
 
   foreach ($include_types as $key => $include_type) {
-    // Check for template path in case we have includes added through API hook.
-    $template = $include_type['template'] != NULL ? $include_type['template'] : 'templates/js-include-templates-' . $key;
-    $path = $include_type['path'] != NULL ? $include_type['path'] : drupal_get_path('module', 'cu_js_includes');
-
     $templates['cu_js_includes_' . $key] = array(
       'variables' => array('data' => NULL),
-      'path' => $path,
-      'template' => $template,
+      'path' => $include_type['path'],
+      'template' => $include_type['template'],
     );
   }
-
-  // Add custom template.
-  $templates['cu_js_includes_custom'] = array(
-    'variables' => array('data' => NULL),
-    'template' => 'templates/include-sanitizer-custom',
-  );
 
   return $templates;
 }

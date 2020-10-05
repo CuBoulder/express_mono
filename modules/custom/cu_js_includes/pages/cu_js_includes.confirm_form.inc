@@ -68,13 +68,7 @@ function cu_js_includes_confirm(&$form, &$form_state) {
       'attributes' => array(),
     ));
 
-    // Find confirmation label for operation.
-    $operations = cu_js_includes_get_operations();
-    foreach ($operations as $key => $operation) {
-      if ($key == $op) {
-        $operation_label = $operation['confirmation_label'];
-      }
-    }
+    
 
     // Check for deletion operation.
     if (lcfirst($op) == 'delete') {

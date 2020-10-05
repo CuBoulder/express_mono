@@ -96,9 +96,6 @@ function cu_js_includes_form($form, &$form_state, $cu_js_includes_id = NULL) {
     '#limit_validation_errors' => array(),
   );
 
-
-
-  // @todo possibly disable parts of form if no "Publishing Options" are available
   // to the user.
   $form['options'] = array(
     '#type' => 'fieldset',
