@@ -21,10 +21,10 @@ function cu_js_includes_add_page() {
     drupal_goto($item['href']);
   }
   $output = theme('node_add_list', array('content' => $content));
-  
+
   // Need to check and see if output is empty so we can change the help message sent to the user.
   if (is_string($output) && strpos($output, 'You have not created any content types yet') != FALSE) {
-    $output = '<p>You have not created any JS Include types yet. </p>';
+    $output = '<p>' . t('No JavaScript includes have been created.') . '</p>';
   }
 
   return $output;
