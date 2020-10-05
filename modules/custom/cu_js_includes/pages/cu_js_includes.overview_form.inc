@@ -40,6 +40,7 @@ function cu_js_includes_overview_form($form, &$form_state) {
     'name' => array('data' => t('Name'), 'field' => 'tp.name'),
     'type' => array('data' => t('Type'), 'field' => 'tp.type'),
     'author' => array('data' => t('Author'), 'field' => 'tp.uid'),
+    'created' => array('data' => t('Created'), 'field' => 'tp.created'),
     'updated' => array('data' => t('Updated'), 'field' => 'tp.changed', 'sort' => 'desc'),
     'edit' => array('data' => t('Edit')),
   );
@@ -192,6 +193,7 @@ function cu_js_includes_includes_table($form, $form_state) {
       'type' => $result->type,
       'author' => $author_link,
       'renderer' => $result->renderer,
+      'created' => format_date($result->created, 'short'),
       'updated' => format_date($result->changed, 'short'),
       'edit' => $edit_link,
     );
