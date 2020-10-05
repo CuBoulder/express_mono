@@ -69,9 +69,10 @@ function cu_js_includes_menu() {
 
   // Add CRUD paths for each custom include type.
   $include_types = cu_js_includes_get_include_types();
+  $access_permission = array('edit js includes');
   foreach ($include_types as $key => $type) {
     // Need to create permission string before declaring it in menu array.
-    $access_permission = array('edit ' . $key . ' js includes');
+
 
     $items['admin/content/js-includes/add/' . $key] = array(
       'title' => 'Add ' . $type['label'] . ' Include',
@@ -124,17 +125,12 @@ function cu_js_includes_permission() {
   $permissions['administer js includes'] = array(
     'title' => t('Administer JS Includes'),
   );
-
-  // Add permissions for each embed type.
-  $include_types = cu_js_includes_get_include_types();
-  foreach ($include_types as $key => $type) {
-    $permissions['edit ' . $key . ' js includes'] = array(
-      'title' => t('Edit !type Includes', array('!type' => $type['label'])),
-    );
-    $permissions['view ' . $key . ' js includes'] = array(
-      'title' => t('View !type Includes', array('!type' => $type['label'])),
-    );
-  }
+  $permissions['view js includes'] = array(
+    'title' => t('View JS Includes'),
+  );
+  $permissions['edit js includes'] = array(
+    'title' => t('Edit JS Includes'),
+  );
   $permissions['delete js includes'] = array(
     'title' => t('Delete JS Includes'),
   );
