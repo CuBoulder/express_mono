@@ -15,7 +15,6 @@ function cu_js_includes_get_include_types() {
   $custom_types['admithub'] = array(
     'label' => 'AdmitHub',
     'form_callback' => 'cu_js_includes_admithub_form',
-    'submission_callback' => NULL,
     'renderer' => 'page_top_bottom',
     'path' => $module_path,
     'template' => 'templates/admithub',
@@ -24,7 +23,6 @@ function cu_js_includes_get_include_types() {
   $custom_types['livechat'] = array(
     'label' => 'LiveChat',
     'form_callback' => 'cu_js_includes_livechat_form',
-    'submission_callback' => NULL,
     'renderer' => 'page_top_bottom',
     'path' => $module_path,
     'template' => 'templates/livechat',
@@ -33,7 +31,6 @@ function cu_js_includes_get_include_types() {
   $custom_types['statuspage'] = array(
     'label' => 'StatusPage',
     'form_callback' => 'cu_js_includes_statuspage_form',
-    'submission_callback' => NULL,
     'renderer' => 'block',
     'path' => $module_path,
     'template' => 'templates/statuspage',
@@ -42,7 +39,6 @@ function cu_js_includes_get_include_types() {
   $custom_types['slateform'] = array(
     'label' => 'Slate Form',
     'form_callback' => 'cu_js_includes_slateform_form',
-    'submission_callback' => NULL,
     'renderer' => 'block',
     'path' => $module_path,
     'template' => 'templates/slateform',
