@@ -80,7 +80,7 @@ Examples:
 | role                  | message                  |
 | developer             | "Add StatusPage Include" |
 | administrator         | "Add StatusPage Include" |
-| site_owner            | "Add AdmitHub Include" |
+| site_owner            | "Add StatusPage Include" |
 | edit_my_content       | "Access denied"           |
 | site_editor           | "Add StatusPage Include" |
 | edit_only             | "Access denied"            |
