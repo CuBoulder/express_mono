@@ -227,7 +227,6 @@ function cu_js_includes_includes_table($form, $form_state) {
 function cu_js_includes_overview_form_submit(&$form, &$form_state) {
   // Declare default variables. Probably a better way to do this.
   $name = !empty($form_state['values']['name']) ? $form_state['values']['name'] : NULL;
-  $renderer = !empty($form_state['values']['renderer']) ? $form_state['values']['renderer'] : NULL;
   $type = !empty($form_state['values']['type']) ? $form_state['values']['type'] : NULL;
 
   // If input for search, then pass to search function.
@@ -235,7 +234,6 @@ function cu_js_includes_overview_form_submit(&$form, &$form_state) {
 
     $options = array(
       'name' => $name,
-      'renderer' => $renderer,
       'type' => $type,
     );
 
@@ -314,36 +312,6 @@ function cu_js_includes_form_search(&$form_state, $options = array()) {
     $or->condition('tp.name', '%' . db_like($options['name']) . '%', 'LIKE');
   }
 
-  // Search by path.
-  if ($options['path'] != NULL && $options['path'] != FALSE) {
-    // Always add search for path in cu_js_includes table. Unthemed Pages will
-    // never have an entry in the alias table.
-    if (!isset($or)) {
-      $or = db_or();
-    }
-    $or->condition('tp.path', '%' . db_like($options['path']) . '%', 'LIKE');
-
-    // Finding system paths is a little more difficult.
-    // May need to add conditions for other alias tables.
-    $path_results = db_select('url_alias', 'al')
-      ->fields('al', array('source'))
-      ->condition('al.alias', '%' . db_like($options['path']) . '%', 'LIKE')
-      ->execute()
-      ->fetchCol();
-
-    if (!empty($path_results)) {
-      // If no name is passed in, we have to create the $or object.
-      foreach ($path_results as $system_path) {
-        $or->condition('tp.path', '%' . db_like($system_path) . '%', 'LIKE');
-      }
-    }
-  }
-
-  // Add search by renderer.
-  if ($options['renderer'] != NULL && $options['renderer'] != 'any') {
-    $query->condition('tp.renderer', $options['renderer'], '=');
-  }
-
   // Add search by type.
   if ($options['type'] != NULL && $options['type'] != 'any') {
     $query->condition('tp.type', $options['type'], '=');
@@ -356,18 +324,16 @@ function cu_js_includes_form_search(&$form_state, $options = array()) {
   $results = $query->execute()->fetchAllAssoc('id');
 
   // Load embeds to send back to form.
-  if ($results) {
+  if (!empty($results)) {
     $cu_js_includes = entity_load('cu_js_includes', array_keys($results));
     $form_state['storage']['search_includes'] = $cu_js_includes;
   }
   else {
     // Set message if there are no results.
-    $form_state['storage']['search_includes'] = cu_js_includes_get_includes();
     drupal_set_message(t('No results matched your search. All includes are shown.'), 'error');
   }
 
   $form_state['storage']['search_name'] = $options['name'];
-  $form_state['storage']['search_renderer'] = $options['renderer'];
   $form_state['storage']['search_type'] = $options['type'];
   $form_state['rebuild'] = TRUE;
   return $form_state;
