@@ -186,13 +186,11 @@ function cu_js_includes_get_includes($conditions = array(), $sortable_header = N
   else {
     $query = db_select('cu_js_includes', 'tp');
   }
-
   $query->fields('tp');
-
   // Loop through options array and add conditions.
   // Conditions have to match the db columns.
   foreach ($conditions as $key => $condition) {
-    $query->condition($key, $condition, '=');
+    $query->condition($key, $condition, 'IN');
   }
 
   return $query->execute()->fetchAllAssoc('id');
