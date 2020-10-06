@@ -46,10 +46,11 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
   if ($vars['elements']['#bundle'] == 'faculty_publications') {
 
     $nodePath = drupal_get_normal_path($_GET['q']);
+    $cid = $_GET['page'] ? $nodePath . "/" . $_GET['page'] : $nodePath;
     global $user;
     $skipCache = in_array('developer', $user->roles) || in_array('administrator', $user->roles);
 
-    $publicationData = get_publication_data($nodePath, $skipCache, $vars['bean']);
+    $publicationData = get_publication_data($cid, $skipCache, $vars['bean']);
 
     if (isset($publicationData['error'])) {
       $vars['content']['error'][]['#markup'] = $publicationData['error'];
@@ -90,8 +91,8 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 // Get publication data. First check the cache for fresh data and return it.
 // Next, if data is cached but expired it is refreshed using the cached elasticsearch request url. Return new data.
 // If not cached, make an elasticsearch request url and get data, cache it and the url. Return new data.
-function get_publication_data($url, $skipCache, $beanObject) {
-  $cache = cache_get($url, 'cache_cu_faculty_publications_bundle');
+function get_publication_data($cid, $skipCache, $beanObject) {
+  $cache = cache_get($cid, 'cache_cu_faculty_publications_bundle');
   $newExpiration = time() + (24 * 60 * 60);
   // First check if there is data in the cache and that it has not expired.
   // If so there is no need to build elastic search url, just return the cache.
@@ -116,7 +117,7 @@ function get_publication_data($url, $skipCache, $beanObject) {
         'reqUrl' => $cache->data['reqUrl']
       ];
 
-      cache_set($url, $newPublicationData, 'cache_cu_faculty_publications_bundle');
+      cache_set($cid, $newPublicationData, 'cache_cu_faculty_publications_bundle');
       $newPublicationData['isFromCache'] = false;
       return $newPublicationData;
     }
@@ -165,7 +166,7 @@ function get_publication_data($url, $skipCache, $beanObject) {
           'messages' => $reqData['messages']
         ];
 
-        cache_set($url, $newPublicationData, 'cache_cu_faculty_publications_bundle');
+        cache_set($cid, $newPublicationData, 'cache_cu_faculty_publications_bundle');
         $newPublicationData['isFromCache'] = false;
         return $newPublicationData;
       }
