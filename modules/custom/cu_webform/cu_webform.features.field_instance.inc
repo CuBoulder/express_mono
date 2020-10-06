@@ -33,7 +33,7 @@ function cu_webform_field_default_field_instances() {
     'entity_type' => 'node',
     'fences_wrapper' => 'div_div_div',
     'field_name' => 'field_webform_results_access',
-    'label' => 'Allow the following user(s) to view form submissions.',
+    'label' => 'Allow the following user(s) to manage form submissions.',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
