@@ -34,7 +34,7 @@ I should be able to create, edit, and delete Webforms
     Scenario: A user can interact with webform body fields.
       Given I am logged in as a user with the "site_owner" role
       When I am on "node/add/webform"
-      Then I should see "Allow the following user(s) to view form submissions."
+      Then I should see "Allow the following user(s) to manage form submissions."
       And I should see "Allow the following user(s) to edit the form."
       And the "edit-menu-enabled" checkbox should be checked
       Then I fill in "edit-title" with "Field Test Form"
