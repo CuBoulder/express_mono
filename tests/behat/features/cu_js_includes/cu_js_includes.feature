@@ -110,4 +110,6 @@ Given I am logged in as a user with the "site_owner" role
 And I am on "admin/content/js-includes"
 And I follow "Edit"
 And I press "Delete"
+Then I should see "Do you really want to Delete the following includes?"
+  And I press "Delete"
  Then I should not see "Test Edit AdmitHub Include"
