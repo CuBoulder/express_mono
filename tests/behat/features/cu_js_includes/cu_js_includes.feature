@@ -93,7 +93,7 @@ Examples:
   And fill in "edit-account-id" with "123456789"
   When I press "edit-submit"
   Then I should be on "admin/content/js-includes"
- And I should see "admin/content/js-includes"
+ And I should see "Test AdmitHub Include"
 
 #  2.5 CREATE REVISIONS TO THE BLOCK ABOVE
 Scenario: Edit an Include
