@@ -85,12 +85,12 @@ function express_permissions_update_7010() {
 function express_permissions_update_7011() {
   // Delete the content_editor role. Passing in a string this time, as the user_role_delete function expects.
   user_role_delete('content_editor');
-
+}
 
 /**
  * Fix empty role selection in user forms.
  */
-function user_external_invite_update_7012() {
+function express_permissions_invite_update_7012() {
   $core_roles = express_permissions_role_settings(array('core'));
   $core_role_ids = array();
   foreach ($core_roles['rid'] as $rid => $role) {
