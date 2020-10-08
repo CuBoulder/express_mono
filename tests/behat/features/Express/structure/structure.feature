@@ -2,7 +2,7 @@
 # SEE ARTICLES FOR TAXONOMY TESTS
 # SEE MENUS FOR MENUS TESTS
 
-@structure
+@structure @core
 Feature: Structure section with links to context, menus, etc
 When I go to the Admin/Structure page
 As an authenticated user
@@ -20,7 +20,6 @@ I should be able to adjust the structure of my site
       | administrator |
       | site_owner    |
       | site_editor   |
- # IN FLUX | content_editor  |
 
   Scenario Outline:  Some users should not be able to access Admin/Structure
     Given I am logged in as a user with the <role> role

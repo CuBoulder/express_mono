@@ -61,8 +61,8 @@ $cugold: #cfb87c;
       padding:15px;
     }
   }
-  a:link,
-  a:visited {
+  a:link:not(.button),
+  a:visited:not(.button) {
     color:#fff !important;
   }
   .cu-slider-teaser {
@@ -101,8 +101,8 @@ $cugold: #cfb87c;
       font-size: 120%;
     }
   }
-  a:link,
-  a:visited {
+  a:link:not(.button),
+  a:visited:not(.button) {
     color:#fff !important;
   }
   .cu-slider-teaser {
@@ -141,8 +141,8 @@ $cugold: #cfb87c;
     }
   }
 
-  a:link,
-  a:visited {
+  a:link:not(.button),
+  a:visited:not(.button) {
     color:#fff !important;
   }
   .cu-slider-teaser {
@@ -175,8 +175,8 @@ $cugold: #cfb87c;
     }
   }
   .cu-slider-caption {
-    a:link,
-    a:visited {
+    a:link:not(.button),
+    a:visited:not(.button) {
       color:#fff !important;
     }
   }
@@ -332,8 +332,8 @@ $cugold: #cfb87c;
       }
     }
   }
-  a:link,
-  a:visited {
+  a:link:not(.button),
+  a:visited:not(.button) {
     color:#fff !important;
   }
   .cu-slider-teaser {

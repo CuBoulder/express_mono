@@ -26,3 +26,4 @@ features[variable][] = ldap_servers_require_ssl_for_credentails
 features[variable][] = ldap_servers_require_ssl_for_credentials
 features[variable][] = ldap_user_cron
 features[variable][] = realname_pattern
+settings[can_be_overridden] = 1

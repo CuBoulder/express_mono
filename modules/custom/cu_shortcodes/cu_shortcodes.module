@@ -12,6 +12,9 @@
  * Implements hook_menu().
  */
 function cu_shortcodes_menu() {
+  // module_load_include('inc', )
+  // $themes = list_themes();
+  // $registry = theme_get_registry();
   $items['shortcodes'] = array(
     'title' => 'Shortcodes',
     'page callback' => 'cu_shortcodes_demo',
@@ -435,14 +438,15 @@ function cu_shortcodes_box_tips($format, $long) {
  * Button shortcode.
  */
 function cu_shortcodes_button($attrs, $content = NULL) {
-  extract(shortcode_attrs(array(
-        'url'        => '',
-        'style'       => '',
-        'color' => '',
-        'icon' => '',
-        'size' => '',
-        'id' => NULL,
-      ), $attrs));
+  $url = $attrs['url'] ?? '';
+  $style = $attrs['style'] ?? '';
+  $color = $attrs['color'] ?? '';
+  $icon = $attrs['icon'] ?? '';
+  $size = $attrs['size'] ?? '';
+  $id = $attrs['id'] ?? NULL;
+  $options = array();
+  $parsedUrl = parse_url($url);
+
   // Add button classes.
   $classes = array();
   $classes[] = 'button';
@@ -451,17 +455,32 @@ function cu_shortcodes_button($attrs, $content = NULL) {
     $classes[] = 'button-full';
   }
   $classes[] = $color ? 'button-' . $color : 'button-white';
-  // Add button attributes to array.
-  $attributes['class'] = $classes;
-  // Only add ID if ID exists.
+
+  // Define button attrubutes array. Add html attributes to it.
   if ($id) { $attributes['id'] = $id; }
+  $attributes['class'] = $classes;
+
+  // Set up $options array to be passed into l().
+  $options['attributes'] = $attributes;
+  $options['html'] = TRUE;
+
+  // Check if url is only a fragment.
+  if (count($parsedUrl) === 1 && isset($parsedUrl['fragment'])) {
+    $url = '';
+    $options['fragment'] = $parsedUrl['fragment'];
+    $options['external'] = TRUE;
+  }
+
+  // Check in case url passed into this function contains a fragment but not ONLY a fragment.
+  if (count($parsedUrl) > 1 && isset($parsedUrl['fragment'])) {
+    $options['fragment'] = $parsedUrl['fragment'];
+    $url = substr($url, 0, strpos($url, "#"));
+    $options['external'] = TRUE;
+  }
 
   $content = $icon ? '<i class="fa ' . $icon . '"></i> ' . $content : $content;
-  return l($content, $url, array(
-      'attributes' => $attributes,
-      'html' => TRUE,
-    )
-  );
+  $button = l($content, $url, $options);
+  return $button;
 }
 
 /**

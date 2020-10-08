@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Social Share Settings encourage your site's visitors to share your site's content through social media
 In order to place social media links on node types
 An authenticated user with the proper role
@@ -16,19 +16,18 @@ Then I should see <message>
     | developer       | "Choose the order and which social media links to display" |
     | administrator   | "Choose the order and which social media links to display" |
     | site_owner      | "Choose the order and which social media links to display" |
-    | content_editor  | "Access Denied" |
     | edit_my_content | "Access Denied" |
  #  | site_editor     | "Access denied" | (has access for some reason)
     | edit_only        | "Access denied" |
     | access_manager   | "Access denied" |
- #  | configuration_manager | "Choose the order and which social media links to display" | 
+ #  | configuration_manager | "Choose the order and which social media links to display" |
 
 
 
 Scenario: An anonymous user should not be able to access the Social Share page
  When I am on "admin/settings/social/share"
  Then I should see "Access denied"
-  
+
 # SETTING THE SOCIAL SHARE LINKS
 Scenario: Social Share Links can be set and appear on specified nodes
   Given I am logged in as a user with the "site_owner" role
@@ -46,5 +45,3 @@ Scenario: Social Share Links can be set and appear on specified nodes
   And I go to "mysocialpage"
   Then the response should contain "class=\"cu-share-sidebar\""
  And I should see a ".cu-share-sidebar" element
-  
-  

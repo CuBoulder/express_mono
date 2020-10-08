@@ -23,10 +23,6 @@ function cu_seo_bundle_secure_permissions($role) {
       'administer site verify',
       'view seo dashboard',
     ),
-    'content_editor' => array(
-      'access broken links report',
-      'edit meta tags',
-    ),
     'edit_my_content' => array(
       'access broken links report',
     ),

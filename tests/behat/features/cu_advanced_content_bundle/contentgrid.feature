@@ -13,7 +13,6 @@ Scenario Outline: A user with the proper role can access the form for adding a c
   | role            | message         |
   | edit_my_content | "Access denied" |
   | edit_only       | "Access denied" |
-  | content_editor  | "Create Content Grid block" |
   | site_owner      | "Create Content Grid block" |
   | administrator   | "Create Content Grid block" |
   | developer       | "Create Content Grid block" |
@@ -70,11 +69,11 @@ Then I should see "Content Grid My Content Grid Title has been created."
 And I should see "Cupcake ipsum dolor sit amet ice cream carrot cake"
 And I should see "Veggie ipsum dolor sit amet cucumber broccoli carrot stringbean"
 
-@broken
-Scenario: An EditOnly can edit a Content Grid
+@meonly
+Scenario: An EditOnly can edit but not delete a Content Grid block
 Given I am logged in as a user with the "edit_only" role
 And am on "block/my-content-grid-label/view"
 Then I should see the link "Edit Block"
 And I follow "Edit Block"
 Then I should see "Edit Content Grid: My Content Grid Label"
-Then I should not see "Delete"
+And I should not see an "edit-delete" element

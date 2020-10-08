@@ -277,6 +277,22 @@ function cu_core_preprocess_html(&$vars) {
   }
 }
 
+/**
+ * Implements hook_form_alter().
+ *
+ * This alters the site name form from express_settings.module.
+ * This alter provides a list of CU Boulder specific options for the
+ * affiliation field in addition to a custom option.
+ *
+ * Most sites should use one of the set options, but the custom option can be
+ * used for special use cases, such as RASEI, where the affilation text could be
+ * 'A partnership between CU Boulder and the National Renewable Energy Laboratory'.
+ *
+ * This alter also adds a site_type field. By setting a site type, we can make
+ * global/theme changes based on these. For example, sport clubs get the
+ * Ralphie logo added next to the site name, student groups get an affilation
+ * set. See template.php and site-name.tpl.php in the UCB theme.
+ */
 function cu_core_form_express_settings_site_name_form_alter(&$form, &$form_state, $form_id) {
   // Set a type for each site.
   $form['express_site_type'] = array(
@@ -379,31 +395,31 @@ function cu_core_form_express_settings_site_name_form_alter(&$form, &$form_state
 function cu_core_site_affiliation_options($option = NULL) {
   $options = array(
 
-    'college_of_arts_sciences' => array(
+    'arts_sciences' => array(
       'url' => 'https://www.colorado.edu/artsandsciences',
-      'label' => 'College of Arts & Sciences',
+      'label' => 'College of Arts and Sciences',
     ),
-    'leeds_school_business' => array(
+    'business' => array(
       'url' => 'https://www.colorado.edu/business',
       'label' => 'Leeds School of Business',
     ),
-    'school_education' => array(
+    'education' => array(
       'url' => 'https://www.colorado.edu/education',
       'label' => 'School of Education',
     ),
-    'college_engineering_applied_science' => array(
+    'engineering' => array(
       'url' => 'https://www.colorado.edu/engineering',
-      'label' => 'College of Engineering & Applied Science',
+      'label' => 'College of Engineering and Applied Science',
     ),
-    'college_media_communication_information' => array(
+    'cmci' => array(
       'url' => 'https://www.colorado.edu/cmci',
-      'label' => 'College of Media, Communication & Information',
+      'label' => 'College of Media, Communication and Information',
     ),
-    'college_music' => array(
+    'music' => array(
       'url' => 'https://www.colorado.edu/music',
       'label' => 'College of Music',
     ),
-    'school_law' => array(
+    'law' => array(
       'url' => 'https://www.colorado.edu/law',
       'label' => 'School of Law',
     ),
@@ -423,9 +439,9 @@ function cu_core_site_affiliation_options($option = NULL) {
       'url' => 'https://www.colorado.edu/biofrontiers',
       'label' => 'Biofrontiers Institute',
     ),
-    'diversity_equity_engagement' => array(
+    'odece' => array(
       'url' => 'https://www.colorado.edu/odece',
-      'label' => 'Office of Diversity, Equity & Community Engagement',
+      'label' => 'Office of Diversity, Equity and Community Engagement',
     ),
     'faculty_affairs' => array(
       'url' => 'https://www.colorado.edu/facultyaffairs',
@@ -435,9 +451,9 @@ function cu_core_site_affiliation_options($option = NULL) {
       'url' => 'https://www.colorado.edu/ombuds',
       'label' => 'Ombuds Office',
     ),
-    'research_innovation' => array(
+    'research_innovation_office' => array(
       'url' => 'https://www.colorado.edu/researchinnovation',
-      'label' => 'Research & Innovation Office',
+      'label' => 'Research and Innovation Office',
     ),
     'strategic_initiatives' => array(
       'url' => 'https://www.colorado.edu/osi',
@@ -457,7 +473,7 @@ function cu_core_site_affiliation_options($option = NULL) {
     ),
     'finance_business_strategy' => array(
       'url' => 'https://www.colorado.edu/fbs',
-      'label' => 'Part of Finance & Business Strategy',
+      'label' => 'Part of Finance and Business Strategy',
     ),
     'human_resources' => array(
       'url' => 'https://www.colorado.edu/hr',
@@ -469,19 +485,19 @@ function cu_core_site_affiliation_options($option = NULL) {
     ),
     'infrastructure_sustainability' => array(
       'url' => 'https://www.colorado.edu/infrastructure-sustainability',
-      'label' => 'Part of Infrastructure & Sustainability',
+      'label' => 'Part of Infrastructure and Sustainability',
     ),
-    'institutional_equity' => array(
+    'institutional_equity_compliance' => array(
       'url' => 'https://www.colorado.edu/oiec',
       'label' => 'Office of Institutional Equity',
     ),
     'integrity_safety_compliance' => array(
       'url' => '',
-      'label' => 'Office of Integrity, Safety & Compliance',
+      'label' => 'Office of Integrity, Safety and Compliance',
     ),
-    'strategic_relations_communication' => array(
+    'strategic_relations_comm' => array(
       'url' => 'https://www.colorado.edu/strategicrelations',
-      'label' => 'Part of Strategic Relations & Communications',
+      'label' => 'Part of Strategic Relations and Communications',
     ),
   );
 

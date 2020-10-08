@@ -85,6 +85,7 @@ function cu_rss_block_preprocess_entity(&$vars) {
   // Only preprocess rss beans.
   if ($entity_type == 'bean' && $bundle == 'rss') {
     $url = $vars['bean']->field_rss_bean_feed_url[LANGUAGE_NONE][0]['url'];
+    $query = !empty($vars['bean']->field_rss_bean_feed_url[LANGUAGE_NONE][0]['query']) ? $vars['bean']->field_rss_bean_feed_url[LANGUAGE_NONE][0]['query'] : array();
     $items = $vars['bean']->field_rss_bean_items[LANGUAGE_NONE][0]['value'];
 
     // Check to see if the feed is in the cache.
@@ -92,6 +93,9 @@ function cu_rss_block_preprocess_entity(&$vars) {
     if ($cache = cache_get('rss_feed-' . $url)) {
       $data = $cache->data;
     } else {
+      if (!empty($query)) {
+        $url = url($url, array('query' => $query));
+      }
       $response = drupal_http_request($url);
       if ($response->code == '200') {
 
@@ -135,7 +139,6 @@ function cu_rss_block_preprocess_entity(&$vars) {
         $feed[] = !empty($data['channel']['item'][$i]['link']) ? l($data['channel']['item'][$i]['title'], $data['channel']['item'][$i]['link']) : '';
       }
     }
-
     // Add link to bottom of feed
     if (isset($data)) {
       $link = $data['channel']['link'];
@@ -191,23 +194,13 @@ function cu_rss_block_secure_permissions($role) {
       'edit any rss bean',
       'view any rss bean',
     ),
-
-    'content_editor' => array(
-      'create any rss bean',
-      'delete any rss bean',
-      'edit any rss bean',
-      'view any rss bean',
-    ),
-
     'edit_my_content' => array(
       'view any rss bean',
     ),
-
     'edit_only' => array(
       'edit any rss bean',
       'view any rss bean',
     ),
-
     'developer' => array(
       'create any rss bean',
       'delete any rss bean',

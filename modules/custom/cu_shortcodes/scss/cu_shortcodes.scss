@@ -775,11 +775,10 @@ iframe.map-large,
      &:after {
        display: block;
      }
+     .responsive-table-wrapper-inner {
+       overflow-x:scroll;
+       padding-right:2px;
+       position:relative;
+     }
    }
-  .responsive-table-wrapper-inner {
-    overflow-x:scroll;
-    padding-right:2px;
-    position:relative;
-  }
-
 }

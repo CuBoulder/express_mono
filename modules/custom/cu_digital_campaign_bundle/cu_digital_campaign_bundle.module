@@ -36,7 +36,6 @@ function cu_digital_campaign_bundle_secure_permissions($role) {
   $permissions = array(
     'administrator' => array(
       'administer embed templates',
-      'delete embeds',
       'edit et_slate_form_bean embeds',
       'edit et_slate_form_block embeds',
       'view et_slate_form_bean embeds',
@@ -85,7 +84,6 @@ function cu_digital_campaign_bundle_secure_permissions($role) {
     ),
     'campaign_manager' => array(
       'administer embed templates',
-      'delete embeds',
       'edit et_slate_form_bean embeds',
       'edit et_slate_form_block embeds',
       'view et_slate_form_bean embeds',
@@ -113,7 +111,6 @@ function cu_digital_campaign_bundle_secure_permissions($role) {
     ),
     'developer' => array(
       'administer embed templates',
-      'delete embeds',
       'edit et_slate_form_bean embeds',
       'edit et_slate_form_block embeds',
       'view et_slate_form_bean embeds',
@@ -140,7 +137,6 @@ function cu_digital_campaign_bundle_secure_permissions($role) {
     ),
     'site_owner' => array(
       'administer embed templates',
-      'delete embeds',
       'edit et_slate_form_bean embeds',
       'edit et_slate_form_block embeds',
       'view et_slate_form_bean embeds',

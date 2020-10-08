@@ -21,17 +21,16 @@ Scenario Outline: A user with proper role can view the RSS feeds
   And am on "admin/settings/feeds/rss/overview"
   Then I should see "Manage RSS Feeds"
   And I should see the link "Add a RSS Feed"
-  
+
 Examples:
-    | role            | 
-    | developer       | 
-    | administrator   | 
-    | site_owner      | 
-    | content_editor  | 
-    | site_editor      | 
+    | role            |
+    | developer       |
+    | administrator   |
+    | site_owner      |
+    | site_editor      |
 #   | configuration_manager | HIDE FOR NOW; RETEST LATER
 
-    
+
 # SOME ROLES CAN NOT ACCESS RSS FEED SETTINGS
 
 Scenario Outline: EMCs, EditOnly and AcsMgrs should not be able to view the RSS feeds
@@ -40,16 +39,16 @@ When I go to "admin/settings/feeds/rss/overview"
 Then I should see "Access denied"
 
  Examples:
-    | role            | 
-    | edit_my_content  | 
-    | edit_only        | 
-    | access_manager   | 
-    
+    | role            |
+    | edit_my_content  |
+    | edit_only        |
+    | access_manager   |
+
 
 Scenario: An anonymous user should not be able to view the RSS feeds
   When I am on "admin/settings/feeds/rss/overview"
   Then I should see "Access denied"
-  
+
 #SOME ROLES CAN ACCESS THE RSS FEED BUILDER
 
 Scenario Outline: A user with proper role can access the RSS feed builder page
@@ -58,14 +57,13 @@ Scenario Outline: A user with proper role can access the RSS feed builder page
  Then I should see "Build custom RSS feeds"
  And I should see "Categories"
  And I should see "Tags"
-  
+
 Examples:
-    | role            | 
-    | developer       | 
-    | administrator   | 
-    | site_owner      | 
-    | content_editor  | 
-    | site_editor      | 
+    | role            |
+    | developer       |
+    | administrator   |
+    | site_owner      |
+    | site_editor      |
 #   | configuration_manager | HIDE FOR NOW; RETEST LATER
 
 # SOME ROLES CAN NOT ACCESS THE RSS FEED BUILDER
@@ -76,16 +74,16 @@ When I go to "admin/settings/feeds/rss/add"
 Then I should see "Access denied"
 
  Examples:
-    | role            | 
-    | edit_my_content  | 
-    | edit_only        | 
-    | access_manager   | 
-    
+    | role            |
+    | edit_my_content  |
+    | edit_only        |
+    | access_manager   |
+
 
 Scenario: An anonymous user should not be able to access the RSS feed builder page
   When I am on "admin/settings/feeds/rss/add"
   Then I should see "Access denied"
-  
+
 # BUILDING AN RSS FEED
 # NOTE THIS PARTICULAR FEED CAN ONLY BE TESTED ONCE; USE OTHER FEEDS TO TEST OTHER ROLES
 
@@ -95,6 +93,6 @@ Scenario: One user can build a feed with the default feed/rss.xml
  Then I should see "Build custom RSS feeds"
  And I fill in "edit-rss-title" with "Exciting News"
  And I press "edit-submit"
+ And I go to "admin/settings/feeds/rss/overview"
  Then I should see "Exciting News"
  And I should see "feed/rss.xml"
- 

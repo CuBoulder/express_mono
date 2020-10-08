@@ -23,9 +23,6 @@ function cu_advanced_design_bundle_secure_permissions($role) {
     'authenticated user' => array(
 
     ),
-    'content_editor' => array(
-
-    ),
     'developer' => array(
       'administer backstretch',
     ),

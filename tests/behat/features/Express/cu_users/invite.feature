@@ -1,4 +1,4 @@
-@users @invite @broken
+@users @invite @broken @core
 Feature: User External Invite
 Given I am an administrator
 When I login to a Web Express site
@@ -23,7 +23,6 @@ I should be able to invite users to my site and manage invitations.
       | developer             | "Users"         | "Invite New User" | "No invites available." | "This web page allows administrators to register new users" | "Core Roles users can be invited to join" |
       | administrator         | "Users"         | "Invite New User" | "No invites available." | "Access denied"                                             | "Access denied"                           |
       | site_owner            | "Users"         | "Invite New User" | "No invites available." | "Access denied"                                             | "Access denied"                           |
-      | content_editor        | "Access denied" | "Access denied"   | "Access denied"         | "Access denied"                                             | "Access denied"                           |
       | edit_my_content       | "Access denied" | "Access denied"   | "Access denied"         | "Access denied"                                             | "Access denied"                           |
       | site_editor           | "Access denied" | "Access denied"   | "Access denied"         | "Access denied"                                             | "Access denied"                           |
       | edit_only             | "Access denied" | "Access denied"   | "Access denied"         | "Access denied"                                             | "Access denied"                           |

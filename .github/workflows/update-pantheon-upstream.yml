@@ -1,0 +1,14 @@
+name: Update express_mono in express-mono-upstream to lastest release
+on:  
+  release:
+    # Options: published, unpublished, created, edited, deleted, prereleased
+    types: [published]
+jobs:
+  build:
+    name: Update express-mono-upstream to latest release
+    runs-on: ubuntu-latest    
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ./.github/workflows/action-update-express-upstream
+      env:
+        TOKEN: ${{ secrets.OSRWEBDEPLOY_TOKEN }}

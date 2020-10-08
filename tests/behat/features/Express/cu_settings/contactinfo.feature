@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Site Contact populates Site Information region
 In order to provide contact information about the site
 Authenticated users with the proper role
@@ -16,7 +16,6 @@ Examples:
 | developer        | "Contact Information" |
 | administrator    | "Contact Information" |
 | site_owner       | "Contact Information" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |
@@ -38,4 +37,3 @@ Scenario: When Contact Information is populated, it shows up in the footer regio
   Then I should see "The configuration options have been saved"
   And I go to "/"
   Then I should see "email@example.edu"
-    

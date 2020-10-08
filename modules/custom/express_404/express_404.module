@@ -41,9 +41,6 @@ function express_404_secure_permissions($role) {
     ),
     'authenticated user' => array(
     ),
-    'content_editor' => array(
-      'access google analytics reports',
-    ),
     'developer' => array(
       'administer google analytics reports api',
       'access google analytics reports',

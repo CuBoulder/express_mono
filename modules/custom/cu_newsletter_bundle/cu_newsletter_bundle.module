@@ -20,19 +20,6 @@ function cu_newsletter_bundle_secure_permissions($role) {
       'delete any newsletter_list bean',
       'edit any newsletter_list bean',
       'view any newsletter_list bean',
-      'administer newsletter vocabulary terms',
-    ),
-    'content_editor' => array(
-      'administer newsletter vocabulary terms',
-      'create newsletter content',
-      'delete any newsletter content',
-      'delete own newsletter content',
-      'edit any newsletter content',
-      'edit own newsletter content',
-      'create any newsletter_list bean',
-      'delete any newsletter_list bean',
-      'edit any newsletter_list bean',
-      'view any newsletter_list bean',
     ),
     'developer' => array(
       'add newsletter logo',
@@ -67,7 +54,6 @@ function cu_newsletter_bundle_secure_permissions($role) {
       'delete any newsletter_list bean',
       'edit any newsletter_list bean',
       'view any newsletter_list bean',
-      'administer newsletter vocabulary terms',
     ),
     'site_owner' => array(
       'administer newsletter vocabulary terms',
@@ -80,7 +66,6 @@ function cu_newsletter_bundle_secure_permissions($role) {
       'delete any newsletter_list bean',
       'edit any newsletter_list bean',
       'view any newsletter_list bean',
-      'administer newsletter vocabulary terms',
     ),
     'anonymous user' => array(
       'view any newsletter_list bean',

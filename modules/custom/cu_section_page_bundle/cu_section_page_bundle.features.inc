@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * cu_section_page_bundle.features.inc
@@ -24,7 +25,7 @@ function cu_section_page_bundle_node_info() {
     'section_page' => array(
       'name' => t('Section Page'),
       'base' => 'node_content',
-      'description' => 'A page built with Block Sections that can include in-page navigation for each section.',
+      'description' => t('A page built with Block Sections that can include in-page navigation for each section.'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',

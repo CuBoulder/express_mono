@@ -146,8 +146,6 @@ function ucb_preprocess_html(&$vars) {
   $vars['classes_array'][]=$headings;
   $page_title_image_background = theme_get_setting('page_title_image_background') ? theme_get_setting('page_title_image_background') : 'page-title-image-background-white';
   $vars['classes_array'][]=$page_title_image_background;
-  $icon_color = theme_get_setting('block_icons_color') ? theme_get_setting('block_icons_color') : 'block-icons-inherit';
-  $vars['classes_array'][]=$icon_color;
   // Attributes for html element.
   $vars['html_attributes_array'] = array(
     'lang' => $vars['language']->language,
@@ -179,8 +177,12 @@ function ucb_preprocess_html(&$vars) {
   $vars['skip_link_anchor'] = 'main';
   $vars['skip_link_text'] = t('Skip to Content');
 
-  // Add site type class
+  // Add site type class.
+  // Adding site type class here allows us to style pages based on this.
+  // For example, adding the Ralphie logo to sport club sites.
   $vars['classes_array'][] = 'express-site-type-' . variable_get('express_site_type', 'default');
+
+  // This class is added to use the Helvetica Neue brand fonts.
   $vars['classes_array'][] = 'brand-fonts';
 }
 
@@ -799,6 +801,11 @@ function ucb_image_style(&$vars) {
   return theme('image', $vars);
 }
 
+/*
+ * This function outputs set values based on the 'site_type' setting.
+ * If a site_type is not included as a key in the $affiliations array
+ * the function returns false. This function is called from site-name.tpl.php.
+ */
 function ucb_affiliation($site_type = NULL, $value = NULL) {
   $affiliations = array(
     'sport_club' => array(

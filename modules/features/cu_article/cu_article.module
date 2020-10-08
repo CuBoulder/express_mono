@@ -810,7 +810,12 @@ function cu_article_preprocess_node(&$vars) {
       $vars['author_meta']['byline'] = '<span class="author-meta-name author-meta-item">By ' . join(', ', $bylines) . '</span>';
     }
     // Add more link from article teaser to article teaser category view mode.
-    if ($vars['view_mode'] == 'teaser_category') {
+    $modes = array(
+      'teaser_category',
+      'feature',
+      'feature_category'
+    );
+    if (in_array($vars['view_mode'], $modes)) {
       $node_title_stripped = strip_tags($vars['node']->title);
       $vars['content']['links']['node']['#links']['node-readmore'] = array(
         'title' => t('Read more<span class="element-invisible"> about @title</span>', array('@title' => $node_title_stripped)),
@@ -1214,7 +1219,8 @@ function cu_article_node_view($node, $view_mode) {
   switch ($node->type) {
     case 'article':
       if ($view_mode == 'full' && !empty($node->field_article_external_url[LANGUAGE_NONE][0]['url'])) {
-        $redirect = $node->field_article_external_url[LANGUAGE_NONE][0]['url'];
+        $externalUrl = $node->field_article_external_url[LANGUAGE_NONE][0];
+        $redirect = url($externalUrl['url'], ['query' => $externalUrl['query']]);
         if (user_access("edit any article content")) {
           drupal_set_message(t('A user without editing permissions would have been redirected to !redirect',
             array('!redirect' => l($redirect, $redirect))),
@@ -1356,7 +1362,7 @@ function cu_article_block_view($delta = '') {
 
           $query->join("field_data_field_article_byline", "bylines", "n.nid = bylines.entity_id");
           $query->fields('bylines', array('field_article_byline_tid'));
-          $query->condition('bylines.field_article_byline_tid', $tid, '=');
+          $query->condition('bylines.field_article_byline_tid', $tid, 'IN');
           $query->distinct();
           $query->groupBy('n.nid');
           // Display the newest first.
@@ -1526,6 +1532,7 @@ function cu_article_list_filter_form($form, &$form_state) {
   $node = menu_get_object();
   $show_category_filter = (!empty($node->field_article_page_cat_expose)) ?  $node->field_article_page_cat_expose[LANGUAGE_NONE][0]['value'] : NULL;
   $show_tag_filter = (!empty($node->field_article_page_tag_expose)) ?  $node->field_article_page_tag_expose[LANGUAGE_NONE][0]['value'] : NULL;
+  // Are the following lines strange? Seems like $child_terms is declared a few different times?
   $child_terms = (!empty($node->field_article_page_childterms)) ? $node->field_article_page_childterms[LANGUAGE_NONE][0]['value'] : 0;
   if (!empty($node->field_article_page_childterms)) {
     $child_terms = $node->field_article_page_childterms[LANGUAGE_NONE][0]['value'] == 'all' ? 1 : 0;

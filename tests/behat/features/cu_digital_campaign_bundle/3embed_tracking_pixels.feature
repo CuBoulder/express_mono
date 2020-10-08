@@ -16,7 +16,6 @@ Scenario Outline: Access Embed Templates Overview Page.
     | developer             | "Add Embeds"    |
     | campaign_manager      | "Add Embeds"    |
     | edit_my_content       | "Access Denied" |
-    | content_editor        | "Access Denied" |
    # | authenticated_user    | "Access Denied" |
     | site_editor           | "Access Denied" |
     | edit_only             | "Access Denied" |

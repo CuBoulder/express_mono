@@ -159,6 +159,11 @@ function cu_article_slider_preprocess_entity(&$vars) {
       );
       unset($nodes['nodes']['#sorted']);
       foreach ($nodes['nodes'] as $key => $node) {
+        // Remove link and alt from image.
+        // We'll be linking the image with the article title together.
+        unset($node['field_article_thumbnail'][0]['#path']);
+        $node['field_article_thumbnail']['#items'][0]['alt'] = ' ';
+        $node['field_article_thumbnail'][0]['#item']['alt'] = ' ';
         $node['field_article_thumbnail'][0]['#image_style'] = 'widescreen';
         $uri = $node['field_article_thumbnail'][0]['#item']['uri'];
         $image_path = image_style_url('widescreen', $uri);

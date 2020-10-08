@@ -21,7 +21,6 @@ Examples:
 | developer             | "Create Frequently Asked Questions" |
 | administrator         | "Create Frequently Asked Questions" |
 | site_owner            | "Create Frequently Asked Questions" |
-| content_editor        | "Create Frequently Asked Questions" |
 | edit_my_content       | "Access denied"                     |
 | site_editor           | "Create Frequently Asked Questions" |
 | edit_only             | "Access denied"                     |
@@ -29,32 +28,38 @@ Examples:
 Scenario: FAQ Access -  An anonymous user cannot add FAQ content
   When I am on "node/add/faqs"
   Then I should see "Access denied"
-  
-# 2) CHECK THAT A SIMPLE NODE CAN BE CREATED AND REVISED
+
+# 2) CHECK THAT A SIMPLE NODE CAN BE CREATED, ADDED TO MENU, AND REVISED
 Scenario: Node Functionality - a simple FAQ node can be created
 Given I am logged in as a user with the "site_owner" role
 And I am on "node/add/faqs"
 And fill in "edit-title" with "My FAQs"
 And fill in "Body" with "Lorem ipsum dolor sit amet"
-When I press "edit-submit"
+And the "edit-menu-enabled" checkbox should be checked
+When I uncheck "edit-menu-enabled"
+# NOPE And I should see an "#edit-addanother" element
+And I should see an "#edit-addanother" element
+And I press "edit-submit"
 Then I should be on "/my-faqs"
 And I should see "My FAQs"
 And I should see "Lorem ipsum dolor sit amet"
- 
+And I follow "Edit"
+Then the checkbox "edit-menu-enabled" should be unchecked
+
+
 #  2.5 CREATE REVISIONS TO THE NEW NODE
 Scenario: Node functionality - Create Revision of FAQ
 Given I am logged in as a user with the "site_owner" role
 And I am on "admin/content"
 And I follow "My FAQs"
 And I follow "Edit"
-# BROKEN AT THIS TIME And fill in "edit-name" with "osr-test-edit-own" 
+# BROKEN AT THIS TIME And fill in "edit-name" with "osr-test-edit-own"
 And fill in "Body" with "Find out more here"
 And I press "Save"
 Then I should see "Frequently Asked Questions My FAQs has been updated."
 And I should see the link "Revisions"
 
 # 3) CHECK EDITING AND DELETING PRIVILEGES ON THE NODE JUST MADE
-
 Scenario Outline: Node Access -  Some roles can edit and delete FAQ
 Given I am logged in as a user with the <role> role
 And I am on "admin/content"
@@ -69,12 +74,11 @@ Then I should see "This document is now locked against simultaneous editing."
 And I should see an "#edit-delete" element
 And I press "Cancel edit"
 
-Examples: 
+Examples:
 | role         |
-| developer    |    
-| administrator |   
-| site_owner    | 
-| content_editor |
+| developer    |
+| administrator |
+| site_owner    |
 | site_editor |
 
 Scenario: Node Access -  EditOnly can edit and revise but not delete FAQ; can clear page cache
@@ -114,22 +118,22 @@ And I am on "/"
 
 
 # 5) CHECK MORE COMPLEX NODE CREATION
- 
+
 Scenario: Node Functionality - a more complicated FAQ node can be created
 Given I am logged in as a user with the "site_owner" role
 And I am on "node/add/faqs"
-And fill in "edit-title" with "My New FAQ Page"
+And fill in "edit-title" with "Test FAQ Page"
 And fill in "edit-body-und-0-value" with "Demo FAQ explanatory text"
 And fill in "edit-field-qa-collection-und-0-field-qa-collection-title-und-0-value" with "Section One Header"
 And fill in "edit-field-qa-collection-und-0-field-qa-und-0-field-qa-question-und-0-value" with "Question One"
 And fill in "edit-field-qa-collection-und-0-field-qa-und-0-field-qa-answer-und-0-value" with "An Answer to the Question"
 And press "Save"
-Then I should see "My New FAQ Page"
+Then I should see "Test FAQ Page"
 And I should see "Demo FAQ explanatory text"
 And I should see "Section One Header"
 And I should see "Question One"
 # THIS LINE FAILS But I should not see "An Answer to the Question"
-   
+
 Scenario: Node Functionality -  Pressing "Add More" adds another FAQ section
 Given I am logged in as a user with the "site_owner" role
 And I am on "node/add/faqs"
@@ -143,13 +147,3 @@ And I wait 5 seconds
 #THIS IS THE ID FOR THE TITLE OF THE NEW FAQ SECTION
 Then the response should contain "id=\"edit-field-qa-collection-und-1-field-qa-collection-title-und-0-value\""
 # THIS DOESN'T WORK Then I should see an "edit-field-qa-collection-und-1-field-qa-collection-title-und-0-value" element
-
-Scenario: The provide menu link box should be checked on node creation but remain unchecked if user chooses to uncheck that box.
-Given  I am logged in as a user with the "site_owner" role
-When I go to "node/add/faqs"
-And  I fill in "edit-title" with "New FAQ"
-Then the "edit-menu-enabled" checkbox should be checked
-When I uncheck "edit-menu-enabled"
-And I press "Save"
-And I follow "Edit"
-Then the checkbox "edit-menu-enabled" should be unchecked

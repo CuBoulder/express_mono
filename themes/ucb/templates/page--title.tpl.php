@@ -147,7 +147,7 @@
     <div class="page-content">
       <!-- INTRO -->
       <?php if (!empty($page['intro'])): ?>
-        <div id="intro-wide-wrapper" class="section intro-wide-wrapper <?php print $section['intro']['class']; ?>">
+        <div id="intro-wide-wrapper" class="section intro-wide-wrapper">
           <?php print render($page['intro']); ?>
         </div>
       <?php endif; ?>

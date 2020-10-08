@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Site Description populates Meta tag "Description" on site homepage
 In order to optimize search engine results with Meta Tag Description
 Authenticated users with the proper role
@@ -14,7 +14,6 @@ Examples:
 | developer        | "Site Description" |
 | administrator    | "Site Description" |
 | site_owner       | "Site Description" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |
@@ -35,6 +34,3 @@ Scenario: When Site Description is populated, it shows up on the homepage
   Then I should see "The configuration options have been saved"
   And I go to "/"
   Then the response should contain "content=\"We offer personalized career development\""
-
-
-  

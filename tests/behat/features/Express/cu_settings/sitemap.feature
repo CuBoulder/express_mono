@@ -1,5 +1,4 @@
-
-@settings
+@settings @core
 Feature: an XML Site Map improves Search Engine results
 In order to communicate the site layout to search engines
 An authenticated user with the proper role
@@ -16,14 +15,14 @@ Scenario Outline: Devs, Admins and SOs can access the sitemap page
   And the checkbox "edit-options-menu-footer-menu" should be checked
   And the checkbox "edit-options-main-menu" should be checked
   And the checkbox "edit-options-menu-secondary-menu" should be checked
-  
+
 Examples:
-    | role            | 
-    | developer       | 
-    | administrator   | 
-    | site_owner      | 
+    | role            |
+    | developer       |
+    | administrator   |
+    | site_owner      |
     | configuration_manager |
-       
+
 #SOME ROLES CAN UPDATE AND CHANGE SITE MAP SETTINGS
  @broken
 Scenario: Functionality - The sitemap can be rebuilt
@@ -44,13 +43,12 @@ And am on "admin/settings/seo/xmlsitemap"
 Then I should see "Access denied"
 
  Examples:
-    | role            | 
-    | content_editor |
-    | edit_my_content  | 
-    | site_editor      | 
-    | edit_only        | 
-    | access_manager   | 
- 
+    | role            |
+    | edit_my_content  |
+    | site_editor      |
+    | edit_only        |
+    | access_manager   |
+
 
 Scenario: An anonymous user should not be able to update the sitemap
   When I am on "admin/settings/seo/xmlsitemap"

@@ -57,6 +57,7 @@ ignore_regexps = [
     r'@minor', r'!minor',
     r'@cosmetic', r'!cosmetic',
     r'@refactor', r'!refactor',
+    r'@formatting', r'!formatting',
     r'@wip', r'!wip',
     r'[cC]ode\s[cC]limate',
     r'^(.{3,3}\s*:)?\s*[fF]irst commit.?\s*$',
@@ -243,11 +244,11 @@ include_merge = False
 ##        take care of everything and might be more complex. Check the README
 ##        for a complete copy-pastable example.
 ##
-# publish = FileInsertAtFirstRegexMatch(
-#     "CHANGELOG.rst",
-#     r"(?P<rev>v[0-9]+\.[0-9]+(\.[0-9]+)?)\s+\([0-9]+-[0-9]{2}-[0-9]{2}\)\n--+\n",
-#     idx=lambda m: m.start(1)
-# )
+publish = FileInsertAtFirstRegexMatch(
+    "CHANGELOG.rst",
+    r"(?P<rev>v[0-9]+\.[0-9]+(\.[0-9]+)?)\s+\([0-9]+-[0-9]{2}-[0-9]{2}\)\n--+\n",
+    idx=lambda m: m.start(1)
+)
 
 
 ## ``revs`` is a list of callable or a list of string
@@ -281,10 +282,10 @@ include_merge = False
 ##
 ## The default is to use all commits to make the changelog.
 #revs = ["^1.0.3", ]
-# revs = [
-#    Caret(
-#        FileFirstRegexMatch(
-#            "CHANGELOG.rst",
-#            r"(?P<rev>v[0-9]+\.[0-9]+(\.[0-9]+)?)\s+\([0-9]+-[0-9]{2}-[0-9]{2}\)\n--+\n")),
-#    "HEAD"
-# ]
+revs = [
+   Caret(
+       FileFirstRegexMatch(
+           "CHANGELOG.rst",
+           r"(?P<rev>v[0-9]+\.[0-9]+(\.[0-9]+)?)\s+\([0-9]+-[0-9]{2}-[0-9]{2}\)\n--+\n")),
+   "HEAD"
+]

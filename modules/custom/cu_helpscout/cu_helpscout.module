@@ -65,22 +65,24 @@ function cu_helpscout_preprocess_page(&$vars) {
     $site_name = str_replace(' ', '-', $site_name);
     $site_name = preg_replace('/[^A-Za-z0-9\-]/', '', $site_name);
 
-    $beacon = '!function(e,o,n){window.HSCW=o,window.HS=n,n.beacon=n.beacon||{};var t=n.beacon;t.userConfig={},t.readyQueue=[],t.config=function(e){this.userConfig=e},t.ready=function(e){this.readyQueue.push(e)},o.config={docs:{enabled:!0,baseUrl:"//university-of-colorado-boulder-docs.helpscoutdocs.com/"},contact:{enabled:!0,formId:"3ac3ec6d-c002-11e7-b466-0ec85169275a"}};var r=e.getElementsByTagName("script")[0],c=e.createElement("script");c.type="text/javascript",c.async=!0,c.src="https://djtflbt20bdde.cloudfront.net/",r.parentNode.insertBefore(c,r)}(document,window.HSCW||{},window.HS||{});';
-
-    $config = 'HS.beacon.config({ modal:1, showContactFields:true, attachment: true });
-
-    HS.beacon.ready(function() {
-      HS.beacon.identify({
-        name: \'' . $name . '\',
+    $beacon = '!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){}); window.Beacon("init", "1bb01225-0287-4443-a7e5-be8f375a7766");';
+    // Beacon Prefill.
+    $config = 'Beacon(\'prefill\', {
+      name: \'' . $name . '\',
         email: \'' . $user->mail . '\',
         user_email: \'' . $user->mail . '\',
         roles: \'' . $roles . '\',
         site_name: \'' . $site_name . '\',
         site_url: \'' . $base_url . '\',
-      });
+    });';
+    // Beacon config.
+    $config .= 'Beacon(\'config\', {
+      \'display\': {
+        \'style\': \'manual\',
+        \'iconImage\': \'message\'
+      }
     });
-
-    jQuery("#navbar-bar a.navbar-icon-help").click(function(event) { event.preventDefault(); HS.beacon.open(); });';
+    jQuery("#navbar-bar a.navbar-icon-help").click(function(event) { event.preventDefault(); Beacon(\'open\'); });';
 
     drupal_add_js($beacon, array(
       'type' => 'inline',

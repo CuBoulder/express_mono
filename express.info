@@ -3,14 +3,13 @@ name = "Express"
 description = "Express installation profile"
 exclusive = "1"
 core = "7.x"
-version = 7.x-4.0
+version = 7.x-4.3
 
 ; ----------
 ; Dependencies
 ; ----------
 dependencies[] = express_field_bases
 dependencies[] = express_add_content
-dependencies[] = express_help
 dependencies[] = express_theme_picker
 dependencies[] = express_settings
 dependencies[] = express_version
@@ -201,6 +200,7 @@ dependencies[] = express_block_designer
 dependencies[] = express_block_designer_menu
 dependencies[] = express_scheduler
 dependencies[] = scheduler
+dependencies[] = addanother
 
 ; ============ FEATURE EXPORTS ============
 dependencies[] = express_linkit_profiles

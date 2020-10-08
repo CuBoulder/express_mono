@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * people_content_type.bean.inc

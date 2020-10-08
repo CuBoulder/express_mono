@@ -1,4 +1,3 @@
-
 @file @core
 Feature: File Content Type
 When I login to a Web Express website
@@ -22,7 +21,6 @@ Examples:
  | developer             | "Create File" |
 | administrator         | "Create File" |
 | site_owner            | "Create File" |
-| content_editor        | "Create File" |
 | edit_my_content       | "Access denied"    |
 | site_editor           | "Create File" |
 | edit_only             | "Access denied"    |
@@ -30,14 +28,15 @@ Examples:
  Scenario: FAQ Access -  An anonymous user cannot add File content
   When I am on "node/add/file"
   Then I should see "Access denied"
-  
+
 # 2) TEST THAT A SIMPLE NODE CAN BE CREATED AND REVISED
  Scenario: Node Functionality - A simple File can be created; with secure https URL
  Given I am logged in as a user with the "site_owner" role
   And I am on "node/add/file"
+  And I should see an "#edit-addanother" element
   And fill in "edit-title" with "My File"
-  And I fill in "edit-body-und-0-value" with "A photo of Ralphie and handlers"
-  And I attach the file "ralphie.jpg" to "edit-field-file-attachment-und-0-upload"
+  And I fill in "edit-body-und-0-value" with "Ralphie at Chautauqua"
+  And I attach the file "ralphieMtns.jpg" to "edit-field-file-attachment-und-0-upload"
   And I press "Upload"
     # And I wait for AJAX
   Then I should see "File Information"
@@ -48,7 +47,7 @@ Examples:
   And I should see "Access the top file listed below with the following url"
 # NEXT LINE: CHECKING FOR HTTPS://
   And I should not see "http://www.colorado.edu"
- 
+
 
 #  2.5 CREATE REVISIONS TO THE NEW NODE
 Scenario: Node functionality - Create Revision of File node
@@ -76,12 +75,11 @@ Then I should see "This document is now locked against simultaneous editing."
 And I should see an "#edit-delete" element
 And I press "Cancel edit"
 
-Examples: 
+Examples:
 | role |
-| developer       | 
-| administrator   | 
-| site_owner      | 
-| content_editor  |
+| developer       |
+| administrator   |
+| site_owner      |
 | site_editor |
 
 Scenario: Node Access -  EditOnly can edit and revise but not delete File; can clear page cache
@@ -116,13 +114,11 @@ And I follow "Edit"
 And I am on "/"
 
 
-# 5) TEST MORE COMPLEX NODE CREATION
+# 5) TEST FILE UPLOAD CHECK
 
- Scenario: Node Functionality - The File Content Type verifies that a file has been uploaded
- Given I am logged in as a user with the "site_owner" role
-  When I go to "node/add/file"
-   And I fill in "edit-title" with "Test Page"
-    And I fill in "body[und][0][value]" with "Do not keep this page"
-    And I press "Save"
-   Then I should see "File Attachment field is required."
-    
+Scenario: Node Functionality - The File Content Type verifies that a file has been uploaded
+Given I am logged in as a user with the "site_owner" role
+When I go to "node/add/file"
+And I fill in "edit-title" with "Test Page"
+And I press "Save"
+Then I should see "File Attachment field is required."

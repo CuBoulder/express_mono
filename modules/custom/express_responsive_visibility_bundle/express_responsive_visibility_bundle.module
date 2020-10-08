@@ -110,12 +110,6 @@ function express_responsive_visibility_bundle_secure_permissions($role) {
       'edit any responsive_visibility bean',
       'view any responsive_visibility bean',
     ),
-    'content_editor' => array(
-      'create any responsive_visibility bean',
-      'delete any responsive_visibility bean',
-      'edit any responsive_visibility bean',
-      'view any responsive_visibility bean',
-    ),
     'developer' => array(
       'create any responsive_visibility bean',
       'delete any responsive_visibility bean',

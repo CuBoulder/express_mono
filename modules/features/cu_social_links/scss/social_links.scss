@@ -68,6 +68,11 @@ $snapchat: #fffa37;
       }
     }
 }
+// Remove underlines from social link icons
+ul.social-links.soc > li > a.social-links-link:link,
+ul.social-links.soc > li > a.social-links-link:visited {
+  text-decoration:none;
+}
 
 .soc li,
 .item-list .soc li {

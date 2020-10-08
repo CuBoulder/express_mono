@@ -14,7 +14,6 @@ Scenario Outline: An authenticated user should be able to access the form for ad
     | role            | message         |
     | edit_my_content | "Access denied" |
     | edit_only       | "Access denied" |
-    | content_editor  | "Create Block Row block" |
     | site_owner      | "Create Block Row block" |
     | administrator   | "Create Block Row block" |
     | developer       | "Create Block Row block" |
@@ -51,9 +50,9 @@ Scenario: A Block Row Block can be created
     And I press "Create block"
     And I check "edit-field-block-row-match-height-und"
   When I press "Save"
-    Then I should see "My Block Row Block Title"
-    And I should see "Cupcake ipsum dolor sit amet ice cream carrot cake"
-    And I should see "Lemon drops dessert chocolate gingerbread dessert"
+    Then the response should contain "My Block Row Block Title"
+    And the response should contain "Cupcake ipsum dolor sit amet ice cream carrot cake"
+    And the response should contain "Lemon drops dessert chocolate gingerbread dessert"
 
 @javascript
 # This test depends on the one above

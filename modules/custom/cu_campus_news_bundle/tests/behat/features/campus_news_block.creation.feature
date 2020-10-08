@@ -14,7 +14,7 @@ Feature: Campus News Block
             | role            | message                    |
             | edit_my_content | "Access Denied"            |
             | edit_only       | "Access Denied"            |
-            | content_editor  | "Create Campus News block" |
+            | site_editor     | "Create Campus News block" |
             | site_owner      | "Create Campus News block" |
             | administrator   | "Create Campus News block" |
             | developer       | "Create Campus News block" |

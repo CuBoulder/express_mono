@@ -158,7 +158,6 @@ function site_navigation_menus_page_alter(&$page) {
  * @param $form_id
  */
 function site_navigation_menus_form_alter(&$form, &$form_state, $form_id) {
-
   if (isset($form['delta']['#value']) && strrpos($form['delta']['#value'], 'site_navigation_menus') !== FALSE) {
     unset($form['custom_block_theme']);
   }
@@ -309,4 +308,58 @@ function site_navigation_menus_navbar_alter(&$items) {
   // Point User tab to user dashboard.
   unset($items['user']['tray']);
   $items['user']['tab']['#href'] = 'admin/dashboard/user';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add a checkbox to hide a menu on mobile devices.
+ * This will add a css class to hide it, but does not remove it from output.
+ */
+function site_navigation_menus_form_block_admin_configure_alter(&$form, &$form_state, $form_id) {
+  // Build name from module, block.
+  $module = $form['module']['#value'];
+  $delta = $form['delta']['#value'];
+  if ($module == 'menu_block') {
+    $var_name = $module . '-' . $delta . '-hide_on_mobile';
+    $form[$var_name] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Hide menu on mobile display'),
+      '#default_value' => variable_get($var_name, 0),
+    );
+    $form['menu_variable'] = array(
+      '#type' => 'hidden',
+      '#value' => $var_name,
+    );
+    $form['#submit'][] = 'site_navigation_menus_configure_update';
+  }
+}
+
+/**
+ * Submit function for site_navigation_menus_form_block_admin_configure_alter.
+ */
+function site_navigation_menus_configure_update($form_id, &$form_state) {
+  // If box is checked, save, otherwise delete variable.
+  $var_name = $form_state['values']['menu_variable'];
+  if (!$form_state['values'][$var_name]) {
+    variable_del($var_name);
+  }
+  else {
+    variable_set($var_name, $form_state['values'][$var_name]);
+  }
+}
+
+/**
+ * Implements module_preprocess_block().
+ *
+ * Add css class to menu block if it is set to be hidden on mobile.
+ */
+function site_navigation_menus_preprocess_block(&$variables) {
+  if (isset($variables['block']->bid)) {
+    $block_name = $variables['block']->bid . '-hide_on_mobile';
+    if (variable_get($block_name, 0)) {
+      // Using classes from styleguide.colorado.edu.
+      $variables['classes_array'][] = 'visible-sm visible-md visible-lg';
+    }
+  }
 }

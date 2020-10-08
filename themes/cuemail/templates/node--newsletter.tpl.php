@@ -28,18 +28,20 @@
                     <td>
                       <table class=" full" role="presentation">
                         <tr>
+                          <td class="campus-logo">
+                            <a href="https://www.colorado.edu"><img src="<?php print $path; ?>/images/<?php print cuemail_logo_color($design); ?>" alt="University of Colorado Boulder " id="campus-logo" width="180" height="27" /></a>
+                          </td>
+                        </tr>
+                        <tr>
                           <?php if (!empty($newsletter_logo_url)): ?>
                             <td class="newsletter-name">
-                              <h1><img src="<?php print $newsletter_logo_url; ?>" alt="<?php print $newsletter_name; ?>" width="<?php print $newsletter_logo_width; ?>" height="<?php print $newsletter_logo_height; ?>" /></h1>
+                              <h1><img id="newsletter-logo" src="<?php print $newsletter_logo_url; ?>" alt="<?php print $newsletter_name; ?>" width="<?php print $newsletter_logo_width; ?>" height="<?php print $newsletter_logo_height; ?>" style="width:<?php print $newsletter_logo_width; ?>px !important; height:<?php print $newsletter_logo_height; ?>px !important;"/></h1>
                             </td>
                           <?php else: ?>
                             <td class="newsletter-name">
                                 <h1><?php print $newsletter_name; ?></h1>
                             </td>
                           <?php endif; ?>
-                          <td class="newsletter-logo">
-                            <img src="<?php print $path; ?>/images/<?php print cuemail_logo_color($design); ?>" alt="University of Colorado Boulder " id="logo" width="212" height="32" />
-                          </td>
                         </tr>
                       </table>
                       <table class="issue full" role="presentation">

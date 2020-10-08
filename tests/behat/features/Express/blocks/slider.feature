@@ -1,4 +1,3 @@
-
 @blocks @slider @core
 Feature: Slider Block
 When I login to a Web Express website
@@ -22,7 +21,6 @@ Examples:
  | developer             | "Create Slider block" |
 | administrator         | "Create Slider block" |
 | site_owner            | "Create Slider block" |
-| content_editor        | "Create Slider block" |
 | edit_my_content       | "Access denied"       |
 | site_editor           | "Create Slider block" |
 | edit_only             | "Access denied"       |
@@ -30,38 +28,38 @@ Examples:
  Scenario: Block Access: An anonymous user cannot add a Slider block
   When I am on "block/add/slider"
   Then I should see "Access denied"
-  
-# 2) TEST THAT A SIMPLE BLOCK CAN BE CREATED AND REVISED
+
+# 2) TEST THAT A SIMPLE SLIDER CAN BE CREATED AND REVISED
 Scenario: Block Functionality - A very simple Slider can be created
  Given I am logged in as a user with the "site_owner" role
  And I am on "block/add/slider"
  And fill in "edit-label" with "Slider Label"
  And fill in "edit-title" with "My Slider Title"
- And I fill in "edit-field-slider-slide-und-0-field-slider-image-und-0-alt" with "Mountain Fantasy"
- And I attach the file "behatBanner1.jpg" to "edit-field-slider-slide-und-0-field-slider-image-und-0-upload"
+And I attach the file "behatBanner1.jpg" to "edit-field-slider-slide-und-0-field-slider-image-und-0-upload"
+And I fill in "edit-field-slider-slide-und-0-field-slider-image-und-0-alt" with "Mountain Fantasy"
  When I press "edit-submit"
  Then I should be on "block/slider-label/view"
  And I should see "My Slider Title"
- 
+
 #  2.5 CREATE REVISIONS TO THE BLOCK ABOVE
 #Scenario: Block Functionality - Create Revision of block
 #Given I am logged in as a user with the "site_owner" role
 #And I am on "admin/content/blocks"
 #And I follow "Slider Label"
 #And I follow "Edit Block"
-# - And I do stuff to Block content - 
+# - And I do stuff to Block content -
 # And I press "Save"
  #Then I should see "Slider My Slider Title has been updated."
 
 # 3) TEST EDITING AND DELETING PRIVILEGES ON THE BLOCK JUST MADE
 
-Scenario Outline: Block Access - SE, SO and above roles can edit, revise, theme and delete Slider 
+Scenario Outline: Block Access - SE, SO and above roles can edit, revise, theme and delete Slider
 Given I am logged in as a user with the <role> role
 And I am on "admin/content/blocks"
 And I follow "Slider Label"
 Then I should see the link "View"
 And I should see the link "Edit Block"
-And I should see the link "Revisions" 
+And I should see the link "Revisions"
 And I should see the link "Block Designer"
 And I should see the link "Delete Block"
 When I follow "Edit Block"
@@ -69,12 +67,11 @@ Then I should see "Edit Slider: Slider Label"
 And I should see an "#edit-delete" element
 And I follow "View"
 
-Examples: 
+Examples:
 | role |
-| developer       | 
-| administrator   | 
-| site_owner      | 
-| content_editor  |
+| developer       |
+| administrator   |
+| site_owner      |
 | site_editor |
 
 
@@ -109,4 +106,30 @@ And I go to "block/slider-label/edit"
  Then I should see "Slider My Slider Title has been deleted"
 And I am on "/"
 
+@complex
 # 5) TEST MORE COMPLEX BLOCK CREATION
+Scenario: More complex options can be selected for Slider Block
+Given I am logged in as a user with the "site_owner" role
+And I am on "block/add/slider"
+And fill in "edit-label" with "Test Slider Label"
+And fill in "edit-title" with "Test Slider Title"
+# CHECK THE SLIDER SIZE OPTIONS
+And I select "slider" from "edit-field-slider-size-und"
+And I select "widescreen" from "edit-field-slider-size-und"
+And I select "large" from "edit-field-slider-size-und"
+And I select "slider-large" from "edit-field-slider-size-und"
+# CHECK THE SLIDER STYLE OPTIONS
+And I select "1" from "edit-field-slider-design-style-und"
+And I select "2" from "edit-field-slider-design-style-und"
+And I select "3" from "edit-field-slider-design-style-und"
+And I select "5" from "edit-field-slider-design-style-und"
+And I select "4" from "edit-field-slider-design-style-und"
+And I attach the file "ralphieMtns.jpg" to "edit-field-slider-slide-und-0-field-slider-image-und-0-upload"
+And I fill in "edit-field-slider-slide-und-0-field-slider-image-und-0-alt" with "Ralphie at Chautauqua"
+And I fill in "edit-field-slider-slide-und-0-field-slider-caption-und-0-value" with "Join Ralphie at CU Boulder"
+And I press "edit-field-slider-slide-und-add-more"
+And I attach the file "behatBanner1.jpg" to "edit-field-slider-slide-und-1-field-slider-image-und-0-upload"
+And I fill in "edit-field-slider-slide-und-1-field-slider-image-und-0-alt" with "Mountain Fantasy"
+When I press "edit-submit"
+ Then I should see "Test Slider Title"
+ And I should see "Join Ralphie at CU Boulder"

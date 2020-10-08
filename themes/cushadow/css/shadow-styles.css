@@ -9,6 +9,15 @@ body { background: none; background-color: #000; background-color: #f2f2f2; back
 @media screen and (min-width: 1200px) { .layout-responsive .page { max-width: 1160px; } }
 @media screen and (min-width: 1500px) { .layout-responsive .page { max-width: 1500px; } }
 
+.layout-responsive.layout-boxed .feature-layout-hero-wrapper img.image-hero { max-width: 1500px; margin: 0 auto; width: 100%; }
+
+@media screen and (min-width: 960px) { .layout-responsive.layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper { max-width: 920px; margin: 0 auto; right: auto; width: 920px; } }
+@media screen and (min-width: 1200px) { .layout-responsive.layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper { max-width: 1160px; margin: 0 auto; right: auto; width: 1160px; } }
+@media screen and (min-width: 1500px) { .layout-responsive.layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper .feature-layout-hero-wrapper { max-width: 1500px; margin: 0 auto; left: -40px; right: auto; width: 1500px; } }
+
+@media screen and (min-width: 960px) { .layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper { left: -20px; } }
+@media screen and (min-width: 1500px) { .layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper, .express-layout-boxed .feature-layout-wrapper.feature-layout-wrapper-has-callouts .feature-layout-hero-wrapper { left: -40px; } }
+
 #secondary-menu-wrapper { background-color: #000; }
 
 #main-menu-wrapper { background-color: #444; }
@@ -22,6 +31,7 @@ body { background: none; background-color: #000; background-color: #f2f2f2; back
 #navigation ul#action-menu a:hover, #navigation ul#action-menu a:focus, #navigation ul#action-menu a.active, #navigation ul#action-menu a a.active-trail { color: #fff; }
 
 #secondary-navigation { color: #fff; }
+#secondary-navigation .secondary-menu-label { padding: 0 5px; }
 #secondary-navigation a { color: #fff; display: inline-block; }
 #secondary-navigation a:hover, #secondary-navigation a.active, #secondary-navigation a.active-trail { background-color: #444; color: #fff; }
 

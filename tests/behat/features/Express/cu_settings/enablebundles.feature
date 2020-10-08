@@ -1,4 +1,4 @@
-@settings
+@settings @core
 Feature: Enabling Bundles
 In order to add functionality to a Web Express site
 An authenticated user with the proper role
@@ -16,7 +16,6 @@ Examples:
 | developer        | "Bundles" |
 | administrator    | "Bundles" |
 | site_owner       | "Bundles" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |
@@ -30,4 +29,3 @@ Scenario: The Bundle List page displays 2 tabs
   Then I should see "Bundles"
   And I should see "Enabled"
   And I should see "Available"
-    

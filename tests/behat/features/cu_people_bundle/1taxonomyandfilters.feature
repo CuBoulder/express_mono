@@ -1,6 +1,6 @@
-# SEE ARTICLES FOR TAXONOMY PERMISSION TESTS
+# SEE ARTICLE TESTS FOR TAXONOMY PERMISSION TESTS
 
- @people
+@people
 Feature: People Taxonomy and Filters
 In order to group and filter my people
 As an authenticated user
@@ -14,7 +14,7 @@ And I should see "Job Type"
 And I should see "People Filter 1"
 And I should see "People Filter 2"
 And I should see "People Filter 3"
- 
+
 Scenario: The People Filter Labels can be renamed
 Given I am logged in as a user with the "site_owner" role
 And I am on "admin/settings/people/settings"

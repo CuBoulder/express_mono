@@ -1,4 +1,4 @@
-@design
+@design @core
 Feature: Block Designer adds unique look to blocks while maintaining the branded theme
 In order to set my site apart from others in the University
 As an authenticated user with the proper role
@@ -14,7 +14,6 @@ Examples:
 | developer        | "Block Designer Themes give you a quick and easy way" |
 | administrator    | "Block Designer Themes give you a quick and easy way" |
 | site_owner       | "Block Designer Themes give you a quick and easy way" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |
@@ -37,7 +36,6 @@ Examples:
 | developer        | "A name describing your block theme" |
 | administrator    | "A name describing your block theme" |
 | site_owner       | "A name describing your block theme" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 # | site_editor      | "Access denied" | CAN ADD AND USE BLOCK DESIGNER
 | edit_only        | "Access denied" |
@@ -47,7 +45,7 @@ Examples:
  Scenario: Access - An anonymous user should not be able to set site name
   When I am on "admin/theme/block-designer/add"
   Then I should see "Access denied"
- 
+
 Scenario: Functionality - A simple block theme can be created
   Given  I am logged in as a user with the "site_owner" role
   When I am on "admin/theme/block-designer/add"
@@ -56,4 +54,3 @@ Scenario: Functionality - A simple block theme can be created
   And I press "edit-submit"
   Then I should see "Block Designer Theme settings have been saved."
   And I should see "Simple Outline Block"
-  

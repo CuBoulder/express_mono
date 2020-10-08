@@ -18,6 +18,7 @@ features[field_base][] = field_file_attachment
 features[field_instance][] = node-file-body
 features[field_instance][] = node-file-field_file_attachment
 features[node][] = file
+features[variable][] = addanother_button_file
 features[variable][] = attachment_links_selection_file
 features[variable][] = auto_entitylabel_node_file
 features[variable][] = auto_entitylabel_pattern_node_file

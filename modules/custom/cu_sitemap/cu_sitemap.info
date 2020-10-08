@@ -19,3 +19,4 @@ features[variable][] = xmlsitemap_regenerate_needed
 features[variable][] = xmlsitemap_settings_menu_link_main-menu
 features[variable][] = xmlsitemap_settings_menu_link_menu-footer-menu
 features[variable][] = xmlsitemap_settings_menu_link_menu-secondary-menu
+settings[can_be_overridden] = 1

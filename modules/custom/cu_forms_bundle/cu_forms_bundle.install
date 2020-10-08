@@ -120,3 +120,19 @@ function cu_forms_bundle_update_7009() {
   watchdog('cu_forms_bundle', t("Disabled progress bar for @count single-page webforms.", array('@count' => $updated_count)));
 }
 
+/**
+ * Implements hook_disable().
+ */
+function cu_forms_bundle_disable() {
+  $addOnRoleIds = variable_get('user_external_invite_addon_roles', []);
+  $adjustedAddOnRoleIds = [];
+
+  foreach ($addOnRoleIds as $rid) {
+    $role = user_role_load($rid)->name;
+    if (isset($role) && $role != 'form_manager') {
+      $adjustedAddOnRoleIds[] = $rid;
+    }
+  }
+
+  variable_set('user_external_invite_addon_roles', $adjustedAddOnRoleIds);
+}

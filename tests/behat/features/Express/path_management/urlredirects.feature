@@ -1,4 +1,4 @@
-@settings @redirects
+@settings @redirects @core
 Feature: URL redirects
   In order to create vanity URLs or fix broken pages
   An authenticated user with the proper role
@@ -14,7 +14,6 @@ Feature: URL redirects
       | developer             | "Redirects"     |
       | administrator         | "Redirects"     |
       | site_owner            | "Redirects"    |
-      | content_editor        | "Access denied" |
       | edit_my_content       | "Access denied" |
       | site_editor           | "Redirects"     |
       | edit_only             | "Access denied" |
@@ -46,7 +45,6 @@ Feature: URL redirects
       | developer             | "Enter an internal Drupal path or path alias" |
       | administrator         | "Enter an internal Drupal path or path alias" |
       | site_owner            | "Enter an internal Drupal path or path alias" |
-      | content_editor        | "Access denied"                               |
       | edit_my_content       | "Access denied"                               |
       | site_editor           | "Enter an internal Drupal path or path alias" |
       | edit_only             | "Access denied"                               |
@@ -73,7 +71,6 @@ Feature: URL redirects
       | developer             | "Your site may contain redirects that have never been accessed" |
       | administrator         | "Your site may contain redirects that have never been accessed" |
       | site_owner            | "Your site may contain redirects that have never been accessed" |
-      | content_editor        | "Access denied"                                                 |
       | edit_my_content       | "Access denied"                                                 |
       | site_editor           | "Your site may contain redirects that have never been accessed" |
       | edit_only             | "Access denied"                                                 |
@@ -91,7 +88,6 @@ Feature: URL redirects
       | developer             | "Delete redirects that have not been accessed for" |
       | administrator         | "Access denied"                                    |
       | site_owner            | "Access denied"                                    |
-      | content_editor        | "Access denied"                                    |
       | edit_my_content       | "Access denied"                                    |
       | site_editor           | "Redirects"                                        |
       | edit_only             | "Access denied"                                    |

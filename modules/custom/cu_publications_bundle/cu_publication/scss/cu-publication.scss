@@ -1,5 +1,3 @@
-@import "zen";
-$zen-gutter-width:  40px;
 
 .magazine-section-wrapper {
   overflow: hidden;
@@ -118,69 +116,29 @@ h3.current-issue-title {
 @media all and (max-width: 719px) {
   .latest-issues {
     overflow: hidden;
-    $zen-column-count:  2;
-    @include zen-grid-container();
-
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin:0 -20px;
     .issue-view-mode-grid  {
-      @include zen-float();
-      @include zen-grid-flow-item(1,2, false, true);
-      &:nth-child(2n+2) {
-        @include zen-grid-flow-item(1, 2, false, false);
-      }
-      &:nth-child(2n+1) {
-        @include zen-clear();
-      }
-    }
-  }
-  .view-issue-archive .view-content {
-    overflow: hidden;
-    //margin-right:-20px;
-    //margin-left:-20px;
-    $zen-column-count:  2;
-    @include zen-grid-container();
-
-    .archive-issue {
-      @include zen-float();
-      @include zen-grid-flow-item(1,2, false, true);
-      &:nth-child(2n+2) {
-        @include zen-grid-flow-item(1, 2, false, false);
-      }
-      &:nth-child(2n+1) {
-        @include zen-clear();
-      }
+      padding:0 20px;
+      margin-bottom: 20px;
+      width:50%;
     }
   }
 }
 
 @media all and (min-width: 720px) {
   .latest-issues {
-    $zen-column-count:  4;
-    @include zen-grid-container();
-    .issue-view-mode-grid {
-      $zen-column-count:  4;
-      @include zen-float();
-      @include zen-grid-flow-item(1,4, false, true);
-      &:nth-child(4n+4) {
-        @include zen-grid-flow-item(1, 4, false, false);
-      }
-      &:nth-child(4n+1) {
-        @include zen-clear();
-      }
-    }
-  }
-  .view-issue-archive .view-content {
-    $zen-column-count:  4;
-    @include zen-grid-container();
-    .archive-issue {
-      $zen-column-count:  4;
-      @include zen-float();
-      @include zen-grid-flow-item(1,4, false, true);
-      &:nth-child(4n+4) {
-        @include zen-grid-flow-item(1, 4, false, false);
-      }
-      &:nth-child(4n+1) {
-        @include zen-clear();
-      }
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin:0 -20px;
+    .issue-view-mode-grid  {
+      padding:0 20px;
+      margin-bottom: 20px;
+      width:25%;
     }
   }
 }

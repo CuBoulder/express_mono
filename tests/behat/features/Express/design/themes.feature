@@ -1,4 +1,4 @@
-@design
+@design @core
 Feature: Design Themes change the themeing of the site while maintaining the branded look
 In order to set my site apart from others in the University
 As an authenticated user with the proper role
@@ -14,7 +14,6 @@ Examples:
 | developer        | "Choose a theme" |
 | administrator    | "Choose a theme" |
 | site_owner       | "Choose a theme" |
-| content_editor   | "Access denied" |
 | edit_my_content  | "Access denied" |
 | site_editor      | "Access denied" |
 | edit_only        | "Access denied" |
@@ -25,7 +24,7 @@ Examples:
 Scenario: An anonymous user should not be able to set site theme
 When I go to "admin/theme"
 Then I should see "Access denied"
-  
+
 Scenario: Functionality - All available themes should be available
   Given  I am logged in as a user with the "site_owner" role
   And am on "admin/theme"
@@ -49,7 +48,7 @@ And I click the "a" element with "/admin/theme/active/cuhighlight" for "href"
 Then I should see "Active theme has been set."
 Then I go to "/"
 And the response should contain "themes/cuhighlight"
-   
+
 Scenario: Access - As a site_owner I should not see jquery theme settings
   Given  I am logged in as a user with the "site_owner" role
   And am on "admin/theme/config/cumodern"

@@ -55,13 +55,13 @@ function express_profile_configure_form() {
   $options = array(
     'cu_core' => st('Production'),
     'cu_testing_core' => st('Testing'),
-    'cu_pantheon_core' => st('Pantheon'),
+    'pantheon_hosting' => st('Pantheon'),
   );
 
   $form['express_core_version'] = array(
     '#type' => 'radios',
     '#title' => st('Which version of Express would you like to install?'),
-    '#description' => st('Testing will include the "cu_testing_core" module while "Production" will include the "cu_core" module.'),
+    '#description' => st('"Production" will include the "cu_core" module, Testing will include the "cu_testing_core" module, "Pantheon will include the "pantheon_hosting" module.'),
     '#options' => $options,
     '#default_value' => 'cu_core',
   );
@@ -229,9 +229,6 @@ function express_secure_permissions($role) {
       'access advanced express reports',
     ),
     'configuration_manager' => array(
-      'access express reports',
-    ),
-    'content_editor' => array(
       'access express reports',
     ),
     'edit_my_content' => array(

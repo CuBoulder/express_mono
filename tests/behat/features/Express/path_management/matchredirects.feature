@@ -1,4 +1,4 @@
-@settings @redirects @matchredirects
+@settings @redirects @matchredirects @core
 Feature: Match redirects
   In order to redirect entire sections
   An authenticated user with the proper role
@@ -22,7 +22,6 @@ Scenario Outline: Lower level roles do not get the Match Redirect link.
     Examples:
       | role                  |
       | site_owner            |
-      | content_editor        |
       | edit_my_content       |
       | site_editor           |
       | edit_only             |
@@ -37,7 +36,6 @@ Scenario Outline: Only a developers and administrators can add match redirects.
       | developer             | "By default if a pattern matches and there is content for that target url then it will not be redirected." |
       | administrator         | "By default if a pattern matches and there is content for that target url then it will not be redirected." |
       | site_owner            | "Access denied"                                                                                            |
-      | content_editor        | "Access denied"                                                                                            |
       | edit_my_content       | "Access denied"                                                                                            |
       | site_editor           | "Access denied"                                                                                            |
       | edit_only             | "Access denied"                                                                                            |
@@ -91,7 +89,6 @@ Scenario: An administrator should be able to edit match redirects.
       | developer             | "Edit"          |
       | administrator         | "Edit"          |
       | site_owner            | "Access denied" |
-      | content_editor        | "Access denied" |
       | edit_my_content       | "Access denied" |
       | site_editor           | "Access denied" |
       | edit_only             | "Access denied" |

@@ -1,4 +1,4 @@
-@layout
+@layout @core
 Feature: CU Layout Access
   Developers should be able to modify layout settings.
 
@@ -10,7 +10,6 @@ Scenario Outline: The layout settings form should be available for certain roles
   Examples:
     | role            | message         |
     | edit_only       | "Select which regions are available to place blocks for each content type." |
-    | content_editor  | "Select which regions are available to place blocks for each content type." |
     | edit_my_content | "Select which regions are available to place blocks for each content type." |
     | site_editor     | "Select which regions are available to place blocks for each content type." |
     | site_owner      | "Select which regions are available to place blocks for each content type." |

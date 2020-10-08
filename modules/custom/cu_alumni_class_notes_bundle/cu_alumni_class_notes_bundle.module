@@ -19,13 +19,6 @@ function cu_alumni_class_notes_bundle_secure_permissions($role) {
       'edit any class_note content',
       'edit own class_note content',
     ),
-    'content_editor' => array(
-      'create class_note content',
-      'delete any class_note content',
-      'delete own class_note content',
-      'edit any class_note content',
-      'edit own class_note content',
-    ),
     'developer' => array(
       'create class_note content',
       'delete any class_note content',

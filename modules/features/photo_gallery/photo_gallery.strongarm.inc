@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * photo_gallery.strongarm.inc
@@ -9,6 +10,34 @@
  */
 function photo_gallery_strongarm() {
   $export = array();
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'addanother_button_photo_gallery';
+  $strongarm->value = 1;
+  $export['addanother_button_photo_gallery'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'diff_enable_revisions_page_node_photo_gallery';
+  $strongarm->value = 1;
+  $export['diff_enable_revisions_page_node_photo_gallery'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'diff_show_preview_changes_node_photo_gallery';
+  $strongarm->value = 0;
+  $export['diff_show_preview_changes_node_photo_gallery'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'diff_view_mode_preview_node_photo_gallery';
+  $strongarm->value = 'full';
+  $export['diff_view_mode_preview_node_photo_gallery'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -153,6 +182,16 @@ function photo_gallery_strongarm() {
   $strongarm->name = 'pathauto_node_photo_gallery_pattern';
   $strongarm->value = '[node:menu-link:parent:title]/[node:title]';
   $export['pathauto_node_photo_gallery_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_settings_node_photo_gallery';
+  $strongarm->value = array(
+    'status' => '1',
+    'priority' => '0.5',
+  );
+  $export['xmlsitemap_settings_node_photo_gallery'] = $strongarm;
 
   return $export;
 }

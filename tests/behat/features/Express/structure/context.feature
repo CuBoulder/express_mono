@@ -1,4 +1,4 @@
-@structure
+@structure @core
 Feature: Context
   In order to exercise control over my regions, pages and blocks
   As an authenticated user
@@ -12,7 +12,6 @@ Feature: Context
     Examples:
       | role                  | message                                              |
       | edit_my_content       | "Access denied"                                      |
-      | content_editor        | "Context allows you to manage contextual conditions" |
       | site_owner            | "Context allows you to manage contextual conditions" |
       | administrator         | "Context allows you to manage contextual conditions" |
       | developer             | "Context allows you to manage contextual conditions" |
@@ -33,7 +32,6 @@ Feature: Context
 
     Examples:
       | role           |
-      | content_editor |
       | site_owner     |
       | administrator  |
       | site_editor    |
@@ -65,4 +63,3 @@ Feature: Context
     And I select "Menu" from "edit-reactions-selector"
     And I select "Regions" from "edit-reactions-selector"
     And I select "Page Title Image" from "edit-reactions-selector"
-

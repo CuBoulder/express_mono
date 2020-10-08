@@ -8,6 +8,8 @@
 .soc a, .item-list .soc a { display: flex; text-decoration: none; background: #333; }
 .soc a:hover, .item-list .soc a:hover { background: #666; color: #fff; }
 
+ul.social-links.soc > li > a.social-links-link:link, ul.social-links.soc > li > a.social-links-link:visited { text-decoration: none; }
+
 .soc li, .item-list .soc li { display: inline-block; *display: inline; zoom: 1; margin: 0 5px 5px 0; overflow: hidden; }
 
 .social-links-vertical { display: inline-block; }

@@ -12,3 +12,4 @@ features[context][] = sitewide
 features[context][] = sitewide-except-homepage
 features[ctools][] = context:context:3
 features[features_api][] = api:2
+settings[can_be_overridden] = 1
