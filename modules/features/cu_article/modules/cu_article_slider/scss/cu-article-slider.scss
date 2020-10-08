@@ -6,7 +6,7 @@
     $color2: darken($color, 5%);
   }
   background-color: $color;
-  background-image: linear-gradient(top, $color, $color2);
+  background: linear-gradient(to bottom, $color 0%,$color2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 @mixin transparentGradient($color, $alpha, $direction) {
