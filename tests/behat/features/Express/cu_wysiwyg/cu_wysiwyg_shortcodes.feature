@@ -18,6 +18,20 @@ Scenario: A site owner should be able to add a video shortcode
   # @todo Figure out a step definition for elements.
   # And I should see a ".video-filter" element
 
+  @javascript
+  Scenario: A site owner should be able to add a video shortcode
+    Given I am logged in as a user with the "site_owner" role
+    When I go to "node/add/page"
+    And I wait for the "#cke_1_top" element to appear
+    And I fill in "Title" with "Wowza Test"
+    And I press "Video Shortcode Generator"
+    And I fill in "video URL" with "https://player.cloud.wowza.com/hosted/123456/player.html"
+    # And I press the "OK" button
+    # And I press the "Save" button
+    # Then I should see "Wowza Test"
+    # @todo Figure out a step definition for elements.
+    # And I should see a "#wowza_player" element
+
 @javascript
 Scenario: A site owner should be able to add a button shortcode
   Given I am logged in as a user with the "site_owner" role
