@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * cu_wowza module.
+ */
 
 /**
  * Implements hook_codec_info().
