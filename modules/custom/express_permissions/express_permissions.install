@@ -90,7 +90,7 @@ function express_permissions_update_7011() {
 /**
  * Fix empty role selection in user forms.
  */
-function express_permissions_invite_update_7012() {
+function express_permissions_update_7012() {
   $core_roles = express_permissions_role_settings(array('core'));
   $core_role_ids = array();
   foreach ($core_roles['rid'] as $rid => $role) {
