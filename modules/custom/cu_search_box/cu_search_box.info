@@ -1,0 +1,5 @@
+name = CU Search Box
+description = Search Block for CU Web Express Sites
+core = 7.x
+package = CU-Search-Box
+version = 7.x-1.0

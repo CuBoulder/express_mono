@@ -1,0 +1,96 @@
+<?php
+/**
+  * @file
+  * Code for the CU Search Box block.
+  */
+
+/**
+  * Implements hook_bolck_info()
+  */
+function cu_search_box_block_info() {
+  $blocks = array();
+  $blocks['cu_search_box'] = [
+    'info' => t('CU Search Box'),
+    'region' => 'content',
+    'visibility' => BLOCK_VISIBILITY_LISTED,
+    'pages' => '<front>\n/'
+  ];
+
+  return $blocks;
+}
+
+/**
+  * Implements hook_menu
+  */
+function cu_search_box_menu() {
+
+}
+
+/**
+  * Implements hook_block_view()
+  */
+function cu_search_box_block_view($delta = '') {
+  if ($delta === 'cu_search_box') {
+    $searchBoxSettings = variable_get('cu_search_box_settings', NULL);
+    $block = [];
+
+    $search_form = drupal_get_form('cu_search_box_form');
+    $block['content']['search_form'] = $search_form;
+
+    $search_background_image = $searchBoxSettings['background_image'] ? $searchBoxSettings['background_image'] : '';
+    $block['content']['#prefix'] = '<div class="cu-search-box" style="background-image:url(' . $search_background_image . ');">';    
+    $block['content']['#suffix'] = '</div>';
+
+    if ($searchBoxSettings['content']) {
+      $search_content = check_markup($searchBoxSettings['content']['value'], $searchBoxSettings['content']['format']);
+      $block['subject'] = '';
+      $block['content']['search_content']['#markup'] = $search_content;
+      $block['content']['search_content']['#prefix'] = '<div class="libraries-search-content">';
+      $block['content']['search_content']['#suffix'] = '</div>';
+    }
+    return $block;
+  }
+}
+
+function cu_search_box_search_form($form, $form_state) {
+  $searchBoxSettings = variable_get('cu_search_box_settings', NULL);
+  $placeholderText = $searchBoxSettings['placeholder_text'] ? $searchBoxSettings['placeholder_text'] : 'Search';
+
+  $searchBox = array();
+  $searchBox['search_box'] = array(
+    '#type' => 'fieldset',
+    '#title' => $searchBoxSettings['title'] ? $searchBoxSettings['title'] : 'Search',
+    '#title_display' => 'invisible',
+    '#attributes' => array('class' => array('container-inline search-box')),
+    '#collapsible' => FALSE,
+    '#collapsed' => FALSE,
+  );
+  $searchBox['search_box']['search_string'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => $placeholderText),
+    '#title' => 'Query',
+    '#title_display' => 'invisible',
+  );
+  $searchBox['search_box']['search_type'] = array(
+    '#type' => 'select',
+    '#options' => cu_search_box_options(),
+    '#title' => 'Search Type',
+    '#title_display' => 'invisible',
+  );
+  $searchBox['search_box']['search_submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Search',
+    '#prefix' => '<div class="form-submit-wrapper">',
+    '#suffix' => '</div>',
+  );
+  $searchBox['#submit'][] = 'cu_search_box_form_submit';
+  return $searchBox;
+}
+
+function cu_search_box_form_submit(&$form, $form_state) {
+
+}
+
+function cu_search_box_options() {
+
+}
