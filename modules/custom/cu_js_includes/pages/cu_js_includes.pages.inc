@@ -14,12 +14,6 @@
 function cu_js_includes_add_page() {
   $item = menu_get_item();
   $content = system_admin_menu_block($item);
-
-  // Bypass the listing if only one content type is available.
-  if (count($content) == 1) {
-    $item = array_shift($content);
-    drupal_goto($item['href']);
-  }
   $output = theme('node_add_list', array('content' => $content));
 
   // Need to check and see if output is empty so we can change the help message sent to the user.
@@ -28,4 +22,33 @@ function cu_js_includes_add_page() {
   }
 
   return $output;
+}
+
+function cu_js_includes_settings_form($form, &$form_state) {
+  $form = array();
+  // Get all embed types.
+  $include_types = cu_js_includes_get_include_types();
+
+  $options = array();
+  foreach ($include_types as $key => $value) {
+    $options[$key] = $value['label'];
+  }
+  $form['cu_js_includes_enabled'] = array(
+    '#title' => 'Enable JS Include Types',
+    '#type' => 'checkboxes',
+    '#options' => $options,
+    '#default_value' => variable_get('cu_js_includes_enabled', array()),
+  );
+  $form['#submit'][] = 'cu_js_includes_settings_form_submit';
+  $form['save'] = array(
+    '#type' => 'submit',
+    '#value' => 'Save Configuration',
+  );
+  //$form = system_settings_form($form);
+  return $form;
+}
+
+function cu_js_includes_settings_form_submit($form, &$form_state) {
+  variable_set('cu_js_includes_enabled', $form_state['values']['cu_js_includes_enabled']);
+  menu_rebuild();
 }

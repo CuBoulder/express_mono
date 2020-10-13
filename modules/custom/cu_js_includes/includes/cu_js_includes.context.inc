@@ -22,11 +22,19 @@ class context_reaction_js_include extends context_reaction {
   function options_form($context) {
 
     $settings = $this->fetch_from_context($context);
-    $filter = array(
+    // Enabled Include Types
+    $enabled_includes = variable_get('cu_js_includes_enabled', array());
+    // Types of filters that use this context reaction.
+    $types = array(
       'admithub',
       'livechat',
     );
-    $includes = cu_js_includes_get_includes_by_type($filter);
+    // Types of filters that use this reaction that are also enabled.
+    $filter = array_intersect($enabled_includes, $types);
+    // Get includes that use this context that are also enabled.
+    if (!empty($filter)) {
+      $includes = cu_js_includes_get_includes_by_type($filter);
+    }
     $options = array();
     foreach ($includes as $key => $include) {
       $options[$key] = $include->name;

@@ -30,6 +30,7 @@ function cu_js_includes_secure_permissions($role) {
     ),
     'developer' => array(
       'administer js includes',
+      'administer js includes settings',
       'view js includes',
       'edit js includes',
       'delete js includes',
