@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * @file
+ * Template for StatusPage include.
+ */
+?>
 <!-- Required for IE11 Only -->
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 <!-- Standard dependencies -->

@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * @file
+ * Template for Slate Form include.
+ */
+?>
 <div id="form_<?php print check_plain($slate_form_id); ?>">Loading...</div>
 <script>/*<![CDATA[*/
   var script = document.createElement('script');

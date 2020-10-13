@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * @file
+ * Template for LiveChat include.
+ */
+?>
 var __lc = {}; __lc.license = <?php print check_plain($account_id); ?>;
 (function() {
   var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
