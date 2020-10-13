@@ -5,51 +5,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
-(unreleased)
+v4.3.3 (2020-09-29)
 ------------
 
 Changed
 ~~~~~~~
-- Fixing links to inlcude full urls, fixing gradient css for article title. Resolves #729. [kevincrafts]
+- Remove hard-coded Google Analytics ID from Express code base, we will add it during deployment.
+- Adding field for multiselect option #599.
 
-- Remove hard-coded ID from Express code base, we will add it during deployment. [James Fuller]
-
-- Degrading gracefully if the collection type term used in the collection block has been deleted. Resolves #685. [kevincrafts]
-
-- Adding field for multiselect option #599. [kevincrafts]
-
-  Adding check for multiselct !wip
-
-  adding buttons to template files for multiselect !wip
-
-Other
-~~~~~
-- Removing the add_filters function. [AlanBCole]
-
-- Reverting to previous commit. [AlanBCole]
-
-- Now passing the tests... [AlanBCole]
-
-- Filtering seems to be working well. The layout of the filter form needs some work. [AlanBCole]
-
-  No label for people filters 1, 2, and 3.
-  Labels are above select list.
-- Filter select list shows expected values. However the list of people does not reflect filter settings. [AlanBCole]
-
-- Added childterm fields. This select button list shows up in the edit page but its field value is not passed into the node. [AlanBCole]
-
-- Found the code in cu_article.module that accomplishes this issue's objectives for article list pages and simply copied it to the people_content_type module folder. [AlanBCole]
-
-- Fix for counter.js used in the countup shortcode. Resolves #637. [AlanBCole]
-
-- Reverting collections bundle feature. resolves #722. [kevincrafts]
-
-- Adding file comments. [kevincrafts]
-
-- Adding filter reset, changing query to or, styling #599. [kevincrafts]
-
-  changing to two columns for middle breakpoint
-
+Fixed
+~~~~~~~
+- Degrading gracefully if the collection type term used in the collection block has been deleted. Resolves #685.
 
 v4.3.2 (2020-09-17)
 ------------
