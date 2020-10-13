@@ -24,6 +24,9 @@ function cu_js_includes_add_page() {
   return $output;
 }
 
+/**
+ * Configuration form for enabling/disabling includes by type.
+ */
 function cu_js_includes_settings_form($form, &$form_state) {
   $form = array();
   // Get all embed types.
@@ -44,10 +47,13 @@ function cu_js_includes_settings_form($form, &$form_state) {
     '#type' => 'submit',
     '#value' => 'Save Configuration',
   );
-  //$form = system_settings_form($form);
   return $form;
 }
 
+/**
+ * Submit function for enable/disable form.
+ * Sets variable of types, rebuilds menu because of add/edit paths.
+ */
 function cu_js_includes_settings_form_submit($form, &$form_state) {
   variable_set('cu_js_includes_enabled', $form_state['values']['cu_js_includes_enabled']);
   menu_rebuild();
