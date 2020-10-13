@@ -72,3 +72,17 @@ function cu_js_includes_schema() {
   );
   return $schema;
 }
+
+/**
+ * Implements hook_install().
+ *
+ * Enable include types.
+ */
+function cu_js_includes_install() {
+  $types = array(
+    'admithub' => 'admithub',
+    'livechat' => 'livechat',
+    'slateform' => 'slateform',
+    'statuspage' => 'statuspage'
+  );
+}
