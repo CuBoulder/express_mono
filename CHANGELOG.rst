@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.3.5 (2020-10-14)
+------------
+
+Fixed
+~~~~~~~
+- Replacing incorrect function call. Resolves #736
+
+
 v4.3.4 (2020-10-12)
 ------------
 
