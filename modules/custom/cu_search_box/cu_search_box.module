@@ -5,6 +5,39 @@
   */
 
 /**
+  * Implements hook_menu
+  */
+function cu_search_box_menu() {
+  $items['admin/config/system/cu-search-box'] = array(
+    'title' => 'CU Search Box Settings',
+    'description' => 'Configure how to search your CU Web Express website.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('cu_search_box_settings_form'),
+    'administer arguments' => array('administer site search')
+  );
+  $items['cu-search-box/results'] = array(
+    'title' => t("you made a search!"),
+    'page callback' => 'cu_search_box_results_page',
+    'access callback' => TRUE
+  );
+  return $items;
+}
+
+function cu_search_box_settings_form($form, &$form_state) {
+  $form = array(
+    '#type' => 'markup',
+    '#markup' => '<h3>' . t('Someday you will be able to make some settings here.') . '</h3>'
+  );
+}
+
+function cu_search_box_results_page() {
+  $page = array(
+    '#type' => 'markup',
+    '#markup' => 'Yes you did.'
+  );
+}
+
+/**
   * Implements hook_bolck_info()
   */
 function cu_search_box_block_info() {
@@ -12,9 +45,10 @@ function cu_search_box_block_info() {
   $blocks['cu_search_box'] = [
     'info' => t('CU Search Box'),
     'region' => 'content',
+    'status' => TRUE,
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => '<front>',
-    'cache' => FALSE
+    'pages' => '<front>\r\nnode/1',
+    'cache' => DRUPAL_NO_CACHE
   ];
 
   return $blocks;
@@ -30,13 +64,6 @@ function cu_search_box_node_access($node, $op, $account) {
 }
 
 /**
-  * Implements hook_menu
-  */
-function cu_search_box_menu() {
-
-}
-
-/**
   * Implements hook_block_view()
   */
 function cu_search_box_block_view($delta = '') {
@@ -44,7 +71,7 @@ function cu_search_box_block_view($delta = '') {
     $searchBoxSettings = variable_get('cu_search_box_settings', NULL);
     $block = [];
 
-    $search_form = cu_search_box_search_form();
+    $search_form = drupal_get_form('cu_search_box_search_form');
     dpm($search_form);
     $block['content']['search_form'] = $search_form;
 
@@ -63,7 +90,7 @@ function cu_search_box_block_view($delta = '') {
   }
 }
 
-function cu_search_box_search_form() {
+function cu_search_box_search_form($form, &$form_state) {
   $searchBoxSettings = variable_get('cu_search_box_settings', NULL);
   $placeholderText = $searchBoxSettings['placeholder_text'] ? $searchBoxSettings['placeholder_text'] : 'Search';
 
@@ -99,8 +126,10 @@ function cu_search_box_search_form() {
   return $form;
 }
 
-function cu_search_box_form_submit(&$form, $form_state) {
-
+function cu_search_box_form_submit($form, &$form_state) {
+  if ($form_state['values'] == 'Yo!') {
+    $form_state['redirect'] = '/cu-search-box/results';
+  }
 }
 
 function cu_search_box_options() {
