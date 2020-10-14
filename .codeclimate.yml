@@ -8,6 +8,8 @@ plugins:
     checks:
       Controversial/Superglobals:
         enabled: false
+      CyclomaticComplexity:
+        enabled: false
 #  phan:
 #    enabled: true
 #    config:
