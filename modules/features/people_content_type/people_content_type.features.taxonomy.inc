@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * people_content_type.features.taxonomy.inc
@@ -13,7 +14,7 @@ function people_content_type_taxonomy_default_vocabularies() {
       'name' => 'Department',
       'machine_name' => 'department',
       'description' => '',
-      'hierarchy' => 0,
+      'hierarchy' => 1,
       'module' => 'taxonomy',
       'weight' => 0,
     ),

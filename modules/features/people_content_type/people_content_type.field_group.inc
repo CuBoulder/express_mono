@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * people_content_type.field_group.inc
@@ -109,13 +110,14 @@ function people_content_type_field_group_info() {
   $field_group->parent_name = 'group_people_list_filter';
   $field_group->data = array(
     'label' => 'Show/Hide Filters',
-    'weight' => '12',
+    'weight' => '13',
     'children' => array(
       0 => 'field_people_dept_filter_show',
       1 => 'field_people_filter1_show',
       2 => 'field_people_filter2_show',
       3 => 'field_people_filter3_show',
       4 => 'field_people_pos_filter_show',
+      5 => 'field_people_childterms',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
