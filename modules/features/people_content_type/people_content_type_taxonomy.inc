@@ -72,7 +72,7 @@ function people_content_type_nested_options($terms) {
   uasort($terms, 'people_content_type_sort');
   foreach ($terms as $term) {
     // Use depth to add - to denote children terms.
-    $indent = cu_article_term_depth($term['data']->depth);
+    $indent = people_content_type_term_depth($term['data']->depth);
     // Load full term so we can tell if term should be hidden or not.
     $term_full = taxonomy_term_load($term['data']->tid);
     // Term display field is different in catagory and tag.
