@@ -17,7 +17,7 @@ function cu_js_includes_bean_admin_ui_types() {
   $bean_type->name = 'js_include';
   $bean_type->label = 'JS Include';
   $bean_type->options = '';
-  $bean_type->description = '';
+  $bean_type->description = 'Block for placing javascript includes in webpage regions';
   $export['js_include'] = $bean_type;
 
   return $export;
