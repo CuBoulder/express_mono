@@ -13,7 +13,6 @@ function cu_search_box_menu() {
     'description' => 'Configure how to search your CU Web Express website.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('cu_search_box_settings_form'),
-    'administer arguments' => array('administer site search')
   );
   $items['cu-search-box/results'] = array(
     'title' => t("you made a search!"),
@@ -35,6 +34,7 @@ function cu_search_box_results_page() {
     '#type' => 'markup',
     '#markup' => 'Yes you did.'
   );
+  return $page;
 }
 
 /**
@@ -47,7 +47,7 @@ function cu_search_box_block_info() {
     'region' => 'content',
     'status' => TRUE,
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => '<front>\r\nnode/1',
+    'pages' => '<front>\r\nnode/1\r\ncu-search-box/results',
     'cache' => DRUPAL_NO_CACHE
   ];
 
@@ -127,7 +127,7 @@ function cu_search_box_search_form($form, &$form_state) {
 }
 
 function cu_search_box_form_submit($form, &$form_state) {
-  if ($form_state['values'] == 'Yo!') {
+  if ($form_state['values']['search_string'] == 'Yo!') {
     $form_state['redirect'] = '/cu-search-box/results';
   }
 }
