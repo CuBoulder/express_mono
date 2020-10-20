@@ -355,8 +355,8 @@ function cu_js_includes_context_registry() {
 }
 
 /**
- * Implements hook_page_reaction().
- */
+* Implements hook_page_reaction().
+*/
 function cu_js_includes_context_page_reaction() {
   if ($plugin = context_get_plugin('reaction', 'js_include')) {
    $plugin->execute();
@@ -364,7 +364,7 @@ function cu_js_includes_context_page_reaction() {
 }
 
 /**
- * Preprocess html.
+ * Implements hook_preprocess_html().
  *
  * Process contexts for chat widgets.
  */
