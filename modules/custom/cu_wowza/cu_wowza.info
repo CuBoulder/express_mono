@@ -1,4 +1,0 @@
-name = Wowza Video Filter
-description = Video Filter codec for the Wowza livestream service
-core = 7.x
-dependencies[] = video_filter
