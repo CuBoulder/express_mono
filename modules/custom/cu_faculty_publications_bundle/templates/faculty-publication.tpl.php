@@ -15,7 +15,7 @@
     foreach ($authors as $author) {
       $names[] = l($author['name'], $author['uri']);
     }
-    print join($names, '; ');
+    print implode($names, '; ');
   ?><br />
   <?php if (!empty($publishedIn)): ?>
     <strong>Published in:</strong> <?php print l($publishedIn['name'], $publishedIn['uri']); ?><br />
