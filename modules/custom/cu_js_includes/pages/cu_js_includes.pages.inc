@@ -57,4 +57,5 @@ function cu_js_includes_settings_form($form, &$form_state) {
 function cu_js_includes_settings_form_submit($form, &$form_state) {
   variable_set('cu_js_includes_enabled', $form_state['values']['cu_js_includes_enabled']);
   menu_rebuild();
+  drupal_set_message('Javascript Include settings have been saved.', 'status');
 }
