@@ -9,6 +9,7 @@ dependencies[] = cu_column_override
 dependencies[] = cu_block_section
 dependencies[] = cu_block_row
 dependencies[] = cu_block_to_bean
+dependencies[] = context_error
 
 bundle_cache_clear = 1
 bundle_context_clear = 1
