@@ -331,4 +331,7 @@ $border_color: #e0e0e0;
     display: flex;
     flex-direction: column-reverse;
   }
+  &.cu-search-box .cu-search input.form-text {
+    border: 1px solid $border_color;
+  }
 }
