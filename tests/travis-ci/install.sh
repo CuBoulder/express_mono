@@ -8,10 +8,10 @@ echo hello from inside the install script
 
 
 # Install latest Drush
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-composer global require consolidation/cgr
-cgr drush/drush
-drush status
+#export PATH="$HOME/.composer/vendor/bin:$PATH"
+#composer global require consolidation/cgr
+#cgr drush/drush
+#drush status
 
 
 # Build Behat dependencies.

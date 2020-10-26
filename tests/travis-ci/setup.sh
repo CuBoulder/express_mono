@@ -2,12 +2,10 @@
 
 echo hello from inside the setup script
 
-# Install latest Drush
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-composer global require consolidation/cgr
-cgr drush/drush
-drush status
 
+# Install latest Drush 8."
+composer global require "drush/drush:8.*"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Disable XDebug to speed up test runs.
 phpenv config-rm xdebug.ini
