@@ -62,8 +62,6 @@ install:
   - echo "Running install script..."
   - $ROOT_DIR/install.sh
   - echo ----
-  - cd $HOME
-  - ls -la
 
 before_script:
 

@@ -26,4 +26,7 @@ earlyexit
 mkdir -p $ROOT_DIR/drupal/sites/default/files/styles/preview/public/gallery/ && chmod -R 777 $ROOT_DIR/drupal/sites
 mkdir $ROOT_DIR/tmp && chmod -R 777 $ROOT_DIR/tmp
 
+cd $HOME
+ls -la
+
 exit 0
