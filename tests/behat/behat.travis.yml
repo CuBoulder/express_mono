@@ -13,7 +13,6 @@ default:
     express:
       paths: [ "%paths.base%/features/Express" ]
       contexts: [ FeatureContext ]
-    
   extensions:
       Behat\MinkExtension:
         base_url: "http://127.0.0.1:8031/"
