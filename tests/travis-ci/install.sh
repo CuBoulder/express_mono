@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
+
 # Install latest Drush 8."
 composer global require "drush/drush:8.*"
+
+# look at files
+cd $HOME
+ls -la
+
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Build Behat dependencies.
