@@ -2,8 +2,15 @@
 
 
 # Install latest Drush 8."
-composer global require "drush/drush:8.*"
+#composer global require "drush/drush:8.*"
+#export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+# Install latest Drush
 export PATH="$HOME/.composer/vendor/bin:$PATH"
+composer global require consolidation/cgr
+cgr drush/drush
+drush status
+
 
 # Build Behat dependencies.
 cd $ROOT_DIR/express_mono/tests/behat
