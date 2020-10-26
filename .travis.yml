@@ -62,6 +62,7 @@ install:
   - echo "Running install script..."
   - $ROOT_DIR/install.sh
   - echo ----
+  -
 
 before_script:
 
@@ -72,6 +73,8 @@ before_script:
   - echo Running setup script...
   - $ROOT_DIR/setup.sh
   - echo ----
+  - cd $HOME
+  - ls -la
 
 script:
 
