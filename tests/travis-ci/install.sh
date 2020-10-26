@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "we have entered install.sh"
+echo hello from inside the install script
 
 # Install latest Drush 8."
 #composer global require "drush/drush:8.*"
@@ -35,6 +35,6 @@ earlyexit
 mkdir -p $ROOT_DIR/drupal/sites/default/files/styles/preview/public/gallery/ && chmod -R 777 $ROOT_DIR/drupal/sites
 mkdir $ROOT_DIR/tmp && chmod -R 777 $ROOT_DIR/tmp
 
-echo "there we got through install.sh"
+echo now exiting the install script
 
 exit 0
