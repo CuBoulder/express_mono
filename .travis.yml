@@ -31,9 +31,6 @@ cache:
     - $HOME/.composer/cache/files
     - $HOME/cache
 
-before-install:
-  - composer self-update
-
 install:
 
   # Export variables used later on in the bash scripts.
