@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+echo "we have entered install.sh"
 
 # Install latest Drush 8."
 #composer global require "drush/drush:8.*"
 #export PATH="$HOME/.composer/vendor/bin:$PATH"
+
 
 # Install latest Drush
 export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -33,6 +35,6 @@ earlyexit
 mkdir -p $ROOT_DIR/drupal/sites/default/files/styles/preview/public/gallery/ && chmod -R 777 $ROOT_DIR/drupal/sites
 mkdir $ROOT_DIR/tmp && chmod -R 777 $ROOT_DIR/tmp
 
-echo there we got through install.sh
+echo "there we got through install.sh"
 
 exit 0
