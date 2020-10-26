@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Install latest Drush 8.
-composer global require drush/drush:8.*
+# Install latest Drush 8."
+composer global require "drush/drush:8.*"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Build Behat dependencies.
