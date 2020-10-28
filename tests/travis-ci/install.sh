@@ -3,9 +3,10 @@
 # Install latest Drush 8.
 composer global require "drush/drush:8.*"
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+export PATH="$HOME/.config/composer/vendor/drush/drush:$PATH"
 
-echo "look at vendor bin dir"
-cd $HOME/.config/composor/vendor/bin
+echo "look at vendor drush drush dir"
+cd $HOME/.config/composor/vendor/drush/drush
 ls -la
 
 echo drush status
