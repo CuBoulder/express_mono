@@ -13,3 +13,19 @@ function cu_faculty_publications_bundle_schema() {
   $schema['cache_cu_faculty_publications_bundle'] = drupal_get_schema_unprocessed('system', 'cache');
   return $schema;
 }
+
+/**
+ * Implements hook_install()
+ */
+function cu_faculty_publications_bundle_install() {
+  variable_set('person_publications_list_order', 'date-desc');
+  variable_set('person_publications_list_number', 5);
+}
+
+/**
+ * Implements hook_unintstall()
+ */
+function cu_faculty_publications_bundle_uninstall() {
+  variable_del('person_publications_list_order');
+  variable_del('person_publications_list_number');
+}
