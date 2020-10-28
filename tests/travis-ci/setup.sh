@@ -40,7 +40,7 @@ earlyexit
 echo Exporting database...
 #$HOME/.composer/vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
 $HOME/.config/composer/vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
-drush sql-dump --result-file=$HOME/cache/express.sql
+
 
 # Check and see if testing core module is enabled.
 #$HOME/.composer/vendor/bin/drush pm-info travis_hosting
