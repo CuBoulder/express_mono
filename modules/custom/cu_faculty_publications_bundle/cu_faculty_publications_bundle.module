@@ -43,7 +43,7 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
 /**
  * Implements hook_block_info().
  */
- function cu_faculty_publications_bundle_block_info() {
+function cu_faculty_publications_bundle_block_info() {
   return array(
     'person_publications_list' => array(
       'info' => t("Person Publications List")
@@ -69,7 +69,7 @@ function cu_faculty_publications_bundle_block_view($delta = '') {
       $fakeBeanObject->field_faculty_publication_email = $node->field_person_email;
       $fakeBeanObject->field_faculty_publications_sort = [LANGUAGE_NONE => [0 => ['value' => $order]]];
       $fakeBeanObject->field_faculty_pub_results = [LANGUAGE_NONE => [0 => ['value' => $number]]];
-      
+
       $publicationData = get_publication_data($nodePath, $skipCache, $fakeBeanObject);
 
       if (!$skipCache && !$publicationData['results']) {
@@ -82,7 +82,7 @@ function cu_faculty_publications_bundle_block_view($delta = '') {
         return $block;
       }
       break;
-    
+
     default:
       break;
   }
@@ -90,9 +90,9 @@ function cu_faculty_publications_bundle_block_view($delta = '') {
 
 /**
  * Implements hook_block_configure().
- * The block can be inserted using Context module and configured at /admin/structure/block/manage/cu_faculty_publications_bundle/person_publications_list/configure.
  */
 function cu_faculty_publications_bundle_block_configure($delta = '') {
+  // The block can be inserted using Context module and configured at /admin/structure/block/manage/cu_faculty_publications_bundle/person_publications_list/configure.
   switch ($delta) {
     case 'person_publications_list':
       $form = array(
@@ -261,8 +261,11 @@ function get_publication_data($cid, $skipCache, $beanObject) {
 /**
  * This is where the request for elastic search is constructed.
  *
- * @param type $publicationData Results from either the cache or requesting experts.colorado.edu.
- * @return array Returns an associative render array passed on to the user interface.
+ * @param array
+ * $publicationData Results from either the cache or requesting experts.colorado.edu.
+ *
+ * @return array
+ * Returns an associative render array passed on to the user interface.
  */
 function publish_data($publicationData) {
   $output = array();
@@ -393,12 +396,12 @@ function build_request_data($beanObject) {
     $numberOfResults = $beanObject->field_faculty_pub_results[LANGUAGE_NONE][0]['value'];
     $offset = $currentPage * $numberOfResultsPerPage;
     $arguments['from'] = $offset;
-    
+
     if ($numberOfResults === 'all') {
       // 10,000 search results is the default maximum amount of Elastic Search results.
       $requestedNumberOfResults = 10000;
     }
-    
+
     elseif ($num = intval($numberOfResults)) {
       $requestedNumberOfResults = $num;
     }
@@ -416,7 +419,12 @@ function build_request_data($beanObject) {
 
   // Form the final request url.
   $elasticSearchRequest = url($fisPubsEndpoint, ['query' => $arguments]);
-  return ['reqUrl' => $elasticSearchRequest, 'requestedNumberOfResults' => $requestedNumberOfResults, 'numberOfResultsPerPage' => $numberOfResultsPerPage, 'messages' => $messages];
+  return [
+    'reqUrl' => $elasticSearchRequest,
+    'requestedNumberOfResults' => $requestedNumberOfResults,
+    'numberOfResultsPerPage' => $numberOfResultsPerPage,
+    'messages' => $messages
+  ];
 }
 
 function get_array_from_field_data($fieldArray, $fieldArrayFinalIdentifier) {
@@ -530,7 +538,6 @@ function cu_faculty_publications_sort() {
 function cu_faculty_publications_results() {
   return array('25' => '25', '50' => '50' , '100' => '100', 'all' => 'ALL');
 }
-
 
 /**
  * Implements hook_secure_permissions().
