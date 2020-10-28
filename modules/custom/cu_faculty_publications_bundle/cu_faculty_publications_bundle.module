@@ -59,27 +59,27 @@ function cu_faculty_publications_bundle_block_view($delta = '') {
     case 'person_publications_list':
       $block = array();
 
-      $nodePath = drupal_get_normal_path($_GET['q']);
-      $node = node_load(explode('/', $nodePath)[1]);
-      $skipCache = user_access('edit any faculty_publications bean');
-
-      $order = variable_get('person_publications_list_order', 'date-desc');
-      $number = variable_get('person_publications_list_number', 5);
-      $fakeBeanObject = new stdClass();
-      $fakeBeanObject->field_faculty_publication_email = $node->field_person_email;
-      $fakeBeanObject->field_faculty_publications_sort = [LANGUAGE_NONE => [0 => ['value' => $order]]];
-      $fakeBeanObject->field_faculty_pub_results = [LANGUAGE_NONE => [0 => ['value' => $number]]];
-
-      $publicationData = get_publication_data($nodePath, $skipCache, $fakeBeanObject);
-
-      if (!$skipCache && !$publicationData['results']) {
-        return $block;
-      }
-
-      else {
-        $block['subject'] = 'Recent Publications:';
-        $block['content'] = publish_data($publicationData);
-        return $block;
+      if (($node = menu_get_object()) && ($node->type == 'person')) {
+        $skipCache = user_access('edit any faculty_publications bean');
+  
+        $order = variable_get('person_publications_list_order', 'date-desc');
+        $number = variable_get('person_publications_list_number', 5);
+        $fakeBeanObject = new stdClass();
+        $fakeBeanObject->field_faculty_publication_email = $node->field_person_email;
+        $fakeBeanObject->field_faculty_publications_sort = [LANGUAGE_NONE => [0 => ['value' => $order]]];
+        $fakeBeanObject->field_faculty_pub_results = [LANGUAGE_NONE => [0 => ['value' => $number]]];
+  
+        $publicationData = get_publication_data($node->title, $skipCache, $fakeBeanObject);
+  
+        if (!$skipCache && !$publicationData['results']) {
+          return $block;
+        }
+  
+        else {
+          $block['subject'] = 'Recent Publications:';
+          $block['content'] = publish_data($publicationData);
+          return $block;
+        }
       }
       break;
 
