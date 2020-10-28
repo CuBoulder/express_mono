@@ -6,8 +6,18 @@ echo "We have entered the install script"
 composer global require "drush/drush:8.*"
 
 echo 'show .config/composer/vendor directory contents'
-cd $HOME/.config/composer/vendor/
+cd $HOME/.config/composer/vendor
 ls -la
+
+echo 'show .config/composer/vendor/drush directory contents'
+cd $HOME/.config/composer/vendor/drush
+ls -la
+
+echo 'show .config/composer/vendor/drush/drush directory contents'
+cd $HOME/.config/composer/vendor/drush/drush
+ls -la
+
+
 
 #export PATH="$HOME/.composer/vendor/bin:$PATH"
 
