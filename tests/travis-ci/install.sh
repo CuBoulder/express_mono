@@ -5,11 +5,7 @@ composer global require "drush/drush:8.*"
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 export PATH="$HOME/.config/composer/vendor/drush/drush:$PATH"
 
-echo "look at vendor drush drush dir"
-cd $HOME/.config/composor/vendor/drush/drush
-ls -la
-
-echo drush status
+echo check drush status
 $HOME/.config/composer/vendor/bin/drush status
 
 # Build Behat dependencies.
