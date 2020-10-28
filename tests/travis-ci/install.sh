@@ -5,12 +5,14 @@ echo "We have entered the install script"
 # Install latest Drush 8.
 composer global require "drush/drush:8.*"
 
-cd $HOME/.config/composer
+cd $HOME/.config/composer/vendor/bin
 ls -la
 
 #export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+
+drush status
 
 # Build Behat dependencies.
 cd $ROOT_DIR/express_mono/tests/behat
