@@ -4,6 +4,9 @@ echo "We have entered the install script"
 
 # Install latest Drush 8.
 composer global require "drush/drush:8.*"
+
+ls -la
+
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Build Behat dependencies.
