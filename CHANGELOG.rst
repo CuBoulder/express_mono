@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.4.0 (2020-10-26)
+------------
+
+Added
+~~~~~
+- Added integration to experts.colorado.edu. Resolves #41.
+
+- New method for including specific types of JavaScript embeds. Resolves #691.
+
+- Added context_error to allow the placement of a search box on a 403 or 404 page. Resolves #123.
+
+
+Changed
+~~~~~~~
+- Adding video filter for Wowza livestreaming video service. Resolves #289.
+
+
+Fixed
+~~~~~~~
+- Fixing issue where there was an empty role available. Resolves #718.
+
+
 v4.3.5 (2020-10-14)
 ------------
 
@@ -27,8 +49,6 @@ Fixed
 
 - Fixing links to include full urls, fixing gradient css for article title. Resolves #729.
 
-
-AlanBCole]
 
 v4.3.3 (2020-09-29)
 ------------
