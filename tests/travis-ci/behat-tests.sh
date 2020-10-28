@@ -2,7 +2,7 @@
 
 # Start server.
 cd ${ROOT_DIR}/drupal
-$HOME/.config/composer/vendor/bin/drush runserver 127.0.0.1:8031 > /dev/null 2>&1 &
+drush runserver 127.0.0.1:8031 > /dev/null 2>&1 &
 nc -zvv 127.0.0.1 8031; out=$?; while [[ $out -ne 0 ]]; do echo "Retry hit port 8031..."; nc -zvv localhost 8031; out=$?; sleep 5; done
 earlyexit
 
@@ -23,7 +23,7 @@ earlyexit
 # We run these seperately b/c the changes they make cause other tests to fail if they are run afterwards.
 echo "Running Express Digital Campaign tests..."
 # Enable test content, user, and role.
-$HOME/.config/composer/vendor/bin/drush en cu_dc_tests -y
+drush en cu_dc_tests -y
 ${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config ${ROOT_DIR}/drupal/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_BEHAT_TAGS}
 earlyexit
 
@@ -32,6 +32,6 @@ ${ROOT_DIR}/drupal/profiles/express/tests/behat/bin/behat --stop-on-failure --st
 earlyexit
 
 # Output performance logging data.
-$HOME/.config/composer/vendor/bin/drush scr ${ROOT_DIR}/drupal/profiles/express/tests/travis-ci/log-express-performance.php
+drush scr ${ROOT_DIR}/drupal/profiles/express/tests/travis-ci/log-express-performance.php
 
 exit 0

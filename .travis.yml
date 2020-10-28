@@ -10,7 +10,7 @@ php:
 
 branches:
   only:
-   - dev
+   - drush-test
 
 addons:
   # The username and access key are stored in the Travis settings.
