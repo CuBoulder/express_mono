@@ -17,9 +17,12 @@ echo 'show .config/composer/vendor/drush/drush directory contents'
 cd $HOME/.config/composer/vendor/drush/drush
 ls -la
 
+echo 'show .config/composer/vendor/bin directory contents'
+cd $HOME/.config/composer/vendor/bin
+ls -la
 
 
-#export PATH="$HOME/.composer/vendor/bin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 

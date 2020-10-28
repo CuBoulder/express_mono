@@ -31,7 +31,7 @@ cd ${ROOT_DIR}/drupal/profiles/express
 
 # Install site like normal.
 echo Installing Express...
-$HOME/.config/composer/vendor/drush si express --db-url=mysql://root:@127.0.0.1/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+$HOME/.config/composer/vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
 
 earlyexit
 
@@ -39,7 +39,7 @@ earlyexit
 # Test runs that fill up the db with nodes can impact other tests.
 echo Exporting database...
 #$HOME/.composer/vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
-$HOME/.config/composer/vendor/drush sql-dump --result-file=$HOME/cache/express.sql
+$HOME/.config/composer/vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
 drush sql-dump --result-file=$HOME/cache/express.sql
 
 # Check and see if testing core module is enabled.
@@ -50,12 +50,12 @@ drush sql-dump --result-file=$HOME/cache/express.sql
 #$HOME/.composer/vendor/bin/drush pm-info cu_local_users
 #$HOME/.composer/vendor/bin/drush pm-list
 
-$HOME/.config/composer/vendor/drush pm-info travis_hosting
-$HOME/.config/composer/vendor/drush pm-info ng_hosting
-$HOME/.config/composer/vendor/drush pm-info cu_core
-$HOME/.config/composer/vendor/drush pm-info cu_ldap
-$HOME/.config/composer/vendor/drush pm-info cu_local_users
-$HOME/.config/composer/vendor/drush pm-list
+$HOME/.config/composer/vendor/bin/drush pm-info travis_hosting
+$HOME/.config/composer/vendor/bin/drush pm-info ng_hosting
+$HOME/.config/composer/vendor/bin/drush pm-info cu_core
+$HOME/.config/composer/vendor/bin/drush pm-info cu_ldap
+$HOME/.config/composer/vendor/bin/drush pm-info cu_local_users
+$HOME/.config/composer/vendor/bin/drush pm-list
 
 
 exit 0
