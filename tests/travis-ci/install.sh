@@ -4,6 +4,10 @@
 composer global require "drush/drush:8.*"
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 
+echo "look at vendor bin dir"
+cd $HOME/.config/composor/vendor/bin
+ls -la
+
 # Build Behat dependencies.
 cd $ROOT_DIR/express_mono/tests/behat
 composer install --prefer-dist --no-interaction
