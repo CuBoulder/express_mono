@@ -8,6 +8,9 @@ echo "look at vendor bin dir"
 cd $HOME/.config/composor/vendor/bin
 ls -la
 
+echo drush status
+$HOME/.config/composer/vendor/bin/drush status
+
 # Build Behat dependencies.
 cd $ROOT_DIR/express_mono/tests/behat
 composer install --prefer-dist --no-interaction

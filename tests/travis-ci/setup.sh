@@ -37,7 +37,7 @@ earlyexit
 # Export db so it can be imported after every suite run.
 # Test runs that fill up the db with nodes can impact other tests.
 echo Exporting database...
-drush sql-dump --result-file=$HOME/cache/express.sql
+$HOME/.config/composer/vendor/bin sql-dump --result-file=$HOME/cache/express.sql
 
 # Check and see if testing core module is enabled.
 drush pm-info travis_hosting
