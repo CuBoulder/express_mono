@@ -9,6 +9,7 @@ echo $TRAVIS_BUILD_DIR
 
 echo "all the perms"
 cd $HOME
+ls -la
 chmod -R 777
 
 # Install latest Drush 8.
