@@ -16,7 +16,7 @@ echo "TRAVIS_BUILD_DIR"
 echo $TRAVIS_BUILD_DIR
 ls -la
 
-chmod -R 777
+chmod -R 777 /user/bin/local
 
 # Install latest Drush 8.
 COMPOSER_HOME=/opt/drush COMPOSER_BIN_DIR=/usr/local/bin COMPOSER_VENDOR_DIR=/opt/drush/8 composer require drush/drush:^8
