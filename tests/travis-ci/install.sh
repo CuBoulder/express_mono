@@ -1,19 +1,18 @@
 #!/usr/bin/env bash
 
-echo "ROOT_DIR"
-echo $ROOT_DIR
+cd $HOME
 echo "HOME"
 echo $HOME
-echo "TRAVIS_BUILD_DIR"
-echo $TRAVIS_BUILD_DIR
-
-echo "all the perms"
-cd $ROOT_DIR
 ls -la
-cd $HOME
+cd $ROOT_DIR
+echo "ROOT_DIR"
+echo $ROOT_DIR
 ls -la
 cd $TRAVIS_BUILD_DIR
+echo "TRAVIS_BUILD_DIR"
+echo $TRAVIS_BUILD_DIR
 ls -la
+
 chmod -R 777
 
 # Install latest Drush 8.
