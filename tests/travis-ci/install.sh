@@ -1,8 +1,43 @@
 #!/usr/bin/env bash
 
+cd /
+echo "slash /"
+ls -la
+cd $HOME
+echo "HOME"
+echo $HOME
+ls -la
+cd $ROOT_DIR
+echo "ROOT_DIR"
+echo $ROOT_DIR
+ls -la
+cd $TRAVIS_BUILD_DIR
+echo "TRAVIS_BUILD_DIR"
+echo $TRAVIS_BUILD_DIR
+ls -la
+
+cd /usr/local
+echo "/usr/local looking for bin"
+ls -la
+
+mkdir -p /usr/local/bin -m777
+mkdir -p /opt/drush -m777
+
+cd /opt
+echo "/opt looking for drush"
+ls -la
+
 # Install latest Drush 8.
-composer global require "drush/drush:8.*"
+COMPOSER_HOME=/opt/drush COMPOSER_BIN_DIR=/usr/local/bin COMPOSER_VENDOR_DIR=/opt/drush/8 composer require drush/drush:^8
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+export PATH="$HOME/.config/composer/vendor/drush/drush:$PATH"
+
+echo check drush status using entire old path
+$HOME/.config/composer/vendor/bin/drush status
+
+echo check drush status using word drush
+drush status
+
 
 # Build Behat dependencies.
 cd $ROOT_DIR/express_mono/tests/behat
