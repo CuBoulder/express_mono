@@ -16,6 +16,12 @@ echo "TRAVIS_BUILD_DIR"
 echo $TRAVIS_BUILD_DIR
 ls -la
 
+echo "does /usr/bin/local exist?"
+cd /usr
+ls -la
+cd /usr/bin
+ls -la
+
 chmod -R 777 /usr/bin/local
 
 # Install latest Drush 8.
