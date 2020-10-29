@@ -37,6 +37,8 @@ function linkchecker_uninstall() {
   variable_del('linkchecker_ignore_response_codes');
   variable_del('linkchecker_impersonate_user');
   variable_del('linkchecker_scan_blocks');
+  variable_del('linkchecker_scan_comments');
+  variable_del('linkchecker_scan_nodetypes');
   variable_del('linkchecker_log_level');
 
   foreach (node_type_get_names() as $type => $name) {
@@ -66,14 +68,8 @@ function linkchecker_schema() {
     ),
     'primary key' => array('bid', 'lid'),
     'foreign keys' => array(
-      'bid' => array(
-        'table' => 'block_custom',
-        'columns' => array('bid' => 'bid'),
-      ),
-      'lid' => array(
-        'table' => 'linkchecker_link',
-        'columns' => array('lid' => 'lid'),
-      ),
+      'bid' => array('block_custom' => 'bid'),
+      'lid' => array('linkchecker_link' => 'lid'),
     ),
     'indexes' => array('lid' => array('lid')),
   );
@@ -94,14 +90,8 @@ function linkchecker_schema() {
     ),
     'primary key' => array('cid', 'lid'),
     'foreign keys' => array(
-      'cid' => array(
-        'table' => 'comment',
-        'columns' => array('cid' => 'cid'),
-      ),
-      'lid' => array(
-        'table' => 'linkchecker_link',
-        'columns' => array('lid' => 'lid'),
-      ),
+      'cid' => array('comment' => 'cid'),
+      'lid' => array('linkchecker_link' => 'lid'),
     ),
     'indexes' => array('lid' => array('lid')),
   );
@@ -122,14 +112,8 @@ function linkchecker_schema() {
     ),
     'primary key' => array('nid', 'lid'),
     'foreign keys' => array(
-      'nid' => array(
-        'table' => 'node',
-        'columns' => array('nid' => 'nid'),
-      ),
-      'lid' => array(
-        'table' => 'linkchecker_link',
-        'columns' => array('lid' => 'lid'),
-      ),
+      'nid' => array('node' => 'nid'),
+      'lid' => array('linkchecker_link' => 'lid'),
     ),
     'indexes' => array('lid' => array('lid')),
   );
