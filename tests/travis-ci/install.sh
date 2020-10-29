@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+cd /
+echo "slash /"
+ls -la
 cd $HOME
 echo "HOME"
 echo $HOME
