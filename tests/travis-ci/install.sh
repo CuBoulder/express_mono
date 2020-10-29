@@ -8,7 +8,11 @@ echo "TRAVIS_BUILD_DIR"
 echo $TRAVIS_BUILD_DIR
 
 echo "all the perms"
+cd $ROOT_DIR
+ls -la
 cd $HOME
+ls -la
+cd $TRAVIS_BUILD_DIR
 ls -la
 chmod -R 777
 
