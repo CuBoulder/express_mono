@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+echo "ROOT_DIR"
+echo $ROOT_DIR
+echo "HOME"
+echo $HOME
+echo "TRAVIS_BUILD_DIR"
+echo $TRAVIS_BUILD_DIR
+
+echo "all the perms"
+cd $HOME
+chmod -R 777
+
 # Install latest Drush 8.
 COMPOSER_HOME=/opt/drush COMPOSER_BIN_DIR=/usr/local/bin COMPOSER_VENDOR_DIR=/opt/drush/8 composer require drush/drush:^8
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
