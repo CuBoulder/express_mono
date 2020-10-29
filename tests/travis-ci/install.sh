@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 
+echo "checking path before installation of drush"
+echo $PATH
+
 # Install latest Drush 8.
 composer global require "drush/drush:8.*"
 export PATH="$HOME/.config/composer/vendor/bin:$PATH"
 export PATH="$HOME/.config/composer/vendor/drush/drush:$PATH"
 
+echo "checking path after installation of drush"
+echo $PATH
+
 echo check drush status
 $HOME/.config/composer/vendor/bin/drush status
+
+cd $HOME/.config/composor/vendor/
+ls -la 
 
 # Build Behat dependencies.
 cd $ROOT_DIR/express_mono/tests/behat
