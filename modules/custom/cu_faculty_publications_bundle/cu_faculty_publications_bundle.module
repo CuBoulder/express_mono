@@ -156,10 +156,14 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
  * This function decides where to get data from. Whether to gather it from the module's cache, refresh the data from cache or to gather it from fresh requests to our experts' databases.
  * The publication data or errors/warnings are passed on to the UI.
  *
- * @param string $cid This is the url to this page/node being displayed
- * @param boolean $skipCache This is set based on a user's permissions so that an editor can see their changes and not what has been cached previously.
- * @param object $beanObject This is the object with the form data needed form this block.
- * @return array An associative array with data to pass on to the UI.
+ * @param string $cid
+ *   This is the url to this page/node being displayed or the Person node's name.
+ * @param boolean $skipCache
+ *   This is set based on a user's permissions so that an editor can see their changes and not what has been cached previously.
+ * @param object $beanObject
+ *   This is the object with the form data needed for this block.
+ * @return array
+ *   An associative array with data to pass on to the UI.
  *
  */
 function get_publication_data($cid, $skipCache, $beanObject) {
@@ -261,11 +265,11 @@ function get_publication_data($cid, $skipCache, $beanObject) {
 /**
  * This is where the request for elastic search is constructed.
  *
- * @param array
- * $publicationData Results from either the cache or requesting experts.colorado.edu.
+ * @param array $publicationData
+ *   Results from either the cache or requesting experts.colorado.edu as returned by get_publication_data().
  *
  * @return array
- * Returns an associative render array passed on to the user interface.
+ *   Returns an associative render array passed on to the user interface.
  */
 function publish_data($publicationData) {
   $output = array();
@@ -307,8 +311,10 @@ function publish_data($publicationData) {
 /**
  * This is where the request for elastic search is constructed.
  *
- * @param type $beanObject This is the object containing all data passed in from the form.
- * @return array Returns an associative array with data to pass back into get_publication_data().
+ * @param object $beanObject
+ *   This is the object containing all data passed in from the form.
+ * @return array
+ *   Returns an associative array with data to pass back into get_publication_data().
  */
 function build_request_data($beanObject) {
   $fisPubsEndpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
