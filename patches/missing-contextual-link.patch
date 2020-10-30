@@ -1,7 +1,7 @@
-diff --git a/bean.module b/bean.module
+diff --git a/modules/contrib/bean.module b/modules/contrib/bean.module
 index 24c5bdc..710d28f 100644
---- a/bean.module
-+++ b/bean.module
+--- a/modules/contrib/bean.module
++++ b/modules/contrib/bean.module
 @@ -901,6 +901,12 @@ function bean_block_view($delta = '') {
      );
    }

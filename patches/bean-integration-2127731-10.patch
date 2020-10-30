@@ -1,8 +1,8 @@
-diff --git a/modules/linkchecker_bean/linkchecker_bean.info b/modules/linkchecker_bean/linkchecker_bean.info
+diff --git a/modules/contrib/linkchecker/modules/linkchecker_bean/linkchecker_bean.info b/modules/contrib/linkchecker/modules/linkchecker_bean/linkchecker_bean.info
 new file mode 100644
 index 0000000..a1d5132
 --- /dev/null
-+++ b/modules/linkchecker_bean/linkchecker_bean.info
++++ b/modules/contrib/linkchecker/modules/linkchecker_bean/linkchecker_bean.info
 @@ -0,0 +1,8 @@
 +name = Link checker Bean
 +description = "Periodically checks for broken links in beans and reports the results."
@@ -12,11 +12,11 @@ index 0000000..a1d5132
 +
 +dependencies[] = bean
 +dependencies[] = linkchecker
-diff --git a/modules/linkchecker_bean/linkchecker_bean.install b/modules/linkchecker_bean/linkchecker_bean.install
+diff --git a/modules/contrib/linkchecker/modules/linkchecker_bean/linkchecker_bean.install b/modules/contrib/linkchecker/modules/linkchecker_bean/linkchecker_bean.install
 new file mode 100644
 index 0000000..8ae7940
 --- /dev/null
-+++ b/modules/linkchecker_bean/linkchecker_bean.install
++++ b/modules/contrib/linkchecker/modules/linkchecker_bean/linkchecker_bean.install
 @@ -0,0 +1,53 @@
 +<?php
 +
@@ -71,11 +71,11 @@ index 0000000..8ae7940
 +    drupal_set_message(t('Link checks for beans have been disabled.'));
 +  }
 +}
-diff --git a/modules/linkchecker_bean/linkchecker_bean.module b/modules/linkchecker_bean/linkchecker_bean.module
+diff --git a/modules/contrib/linkchecker/modules/linkchecker_bean/linkchecker_bean.module b/modules/contrib/linkchecker/modules/linkchecker_bean/linkchecker_bean.module
 new file mode 100644
 index 0000000..4944a02
 --- /dev/null
-+++ b/modules/linkchecker_bean/linkchecker_bean.module
++++ b/modules/contrib/linkchecker/modules/linkchecker_bean/linkchecker_bean.module
 @@ -0,0 +1,457 @@
 +<?php
 +

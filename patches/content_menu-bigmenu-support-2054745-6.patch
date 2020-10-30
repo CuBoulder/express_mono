@@ -1,7 +1,7 @@
-diff --git a/content_menu.js b/content_menu.js
+diff --git a/modules/contrib/content_menu/content_menu.js b/modules/contrib/content_menu/content_menu.js
 index f51d8ce..a8efe52 100644
---- a/content_menu.js
-+++ b/content_menu.js
+--- a/modules/contrib/content_menu/content_menu.js
++++ b/modules/contrib/content_menu/content_menu.js
 @@ -1,13 +1,26 @@
 -(function($){
 -    Drupal.behaviors.content_menu ={
@@ -42,10 +42,10 @@ index f51d8ce..a8efe52 100644
 +    }
 +  };
 +})(jQuery);
-diff --git a/content_menu.menu_admin.inc b/content_menu.menu_admin.inc
+diff --git a/modules/contrib/content_menu/content_menu.menu_admin.inc b/modules/contrib/content_menu/content_menu.menu_admin.inc
 index a87abb4..3417cad 100644
---- a/content_menu.menu_admin.inc
-+++ b/content_menu.menu_admin.inc
+--- a/modules/contrib/content_menu/content_menu.menu_admin.inc
++++ b/modules/contrib/content_menu/content_menu.menu_admin.inc
 @@ -33,7 +33,7 @@ function _content_menu_menu_overview_page_extended() {
   * Overhaul the menu_overview_form to improve menu authoring experience.
   */
@@ -104,10 +104,10 @@ index a87abb4..3417cad 100644
    $form = $variables['form'];
  
    drupal_add_tabledrag('menu-overview', 'match', 'parent', 'menu-plid', 'menu-plid', 'menu-mlid', TRUE, MENU_MAX_DEPTH - 1);
-diff --git a/content_menu.module b/content_menu.module
+diff --git a/modules/contrib/content_menu/content_menu.module b/modules/contrib/content_menu/content_menu.module
 index 1d22af1..1a1103a 100644
---- a/content_menu.module
-+++ b/content_menu.module
+--- a/modules/contrib/content_menu/content_menu.module
++++ b/modules/contrib/content_menu/content_menu.module
 @@ -349,6 +349,23 @@ function content_menu_form_menu_overview_form_alter(&$form, &$form_state, $form_
    }
  }
@@ -132,10 +132,10 @@ index 1d22af1..1a1103a 100644
  
  /**
   * Implements hook_menu_local_tasks_alter().
-diff --git a/css/content_menu.css b/css/content_menu.css
+diff --git a/modules/contrib/content_menu/css/content_menu.css b/modules/contrib/content_menu/css/content_menu.css
 index 7681bd4..a2244dc 100644
---- a/css/content_menu.css
-+++ b/css/content_menu.css
+--- a/modules/contrib/content_menu/css/content_menu.css
++++ b/modules/contrib/content_menu/css/content_menu.css
 @@ -3,8 +3,11 @@
    background: #dfd;
  }

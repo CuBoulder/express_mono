@@ -1,7 +1,7 @@
-diff --git a/simplesamlphp_auth.admin.inc b/simplesamlphp_auth.admin.inc
+diff --git a/modules/contrib/simplesamlphp_auth/simplesamlphp_auth.admin.inc b/modules/contrib/simplesamlphp_auth/simplesamlphp_auth.admin.inc
 index e6d83ac..ad6227b 100644
---- a/simplesamlphp_auth.admin.inc
-+++ b/simplesamlphp_auth.admin.inc
+--- a//modules/contrib/simplesamlphp_auth/simplesamlphp_auth.admin.inc
++++ b//modules/contrib/simplesamlphp_auth/simplesamlphp_auth.admin.inc
 @@ -180,6 +180,7 @@ function simplesamlphp_auth_settings_sync() {
      '#type' => 'checkbox',
      '#title' => t('Automatically enable SAML authentication for existing users upon successful login'),

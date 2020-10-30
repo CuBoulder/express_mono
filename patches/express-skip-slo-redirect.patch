@@ -1,7 +1,7 @@
-diff --git a/simplesamlphp_auth.module b/simplesamlphp_auth.module
+diff --git a/modules/contrib/simplesamlphp_auth/simplesamlphp_auth.module b/modules/contrib/simplesamlphp_auth/simplesamlphp_auth.module
 index b888814..81f30df 100644
---- a/simplesamlphp_auth.module
-+++ b/simplesamlphp_auth.module
+--- a/modules/contrib/simplesamlphp_auth/simplesamlphp_auth.module
++++ b/modules/contrib/simplesamlphp_auth/simplesamlphp_auth.module
 @@ -267,8 +267,12 @@ function simplesamlphp_auth_user_logout($account) {
    // Allow modules to alter $gotourl.
    drupal_alter('simplesamlphp_auth_logout_gotourl', $gotourl, $account);
