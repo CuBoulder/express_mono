@@ -1,7 +1,7 @@
 name: Apply-Contrib-Patches
 
 on:
-  pull-request:    
+  pull_request:    
     branches: 
       - dev_alans
 jobs:
