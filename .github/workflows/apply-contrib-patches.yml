@@ -1,0 +1,14 @@
+name: Apply-Contrib-Patches
+
+on: pull-request
+  branches: 
+    - dev_alans
+  paths:
+jobs:
+  apply-patches:
+    name: Check for Changes - Apply Patches
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ./action-apply-contrib-patches
