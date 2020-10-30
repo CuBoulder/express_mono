@@ -1,9 +1,9 @@
 name: Apply-Contrib-Patches
 
-on: pull-request
-  branches: 
-    - dev_alans
-  paths:
+on:
+  pull-request:    
+    branches: 
+      - dev_alans
 jobs:
   apply-patches:
     name: Check for Changes - Apply Patches
