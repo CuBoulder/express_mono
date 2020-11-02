@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ git diff -r --quiet dev_alans..  modules/contrib ]
+if [ $(git diff -r --quiet dev_alans..  modules/contrib) ]
 then
     echo "No patches need to be applied."
 else
