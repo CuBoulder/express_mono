@@ -12,6 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     # - uses: ./.github/workflows/action-apply-contrib-patches
-    - run: git diff --quiet $GITHUB_REF..dev_alans -- modules/contrib || git apply patches/*
+    - run: git diff --quiet $GITHUB_REF..dev_alans -- modules/contrib || git apply patches/bean-integration-2127731-10.patch
     - run: git add .
     - run:  git commit -m "applying patches to contrib modules"
