@@ -11,4 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - uses: ./.github/workflows/action-apply-contrib-patches
+    # - uses: ./.github/workflows/action-apply-contrib-patches
+      run:
+        "git diff --quiet $GITHUB_REF..dev_alans -- modules/contrib || git apply patches/*"
+        "git add ."
+        "git commit -m "applying patches to contrib modules"
