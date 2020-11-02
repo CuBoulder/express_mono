@@ -5,5 +5,9 @@ then
     echo "No patches need to be applied."
 else
     echo "Applying patches..."
-    git apply patches/bean-integration-2127731-10.patch
+    git apply patches/*
 fi
+
+git add .
+git commit -m "applying patches"
+git push $GITHUB_REF
