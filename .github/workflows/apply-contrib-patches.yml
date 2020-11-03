@@ -12,10 +12,10 @@ jobs:
     steps:
     - name: use checkout action
       uses: actions/checkout@v1
-    # - uses: ./.github/workflows/action-apply-contrib-patches
     - name: run git commands
-      run: |
-        git diff --quiet $GITHUB_REF..dev_alans -- modules/contrib || git apply patches/bean-integration-2127731-10.patch
-        git add .
-        git commit -m "applying patches to contrib modules"
-        git push origin $GITHUB_REF
+      uses: ./.github/workflows/action-apply-contrib-patches
+      # run: |
+      #   git diff --quiet $GITHUB_REF..dev_alans -- modules/contrib || git apply patches/bean-integration-2127731-10.patch
+      #   git add .
+      #   git commit -m "applying patches to contrib modules"
+      #   git push origin $GITHUB_REF
