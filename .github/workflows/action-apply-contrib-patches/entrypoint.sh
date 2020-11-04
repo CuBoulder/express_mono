@@ -7,7 +7,7 @@ echo "ACTIVE GIT BRANCH"
 git branch
 echo "\n\n"
 
-if [ "git diff -r --quiet dev_alans..$GITHUB_REF  modules/contrib" ]
+if  "git diff -r --quiet dev_alans..$GITHUB_REF  modules/contrib"
 then
     echo "No patches need to be applied."
 else
