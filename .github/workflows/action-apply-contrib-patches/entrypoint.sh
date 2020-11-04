@@ -5,6 +5,8 @@ git config --global user.name "osrwebdeploy"
 
 echo "ACTIVE GIT BRANCH"
 git branch
+
+echo "GITHUB_REF env variable -> $GITHUB_REF"
 echo "\n\n"
 
 if  "git diff -r --quiet dev_alans..$GITHUB_REF  modules/contrib"
