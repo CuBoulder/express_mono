@@ -28,6 +28,39 @@ function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
 }
 
 /**
+ * Implements hook_menu().
+ */
+function cu_faculty_publications_bundle_menu() {
+  $items = array();
+  $items['publications/%/all'] = array(
+    'title' => 'All Publications',
+    'description' => 'List of all of a particular faculty member\'s publications',
+    'page callback' => 'person_publications_list_all_page',
+    'page arguments' => array(1),
+    'access callback' => TRUE
+  );
+  return $items;
+}
+
+function person_publications_list_all_page($person_name) {
+  $order = variable_get('all_publications_list_order', 'date-desc');
+  $fakeBeanObject = new stdClass();
+  $fakeBeanObject->field_faculty_publication_email = [LANGUAGE_NONE => [0 => ['email' => $_GET['email']]]];
+  $fakeBeanObject->field_faculty_publications_sort = [LANGUAGE_NONE => [0 => ['value' => $order]]];
+  $fakeBeanObject->field_faculty_pub_results = [LANGUAGE_NONE => [0 => ['value' => 'all']]];
+
+  $publicationData = get_publication_data(NULL, TRUE, $fakeBeanObject);
+
+  return [
+    'name' => [
+      '#type' => 'markup',
+      '#markup' => l("<h3>{$person_name}</h3>", "{$_GET['return_url']}", ['html' => TRUE])
+    ],
+    'content' => publish_data($publicationData)
+  ];
+}
+
+/**
  * Implements hook_theme().
  */
 function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) {
@@ -78,6 +111,25 @@ function cu_faculty_publications_bundle_block_view($delta = '') {
         else {
           $block['subject'] = 'Recent Publications:';
           $block['content'] = publish_data($publicationData);
+
+          // Show a link to another page if person has more publications than shown here.
+          if ($number < $publicationData['total']) {
+            $link_url = "publications/{$node->title}/all";
+            $link_query_params = [
+              'query' => [
+                'email' => $node->field_person_email[LANGUAGE_NONE][0]['email'],
+                'return_url' => "node/{$node->nid}",
+              ]
+            ];
+
+            $block['content']['full_list_link'] = array(
+              '#type' => 'markup',
+              '#markup' => l("See a full list of {$node->title}'s publications", $link_url, $link_query_params),
+              '#prefix' => '<div>',
+              '#suffix' => '</div>'
+            );
+          }
+
           return $block;
         }
       }
@@ -99,15 +151,22 @@ function cu_faculty_publications_bundle_block_configure($delta = '') {
         'order' => array(
           '#type' => 'select',
           '#options' => array('date-desc' => 'Newest to Oldest', 'date-asc' => 'Oldest to Newest'),
-          '#title' => t('Order of Publications'),
+          '#title' => t('Order of Publications on Person page'),
           '#description' => t('Select the order you wish the results to be shown.'),
           '#default_value' => variable_get('person_publications_list_order', array('date-desc' => 'Newest to Oldest'))
         ),
         'number' => array(
           '#type' => 'textfield',
           '#description' => t('Type how many publications you would like to be listed on a Person page. Will only be saved if numerals are used.'),
-          '#title' => t('Number of Publications'),
+          '#title' => t('Number of Publications on Person page'),
           '#default_value' => variable_get('person_publications_list_number', 5)
+        ),
+        'order_all' => array(
+          '#type' => 'select',
+          '#options' => array('date-desc' => 'Newest to Oldest', 'date-asc' => 'Oldest to Newest'),
+          '#title' => t('Order of Publications on All Publications page'),
+          '#description' => t('Select the order you wish the results to be shown when listing all of a Person\'s publications.'),
+          '#default_value' => variable_get('all_publications_list_order', array('date-desc' => 'Newest to Oldest'))
         )
       );
 
@@ -129,6 +188,7 @@ function cu_faculty_publications_bundle_block_save($delta = '', $edit = array())
       }
 
       variable_set('person_publications_list_order', $edit['order']);
+      variable_set('all_publications_list_order', $edit['order_all']);
       break;
 
     default:
@@ -386,7 +446,7 @@ function build_request_data($beanObject) {
     return $orcidResults;
   }
 
-  elseif (isset($orcidResults) && count($orcidResults['authorsNotFound'] > 0)) {
+  elseif (isset($orcidResults) && count($orcidResults['authorsNotFound']) > 0) {
     $messages['authorsNotFound'] = get_html_no_result_string($orcidResults['authorsNotFound'], 'publications');;
   }
 
