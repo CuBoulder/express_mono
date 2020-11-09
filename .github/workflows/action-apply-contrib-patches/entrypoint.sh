@@ -7,7 +7,7 @@ echo "ACTIVE GIT BRANCH"
 branch=`git branch`
 echo $branch
 
-git diff -r --quiet dev_alans.. -- modules/contrib || git apply patches/*
+git diff -r --quiet dev_alans.. -- modules/contrib || git apply patches/bean-integration-2127731-10.patch
 
 if git add .
 then
