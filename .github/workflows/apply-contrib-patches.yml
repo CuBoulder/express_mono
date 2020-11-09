@@ -4,6 +4,8 @@ on:
   pull_request:    
     branches: 
       - dev_alans
+    paths:
+      - 'modules/contrib/*'
 jobs:
   apply-patches:
     name: Check for Changes - Apply Patches
@@ -16,8 +18,3 @@ jobs:
         ref: ${{ github.event.pull_request.head.ref }}
     - name: run git commands
       uses: ./.github/workflows/action-apply-contrib-patches
-      # run: |
-      #   git diff --quiet $GITHUB_REF..dev_alans -- modules/contrib || git apply patches/bean-integration-2127731-10.patch
-      #   git add .
-      #   git commit -m "applying patches to contrib modules"
-      #   git push origin $GITHUB_REF
