@@ -32,7 +32,7 @@ function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
  */
 function cu_faculty_publications_bundle_menu() {
   $items = array();
-  $items['publications/%/all'] = array(
+  $items['faculty-publications/%'] = array(
     'title' => 'All Publications',
     'description' => 'List of all of a particular faculty member\'s publications',
     'page callback' => 'person_publications_list_all_page',
@@ -42,22 +42,33 @@ function cu_faculty_publications_bundle_menu() {
   return $items;
 }
 
-function person_publications_list_all_page($person_name) {
+function person_publications_list_all_page($person_nid) {
   $order = variable_get('all_publications_list_order', 'date-desc');
-  $fakeBeanObject = new stdClass();
-  $fakeBeanObject->field_faculty_publication_email = [LANGUAGE_NONE => [0 => ['email' => $_GET['email']]]];
-  $fakeBeanObject->field_faculty_publications_sort = [LANGUAGE_NONE => [0 => ['value' => $order]]];
-  $fakeBeanObject->field_faculty_pub_results = [LANGUAGE_NONE => [0 => ['value' => 'all']]];
+  if ($person = node_load($person_nid) && $person->type == 'person') {
+    $fakeBeanObject = new stdClass();
+    $fakeBeanObject->field_faculty_publication_email = $person->field_person_email;
+    $fakeBeanObject->field_faculty_publications_sort = [LANGUAGE_NONE => [0 => ['value' => $order]]];
+    $fakeBeanObject->field_faculty_pub_results = [LANGUAGE_NONE => [0 => ['value' => 'all']]];
 
-  $publicationData = get_publication_data(NULL, TRUE, $fakeBeanObject);
+    $publicationData = get_publication_data(NULL, TRUE, $fakeBeanObject);
 
-  return [
-    'name' => [
-      '#type' => 'markup',
-      '#markup' => l("<h3>{$person_name}</h3>", "{$_GET['return_url']}", ['html' => TRUE])
-    ],
-    'content' => publish_data($publicationData)
-  ];
+    return [
+      'name' => [
+        '#type' => 'markup',
+        '#markup' => l("<h3>{$person->title}</h3>", "node/{$person->nid}", ['html' => TRUE])
+      ],
+      'content' => publish_data($publicationData)
+    ];
+  }
+
+  else {
+    return [
+      'content' => [
+        '#type' => 'markup',
+        '#markup' => "<div class=\"messages warning\">$person_nid: No publications associated with this node"
+      ]
+    ];
+  }
 }
 
 /**
@@ -114,17 +125,11 @@ function cu_faculty_publications_bundle_block_view($delta = '') {
 
           // Show a link to another page if person has more publications than shown here.
           if ($number < $publicationData['total']) {
-            $link_url = "publications/{$node->title}/all";
-            $link_query_params = [
-              'query' => [
-                'email' => $node->field_person_email[LANGUAGE_NONE][0]['email'],
-                'return_url' => "node/{$node->nid}",
-              ]
-            ];
+            $link_url = "faculty-publications/{$node->nid}";
 
             $block['content']['full_list_link'] = array(
               '#type' => 'markup',
-              '#markup' => l("See a full list of {$node->title}'s publications", $link_url, $link_query_params),
+              '#markup' => l("See a full list of {$node->title}'s publications", $link_url),
               '#prefix' => '<div>',
               '#suffix' => '</div>'
             );
@@ -472,7 +477,7 @@ function build_request_data($beanObject) {
       $requestedNumberOfResults = $num;
     }
 
-    $arguments['size'] = $requestedNumberOfResults;
+    $arguments['size'] = $numberOfResultsPerPage;
   }
 
   // Convert all 'q' arguments to a string joined by ' AND ' operator.
