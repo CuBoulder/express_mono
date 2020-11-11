@@ -43,8 +43,9 @@ function cu_faculty_publications_bundle_menu() {
 }
 
 function person_publications_list_all_page($person_nid) {
-  $order = variable_get('all_publications_list_order', 'date-desc');
-  if ($person = node_load($person_nid) && $person->type == 'person') {
+  $person = node_load($person_nid);
+  if ($person && $person->type == 'person') {
+    $order = variable_get('all_publications_list_order', 'date-desc');
     $fakeBeanObject = new stdClass();
     $fakeBeanObject->field_faculty_publication_email = $person->field_person_email;
     $fakeBeanObject->field_faculty_publications_sort = [LANGUAGE_NONE => [0 => ['value' => $order]]];
@@ -477,7 +478,7 @@ function build_request_data($beanObject) {
       $requestedNumberOfResults = $num;
     }
 
-    $arguments['size'] = $numberOfResultsPerPage;
+    $arguments['size'] = $requestedNumberOfResults < $numberOfResultsPerPage ? $requestedNumberOfResults : $numberOfResultsPerPage;
   }
 
   // Convert all 'q' arguments to a string joined by ' AND ' operator.
