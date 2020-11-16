@@ -94,6 +94,6 @@ function cu_js_includes_install() {
 /**
  * Implements hook_uninstall().
  */
- function cu_js_includes_uninstall() {
+function cu_js_includes_uninstall() {
   variable_del('cu_js_includes_enabled');
 }

@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * @file
+ * Template for Burning Glass include.
+ */
+?>
 <div id="ci"></div>
 <script src="https://careerinsight.burning-glass.com/enroll/scripts/cienroll.js"></script>
 <script>

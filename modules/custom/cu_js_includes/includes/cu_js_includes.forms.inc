@@ -108,7 +108,7 @@ function cu_js_includes_slateform_form(&$form, &$form_state, $id = NULL, $data =
  * @param array $data
  *   Data of the current embed if it is being edited.
  */
- function cu_js_includes_burning_glass_form(&$form, &$form_state, $id = NULL, $data = array()) {
+function cu_js_includes_burning_glass_form(&$form, &$form_state, $id = NULL, $data = array()) {
   $form['options']['access_code'] = array(
     '#title' => t('Access Code'),
     '#type' => 'textfield',
