@@ -42,6 +42,9 @@ function cu_faculty_publications_bundle_menu() {
   return $items;
 }
 
+/**
+ * Creates view for complete listing of a faculty member's publications at the url 'faculty-publications/[$person node id number].
+ */
 function person_publications_list_all_page($person_nid) {
   $person = node_load($person_nid);
   if ($person && $person->type == 'person') {
@@ -224,10 +227,11 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
  *
  * @param string $cid
  *   This is the url to this page/node being displayed or the Person node's name.
- * @param boolean $skipCache
+ * @param bool $skipCache
  *   This is set based on a user's permissions so that an editor can see their changes and not what has been cached previously.
  * @param object $beanObject
  *   This is the object with the form data needed for this block.
+ *
  * @return array
  *   An associative array with data to pass on to the UI.
  *
@@ -337,7 +341,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
  * @return array
  *   Returns an associative render array passed on to the user interface.
  */
-function publish_data($publicationData) {
+function publish_data(array $publicationData) {
   $output = array();
   if (isset($publicationData['error'])) {
     $output['error'][]['#markup'] = $publicationData['error'];
@@ -379,6 +383,7 @@ function publish_data($publicationData) {
  *
  * @param object $beanObject
  *   This is the object containing all data passed in from the form.
+ *
  * @return array
  *   Returns an associative array with data to pass back into get_publication_data().
  */
