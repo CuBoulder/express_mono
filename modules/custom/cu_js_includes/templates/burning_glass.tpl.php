@@ -3,8 +3,8 @@
 <script>
     document.body.onload = function() {
         var props = {
-            accessCode: $access_code,
-            programCode: $program_code,
+            accessCode: <?php print check_plain($access_code); ?>,
+            programCode: <?php print check_plain($program_code) ?>,
             elementId: 'ci'
         }
         openCI(props);

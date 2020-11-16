@@ -12,7 +12,6 @@
  *   Markup for list of embed types.
  */
 function cu_js_includes_add_page() {
-  $enabled_includes = variable_get('cu_js_includes_enabled', array());
   $item = menu_get_item();
   $content = system_admin_menu_block($item);
   $output = theme('node_add_list', array('content' => $content));
