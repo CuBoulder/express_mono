@@ -83,9 +83,17 @@ function cu_js_includes_install() {
     'admithub' => 'admithub',
     'livechat' => 'livechat',
     'slateform' => 'slateform',
-    'statuspage' => 'statuspage'
+    'statuspage' => 'statuspage',
+    'burning_glass' => 'burning_glass'
   );
   variable_set('cu_js_includes_enabled', $types);
   // Menu items are already added so we need to rebuild if types are changed.
   menu_rebuild();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+ function cu_js_includes_uninstall() {
+  variable_del('cu_js_includes_enabled');
 }
