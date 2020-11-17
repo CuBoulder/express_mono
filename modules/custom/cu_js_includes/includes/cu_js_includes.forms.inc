@@ -112,7 +112,7 @@ function cu_js_includes_burning_glass_form(&$form, &$form_state, $id = NULL, $da
   $form['options']['access_code'] = array(
     '#title' => t('Access Code'),
     '#type' => 'textfield',
-    '#default_value' => !empty($data['burning_glass_access_code']) ? $data['burning_glass_access_code'] : '',
+    '#default_value' => !empty($data['access_code']) ? $data['access_code'] : '',
     '#required' => TRUE,
     '#size' => 128,
   );
@@ -120,7 +120,7 @@ function cu_js_includes_burning_glass_form(&$form, &$form_state, $id = NULL, $da
   $form['options']['program_code'] = array(
     '#title' => t('Program Code'),
     '#type' => 'textfield',
-    '#default_value' => !empty($data['burning_glass_program_code']) ? $data['burning_glass_program_code'] : '',
+    '#default_value' => !empty($data['program_code']) ? $data['program_code'] : '',
     '#required' => TRUE,
     '#size' => 128,
   );
