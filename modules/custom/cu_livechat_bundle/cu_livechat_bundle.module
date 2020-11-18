@@ -67,21 +67,20 @@ function cu_livechat_bundle_preprocess_html(&$vars) {
 function cu_livechat_bundle_admin_form() {
   $form = array();
 
-  $form['livechat'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Live Chat'),
-    '#description' => 'A paid real-time chat solution from LiveChat (<a href="http://www.livechatinc.com/">http://www.livechatinc.com/</a>). The department or academic unit will need to purchase a license in order to use this service. A free trial is available.',
-  );
-  $form['livechat']['livechat_license_number'] = array(
-    '#type' => 'textfield',
-    '#default_value' => variable_get('livechat_license_number', NULL),
-    '#required' => FALSE,
-    '#title' => 'LiveChatINC.com license number',
-    '#description' => '<em>Example: 1234567</em>',
-  );
-
-  $form = system_settings_form($form);
-  $form['#validate'][] = '_cu_livechat_bundle_config_form_validate';
+  $form['message'] = [
+    'title' => [
+      '#type' => 'markup',
+      '#markup' => '<h3>' . t('Our LiveChat bundle is being deprecated.') . '</h3>',
+    ],
+    'message' => [
+      '#type' => 'markup',
+      '#markup' => '<p>' . t('Our LiveChat bundle is being replaced by our Javascript Includes module, which is a much more flexible tool for you to add various 3rd party tools to you site. Any LiveChats you have on your site will still work, but we ask you to begin replacing them and to create any new LiveChats by clicking the link below.') . '</p>',
+    ],
+    'link' => [
+      '#type' => 'markup',
+      '#markup' => l('Create LiveChat JavaScript Include', 'admin/content/js-includes/add/livechat')
+    ]
+  ];
 
   return $form;
 }
