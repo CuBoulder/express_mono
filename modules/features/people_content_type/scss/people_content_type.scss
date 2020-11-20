@@ -74,18 +74,19 @@ span.responsive-label {
 }
 
 /* NODE VIEW */
-
-.person-container {
-  flex-direction: row-reverse;
-
-  @media screen and (max-width: 786px) {
-    flex-direction: column;
-  }
+img.image-medium, img.image-small {
+  width: 100%;
+  height: auto;
 }
 
-.person-photo img.image-medium,
-.person-photo img.image-small {
-  width: 100%;
+.person-container {
+  overflow: hidden;
+}
+
+.person-photo {
+  float: right;
+  margin: 0 0 20px 20px;
+  max-width:320px;
   height: auto;
 }
 

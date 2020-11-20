@@ -22,10 +22,11 @@ ul.cu-person-directory img { float: left; margin: 0 20px 20px 0; }
 span.responsive-label { display: none; }
 
 /* NODE VIEW */
-.person-container { flex-direction: row-reverse; }
-@media screen and (max-width: 786px) { .person-container { flex-direction: column; } }
+img.image-medium, img.image-small { width: 100%; height: auto; }
 
-.person-photo img.image-medium, .person-photo img.image-small { width: 100%; height: auto; }
+.person-container { overflow: hidden; }
+
+.person-photo { float: right; margin: 0 0 20px 20px; max-width: 320px; height: auto; }
 
 /** Responsive tables. */
 @media screen and (max-width: 960px) { /* 450px */
