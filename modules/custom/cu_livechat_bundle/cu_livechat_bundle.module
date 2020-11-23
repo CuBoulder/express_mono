@@ -66,7 +66,14 @@ function cu_livechat_bundle_preprocess_html(&$vars) {
  */
 function cu_livechat_bundle_admin_form() {
   $form = array();
+  $licence_number = variable_get('livechat_licence_number', NULL);
+  $update_text = 'Our LiveChat bundle is being replaced with Javascript Includes, a much more flexible tool for adding third-party solutions to your site. The LiveChats you have on your site will continue to work, but we ask you to begin replacing them and to create new LiveChats by clicking the link below.';
+  $linkOptions = array();
 
+  if ($licence_number) {
+    $update_text .= "</br></br>Your LiveChat Licence Number: $licence_number";
+    $linkOptions['query'] = ['LiveChatLicence' => $licence_number];
+  }
   $form['message'] = [
     'title' => [
       '#type' => 'markup',
@@ -74,11 +81,11 @@ function cu_livechat_bundle_admin_form() {
     ],
     'message' => [
       '#type' => 'markup',
-      '#markup' => '<p>' . t('Our LiveChat bundle is being replaced by our Javascript Includes module, which is a much more flexible tool for you to add various 3rd party tools to you site. Any LiveChats you have on your site will still work, but we ask you to begin replacing them and to create any new LiveChats by clicking the link below.') . '</p>',
+      '#markup' => '<p>' . t($update_text) . '</p>',
     ],
     'link' => [
       '#type' => 'markup',
-      '#markup' => l('Create LiveChat JavaScript Include', 'admin/content/js-includes/add/livechat')
+      '#markup' => l('Create LiveChat JavaScript Include', "admin/content/js-includes/add/livechat", $linkOptions)
     ]
   ];
 
