@@ -33,13 +33,29 @@ function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
 function cu_faculty_publications_bundle_menu() {
   $items = array();
   $items['faculty-publications/%'] = array(
-    'title' => 'All Publications',
+    'title callback' => 'person_publications_list_all_title',
+    'title arguments' => array(1),
     'description' => 'List of all of a particular faculty member\'s publications',
     'page callback' => 'person_publications_list_all_page',
     'page arguments' => array(1),
     'access callback' => TRUE
   );
   return $items;
+}
+
+/**
+ * Creates view for complete listing of a faculty member's publications at the url 'faculty-publications/[$person node id number].
+ */
+function person_publications_list_all_title($person_nid) {
+  $person = node_load($person_nid);
+
+  if ($person && $person->type == 'person') {
+
+    return t("Publications by {$person->title}");
+  }
+  else {
+    return 'Faculty Publications';
+  }
 }
 
 /**
@@ -59,7 +75,9 @@ function person_publications_list_all_page($person_nid) {
     return [
       'name' => [
         '#type' => 'markup',
-        '#markup' => l("<h3>{$person->title}</h3>", "node/{$person->nid}", ['html' => TRUE])
+        '#markup' => l("return to {$person->title}'s page", "node/{$person->nid}", ['attributes' => ['class' => ['breadcrumb']]]),
+        '#prefix' => '<p>',
+        '#suffix' => '</p>'
       ],
       'content' => publish_data($publicationData)
     ];
@@ -133,7 +151,7 @@ function cu_faculty_publications_bundle_block_view($delta = '') {
 
             $block['content']['full_list_link'] = array(
               '#type' => 'markup',
-              '#markup' => l("See a full list of {$node->title}'s publications", $link_url),
+              '#markup' => l("See a full list of {$node->title}'s publications", $link_url, ['attributes' => ['class' => ['breadcrumb']]]),
               '#prefix' => '<div>',
               '#suffix' => '</div>'
             );
