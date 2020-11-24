@@ -74,6 +74,7 @@ function cu_livechat_bundle_admin_form() {
     $update_text .= "</br></br>Your LiveChat Licence Number: $licence_number";
     $linkOptions['query'] = ['LiveChatLicence' => $licence_number];
   }
+
   $form['message'] = [
     'title' => [
       '#type' => 'markup',

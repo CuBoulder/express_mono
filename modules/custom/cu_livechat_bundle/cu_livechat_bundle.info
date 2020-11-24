@@ -13,9 +13,4 @@ bundle_cache_clear = 1
 bundle_context_clear = 1
 bundle_request = 1
 
-bundle_roles[] = developer
-bundle_roles[] = administrator
-bundle_roles[] = site_owner
-bundle_roles[] = configuration_manager
-
 bundle_group = request_bundles
