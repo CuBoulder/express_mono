@@ -85,7 +85,7 @@ function cu_livechat_bundle_admin_form() {
     ],
     'link' => [
       '#type' => 'markup',
-      '#markup' => l('Create LiveChat JavaScript Include', "admin/content/js-includes/add/livechat", $linkOptions)
+      '#markup' => l(t('Create LiveChat JavaScript Include'), "admin/content/js-includes/add/livechat", $linkOptions)
     ]
   ];
 
