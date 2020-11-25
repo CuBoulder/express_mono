@@ -497,6 +497,11 @@ function profile_module_manager_list_bundles($enabled = FALSE, $type = NULL, $co
   // Loop through bundles and evaluate how they should be displayed
   foreach ($bundles as $key => $bundle) {
 
+    // We are deprcating the cu_livechat_bundle. It it is disabled do not allow anyone to turn it on.
+    // If it is enabled a .express-cards card should still show up on the 'enabled page'.
+    // TODO: Remove this code when cu_livechat_bundle is no longer in use and is deleted from our code base.
+    if ($bundle->name == 'cu_livechat_bundle' && !$bundle->status ) break;
+
     // Get content from .info file.
     $info_file = str_replace(".module", ".info", $bundle->filename);
     $info = drupal_parse_info_file($info_file);
