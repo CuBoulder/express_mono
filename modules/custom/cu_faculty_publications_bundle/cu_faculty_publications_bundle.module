@@ -75,7 +75,7 @@ function person_publications_list_all_page($person_nid) {
     return [
       'name' => [
         '#type' => 'markup',
-        '#markup' => l("return to {$person->title}'s page", "node/{$person->nid}", ['attributes' => ['class' => ['breadcrumb']]]),
+        '#markup' => l("return to {$person->title}'s page", "node/{$person->nid}", ['attributes' => ['class' => ['small-text']]]),
         '#prefix' => '<p>',
         '#suffix' => '</p>'
       ],
@@ -151,7 +151,7 @@ function cu_faculty_publications_bundle_block_view($delta = '') {
 
             $block['content']['full_list_link'] = array(
               '#type' => 'markup',
-              '#markup' => l("See a full list of {$node->title}'s publications", $link_url, ['attributes' => ['class' => ['breadcrumb']]]),
+              '#markup' => l("See a full list of {$node->title}'s publications", $link_url, ['attributes' => ['class' => ['small-text']]]),
               '#prefix' => '<div>',
               '#suffix' => '</div>'
             );
