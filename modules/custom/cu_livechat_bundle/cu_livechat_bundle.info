@@ -7,11 +7,6 @@ project = cu_livechat_bundle
 project status url = https://github.com/CuBoulder/cu_livechat_bundle
 project_demo_url = https://websupport.colorado.edu/category/466-livechat
 
-bundle_roles[] = developer
-bundle_roles[] = administrator
-bundle_roles[] = site_owner
-bundle_roles[] = configuration_manager
-
 files[] = cu_livechat_bundle.context.inc
 
 bundle_cache_clear = 1
