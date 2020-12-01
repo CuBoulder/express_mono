@@ -1,5 +1,4 @@
 <?php hide($content['links']); ?>
-<div class="person-container">
   <div class="person-photo"><?php print render($content['field_person_photo']); ?></div>
 
   <?php
@@ -52,4 +51,3 @@
       <?php print render($content['body']); ?>
     </div>
   <?php endif; ?>
-</div>
