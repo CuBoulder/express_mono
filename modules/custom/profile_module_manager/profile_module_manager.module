@@ -496,12 +496,6 @@ function profile_module_manager_list_bundles($enabled = FALSE, $type = NULL, $co
   //dsm($bundles);
   // Loop through bundles and evaluate how they should be displayed
   foreach ($bundles as $key => $bundle) {
-
-    // We are deprcating the cu_livechat_bundle. It it is disabled do not allow anyone to turn it on.
-    // If it is enabled a .express-cards card should still show up on the 'enabled page'.
-    // TODO: Remove this code when cu_livechat_bundle is no longer in use and is deleted from our code base.
-    if ($bundle->name == 'cu_livechat_bundle' && !$bundle->status ) break;
-
     // Get content from .info file.
     $info_file = str_replace(".module", ".info", $bundle->filename);
     $info = drupal_parse_info_file($info_file);
@@ -539,10 +533,8 @@ function profile_module_manager_list_bundles($enabled = FALSE, $type = NULL, $co
     $variables['bundle_classes'][] = ($bundle->status) ? 'express-bundle-enabled' : 'express-bundle-disabled';
     $variables['bundle_classes'][] = $request ? 'express-bundle-request' : 'express-bundle-install';
 
-    if (isset($info['bundle_roles']) && profile_module_manager_user_has_role($info['bundle_roles'])) {
-      //dsm('test');
-      $output['bundles']['list'][$name_lc]['#markup'] = theme('express_bundle', $variables);
-    }
+    // Add bundle card markup.
+    $output['bundles']['list'][$name_lc]['#markup'] = theme('express_bundle', $variables);
 
   }
   // Sort bundles alphabetically
