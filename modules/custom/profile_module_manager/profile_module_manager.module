@@ -534,8 +534,16 @@ function profile_module_manager_list_bundles($enabled = FALSE, $type = NULL, $co
     $variables['bundle_classes'][] = $request ? 'express-bundle-request' : 'express-bundle-install';
 
     // Add bundle card markup.
-    $output['bundles']['list'][$name_lc]['#markup'] = theme('express_bundle', $variables);
-
+    // Show all enabled bundles.
+    if ($enabled == TRUE) {
+      $output['bundles']['list'][$name_lc]['#markup'] = theme('express_bundle', $variables);
+    }
+    // Show available bundles if user has permissions to enable.
+    else {
+      if (isset($info['bundle_roles']) && profile_module_manager_user_has_role($info['bundle_roles'])) {
+         $output['bundles']['list'][$name_lc]['#markup'] = theme('express_bundle', $variables);
+       }
+    }
   }
   // Sort bundles alphabetically
   ksort($output['bundles']['list']);
