@@ -75,7 +75,7 @@ function person_publications_list_all_page($person_nid) {
     return [
       'name' => [
         '#type' => 'markup',
-        '#markup' => l("return to {$person->title}'s page", "node/{$person->nid}", ['attributes' => ['class' => ['small-text']]]),
+        '#markup' => l("Return to {$person->title}'s page", "node/{$person->nid}", ['attributes' => ['class' => ['small-text']]]),
         '#prefix' => '<p>',
         '#suffix' => '</p>'
       ],
