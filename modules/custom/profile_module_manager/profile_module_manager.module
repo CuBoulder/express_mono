@@ -496,7 +496,6 @@ function profile_module_manager_list_bundles($enabled = FALSE, $type = NULL, $co
   //dsm($bundles);
   // Loop through bundles and evaluate how they should be displayed
   foreach ($bundles as $key => $bundle) {
-
     // Get content from .info file.
     $info_file = str_replace(".module", ".info", $bundle->filename);
     $info = drupal_parse_info_file($info_file);
@@ -534,11 +533,17 @@ function profile_module_manager_list_bundles($enabled = FALSE, $type = NULL, $co
     $variables['bundle_classes'][] = ($bundle->status) ? 'express-bundle-enabled' : 'express-bundle-disabled';
     $variables['bundle_classes'][] = $request ? 'express-bundle-request' : 'express-bundle-install';
 
-    if (isset($info['bundle_roles']) && profile_module_manager_user_has_role($info['bundle_roles'])) {
-      //dsm('test');
+    // Add bundle card markup.
+    // Show all enabled bundles.
+    if ($enabled == TRUE) {
       $output['bundles']['list'][$name_lc]['#markup'] = theme('express_bundle', $variables);
     }
-
+    // Show available bundles if user has permissions to enable.
+    else {
+      if (isset($info['bundle_roles']) && profile_module_manager_user_has_role($info['bundle_roles'])) {
+         $output['bundles']['list'][$name_lc]['#markup'] = theme('express_bundle', $variables);
+       }
+    }
   }
   // Sort bundles alphabetically
   ksort($output['bundles']['list']);

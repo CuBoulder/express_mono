@@ -38,7 +38,8 @@ function cu_js_includes_livechat_form(&$form, &$form_state, $id = NULL, $data = 
   $form['options']['account_id'] = array(
     '#title' => t('License ID'),
     '#type' => 'textfield',
-    '#default_value' => !empty($data['account_id']) ? $data['account_id'] : '',
+    // Added $_GET in the case that a user, who has a LiveChat licence number is being linked here from the admin/settings/livechat/configuration page.
+    '#default_value' => !empty($data['account_id']) ? $data['account_id'] : $_GET['LiveChatLicence'],
     '#required' => TRUE,
     '#size' => 128,
   );
