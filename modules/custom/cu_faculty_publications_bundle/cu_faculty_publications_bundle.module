@@ -348,7 +348,7 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
   }
 
   if ($noResults) {
-    return ['warning' => "There was no publication data found for the selected author(s)"];
+    return ['warning' => "There was no publication data found for the selected author(s)."];
   }
 
   else {
