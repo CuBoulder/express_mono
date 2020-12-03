@@ -1,4 +1,4 @@
-<div class="padding-bottom margin-bottom border-bottom">
+<div class="padding-bottom margin-bottom">
   <h3 class="h5">
     <?php
       if ($doi) {

@@ -287,7 +287,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
     // If the request failed still load from the cache but with a warning.
     else {
       $publicationData = $cache->data;
-      $publicationData['messages']['publications'] = "<div class=\"messages warning\">{$response->code}: There was a problem refreshing publication data. The results shown may not be the most up to date. Please check again later.</div>";
+      $publicationData['messages']['publications'] = "<div style=\"float:left\" class=\"messages warning\">{$response->code}: There was a problem refreshing publication data. The results shown may not be the most up to date. Please check again later.</div>";
       $publicationData['isFromCache'] = TRUE;
       return $publicationData;
     }
@@ -302,7 +302,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
         'total' => NULL,
         'results' => NULL,
         'requestedNumberOfResults' => NULL,
-        'error' => "<div class=\"messages error\">{$reqData['error']}: There was a problem connecting to the experts 'people' database.</div>"
+        'error' => "<div style=\"float:left\" class=\"messages error\">{$reqData['error']}: There was a problem connecting to the experts 'people' database.</div>"
       ];
     }
 
@@ -311,7 +311,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
         'total' => NULL,
         'results' => NULL,
         'requestedNumberOfResults' => NULL,
-        'error' => "<div class=\"messages warning\">{$reqData['warning']}</div>"
+        'error' => "<div style=\"float:left\" class=\"messages warning\">{$reqData['warning']}</div>"
       ];
     }
 
@@ -342,7 +342,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
           'requestedNumberOfResults' => $cache->data['requestedNumberOfResults'],
           'expiration' => $newExpiration,
           'reqUrl' => $cache->data['reqUrl'],
-          'error' => "<div class=\"messages error\">{$response->code}: There was a problem fetching publication data. Please check again later.</div>"
+          'error' => "<div style=\"float:left\" class=\"messages error\">{$response->code}: There was a problem fetching publication data. Please check again later.</div>"
         ];
         return $publicationData;
       }
@@ -562,7 +562,7 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
   }
 
   if ($noResults) {
-    return ['warning' => "There was no publication data found for the selected author(s)"];
+    return ['warning' => "There was no publication data found for the selected author(s)."];
   }
 
   else {
