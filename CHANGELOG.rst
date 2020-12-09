@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.4.1 (2020-12-07)
+------------
+
+Added
+~~~~~
+- Added a page to list all of a person's publications.
+  - if there are any publications authored by the person there will be a list of 5 of them by default
+  - if the person has more than 5 publications there will be a link at the bottom of the publications list
+  - clicking on the link should take you to a page with a paged list of all the person's publications, most recent first by default.
+  - the person's name should be a link to take you back to their Person page
+  - Can be configured by visiting /admin/structure/block/manage/cu_faculty_publications_bundle/person_publications_list/configure
+  - Can be inserted via Context
+  - grabs email from node of the person page it is loaded on.
+
+
+Deprecated
+~~~~~~~
+- Removing UI for adding LiveChat widgets. Resolves #744.
+
+- Removing bundle roles from livechat bundle so it can't be enabled.
+
+
+Fixed
+~~~~~
+- Allow warning/error messages to float to left side of image without its div overlapping with image's div.
+
+- Fix PATH assignment for drush.
+
+
 v4.4.0 (2020-10-26)
 ------------
 
