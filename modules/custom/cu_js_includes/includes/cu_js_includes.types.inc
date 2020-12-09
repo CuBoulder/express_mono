@@ -43,6 +43,14 @@ function cu_js_includes_get_include_types() {
     'template' => 'templates/slateform',
   );
 
+  $custom_types['burning_glass'] = array(
+    'label' => 'Burning Glass',
+    'form_callback' => 'cu_js_includes_burning_glass_form',
+    'renderer' => 'block',
+    'path' => $module_path,
+    'template' => 'templates/burning_glass'
+  );
+
   return $custom_types;
 }
 
@@ -57,5 +65,6 @@ function cu_js_includes_express_node_list_groups($bundles) {
   $bundles['inlcudes']['types'][] = 'Add LiveChat Include';
   $bundles['inlcudes']['types'][] = 'Add Slate Form Include';
   $bundles['inlcudes']['types'][] = 'Add StatusPage Include';
+  $bundles['inlcudes']['types'][] = 'Add Burning Glass Include';
   return $bundles;
 }

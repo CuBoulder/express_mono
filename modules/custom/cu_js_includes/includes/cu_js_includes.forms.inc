@@ -96,3 +96,33 @@ function cu_js_includes_slateform_form(&$form, &$form_state, $id = NULL, $data =
     '#size' => 128,
   );
 }
+
+/**
+ * Form values for burning glass form embed.
+ *
+ * @param array $form
+ *   Form containing default embed template form options.
+ * @param array $form_state
+ *   State of the default embed template form.
+ * @param int|null $id
+ *   ID of the current embed being edited if that embed exists.
+ * @param array $data
+ *   Data of the current embed if it is being edited.
+ */
+function cu_js_includes_burning_glass_form(&$form, &$form_state, $id = NULL, $data = array()) {
+  $form['options']['access_code'] = array(
+    '#title' => t('Access Code'),
+    '#type' => 'textfield',
+    '#default_value' => !empty($data['access_code']) ? $data['access_code'] : '',
+    '#required' => TRUE,
+    '#size' => 128,
+  );
+
+  $form['options']['program_code'] = array(
+    '#title' => t('Program Code'),
+    '#type' => 'textfield',
+    '#default_value' => !empty($data['program_code']) ? $data['program_code'] : '',
+    '#required' => TRUE,
+    '#size' => 128,
+  );
+}

@@ -19,6 +19,7 @@ function cu_js_includes_secure_permissions($role) {
       'view livechat js includes',
       'view statuspage js includes',
       'view slateform js includes',
+      'view burning_glass js includes',
       'view any js_include bean',
     ),
     'authenticated user' => array(
@@ -26,6 +27,7 @@ function cu_js_includes_secure_permissions($role) {
       'view livechat js includes',
       'view statuspage js includes',
       'view slateform js includes',
+      'view burning_glass js includes',
       'view any js_include bean',
     ),
     'developer' => array(
