@@ -28,6 +28,72 @@ function cu_faculty_publications_bundle_theme_registry_alter(&$theme_registry) {
 }
 
 /**
+ * Implements hook_menu().
+ */
+function cu_faculty_publications_bundle_menu() {
+  $items = array();
+  $items['faculty-publications/%'] = array(
+    'title callback' => 'person_publications_list_all_title',
+    'title arguments' => array(1),
+    'description' => 'List of all of a particular faculty member\'s publications',
+    'page callback' => 'person_publications_list_all_page',
+    'page arguments' => array(1),
+    'access callback' => TRUE
+  );
+  return $items;
+}
+
+/**
+ * Creates view for complete listing of a faculty member's publications at the url 'faculty-publications/[$person node id number].
+ */
+function person_publications_list_all_title($person_nid) {
+  $person = node_load($person_nid);
+
+  if ($person && $person->type == 'person') {
+
+    return t("Publications by {$person->title}");
+  }
+  else {
+    return 'Faculty Publications';
+  }
+}
+
+/**
+ * Creates view for complete listing of a faculty member's publications at the url 'faculty-publications/[$person node id number].
+ */
+function person_publications_list_all_page($person_nid) {
+  $person = node_load($person_nid);
+  if ($person && $person->type == 'person') {
+    $order = variable_get('all_publications_list_order', 'date-desc');
+    $fakeBeanObject = new stdClass();
+    $fakeBeanObject->field_faculty_publication_email = $person->field_person_email;
+    $fakeBeanObject->field_faculty_publications_sort = [LANGUAGE_NONE => [0 => ['value' => $order]]];
+    $fakeBeanObject->field_faculty_pub_results = [LANGUAGE_NONE => [0 => ['value' => 'all']]];
+
+    $publicationData = get_publication_data(NULL, TRUE, $fakeBeanObject);
+
+    return [
+      'name' => [
+        '#type' => 'markup',
+        '#markup' => l("Return to {$person->title}'s page", "node/{$person->nid}", ['attributes' => ['class' => ['small-text']]]),
+        '#prefix' => '<p>',
+        '#suffix' => '</p>'
+      ],
+      'content' => publish_data($publicationData)
+    ];
+  }
+
+  else {
+    return [
+      'content' => [
+        '#type' => 'markup',
+        '#markup' => "<div class=\"messages warning\">$person_nid: No publications associated with this node"
+      ]
+    ];
+  }
+}
+
+/**
  * Implements hook_theme().
  */
 function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) {
@@ -38,6 +104,123 @@ function cu_faculty_publications_bundle_theme(&$existing, $type, $theme, $path) 
     'path' => $template_dir,
   );
   return $registry;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function cu_faculty_publications_bundle_block_info() {
+  return array(
+    'person_publications_list' => array(
+      'info' => t("Person Publications List")
+    )
+  );
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function cu_faculty_publications_bundle_block_view($delta = '') {
+  switch ($delta) {
+    case 'person_publications_list':
+      $block = array();
+
+      if (($node = menu_get_object()) && ($node->type == 'person')) {
+        $skipCache = user_access('edit any faculty_publications bean');
+
+        $order = variable_get('person_publications_list_order', 'date-desc');
+        $number = variable_get('person_publications_list_number', 5);
+        $fakeBeanObject = new stdClass();
+        $fakeBeanObject->field_faculty_publication_email = $node->field_person_email;
+        $fakeBeanObject->field_faculty_publications_sort = [LANGUAGE_NONE => [0 => ['value' => $order]]];
+        $fakeBeanObject->field_faculty_pub_results = [LANGUAGE_NONE => [0 => ['value' => $number]]];
+
+        $publicationData = get_publication_data($node->title, $skipCache, $fakeBeanObject);
+
+        if (!$skipCache && !$publicationData['results']) {
+          return $block;
+        }
+
+        else {
+          $block['subject'] = 'Recent Publications:';
+          $block['content'] = publish_data($publicationData);
+
+          // Show a link to another page if person has more publications than shown here.
+          if ($number < $publicationData['total']) {
+            $link_url = "faculty-publications/{$node->nid}";
+
+            $block['content']['full_list_link'] = array(
+              '#type' => 'markup',
+              '#markup' => l("See a full list of {$node->title}'s publications", $link_url, ['attributes' => ['class' => ['small-text']]]),
+              '#prefix' => '<div>',
+              '#suffix' => '</div>'
+            );
+          }
+
+          return $block;
+        }
+      }
+      break;
+
+    default:
+      break;
+  }
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function cu_faculty_publications_bundle_block_configure($delta = '') {
+  // The block can be inserted using Context module and configured at /admin/structure/block/manage/cu_faculty_publications_bundle/person_publications_list/configure.
+  switch ($delta) {
+    case 'person_publications_list':
+      $form = array(
+        'order' => array(
+          '#type' => 'select',
+          '#options' => array('date-desc' => 'Newest to Oldest', 'date-asc' => 'Oldest to Newest'),
+          '#title' => t('Order of Publications on Person page'),
+          '#description' => t('Select the order you wish the results to be shown.'),
+          '#default_value' => variable_get('person_publications_list_order', array('date-desc' => 'Newest to Oldest'))
+        ),
+        'number' => array(
+          '#type' => 'textfield',
+          '#description' => t('Type how many publications you would like to be listed on a Person page. Will only be saved if numerals are used.'),
+          '#title' => t('Number of Publications on Person page'),
+          '#default_value' => variable_get('person_publications_list_number', 5)
+        ),
+        'order_all' => array(
+          '#type' => 'select',
+          '#options' => array('date-desc' => 'Newest to Oldest', 'date-asc' => 'Oldest to Newest'),
+          '#title' => t('Order of Publications on All Publications page'),
+          '#description' => t('Select the order you wish the results to be shown when listing all of a Person\'s publications.'),
+          '#default_value' => variable_get('all_publications_list_order', array('date-desc' => 'Newest to Oldest'))
+        )
+      );
+
+      return $form;
+
+    default:
+      break;
+  }
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function cu_faculty_publications_bundle_block_save($delta = '', $edit = array()) {
+  switch ($delta) {
+    case 'person_publications_list':
+      if ($num = intval($edit['number'])) {
+        variable_set('person_publications_list_number', $num);
+      }
+
+      variable_set('person_publications_list_order', $edit['order']);
+      variable_set('all_publications_list_order', $edit['order_all']);
+      break;
+
+    default:
+      break;
+  }
 }
 
 /**
@@ -52,37 +235,7 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 
     $publicationData = get_publication_data($cid, $skipCache, $vars['bean']);
 
-    if (isset($publicationData['error'])) {
-      $vars['content']['error'][]['#markup'] = $publicationData['error'];
-    }
-
-    else {
-      if ($publicationData['messages']) {
-        foreach ($publicationData['messages'] as $message) {
-          $vars['content']['messages'][]['#markup'] = $message;
-        }
-      }
-
-      if ($publicationData['results']) {
-        $totalResults = $publicationData['total'] > $publicationData['requestedNumberOfResults'] ? $publicationData['requestedNumberOfResults'] : $publicationData['total'];
-        pager_default_initialize($totalResults, 25);
-
-        // Check if results are from cache.
-        // Put in an HTML comment to confirm if results are from cache or not.
-        $isFromCache = $publicationData['isFromCache'] ? "YES" : "NO";
-        $vars['content']['publications'][]['#markup'] = "<!-- Publication data are from cache: $isFromCache -->";
-
-        foreach ($publicationData['results'] as $item) {
-          $vars['content']['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
-        }
-
-        $vars['content']['publications'][]['#markup'] = theme('pager');
-      }
-
-      else {
-        $vars['content']['no_results'][]['#markup'] = '<h4>There are no results for your query. Please check your data filters and try again.</h4>';
-      }
-    }
+    $vars['content'] = publish_data($publicationData);
   }
 }
 
@@ -90,10 +243,15 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
  * This function decides where to get data from. Whether to gather it from the module's cache, refresh the data from cache or to gather it from fresh requests to our experts' databases.
  * The publication data or errors/warnings are passed on to the UI.
  *
- * @param string $cid This is the url to this page/node being displayed
- * @param boolean $skipCache This is set based on a user's permissions so that an editor can see their changes and not what has been cached previously.
- * @param object $beanObject This is the object with the form data needed form this block.
- * @return array An associative array with data to pass on to the UI.
+ * @param string $cid
+ *   This is the url to this page/node being displayed or the Person node's name.
+ * @param bool $skipCache
+ *   This is set based on a user's permissions so that an editor can see their changes and not what has been cached previously.
+ * @param object $beanObject
+ *   This is the object with the form data needed for this block.
+ *
+ * @return array
+ *   An associative array with data to pass on to the UI.
  *
  */
 function get_publication_data($cid, $skipCache, $beanObject) {
@@ -129,7 +287,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
     // If the request failed still load from the cache but with a warning.
     else {
       $publicationData = $cache->data;
-      $publicationData['messages']['publications'] = "<div class=\"messages warning\">{$response->code}: There was a problem refreshing publication data. The results shown may not be the most up to date. Please check again later.</div>";
+      $publicationData['messages']['publications'] = "<div style=\"float:left\" class=\"messages warning\">{$response->code}: There was a problem refreshing publication data. The results shown may not be the most up to date. Please check again later.</div>";
       $publicationData['isFromCache'] = TRUE;
       return $publicationData;
     }
@@ -144,7 +302,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
         'total' => NULL,
         'results' => NULL,
         'requestedNumberOfResults' => NULL,
-        'error' => "<div class=\"messages error\">{$reqData['error']}: There was a problem connecting to the experts 'people' database.</div>"
+        'error' => "<div style=\"float:left\" class=\"messages error\">{$reqData['error']}: There was a problem connecting to the experts 'people' database.</div>"
       ];
     }
 
@@ -153,7 +311,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
         'total' => NULL,
         'results' => NULL,
         'requestedNumberOfResults' => NULL,
-        'error' => "<div class=\"messages warning\">{$reqData['warning']}</div>"
+        'error' => "<div style=\"float:left\" class=\"messages warning\">{$reqData['warning']}</div>"
       ];
     }
 
@@ -166,6 +324,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
           'total' => $parsedResponse['hits']['total'],
           'results' => $parsedResponse['hits']['hits'],
           'requestedNumberOfResults' => $reqData['requestedNumberOfResults'],
+          'numberOfResultsPerPage' => $reqData['numberOfResultsPerPage'],
           'expiration' => $newExpiration,
           'reqUrl' => $reqData['reqUrl'],
           'messages' => $reqData['messages']
@@ -183,7 +342,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
           'requestedNumberOfResults' => $cache->data['requestedNumberOfResults'],
           'expiration' => $newExpiration,
           'reqUrl' => $cache->data['reqUrl'],
-          'error' => "<div class=\"messages error\">{$response->code}: There was a problem fetching publication data. Please check again later.</div>"
+          'error' => "<div style=\"float:left\" class=\"messages error\">{$response->code}: There was a problem fetching publication data. Please check again later.</div>"
         ];
         return $publicationData;
       }
@@ -194,8 +353,57 @@ function get_publication_data($cid, $skipCache, $beanObject) {
 /**
  * This is where the request for elastic search is constructed.
  *
- * @param type $beanObject This is the object containing all data passed in from the form.
- * @return array Returns an associative array with data to pass back into get_publication_data().
+ * @param array $publicationData
+ *   Results from either the cache or requesting experts.colorado.edu as returned by get_publication_data().
+ *
+ * @return array
+ *   Returns an associative render array passed on to the user interface.
+ */
+function publish_data(array $publicationData) {
+  $output = array();
+  if (isset($publicationData['error'])) {
+    $output['error'][]['#markup'] = $publicationData['error'];
+  }
+
+  else {
+    if ($publicationData['messages']) {
+      foreach ($publicationData['messages'] as $message) {
+        $output['messages'][]['#markup'] = $message;
+      }
+    }
+
+    if ($publicationData['results']) {
+      $totalResults = $publicationData['total'] > $publicationData['requestedNumberOfResults'] ? $publicationData['requestedNumberOfResults'] : $publicationData['total'];
+      pager_default_initialize($totalResults, $publicationData['numberOfResultsPerPage']);
+
+      // Check if results are from cache.
+      // Put in an HTML comment to confirm if results are from cache or not.
+      $isFromCache = $publicationData['isFromCache'] ? "YES" : "NO";
+      $output['publications'][]['#markup'] = "<!-- Publication data are from cache: $isFromCache -->";
+
+      foreach ($publicationData['results'] as $item) {
+        $output['publications'][]['#markup'] = theme('faculty_publication', $item['_source']);
+      }
+
+      $output['publications'][]['#markup'] = theme('pager');
+    }
+
+    else {
+      $output['no_results'][]['#markup'] = '<h4>There are no results for your query. Please check your data filters and try again.</h4>';
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * This is where the request for elastic search is constructed.
+ *
+ * @param object $beanObject
+ *   This is the object containing all data passed in from the form.
+ *
+ * @return array
+ *   Returns an associative array with data to pass back into get_publication_data().
  */
 function build_request_data($beanObject) {
   $fisPubsEndpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
@@ -267,7 +475,7 @@ function build_request_data($beanObject) {
     return $orcidResults;
   }
 
-  elseif (isset($orcidResults) && count($orcidResults['notFound'] > 0)) {
+  elseif (isset($orcidResults) && count($orcidResults['authorsNotFound']) > 0) {
     $messages['authorsNotFound'] = get_html_no_result_string($orcidResults['authorsNotFound'], 'publications');;
   }
 
@@ -283,16 +491,17 @@ function build_request_data($beanObject) {
     $numberOfResults = $beanObject->field_faculty_pub_results[LANGUAGE_NONE][0]['value'];
     $offset = $currentPage * $numberOfResultsPerPage;
     $arguments['from'] = $offset;
-    $arguments['size'] = $numberOfResultsPerPage;
 
     if ($numberOfResults === 'all') {
       // 10,000 search results is the default maximum amount of Elastic Search results.
       $requestedNumberOfResults = 10000;
     }
 
-    elseif ($numberOfResults === '25' || $numberOfResults === '50' || $numberOfResults === '100') {
-      $requestedNumberOfResults = intval($numberOfResults);
+    elseif ($num = intval($numberOfResults)) {
+      $requestedNumberOfResults = $num;
     }
+
+    $arguments['size'] = $requestedNumberOfResults < $numberOfResultsPerPage ? $requestedNumberOfResults : $numberOfResultsPerPage;
   }
 
   // Convert all 'q' arguments to a string joined by ' AND ' operator.
@@ -305,7 +514,12 @@ function build_request_data($beanObject) {
 
   // Form the final request url.
   $elasticSearchRequest = url($fisPubsEndpoint, ['query' => $arguments]);
-  return ['reqUrl' => $elasticSearchRequest, 'requestedNumberOfResults' => $requestedNumberOfResults, 'messages' => $messages];
+  return [
+    'reqUrl' => $elasticSearchRequest,
+    'requestedNumberOfResults' => $requestedNumberOfResults,
+    'numberOfResultsPerPage' => $numberOfResultsPerPage,
+    'messages' => $messages
+  ];
 }
 
 function get_array_from_field_data($fieldArray, $fieldArrayFinalIdentifier) {
@@ -348,7 +562,7 @@ function get_author_orcids($authorEmailArray, $dbUrl) {
   }
 
   if ($noResults) {
-    return ['warning' => "There was no publication data found for the selected author(s)"];
+    return ['warning' => "There was no publication data found for the selected author(s)."];
   }
 
   else {
@@ -419,7 +633,6 @@ function cu_faculty_publications_sort() {
 function cu_faculty_publications_results() {
   return array('25' => '25', '50' => '50' , '100' => '100', 'all' => 'ALL');
 }
-
 
 /**
  * Implements hook_secure_permissions().
