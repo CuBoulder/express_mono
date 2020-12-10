@@ -1,9 +1,13 @@
 <?php
 
 /**
+ * @file
+ * Implemtations of all cu_js_include types.
+ */
+
+/**
  * Implements hook_embed_templates_types().
  *
- * @return array
  *   List of custom embed types.
  */
 function cu_js_includes_get_include_types() {
@@ -52,10 +56,10 @@ function cu_js_includes_get_include_types() {
  * Adds grouping/labels for includes since they use the node list function.
  */
 function cu_js_includes_express_node_list_groups($bundles) {
-  $bundles['inlcudes']['title'] = 'Include Types';
-  $bundles['inlcudes']['types'][] = 'Add AdmitHub Include';
-  $bundles['inlcudes']['types'][] = 'Add LiveChat Include';
-  $bundles['inlcudes']['types'][] = 'Add Slate Form Include';
-  $bundles['inlcudes']['types'][] = 'Add StatusPage Include';
+  $bundles['includes']['title'] = 'Include Types';
+  $bundles['includes']['types'][] = 'Add AdmitHub Include';
+  $bundles['includes']['types'][] = 'Add LiveChat Include';
+  $bundles['includes']['types'][] = 'Add Slate Form Include';
+  $bundles['includes']['types'][] = 'Add StatusPage Include';
   return $bundles;
 }
