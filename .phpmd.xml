@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<ruleset xmlns="http://pmd.sourceforge.net/ruleset/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PMD Ruleset for Drupal" xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+<ruleset xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PMD Ruleset for Drupal" xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
   <description>
     A PMD Ruleset for Drupal coding standards.
   </description>
@@ -12,7 +13,7 @@
   <!-- Clean Code -->
   <!--
   These don't align with Drupal standards, so they are excluded.
-  @todo Static calls are hard to test and extend, is there a way to whitelist the ones that are OK?
+  @todo Static calls are hard to test and extend, is there a way to create an allowlist the ones that are OK?
   <rule ref="rulesets/cleancode.xml/BooleanArgumentFlag"/>
   <rule ref="rulesets/cleancode.xml/ElseExpression"/>
   <rule ref="rulesets/cleancode.xml/StaticAccess"/>

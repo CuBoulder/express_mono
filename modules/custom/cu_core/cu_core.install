@@ -376,7 +376,7 @@ function cu_core_requirements($phase) {
 
   // Check value LDAP Mixed Mode variable; warn if site is in Mixed Mode.
   $ldapAuthArray = variable_get('ldap_authentication_conf', FALSE);
-  $authMode = $ldapAuthArray[authenticationMode];
+  $authMode = $ldapAuthArray['authenticationMode'];
   if ($authMode == 1) {
     $requirements['authMode'] = array(
       'title' => $t('Authentication Mode'),
@@ -544,4 +544,12 @@ function cu_core_update_7069() {
       variable_set('theme_' . $theme->name . '_settings', $theme_settings);
     }
   }
+}
+
+/**
+ * Reverting cu_wysiwyg to add wowza video filter.
+ */
+function cu_core_update_7070() {
+  $features = array('cu_wysiwyg');
+  cu_core_revert_features($features);
 }

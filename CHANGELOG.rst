@@ -5,6 +5,130 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.4.1 (2020-12-07)
+------------
+
+Added
+~~~~~
+- Added a page to list all of a person's publications.
+  - if there are any publications authored by the person there will be a list of 5 of them by default
+  - if the person has more than 5 publications there will be a link at the bottom of the publications list
+  - clicking on the link should take you to a page with a paged list of all the person's publications, most recent first by default.
+  - the person's name should be a link to take you back to their Person page
+  - Can be configured by visiting /admin/structure/block/manage/cu_faculty_publications_bundle/person_publications_list/configure
+  - Can be inserted via Context
+  - grabs email from node of the person page it is loaded on.
+
+
+Deprecated
+~~~~~~~
+- Removing UI for adding LiveChat widgets. Resolves #744.
+
+- Removing bundle roles from livechat bundle so it can't be enabled.
+
+
+Fixed
+~~~~~
+- Allow warning/error messages to float to left side of image without its div overlapping with image's div.
+
+- Fix PATH assignment for drush.
+
+
+v4.4.0 (2020-10-26)
+------------
+
+Added
+~~~~~
+- Added integration to experts.colorado.edu. Resolves #41.
+
+- New method for including specific types of JavaScript embeds. Resolves #691.
+
+- Added context_error to allow the placement of a search box on a 403 or 404 page. Resolves #123.
+
+
+Changed
+~~~~~~~
+- Adding video filter for Wowza livestreaming video service. Resolves #289.
+
+
+Fixed
+~~~~~~~
+- Fixing issue where there was an empty role available. Resolves #718.
+
+
+v4.3.5 (2020-10-14)
+------------
+
+Fixed
+~~~~~~~
+- Replacing incorrect function call. Resolves #736
+
+
+v4.3.4 (2020-10-12)
+------------
+
+Changed
+~~~~~~~
+- People content type utilizes nested taxonomy terms for filters
+
+
+Fixed
+~~~~~~~
+- Fix for counter.js used in the countup shortcode. Resolves #637.
+
+- Fixing links to include full urls, fixing gradient css for article title. Resolves #729.
+
+
+v4.3.3 (2020-09-29)
+------------
+
+Changed
+~~~~~~~
+- Remove hard-coded Google Analytics ID from Express code base, we will add it during deployment.
+
+- Adding field for multiselect option #599.
+
+
+Fixed
+~~~~~~~
+- Degrading gracefully if the collection type term used in the collection block has been deleted. Resolves #685.
+
+
+v4.3.2 (2020-09-17)
+------------
+
+Fixed
+~~~~~~~
+- Revert Google Tag Manager contrib update. Resolves #707.
+
+
+v4.3.1 (2020-09-10)
+------------
+
+Changed
+~~~~~~~
+- Replace poor language choices 'master/slave'; 'whitelist/blacklist'.
+
+- Checking to see if alerts xml is valid. Resolves #677.
+
+- Adding back in settings option for sidebars. resolves #517.
+
+- Updated contributed modules
+
+- We now test using our modified Drupal core
+
+
+Deprecated
+~~~~~~~
+- All themes are responsive. Fixed width sites have been deprecated. Removed toggle for responsive settings.
+
+
+Fixed
+~~~~~~~
+- Fixing notice if a block did not have a bid value. Resolves #696.
+
+- Article slider links are now the correct color. Removed extra/empty links. Resolves #548.
+
 
 v4.3.0 (2020-04-21)
 ------------
@@ -32,7 +156,8 @@ Changed
 
 - Allow multiple bylines in articles. resolves #554.
 
-- Update Drupal core version. [James Fuller]
+- Update Drupal core version.
+
 
 Fixed
 ~~~~~
