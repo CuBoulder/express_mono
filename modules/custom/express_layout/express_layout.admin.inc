@@ -93,7 +93,9 @@ function express_layout_form_submit($form, &$form_state) {
   if ($express_layout == FALSE) {
     $node = node_load(arg(1));
     $layout_title = 'Layout: ' . $node->title;
-    if (strlen($layout_title) > 255) { $layout_title = substr($layout_title,0,255); }
+    if (strlen($layout_title) > 255) {
+      $layout_title = substr($layout_title, 0, 255);
+    }
     $values = array(
       'layout_id' => $node->nid,
       'title' => $layout_title,
