@@ -92,9 +92,13 @@ function express_layout_form_submit($form, &$form_state) {
   // Make a new layout entity if node doesn't have one already.
   if ($express_layout == FALSE) {
     $node = node_load(arg(1));
+    $layout_title = 'Layout: ' . $node->title;
+    if (strlen($layout_title) > 255) {
+      $layout_title = substr($layout_title, 0, 255);
+    }
     $values = array(
       'layout_id' => $node->nid,
-      'title' => 'Layout: ' . $node->title,
+      'title' => $layout_title,
       'node_type' => $node->type,
     );
 
