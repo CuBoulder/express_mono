@@ -75,3 +75,4 @@
 .cu-search-box-large { font-size: 115%; }
 .cu-search-box-large input { font-size: 115%; }
 .cu-search-box-large .search-form-wrapper { display: flex; flex-direction: column-reverse; }
+.cu-search-box-large.cu-search-box .cu-search input.form-text { border: 1px solid #e0e0e0; }
