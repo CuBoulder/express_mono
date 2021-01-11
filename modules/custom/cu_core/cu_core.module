@@ -6,6 +6,15 @@
 
 /**
  * Implements hook_module_implements_alter().
+ */
+function cu_sitemap_menu_alter(&$items) {
+  // This is a place to remove visibility for enpoints
+  // unnecessarily set as public.
+  $items['filter/tips']['access callback'] = FALSE;
+}
+
+/**
+ * Implements hook_module_implements_alter().
  *
  * @param array $implementations
  *   List of modules that implement hook.
