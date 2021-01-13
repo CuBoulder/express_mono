@@ -15,6 +15,7 @@
 function cu_js_includes_secure_permissions($role) {
   $permissions = array(
     'anonymous user' => array(
+      'view js includes',
       'view admithub js includes',
       'view livechat js includes',
       'view statuspage js includes',
@@ -22,6 +23,7 @@ function cu_js_includes_secure_permissions($role) {
       'view any js_include bean',
     ),
     'authenticated user' => array(
+      'view js includes',
       'view admithub js includes',
       'view livechat js includes',
       'view statuspage js includes',
