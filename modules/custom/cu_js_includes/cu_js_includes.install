@@ -89,3 +89,11 @@ function cu_js_includes_install() {
   // Menu items are already added so we need to rebuild if types are changed.
   menu_rebuild();
 }
+
+
+/**
+ * Update Secure Permissions.
+ */
+function cu_js_includes_update_7001() {
+  secure_permissions_rebuild();
+}

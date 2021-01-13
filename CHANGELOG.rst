@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.4.2 (2021-01-13)
+------------
+
+Fixed
+~~~~~~~
+
+- Update secure perms for JS Includes. [cathysnider]
+
+- Adding border to search block so field is visible. Resolves #740. [kevincrafts]
+
+- Fixing issue where hero units set to image sizing would have extra space at the bottom. Resolves #734. [kevincrafts]
+
+- Hiding search thumbnails. Resolves #771. [kevincrafts]
+
+-  Changed selector used in people_content_type.scss for person photos from  to  in order to make it more specific to the intended situation.
+
+- Add error checking for Layout Title length. [cathysnider]
+
+
 v4.4.1 (2020-12-07)
 ------------
 
