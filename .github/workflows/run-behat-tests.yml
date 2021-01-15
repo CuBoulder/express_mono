@@ -1,0 +1,23 @@
+name: Run Behat Tests
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout commit
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      uses: php-actions/composer@v5
+      with:
+        php_version: 7.2
+    - name: Make a comment
+      - uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            **Howdie!**
+
