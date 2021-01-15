@@ -1,4 +1,4 @@
-@TestContent
+@TestContent @theOneTestToRun
 Feature: Creating Test Content
 In order to test Web Express functionality with Behat
 As a user with any role at all
@@ -21,7 +21,9 @@ And I press "Save"
 Then I should see "TestArticle"
 # CREATE PERSON
 And I go to "node/add/person"
+Then I should see "Create Person"
 And fill in "First Name" with "TestFirstName"
 And fill in "Last Name" with "TestLastName"
 And I press "Save"
+And I take a walk for 3 seconds
 Then I should see "TestFirstName TestLastName"

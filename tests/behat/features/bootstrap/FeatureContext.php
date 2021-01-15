@@ -56,6 +56,13 @@ class FeatureContext extends MinkContext
   }
 
   /**
+   * @Then I take a walk for :arg1 seconds
+   */
+  public function iTakeAWalkForSeconds($arg1) {
+    sleep($arg1);
+  }
+
+  /**
    * Creates and authenticates a user with the given role(s).
    *
    * @Given I am logged in as a user with the :role role(s)
