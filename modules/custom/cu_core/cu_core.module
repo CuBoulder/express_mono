@@ -24,7 +24,7 @@ function cu_core_menu_alter(&$items) {
 function _check_authenticated_user_role() {
   global $user;
 
-  foreach ($user->roles as $index => $role) {
+  foreach ($user->roles as $role) {
     if ($role == 'authenticated user') {
       return TRUE;
     }
