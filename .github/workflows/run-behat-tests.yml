@@ -16,7 +16,7 @@ jobs:
       with:
         php_version: 7.2
     - name: Make a comment
-      - uses: mshick/add-pr-comment@v1
+      uses: mshick/add-pr-comment@v1
         with:
           message: |
             **Howdie!**
