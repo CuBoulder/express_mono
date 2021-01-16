@@ -8,13 +8,35 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      mariadb:
+        image: mariadb:latest
+        ports: [3306]
+        env:
+          DATABASE: drupal
+          DB_USERNAME: root
+          DB_PASSWORD: root
+          DB_ENCODING: utf8
+
     steps:
-    # - name: checkout commit
-    #   uses: actions/checkout@v2
-    # - name: Install dependencies
-    #   uses: php-actions/composer@v5
-    #   with:
-    #     php_version: 7.2
+
+    - name: checkout Pull Request's commit
+      uses: actions/checkout@v2
+      with:
+        path: express
+
+    - name: checkout d7Core repository
+      uses: actions/checkout@v2
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        path: drupal
+
+    - name: Install Composer
+      uses: php-actions/composer@v5
+      with:
+        php_version: 7.2
+
     - name: Make a comment
       uses: mshick/add-pr-comment@v1
       with:
