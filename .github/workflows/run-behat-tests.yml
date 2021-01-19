@@ -41,8 +41,8 @@ jobs:
         path: drupal/profiles/express
 
     - run: |
-      pwd
-      ls
+        pwd
+        ls
 
 
     # - name: Install Composer
