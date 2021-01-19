@@ -21,12 +21,12 @@ jobs:
 
     steps:
 
-    - name: Make a comment
-      uses: mshick/add-pr-comment@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        message: |
-          **Howdie!**
+    # - name: Make a comment
+    #   uses: mshick/add-pr-comment@v1
+    #   with:
+    #     repo-token: ${{ secrets.GITHUB_TOKEN }}
+    #     message: |
+    #       **Tue3**
 
     - name: checkout d7Core repository
       uses: actions/checkout@v2
@@ -41,7 +41,6 @@ jobs:
         path: drupal/profiles/express
 
     - run: |
-      echo "PWD:"
       pwd
       ls
 
