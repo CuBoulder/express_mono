@@ -41,6 +41,7 @@ jobs:
         path: drupal/profiles/express
 
     - run: |
+        composer update
         composer global require "drush/drush:8.*"
         cd drupal
         ROOT_DIR=`pwd`
