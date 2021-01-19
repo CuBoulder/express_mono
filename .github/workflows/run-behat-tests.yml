@@ -41,9 +41,8 @@ jobs:
         path: drupal/profiles/express
 
     - run: |
-        pwd
+        cd drupal/profiles
         ls
-
 
     # - name: Install Composer
     #   uses: php-actions/composer@v5
