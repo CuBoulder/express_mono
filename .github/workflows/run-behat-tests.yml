@@ -28,18 +28,20 @@ jobs:
         message: |
           **Howdie!**
 
-    - name: checkout Pull Request's commit
-      uses: actions/checkout@v2
-      with:
-        path: express
-
     - name: checkout d7Core repository
       uses: actions/checkout@v2
       with:
         # repo-token: ${{ secrets.GITHUB_TOKEN }}
+        repository: CuBoulder/d7core
         path: drupal
 
-    - name: Install Composer
-      uses: php-actions/composer@v5
+    - name: checkout Pull Request's commit
+      uses: actions/checkout@v2
       with:
-        php_version: 7.2
+        path: drupal/profiles/express
+
+
+    # - name: Install Composer
+    #   uses: php-actions/composer@v5
+    #   with:
+    #     php_version: 7.2
