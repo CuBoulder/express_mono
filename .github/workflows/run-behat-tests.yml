@@ -43,6 +43,8 @@ jobs:
     - run: |
         cd drupal/profiles
         ls
+        php -v
+        composer -v
 
     # - name: Install Composer
     #   uses: php-actions/composer@v5
