@@ -44,7 +44,7 @@ jobs:
         composer global require "drush/drush:8.*"
         cd drupal
         ROOT_DIR = `pwd`
-        cd $ROOT_DIR/profiles/express/tests/behat
+        cd "$ROOT_DIR/profiles/express/tests/behat"
         composer install composer install --prefer-dist --no-interaction
         ./bin/behat --version
 
