@@ -21,6 +21,13 @@ jobs:
 
     steps:
 
+    - name: Make a comment
+      uses: mshick/add-pr-comment@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        message: |
+          **Howdie!**
+
     - name: checkout Pull Request's commit
       uses: actions/checkout@v2
       with:
@@ -29,17 +36,10 @@ jobs:
     - name: checkout d7Core repository
       uses: actions/checkout@v2
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        # repo-token: ${{ secrets.GITHUB_TOKEN }}
         path: drupal
 
     - name: Install Composer
       uses: php-actions/composer@v5
       with:
         php_version: 7.2
-
-    - name: Make a comment
-      uses: mshick/add-pr-comment@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        message: |
-          **Howdie!**
