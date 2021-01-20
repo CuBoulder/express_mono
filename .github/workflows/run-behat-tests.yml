@@ -40,20 +40,15 @@ jobs:
         path: drupal/profiles/express
 
     - run: |
-        composer global require "drush/drush:8.*"
         cd drupal
         ROOT_DIR=`pwd`
+        composer require "drush/drush:8.*"
         cd "$ROOT_DIR/profiles/express/tests/behat"
         composer update
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
-        echo ----
-        echo $HOME
-        ls $HOME
-        echo ----
-        echo --------
-        ls $HOME/../
-        echo --------
+        cd $ROOT_DIR
+        ./vendor/bin/drush --version
 
     # - name: Install Composer
     #   uses: php-actions/composer@v5
