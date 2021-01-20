@@ -48,8 +48,13 @@ jobs:
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
         echo ----
-        echo ----
         echo $HOME
+        ls $HOME
+        echo ----
+        echo --------
+        ls $HOME/../
+        echo --------
+
     # - name: Install Composer
     #   uses: php-actions/composer@v5
     #   with:
