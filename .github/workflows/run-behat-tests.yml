@@ -28,18 +28,19 @@ jobs:
     #     message: |
     #       **Tue3**
 
-    - name: checkout d7Core repository
+    - name: Checkout d7Core Repository
       uses: actions/checkout@v2
       with:
         repository: CuBoulder/d7core
         path: drupal
 
-    - name: checkout Pull Request's commit
+    - name: Checkout Pull Request's Commit
       uses: actions/checkout@v2
       with:
         path: drupal/profiles/express
 
-    - run: |
+    - name: Install Dependencies With Composer
+      run: |
         cd drupal
         ROOT_DIR=`pwd`
         composer require "drush/drush:8.*"
