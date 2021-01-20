@@ -54,27 +54,28 @@ jobs:
     - name: Setup PHP and Express
       run: |
         sudo /etc/init.d/mysql start
-        ls $ROOT_DIR
+        echo "PWD:"
+        pwd
         mkdir -p $ROOT_DIR/sites/default/files/styles/preview/public/gallery/ && chmod -R 777 $ROOT_DIR/sites
         # phpenv config-rm xdebug.ini
-        mysql -e 'create database drupal;'
-        cp $ROOT_DIR/profiles/express/tests/travis-ci/settings.travis.php $ROOT_DIR/sites/default/settings.php
-        # phpenv config-add $ROOT_DIR/profiles/express/tests/travis-ci/config/express-php.ini
-        mysql -e "SET @@global.innodb_file_per_table=0;"
-        mysql -e "SET @@global.innodb_flush_log_at_trx_commit=2;"
-        php -i | grep memory
-        cat /proc/meminfo
-        cd $ROOT_DIR/profiles/express
-        echo Installing Express...
-        $ROOT_DIR/.vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
-        echo Exporting database...
-        $ROOT_DIR/.vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
-        $ROOT_DIR/.vendor/bin/drush pm-info travis_hosting
-        $ROOT_DIR/.vendor/bin/drush pm-info ng_hosting
-        $ROOT_DIR/.vendor/bin/drush pm-info cu_core
-        $ROOT_DIR/.vendor/bin/drush pm-info cu_ldap
-        $ROOT_DIR/.vendor/bin/drush pm-info cu_local_users
-        $ROOT_DIR/.vendor/bin/drush pm-list
+        mysql -e 'create database drupal;' --user=root --password=root
+        # cp $ROOT_DIR/profiles/express/tests/travis-ci/settings.travis.php $ROOT_DIR/sites/default/settings.php
+        # # phpenv config-add $ROOT_DIR/profiles/express/tests/travis-ci/config/express-php.ini
+        # mysql -e "SET @@global.innodb_file_per_table=0;"
+        # mysql -e "SET @@global.innodb_flush_log_at_trx_commit=2;"
+        # php -i | grep memory
+        # cat /proc/meminfo
+        # cd $ROOT_DIR/profiles/express
+        # echo Installing Express...
+        # $ROOT_DIR/.vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        # echo Exporting database...
+        # $ROOT_DIR/.vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
+        # $ROOT_DIR/.vendor/bin/drush pm-info travis_hosting
+        # $ROOT_DIR/.vendor/bin/drush pm-info ng_hosting
+        # $ROOT_DIR/.vendor/bin/drush pm-info cu_core
+        # $ROOT_DIR/.vendor/bin/drush pm-info cu_ldap
+        # $ROOT_DIR/.vendor/bin/drush pm-info cu_local_users
+        # $ROOT_DIR/.vendor/bin/drush pm-list
 
 
     # - name: Install Composer
