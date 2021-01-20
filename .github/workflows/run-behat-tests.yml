@@ -31,7 +31,6 @@ jobs:
     - name: checkout d7Core repository
       uses: actions/checkout@v2
       with:
-        # repo-token: ${{ secrets.GITHUB_TOKEN }}
         repository: CuBoulder/d7core
         path: drupal
 
@@ -48,7 +47,9 @@ jobs:
         composer update
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
-
+        echo ----
+        echo ----
+        echo $HOME
     # - name: Install Composer
     #   uses: php-actions/composer@v5
     #   with:
