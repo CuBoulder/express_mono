@@ -53,8 +53,9 @@ jobs:
 
     - name: Setup PHP and Express
       run: |
+        sudo /etc/init.d/mysql start
         ls $ROOT_DIR
-        chmod -R 777 $ROOT_DIR/sites && mkdir -p $ROOT_DIR/sites/default/files/styles/preview/public/gallery/
+        mkdir -p $ROOT_DIR/sites/default/files/styles/preview/public/gallery/ && chmod -R 777 $ROOT_DIR/sites
         # phpenv config-rm xdebug.ini
         mysql -e 'create database drupal;'
         cp $ROOT_DIR/profiles/express/tests/travis-ci/settings.travis.php $ROOT_DIR/sites/default/settings.php
