@@ -53,27 +53,27 @@ jobs:
 
     - name: Setup PHP and Express
       run: |
-        mkdir -p $ROOT_DIR/sites/default/files/styles/preview/public/gallery/ && chmod -R 777 $ROOT_DIR/sites
-        mkdir $ROOT_DIR/../tmp && chmod -R 777 $ROOT_DIR/../tmp
-        phpenv config-rm xdebug.ini
+        ls $ROOT_DIR
+        chmod -R 777 $ROOT_DIR/sites && mkdir -p $ROOT_DIR/sites/default/files/styles/preview/public/gallery/
+        # phpenv config-rm xdebug.ini
         mysql -e 'create database drupal;'
         cp $ROOT_DIR/profiles/express/tests/travis-ci/settings.travis.php $ROOT_DIR/sites/default/settings.php
-        phpenv config-add $ROOT_DIR/profiles/express/tests/travis-ci/config/express-php.ini
+        # phpenv config-add $ROOT_DIR/profiles/express/tests/travis-ci/config/express-php.ini
         mysql -e "SET @@global.innodb_file_per_table=0;"
         mysql -e "SET @@global.innodb_flush_log_at_trx_commit=2;"
         php -i | grep memory
         cat /proc/meminfo
         cd $ROOT_DIR/profiles/express
-        echo INstalling Express...
-        $ROOT_DIR/.vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        echo Installing Express...
+        $ROOT_DIR/.vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
         echo Exporting database...
-        $HOME/.vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
-        $HOME/.vendor/bin/drush pm-info travis_hosting
-        $HOME/.vendor/bin/drush pm-info ng_hosting
-        $HOME/.vendor/bin/drush pm-info cu_core
-        $HOME/.vendor/bin/drush pm-info cu_ldap
-        $HOME/.vendor/bin/drush pm-info cu_local_users
-        $HOME/.vendor/bin/drush pm-list
+        $ROOT_DIR/.vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
+        $ROOT_DIR/.vendor/bin/drush pm-info travis_hosting
+        $ROOT_DIR/.vendor/bin/drush pm-info ng_hosting
+        $ROOT_DIR/.vendor/bin/drush pm-info cu_core
+        $ROOT_DIR/.vendor/bin/drush pm-info cu_ldap
+        $ROOT_DIR/.vendor/bin/drush pm-info cu_local_users
+        $ROOT_DIR/.vendor/bin/drush pm-list
 
 
     # - name: Install Composer
