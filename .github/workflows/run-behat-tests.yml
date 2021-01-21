@@ -56,7 +56,7 @@ jobs:
         ./bin/behat --version
         echo -----
         echo "Starting MariaDB server..."
-        sudo /etc/init.d/mysql start
+        sudo /etc/init.d/mariadb start
         mysql --version
         mysql -e "SET @@global.innodb_file_per_table=0;" --user=root --password=root
         mysql -e "SET @@global.innodb_flush_log_at_trx_commit=2;" --user=root --password=root
@@ -72,7 +72,7 @@ jobs:
         cat /proc/meminfo
         echo -----
         echo Installing Express...
-        ./vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
         echo -----
         # cd profiles/express
         echo Exporting database...
