@@ -72,7 +72,7 @@ jobs:
         cat /proc/meminfo
         echo -----
         echo Installing Express...
-        ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
         echo -----
         # cd profiles/express
         echo Exporting database...
