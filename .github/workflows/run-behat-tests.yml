@@ -15,7 +15,7 @@ jobs:
         ports: [3306]
         env:
           DATABASE: drupal
-          DB_USERNAME: alan
+          DB_USERNAME: root
           DB_PASSWORD: root
           DB_ENCODING: utf8
 
@@ -44,9 +44,11 @@ jobs:
 
         echo -----
         echo "Starting MariaDB server..."
-        sudo /etc/init.d/mysql start
-        mysql --version
-        mysql -e "USE sys; select * from user_summary;" -proot -uroot
+        mysql --host mariadb -uroot -proot -e "SHOW DATABASES;"
+
+        # sudo /etc/init.d/mysql start
+        # mysql --version
+        # mysql -e "USE sys; select * from user_summary;" -proot -uroot
 
 
     # - name: Install Composer
