@@ -44,7 +44,7 @@ jobs:
 
         echo -----
         echo "Starting MariaDB server..."
-        mysql --host 127.0.0.1 --port ${{ job.services.mariadb }} -uroot -proot -e "SHOW DATABASES;"
+        mysql --host 127.0.0.1 --port ${{ job.services.mariadb.ports[3306] }} -uroot -proot -e "SHOW DATABASES;"
 
         # sudo /etc/init.d/mysql start
         # mysql --version
