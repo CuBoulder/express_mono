@@ -46,7 +46,7 @@ jobs:
         echo "Starting MariaDB server..."
         sudo /etc/init.d/mysql start
         mysql --version
-        mysql -e "USE sys; select * from user_summary;" -proot
+        mysql -e "USE sys; select * from user_summary;" -proot -uroot
 
 
     # - name: Install Composer
