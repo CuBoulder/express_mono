@@ -15,7 +15,7 @@ jobs:
         ports: [3306]
         env:
           DATABASE: drupal
-          DB_USERNAME: root
+          DB_USERNAME: alan
           DB_PASSWORD: root
           DB_ENCODING: utf8
 
