@@ -39,28 +39,30 @@ jobs:
       with:
         path: drupal/profiles/express
 
-    - name: Install Dependencies With Composer
+    - name: Do Everything
       run: |
         cd drupal
         DRUPAL_DIR=`pwd`
         echo "PWD: $DRUPAL_DIR"
+        echo -----
+        echo "Installing dependencies Drush 8..."
         composer require "drush/drush:8.*"
+        ./vendor/bin/drush --version
+        echo -----
+        echo "Installing Behat dependencies in $DRUPAL_DIR/profiles/express/tests/behat"
         cd "$DRUPAL_DIR/profiles/express/tests/behat"
         composer update
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
-        cd $DRUPAL_DIR
-        ./vendor/bin/drush --version
-
-    - name: Setup PHP and Express
-      run: |
+        echo -----
+        echo "Starting MariaDB server..."
         sudo /etc/init.d/mysql start
+        mysql --version
         mysql -e "SET @@global.innodb_file_per_table=0;" --user=root --password=root
         mysql -e "SET @@global.innodb_flush_log_at_trx_commit=2;" --user=root --password=root
-        echo "Copying settings file..."
-        cd drupal
-        DRUPAL_DIR=`pwd`
-        echo "PWD: $DRUPAL_DIR"
+        echo -----
+        echo "Copying settings.php file to sites/default/..."
+        cd $DRUPAL_DIR
         mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
         cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
         # phpenv config-rm xdebug.ini
@@ -68,11 +70,15 @@ jobs:
         # # phpenv config-add $DRUPAL_DIR/profiles/express/tests/travis-ci/config/express-php.ini
         php -i | grep memory
         cat /proc/meminfo
-        cd profiles/express
+        echo -----
         echo Installing Express...
-        $DRUPAL_DIR/.vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        ./vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        echo -----
+        # cd profiles/express
         echo Exporting database...
         $DRUPAL_DIR/.vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
+        echo -----
+        echo "Check if modules are installed..."
         $DRUPAL_DIR/.vendor/bin/drush pm-info travis_hosting
         $DRUPAL_DIR/.vendor/bin/drush pm-info ng_hosting
         $DRUPAL_DIR/.vendor/bin/drush pm-info cu_core
