@@ -42,41 +42,43 @@ jobs:
     - name: Install Dependencies With Composer
       run: |
         cd drupal
-        ROOT_DIR=`pwd`
+        DRUPAL_DIR=`pwd`
+        echo "PWD: $DRUPAL_DIR"
         composer require "drush/drush:8.*"
-        cd "$ROOT_DIR/profiles/express/tests/behat"
+        cd "$DRUPAL_DIR/profiles/express/tests/behat"
         composer update
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
-        cd $ROOT_DIR
+        cd $DRUPAL_DIR
         ./vendor/bin/drush --version
 
     - name: Setup PHP and Express
       run: |
         sudo /etc/init.d/mysql start
-        echo "PWD:"
-        pwd
+        mysql -e "SET @@global.innodb_file_per_table=0;" --user=root --password=root
+        mysql -e "SET @@global.innodb_flush_log_at_trx_commit=2;" --user=root --password=root
+        echo "Copying settings file..."
         cd drupal
+        DRUPAL_DIR=`pwd`
+        echo "PWD: $DRUPAL_DIR"
         mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
+        cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
         # phpenv config-rm xdebug.ini
         # mysql -e 'create database drupal;' --user=root --password=root
-        # cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
-        # # phpenv config-add $ROOT_DIR/profiles/express/tests/travis-ci/config/express-php.ini
-        # mysql -e "SET @@global.innodb_file_per_table=0;"
-        # mysql -e "SET @@global.innodb_flush_log_at_trx_commit=2;"
-        # php -i | grep memory
-        # cat /proc/meminfo
-        # cd profiles/express
-        # echo Installing Express...
-        # $ROOT_DI.vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
-        # echo Exporting database...
-        # $ROOT_DI.vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
-        # $ROOT_DI.vendor/bin/drush pm-info travis_hosting
-        # $ROOT_DI.vendor/bin/drush pm-info ng_hosting
-        # $ROOT_DI.vendor/bin/drush pm-info cu_core
-        # $ROOT_DI.vendor/bin/drush pm-info cu_ldap
-        # $ROOT_DI.vendor/bin/drush pm-info cu_local_users
-        # $ROOT_DI.vendor/bin/drush pm-list
+        # # phpenv config-add $DRUPAL_DIR/profiles/express/tests/travis-ci/config/express-php.ini
+        php -i | grep memory
+        cat /proc/meminfo
+        cd profiles/express
+        echo Installing Express...
+        $DRUPAL_DIR/.vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        echo Exporting database...
+        $DRUPAL_DIR/.vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
+        $DRUPAL_DIR/.vendor/bin/drush pm-info travis_hosting
+        $DRUPAL_DIR/.vendor/bin/drush pm-info ng_hosting
+        $DRUPAL_DIR/.vendor/bin/drush pm-info cu_core
+        $DRUPAL_DIR/.vendor/bin/drush pm-info cu_ldap
+        $DRUPAL_DIR/.vendor/bin/drush pm-info cu_local_users
+        $DRUPAL_DIR/.vendor/bin/drush pm-list
 
 
     # - name: Install Composer
