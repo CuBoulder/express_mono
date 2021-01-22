@@ -43,6 +43,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: 7.2
+      run: php --version
 
     - name: Do Everything
       run: |
@@ -50,7 +51,6 @@ jobs:
         echo "Starting Mysql Database..."
         sudo /etc/init.d/mysql start
         mysql --version
-        mysql -e "DROP DATABASE drupal;" -proot -uroot
         mysql -e "CREATE DATABASE drupal;" -proot -uroot
 
         cd drupal
