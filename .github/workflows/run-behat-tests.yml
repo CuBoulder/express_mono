@@ -52,6 +52,7 @@ jobs:
         mysql --version
         mysql -e "CREATE DATABASE drupal;" -proot -uroot
         php --version
+        which mysql
 
         cd drupal
         DRUPAL_DIR=`pwd`
