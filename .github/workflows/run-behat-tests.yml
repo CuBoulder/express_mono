@@ -39,6 +39,11 @@ jobs:
       with:
         path: drupal/profiles/express
 
+    - name: Set PHP Version
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.2
+
     - name: Do Everything
       run: |
         echo -----
