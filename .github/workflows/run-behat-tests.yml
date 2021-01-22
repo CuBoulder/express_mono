@@ -41,14 +41,38 @@ jobs:
 
     - name: Do Everything
       run: |
-
         echo -----
-        echo "Starting MariaDB server..."
+        echo "Starting Mysql Database..."
         sudo /etc/init.d/mysql start
         mysql --version
         mysql -e "CREATE DATABASE drupal;" -proot -uroot
-        mysql -e "SHOW DATABASES;" -proot -uroot
 
+        cd drupal
+        DRUPAL_DIR=`pwd`
+        echo "PWD: $DRUPAL_DIR"
+
+        echo -----
+        echo "Installing Drush 8..."
+        composer require "drush/drush:8.*"
+        ./vendor/bin/drush --version
+
+        echo -----
+        echo "Installing Behat dependencies in $DRUPAL_DIR/profiles/express/tests/behat"
+        cd "$DRUPAL_DIR/profiles/express/tests/behat"
+        composer update
+        composer install --prefer-dist --no-interaction
+        ./bin/behat --version
+
+        echo -----
+        echo "Copying settings.php file to sites/default/..."
+        cd $DRUPAL_DIR
+        mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
+        cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
+        ls sites/default/
+
+        echo -----
+        echo Installing Express...
+        ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306 --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
     # - name: Install Composer
     #   uses: php-actions/composer@v5
     #   with:
