@@ -83,3 +83,5 @@ jobs:
         cd $DRUPAL_DIR
         rm -rf profiles/express/modules/contrib/memcache
         ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+
+        ./vendor/bin/drush pm -list
