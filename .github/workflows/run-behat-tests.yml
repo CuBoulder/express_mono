@@ -53,6 +53,7 @@ jobs:
         mysql -e "SET @@global.innodb_file_per_table=0;"  -proot -uroot
         mysql -e "SET @@global.innodb_flush_log_at_trx_commit=2;"  -proot -uroot
         mysql -e "CREATE DATABASE drupal;" -proot -uroot
+        mysql -e "GRANT ALL PRIVILIDGES ON drupal TO 'root'@'%'; FLUSH PRIVILIDGES" -proot -uroot
         php --version
         # which mysql
         # ps -eo cmd,args | grep mysql
