@@ -74,11 +74,11 @@ jobs:
 
         # echo -----
         # echo "Copying settings.php file to sites/default/..."
-        # cd $DRUPAL_DIR
         # mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
         # cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
         # ls sites/default/
 
         echo -----
         echo Installing Express...
+        cd $DRUPAL_DIR
         ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
