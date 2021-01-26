@@ -89,8 +89,8 @@ jobs:
 
         # Start server.
         cd $DRUPAL_DIR
-        $DRUPAL_DIR/vendor/bin/drush runserver 127.0.0.1:8031 > /dev/null 2>&1 &
-        nc -zvv 127.0.0.1 8031; out=$?; while [[ $out -ne 0 ]]; do echo "Retry hit port 8031..."; nc -zvv localhost 8031; out=$?; sleep 5; done
+        $DRUPAL_DIR/vendor/bin/drush runserver localhost:8031 > /dev/null 2>&1 &
+        nc -zvv localhost 8031; out=$?; while [[ $out -ne 0 ]]; do echo "Retry hit port 8031..."; nc -zvv localhost 8031; out=$?; sleep 5; done
 
 
         # Setting Behat environment variables is now done in behat.travis.yml for simplicity.
