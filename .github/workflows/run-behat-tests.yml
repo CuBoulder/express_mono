@@ -50,7 +50,11 @@ jobs:
         echo "Starting Mysql Database..."
         sudo /etc/init.d/mysql start
         mysql --version
+        # mysql -e "CREATE DATABASE drupal;" -proot -uroot
+        # mysql -e "GRANT ALL PRIVILEGES ON drupal.* TO 'root'@'%'; FLUSH PRIVILEGES" -proot -uroot
         php --version
+        # which mysql
+        # ps -eo cmd,args | grep mysql
 
         cd drupal
         DRUPAL_DIR=`pwd`
@@ -60,13 +64,19 @@ jobs:
         echo "Installing Drush 8..."
         composer require "drush/drush:8.*"
         ./vendor/bin/drush --version
-
+        echo "Drush installed..."
         echo -----
         echo "Installing Behat dependencies in $DRUPAL_DIR/profiles/express/tests/behat"
         cd "$DRUPAL_DIR/profiles/express/tests/behat"
         composer update
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
+
+        # echo -----
+        # echo "Copying settings.php file to sites/default/..."
+        # mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
+        # cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
+        # ls sites/default/
 
         echo -----
         echo Installing Express...
@@ -88,20 +98,19 @@ jobs:
 
         # # Run JS Behat tests
         # echo "Running Express JS tests..."
-        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags "~@broken&&@javascript&&~@digital_campaign"
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags "~@broken&&@javascript&&~@digital_campaign"
 
         # # Run Digital Campaign Tests
         # # We run these seperately b/c the changes they make cause other tests to fail if they are run afterwards.
         # echo "Running Express Digital Campaign tests..."
         # # Enable test content, user, and role.
         # $DRUPAL_DIR/vendor/bin/drush en cu_dc_tests -y
-        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_BEHAT_TAGS}
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_BEHAT_TAGS}
 
         # echo "Running Express Digital Campaign JS tests..."
-        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_JS_BEHAT_TAGS}
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_JS_BEHAT_TAGS}
 
         # # Output performance logging data.
         # $DRUPAL_DIR/vendor/bin/drush scr $DRUPAL_DIR/profiles/express/tests/travis-ci/log-express-performance.php
 
         # exit 0
-
