@@ -74,7 +74,6 @@ jobs:
         rm -rf profiles/express/modules/contrib/memcache
         ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
 
-        ./vendor/bin/drush pm-list
         ./vendor/bin/drush status
 
         # Start server.
@@ -84,7 +83,7 @@ jobs:
         # Setting Behat environment variables is now done in behat.travis.yml for simplicity.
 
         echo "Running Express headless tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags "~@broken&&~@javascript&&~@digital_campaign"
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --verbose --tags "~@broken&&~@javascript&&~@digital_campaign"
 
         # # Run JS Behat tests
         # echo "Running Express JS tests..."
