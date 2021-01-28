@@ -86,7 +86,7 @@ jobs:
 
         # # Run JS Behat tests
         # echo "Running Express JS tests..."
-        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags "~@broken&&@javascript&&~@digital_campaign"
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags "~newsArticles"
 
         # # Run Digital Campaign Tests
         # # We run these seperately b/c the changes they make cause other tests to fail if they are run afterwards.
