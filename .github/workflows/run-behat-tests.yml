@@ -86,22 +86,22 @@ jobs:
         echo "Running Express headless tests..."
         $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags "~@broken&&~@javascript&&~@digital_campaign"
 
-        # Run JS Behat tests
-        echo "Running Express JS tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags "~@broken&&@javascript&&~@digital_campaign"
+        # # Run JS Behat tests
+        # echo "Running Express JS tests..."
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags "~@broken&&@javascript&&~@digital_campaign"
 
-        # Run Digital Campaign Tests
-        # We run these seperately b/c the changes they make cause other tests to fail if they are run afterwards.
-        echo "Running Express Digital Campaign tests..."
-        # Enable test content, user, and role.
-        $DRUPAL_DIR/vendor/bin/drush en cu_dc_tests -y
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_BEHAT_TAGS}
+        # # Run Digital Campaign Tests
+        # # We run these seperately b/c the changes they make cause other tests to fail if they are run afterwards.
+        # echo "Running Express Digital Campaign tests..."
+        # # Enable test content, user, and role.
+        # $DRUPAL_DIR/vendor/bin/drush en cu_dc_tests -y
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_BEHAT_TAGS}
 
-        echo "Running Express Digital Campaign JS tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_JS_BEHAT_TAGS}
+        # echo "Running Express Digital Campaign JS tests..."
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --verbose --tags ${EXPRESS_DC_JS_BEHAT_TAGS}
 
-        # Output performance logging data.
-        $DRUPAL_DIR/vendor/bin/drush scr $DRUPAL_DIR/profiles/express/tests/travis-ci/log-express-performance.php
+        # # Output performance logging data.
+        # $DRUPAL_DIR/vendor/bin/drush scr $DRUPAL_DIR/profiles/express/tests/travis-ci/log-express-performance.php
 
-        exit 0
+        # exit 0
 
