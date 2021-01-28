@@ -49,7 +49,8 @@ jobs:
         echo -----
         echo "Starting Mysql Database..."
         sudo /etc/init.d/mysql start
-        mysql --versionphp --version
+        mysql --version
+        php --version
 
         cd drupal
         DRUPAL_DIR=`pwd`
