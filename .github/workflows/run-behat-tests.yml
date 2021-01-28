@@ -84,7 +84,7 @@ jobs:
         # Setting Behat environment variables is now done in behat.travis.yml for simplicity.
 
         echo "Running Express headless tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --verbose --tags "~@broken&&~@javascript&&~@digital_campaign"
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --stop-on-failure --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.local.yml --verbose --tags "~@broken&&~@javascript&&~@digital_campaign"
 
         # # Run JS Behat tests
         # echo "Running Express JS tests..."
