@@ -9,16 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # services:
-    #   mariadb:
-    #     image: mariadb:latest
-    #     ports: [3306]
-    #     env:
-    #       MYSQL_DATABASE: drupal7
-    #       MYSQL_USERNAME: drupal7
-    #       MYSQL_PASSWORD: drupal7
-    #       MYSQL_ROOT_PASSWORD: root
-
     steps:
 
     # - name: Make a comment
@@ -89,7 +79,7 @@ jobs:
 
         # Start server.
         cd $DRUPAL_DIR
-        ./vendor/bin/drush runserver localhost:8031/$DRUPAL_DIR > /dev/null 2>&1 &
+        ./vendor/bin/drush runserver localhost:8080 > /dev/null 2>&1 &
 
         # Setting Behat environment variables is now done in behat.travis.yml for simplicity.
 
