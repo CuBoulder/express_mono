@@ -92,14 +92,14 @@ default:
       Behat\MinkExtension:
         base_url: "http://127.0.0.1:8888"
         files_path: "%paths.base%/assets"
-        javascript_session: js
+        javascript_session: sauce
         sessions:
           default:
             goutte:
               guzzle_parameters:
                   verify: false
-          js:
-            selenium:
+          sauce:
+            sauce_labs:
               # Browser defaults to Firefox if left out.
               browser: "chrome"
               #browser: "internet explorer"
