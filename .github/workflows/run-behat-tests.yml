@@ -84,4 +84,4 @@ jobs:
         ./vendor/bin/drush en cu_behat_tests -y
 
         echo "Running Express headless tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "~@broken&&~@javascript&&~@digital_campaign"
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent"
