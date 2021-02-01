@@ -79,7 +79,9 @@ jobs:
         ./vendor/bin/drush runserver > /dev/null 2>&1 &
         ./vendor/bin/drush status
 
-        # Setting Behat environment variables is now done in behat.travis.yml for simplicity.
+        # Install cu_behat_tests
+        echo "Installing cu_behat_tests..."
+        ./vendor/bin/drush en cu_behat_tests -y
 
         echo "Running Express headless tests..."
         $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "~@broken&&~@javascript&&~@digital_campaign"
