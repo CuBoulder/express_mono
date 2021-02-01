@@ -58,7 +58,7 @@ jobs:
         echo -----
         echo "Installing Behat dependencies in $DRUPAL_DIR/profiles/express/tests/behat"
         cd "$DRUPAL_DIR/profiles/express/tests/behat"
-        composer update
+        # composer update
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
 
