@@ -80,7 +80,7 @@ jobs:
 
         # Install cu_behat_tests
         echo "Installing cu_behat_tests..."
-        ./vendor/bin/drush en cu_behat_tests cu_ldap cu_core ng_hosting -y
+        ./vendor/bin/drush en cu_behat_tests cu_ldap cu_core -y
         ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
 
         echo "Running Express headless tests..."
