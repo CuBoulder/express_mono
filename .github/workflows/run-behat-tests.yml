@@ -41,8 +41,6 @@ jobs:
         echo "Starting Mysql Database..."
         sudo /etc/init.d/mysql start
         mysql --version
-        # mysql -e "CREATE DATABASE drupal;" -proot -uroot
-        # mysql -e "GRANT ALL PRIVILEGES ON drupal.* TO 'root'@'%'; FLUSH PRIVILEGES" -proot -uroot
         php --version
         # which mysql
         # ps -eo cmd,args | grep mysql
@@ -83,6 +81,7 @@ jobs:
         # Install cu_behat_tests
         echo "Installing cu_behat_tests..."
         ./vendor/bin/drush en cu_behat_tests -y
+        ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
 
         echo "Running Express headless tests..."
         $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent"
