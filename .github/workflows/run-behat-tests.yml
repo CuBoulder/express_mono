@@ -62,10 +62,10 @@ jobs:
         ./bin/behat --version
 
         echo -----
+        cd $DRUPAL_DIR
         echo "Copying settings.php file to sites/default/..."
         mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
         cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
-        ls sites/default/
 
         echo -----
         echo Installing Express...
