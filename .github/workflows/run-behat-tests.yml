@@ -36,6 +36,7 @@ jobs:
 
     - name: Do Everything
       run: |
+        echo $GITHUB_ENV
         echo -----
         echo "Starting Mysql Database..."
         sudo /etc/init.d/mysql start
