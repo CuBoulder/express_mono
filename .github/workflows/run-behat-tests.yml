@@ -42,18 +42,18 @@ jobs:
         sudo /etc/init.d/mysql start
         mysql --version
         php --version
-        # which mysql
-        # ps -eo cmd,args | grep mysql
+        composer --version
 
         cd drupal
         DRUPAL_DIR=`pwd`
         echo "PWD: $DRUPAL_DIR"
-        php -r "print_r(get_loaded_extensions());"
+
         echo -----
         echo "Installing Drush 8..."
         composer require "drush/drush:8.*"
         ./vendor/bin/drush --version
         echo "Drush installed..."
+
         echo -----
         echo "Installing Behat dependencies in $DRUPAL_DIR/profiles/express/tests/behat"
         cd "$DRUPAL_DIR/profiles/express/tests/behat"
@@ -84,4 +84,4 @@ jobs:
         ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
 
         echo "Running Express headless tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@core&&~@javascript&&~@digital_campaign&&~@broken"
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@myTest"
