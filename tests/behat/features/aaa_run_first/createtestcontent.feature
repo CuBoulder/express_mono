@@ -8,6 +8,7 @@ Scenario: Create Test Nodes
 Given I am logged in as a user with the "site_owner" role
 # CREATE BASIC PAGE
 And I am on "node/add/page"
+Then I should see "Create Basic Page"
 And fill in "edit-title" with "TestBasicPage"
 And I fill in "Body" with "This is a Basic Page"
 When I uncheck "edit-menu-enabled"
