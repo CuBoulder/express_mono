@@ -64,7 +64,7 @@ jobs:
         echo -----
         cd $DRUPAL_DIR
         echo "Copying settings.php file to sites/default/..."
-        mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
+        # mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
         cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
 
         echo -----
@@ -80,7 +80,7 @@ jobs:
 
         # Install cu_behat_tests
         echo "Installing cu_behat_tests..."
-        ./vendor/bin/drush en cu_behat_tests cu_ldap cu_core -y
+        ./vendor/bin/drush en cu_behat_tests cu_ldap ng_hosting -y
         ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
 
         echo "Running Express headless tests..."
