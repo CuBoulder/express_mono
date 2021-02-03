@@ -67,11 +67,11 @@ jobs:
         # mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
         # cp $DRUPAL_DIR/profiles/express/.github/workflows/behat/behat.settings.php $DRUPAL_DIR/sites/default/settings.php
 
-        # echo -----
-        # echo Installing Express...
-        # cd $DRUPAL_DIR
-        # rm -rf profiles/express/modules/contrib/memcache
-        # ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        echo -----
+        echo Installing Express...
+        cd $DRUPAL_DIR
+        rm -rf profiles/express/modules/contrib/memcache
+        ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
 
         # Start server.
         cd $DRUPAL_DIR
