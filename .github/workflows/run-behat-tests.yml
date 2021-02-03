@@ -76,8 +76,8 @@ jobs:
         # Start server.
         cd $DRUPAL_DIR
         pwd
-        # ./vendor/bin/drush runserver &
-        # ./vendor/bin/drush status
+        ./vendor/bin/drush runserver > $DRUPAL_DIR/actionlog.txt &
+        ./vendor/bin/drush status
         # php -S localhost:8888 > $DRUPAL_DIR/actionlog.txt &
 
         # Install cu_behat_tests
