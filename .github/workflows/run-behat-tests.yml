@@ -22,6 +22,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: CuBoulder/d7core
+        ref: behat-action
         path: drupal
 
     - name: Checkout Pull Request's Commit
@@ -57,28 +58,23 @@ jobs:
         echo -----
         echo "Installing Behat dependencies in $DRUPAL_DIR/profiles/express/tests/behat"
         cd "$DRUPAL_DIR/profiles/express/tests/behat"
-        # composer update
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
 
         # echo -----
         # cd $DRUPAL_DIR
-        echo "Copying settings.php file to sites/default/..."
+        # echo "Copying settings.php file to sites/default/..."
         # mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
         # cp $DRUPAL_DIR/profiles/express/.github/workflows/behat/behat.settings.php $DRUPAL_DIR/sites/default/settings.php
 
         echo -----
         echo Installing Express...
         cd $DRUPAL_DIR
+        # Start server
+        ./vendor/bin/drush runserver > /dev/null 2>&1 &
         rm -rf profiles/express/modules/contrib/memcache
         ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
-
-        # Start server.
-        cd $DRUPAL_DIR
-        pwd
-        ./vendor/bin/drush runserver > $DRUPAL_DIR/actionlog.txt &
         ./vendor/bin/drush status
-        # php -S localhost:8888 > $DRUPAL_DIR/actionlog.txt &
 
         # Install cu_behat_tests
         echo "Installing cu_behat_tests..."
@@ -87,6 +83,3 @@ jobs:
 
         echo "Running Express headless tests..."
         $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent"
-
-        cat $DRUPAL_DIR/actionlog.txt
-        exit 0
