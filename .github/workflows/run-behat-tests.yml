@@ -71,9 +71,9 @@ jobs:
         echo Installing Express...
         cd $DRUPAL_DIR
         # Start server
-        ./vendor/bin/drush runserver > /dev/null 2>&1 &
         rm -rf profiles/express/modules/contrib/memcache
         ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        ./vendor/bin/drush runserver > /dev/null 2>&1 &
         ./vendor/bin/drush status
 
         # Install cu_behat_tests
