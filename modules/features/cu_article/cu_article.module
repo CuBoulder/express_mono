@@ -52,10 +52,6 @@ function cu_article_menu() {
  * Implements hook_form().
  */
 function cu_article_global_settings_form($form, &$form_state) {
-  error_reporting(E_ALL);
-  ini_set('display_errors', TRUE);
-  ini_set('display_startup_errors', TRUE);
-
   $settings = variable_get('cu_article_global_settings', '');
   $form['published_date'] = array(
     '#type' => 'fieldset',
