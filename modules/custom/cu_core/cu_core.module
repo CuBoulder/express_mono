@@ -5,6 +5,35 @@
  */
 
 /**
+ * Implements hook_menu_alter().
+ */
+function cu_core_menu_alter(&$items) {
+  // Remove visibility for enpoints unnecessarily set as public.
+  // Add endpoints to the array in the foreach loop.
+  foreach (['filter/tips'] as $endpoint) {
+    if ($items[$endpoint]) {
+      $items[$endpoint]['access callback'] = '_check_authenticated_user_role';
+      unset($items[$endpoint]['access arguments']);
+    }
+  }
+}
+
+/**
+ * Checks a user's role passed in from cu_core_menu_alter().
+ */
+function _check_authenticated_user_role() {
+  global $user;
+
+  foreach ($user->roles as $role) {
+    if ($role == 'authenticated user') {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
  * Implements hook_module_implements_alter().
  *
  * @param array $implementations

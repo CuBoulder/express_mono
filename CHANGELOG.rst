@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+
+v4.4.3 (2021-02-01)
+------------
+
+Fixed
+~~~~~~~
+- Update permissions so that anonymous users can see JS includes. Resolves #787. [James Fuller]
+
+
+~~~~~
+- Filter tips are hidden for anonymous users
+
+
 v4.4.2 (2021-01-13)
 ------------
 
