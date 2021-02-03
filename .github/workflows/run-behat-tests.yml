@@ -61,11 +61,11 @@ jobs:
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
 
-        echo -----
-        cd $DRUPAL_DIR
-        echo "Copying settings.php file to sites/default/..."
-        mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
-        cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
+        # echo -----
+        # cd $DRUPAL_DIR
+        # echo "Copying settings.php file to sites/default/..."
+        # mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
+        # cp profiles/express/tests/travis-ci/settings.travis.php sites/default/settings.php
 
         echo -----
         echo Installing Express...
