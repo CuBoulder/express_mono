@@ -79,8 +79,8 @@ jobs:
         # Install cu_behat_tests
         echo "Installing cu_behat_tests..."
         ./vendor/bin/drush en cu_behat_tests cu_users -y
-        # ./vendor/bin/drush pm-list
+        ./vendor/bin/drush pm-list
         ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
 
-        echo "Running Express headless tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "~@javascript&&~@digital_campaign&&~@broken"
+        # echo "Running Express headless tests..."
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "~@theOneTestToRun"
