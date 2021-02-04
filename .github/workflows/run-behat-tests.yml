@@ -75,6 +75,7 @@ jobs:
         ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
         ./vendor/bin/drush runserver > /dev/null 2>&1 &
         ./vendor/bin/drush status
+        ./vendor/bin/drush pm-list
 
         # Install cu_behat_tests
         echo "Installing cu_behat_tests..."
@@ -82,4 +83,4 @@ jobs:
         ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
 
         echo "Running Express headless tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@myTest"
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@myTest,$TestContent"
