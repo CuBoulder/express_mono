@@ -1,4 +1,4 @@
-@faqs @core @theOneTestToRun
+@faqs @core
 Feature: Frequently Asked Questions Content Type
 When I login to a Web Express website
 As an authenticated user
