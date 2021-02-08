@@ -84,3 +84,6 @@ jobs:
 
         # echo "Running Express headless tests..."
         $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --strict --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent"
+        ./vendor/bin/drush status
+        ./vendor/bin/drush watchdog-show
+
