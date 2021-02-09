@@ -56,9 +56,7 @@ class FeatureContext extends MinkContext
   }
 
   /**
-   * Wait for a number of seconds, just because.
-   *
-   * @Then I take a walk for :seconds second(s).
+   * @And I take a walk for :seconds seconds
    */
   public function iTakeAWalkForSeconds($seconds) {
     $milliseconds = $seconds * 1000;
