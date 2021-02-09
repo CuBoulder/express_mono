@@ -56,6 +56,16 @@ class FeatureContext extends MinkContext
   }
 
   /**
+   * Wait for a number of seconds, just because.
+   *
+   * @And I take a walk for :seconds second(s).
+   */
+  public function takeaWalk($seconds) {
+    $milliseconds = $seconds * 1000;
+    $this->getSession()->wait($milliseconds);
+  }
+
+  /**
    * Creates and authenticates a user with the given role(s).
    *
    * @Given I am logged in as a user with the :role role(s)

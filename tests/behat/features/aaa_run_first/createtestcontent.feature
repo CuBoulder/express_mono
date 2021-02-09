@@ -21,9 +21,10 @@ And I press "Save"
 Then print last response
 Then I should see "TestArticle"
 # CREATE PERSON
-# And I go to "node/add/person"
-# Then I should see "Create Person"
-# And fill in "First Name" with "TestFirstName"
-# And fill in "Last Name" with "TestLastName"
-# And I press "Save"
-# Then I should see "TestFirstName TestLastName"
+And I go to "node/add/person"
+Then I should see "Create Person"
+And fill in "First Name" with "TestFirstName"
+And fill in "Last Name" with "TestLastName"
+And I press "Save"
+And I take a walk for 3 seconds
+Then I should see "TestFirstName TestLastName"
