@@ -25,5 +25,5 @@ Then I should see "Create Person"
 And fill in "First Name" with "TestFirstName"
 And fill in "Last Name" with "TestLastName"
 And I press "Save"
-Then print last response
+And print last response
 Then I should see "TestFirstName TestLastName"
