@@ -56,11 +56,10 @@ class FeatureContext extends MinkContext
   }
 
   /**
-   * @And I take a walk for :seconds seconds
+   * @Then I take a walk for :arg1 seconds
    */
-  public function iTakeAWalkForSeconds($seconds) {
-    $milliseconds = $seconds * 1000;
-    $this->getSession()->wait($milliseconds);
+  public function iTakeAWalkForSeconds($arg1) {
+    sleep($arg1);
   }
 
   /**
