@@ -22,7 +22,6 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: CuBoulder/d7core
-        ref: behat-action
         path: drupal
 
     - name: Checkout Pull Request's Commit
