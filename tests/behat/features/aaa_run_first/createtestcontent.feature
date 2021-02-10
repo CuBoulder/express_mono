@@ -1,4 +1,4 @@
-@TestContent @theOneTestToRun
+@TestContent
 Feature: Creating Test Content
 In order to test Web Express functionality with Behat
 As a user with any role at all
