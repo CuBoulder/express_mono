@@ -18,7 +18,6 @@ And I go to "node/add/article"
 And fill in "edit-title" with "TestArticle"
 And fill in "Body" with "Demo article content"
 And I press "Save"
-Then print last response
 Then I should see "TestArticle"
 # CREATE PERSON
 And I go to "node/add/person"
