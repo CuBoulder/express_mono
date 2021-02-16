@@ -28,7 +28,6 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>';
         <Widget query_parameter_name="cse" />
     </LookAndFeel>
     <AdSense />
-    <EnterpriseAccount />
     <ImageSearchSettings enable="false" />
     <autocomplete_settings />
     <sort_by_keys label="Relevance" key="" />
