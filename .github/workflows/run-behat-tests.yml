@@ -35,6 +35,13 @@ jobs:
         php-version: 7.2
         tools: composer:v1
 
+    - uses: saucelabs/sauce-connect-action@v1
+      with:
+        username: ${{ secrets.SAUCE_USERNAME }}
+        accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+        tunnelIdentifier: github-action-tunnel
+        scVersion: 4.6.2
+
     - name: Do Everything
       run: |
         echo -----
@@ -81,6 +88,8 @@ jobs:
         ./vendor/bin/drush pm-list
         ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
 
-        # echo "Running Express headless tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "~@javascript&&~@broken&&~@digital_campaign" --stop-on-failure
+        echo "Running Express headless tests..."
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent" --stop-on-failure
 
+        echo "Running JavaScript tests..."
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@digital_campaign&&~@broken&&@javascript" --stop-on-failure
