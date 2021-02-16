@@ -163,58 +163,111 @@ $cugold: #CFB87C;
   }
   ul.expandable-tablist {
     position: relative;
-    &:after {
-      // border-bottom:1px solid $border;
-      z-index: 0;
-      content: ' ';
-      width:100%;
-      position: absolute;
-      bottom: 0;
-      left:0;
-    }
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    border-bottom:1px solid rgba(128,128,128,.75);
+    justify-content:center;
+    border-bottom:2px solid #111;
     li {
+      //margin: 0 5px;
       display: flex;
-      flex-grow: 1;
+      //flex-grow: 1;
       text-align: center;
       align-self: flex-end;
     }
     a {
       //color: $blue;
       display: block;
-      padding:5px 10px;
+      padding:8px 15px;
       font-weight: bold;
       position: relative;
       z-index: 1;
       margin:0 auto;
       line-height: 1.2;
       text-decoration: none !important;
-      opacity: .75;
+      color:#111;
     }
     li.is-active a {
-      // background:#fff;
-      //color:#202020;
+      background:#111;
+      color:#fff;
       opacity: 1;
       position: relative;
-      &:after {
-        content: "";
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 6px solid rgba(128,128,128,.75);
-        bottom: -6px;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        position: absolute;
+    }
+  }
+}
+// Horizontal Tab Colors
+// Selectors for *[class*="background-"] allow nesting to make sure that the
+// colors applied are only based on the nearest parent background color, and
+// not any other ancestors.
+
+
+
+$lights: (
+  "blue-light" : '',
+  "blue-medium" : '',
+  "gold-light" : '',
+  "tan" : '',
+  "green-light" : '',
+  "gray-light" : '',
+  "white" : '',
+  "gray-500" : '',
+  "gray-400" : '',
+  "gray-300" : '',
+  "gray-200" : '',
+  "gray-100" : '',
+);
+$darks: (
+  "black" : '',
+  "gray-dark" : '',
+  "blue-dark" : '',
+  "brick" : '',
+  "gray-900" : '',
+  "gray-800" : '',
+  "gray-700" : '',
+  "gray-600" : '',
+);
+
+
+
+@each $name, $color in $darks {
+  .background-#{$name},
+  *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name} {
+    .expandable-tabs .expandable-tab-group {
+      ul.expandable-tablist {
+        border-bottom-color: #fff;
+        li a { color: #fff; }
+        li.is-active a { color:#111; background-color:#fff; }
       }
     }
   }
 }
+@each $name, $color in $lights {
+  .background-#{$name},
+  *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name},
+  *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] *[class*="background-"] .background-#{$name} {
+    .expandable-tabs .expandable-tab-group {
+      ul.expandable-tablist {
+        border-bottom-color: #111;
+        li a { color: #111; }
+        li.is-active a { color:#fff; background-color:#111; }
+      }
+    }
+  }
+}
+
+
+
+
+
+
 .expandable.expandable-select {
   a.expandable-prompt {
     padding: 10px 30px 10px 10px;
