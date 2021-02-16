@@ -35,12 +35,11 @@ jobs:
         php-version: 7.2
         tools: composer:v1
 
-    - uses: saucelabs/sauce-connect-action@v1.1.2
+    - uses: saucelabs/sauce-connect-action@v1.x
       with:
         username: ${{ secrets.SAUCE_USERNAME }}
         accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
         tunnelIdentifier: github-action-tunnel
-        scVersion: 4.6.2
 
     - name: Do Everything
       run: |
