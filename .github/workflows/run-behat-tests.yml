@@ -39,7 +39,7 @@ jobs:
       with:
         username: ${{ secrets.SAUCE_USERNAME }}
         accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-        # tunnelIdentifier: ${{ secrets.SAUCE_TUNNEL_ID }}
+        tunnelIdentifier: ${{ secrets.SAUCE_TUNNEL_ID }}
 
     - name: Do Everything
       run: |
@@ -82,13 +82,16 @@ jobs:
         ./vendor/bin/drush status
 
         # Install cu_behat_tests
+        echo -----
         echo "Installing cu_behat_tests..."
         ./vendor/bin/drush en cu_behat_tests cu_users -y
         ./vendor/bin/drush pm-list
         ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
 
+        echo -----
         echo "Running Express headless tests..."
         $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent" --stop-on-failure
 
+        echo -----
         echo "Running JavaScript tests..."
         $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@digital_campaign&&~@broken&&@javascript" --stop-on-failure
