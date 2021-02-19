@@ -100,4 +100,4 @@ jobs:
 
         echo -----
         echo "Running JavaScript tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@digital_campaign&&~@broken&&@javascript"
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "~@broken&&@javascript"
