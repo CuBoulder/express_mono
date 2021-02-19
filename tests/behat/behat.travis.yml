@@ -101,6 +101,9 @@ default:
           sauce:
             sauce_labs:
               # Browser defaults to Firefox if left out.
+              username: _USERNAME_
+              access_key: _ACCESS_KEY_
+              connect: true
               browser: "chrome"
               # browser: "internet explorer"
               capabilities:
