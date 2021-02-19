@@ -103,7 +103,6 @@ default:
               # Browser defaults to Firefox if left out.
               browser: "chrome"
               # browser: "internet explorer"
-              connect: true
               capabilities:
                 # Need to add this fake data or else Sauce Labs fails.
                 # Problem in the behat/mink-extension project.
