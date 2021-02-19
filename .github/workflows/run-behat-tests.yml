@@ -51,7 +51,7 @@ jobs:
         composer --version
 
         cd drupal
-        curl https://www.drupal.org/files/issues/2021-02-05/transliteration-MySQL-8-BINARY-fix-3196961-1.patch
+        wget https://www.drupal.org/files/issues/2021-02-05/transliteration-MySQL-8-BINARY-fix-3196961-1.patch
         git apply transliteration-MySQL-8-BINARY-fix-3196961-1.patch
         DRUPAL_DIR=`pwd`
         echo "PWD: $DRUPAL_DIR"
