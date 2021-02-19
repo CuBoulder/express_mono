@@ -34,6 +34,7 @@ jobs:
       with:
         php-version: 7.2
         tools: composer:v1
+        extensions: mysql
 
     - uses: saucelabs/sauce-connect-action@v1.1.2
       with:
