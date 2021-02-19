@@ -53,9 +53,9 @@ jobs:
         cd drupal
         DRUPAL_DIR=`pwd`
         echo "PWD: $DRUPAL_DIR"
-        cd profiles/express/modules/contrib/transliteration
-        wget https://www.drupal.org/files/issues/2021-02-05/transliteration-MySQL-8-BINARY-fix-3196961-1.patch
-        git apply transliteration-MySQL-8-BINARY-fix-3196961-1.patch
+        # cd profiles/express/modules/contrib/transliteration
+        # wget https://www.drupal.org/files/issues/2021-02-05/transliteration-MySQL-8-BINARY-fix-3196961-1.patch
+        # git apply transliteration-MySQL-8-BINARY-fix-3196961-1.patch
         cd $DRUPAL_DIR
 
         echo -----
