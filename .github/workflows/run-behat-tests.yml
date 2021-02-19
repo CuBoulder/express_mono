@@ -92,10 +92,10 @@ jobs:
         ./vendor/bin/drush pm-list
         ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
 
-        echo -----
-        echo "Running Express headless tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent" --stop-on-failure
+        # echo -----
+        # echo "Running Express headless tests..."
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent" --stop-on-failure
 
         echo -----
         echo "Running JavaScript tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@digital_campaign&&~@broken&&@javascript" --stop-on-failure
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@digital_campaign&&~@broken&&@javascript"
