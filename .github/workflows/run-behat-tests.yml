@@ -32,7 +32,7 @@ jobs:
     - name: Set PHP Version
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 7.4
+        php-version: 7.3
         tools: composer:v1
         extensions: mysqli, PDO, xml, openssl, mbstring, gd
     - uses: saucelabs/sauce-connect-action@v1.1.2
