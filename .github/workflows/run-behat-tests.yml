@@ -39,7 +39,9 @@ jobs:
       with:
         username: ${{ secrets.SAUCE_USERNAME }}
         accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+        tunnelIdentifier: cu_express_tests
         scVersion: 4.6.4
+        sePort: 4445
 
     - name: Do Everything
       run: |
