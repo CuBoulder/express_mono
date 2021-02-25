@@ -40,7 +40,7 @@ jobs:
       run: |
         sudo /etc/init.d/mysql start
 
-    - name: print Mysql, php and composer versions
+    - name: Print Mysql, php and composer versions
       run: |
         mysql --version
         php --version
@@ -53,9 +53,10 @@ jobs:
 
     - name: Install Behat
       run: |
-        cd "profiles/express/tests/behat"
-        composer install --prefer-dist --no-interaction
-        ./bin/behat --version
+        pwd
+        # cd "profiles/express/tests/behat"
+        # composer install --prefer-dist --no-interaction
+        # ./bin/behat --version
 
     - name: Install Express and needed modules
       run: |
