@@ -41,6 +41,7 @@ jobs:
         accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
         tunnelIdentifier: cu_express_tests
         scVersion: 4.6.4
+        scproxyPort: 8888
         sePort: 4445
 
     - name: Do Everything
