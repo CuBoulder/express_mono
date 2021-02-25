@@ -35,60 +35,38 @@ jobs:
         php-version: 7.4
         tools: composer:v1
         extensions: mysqli, PDO, xml, openssl, mbstring, gd
-    - uses: saucelabs/sauce-connect-action@v1.1.2
-      with:
-        username: ${{ secrets.SAUCE_USERNAME }}
-        accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-        tunnelIdentifier: cu_express_tests
-        scVersion: 4.6.4
-        sePort: 8888
 
-    - name: Do Everything
+    - name: Start Mysql DB
       run: |
-        echo -----
-        echo "Starting Mysql Database..."
         sudo /etc/init.d/mysql start
+
+    - name: print Mysql, php and composer versions
+      run: |
         mysql --version
         php --version
         composer --version
 
-        cd drupal
-        DRUPAL_DIR=`pwd`
-        echo "PWD: $DRUPAL_DIR"
-        # cd profiles/express/modules/contrib/transliteration
-        # wget https://www.drupal.org/files/issues/2021-02-05/transliteration-MySQL-8-BINARY-fix-3196961-1.patch
-        # git apply transliteration-MySQL-8-BINARY-fix-3196961-1.patch
-        cd $DRUPAL_DIR
-
-        echo -----
-        echo "Installing Drush 8..."
+    - name: Install Drush 8
+      run: |
         composer require "drush/drush:8.*"
         ./vendor/bin/drush --version
-        echo "Drush installed..."
 
-        echo -----
-        echo "Installing Behat dependencies in $DRUPAL_DIR/profiles/express/tests/behat"
-        cd "$DRUPAL_DIR/profiles/express/tests/behat"
+    - name: Install Behat
+      run: |
+        cd "profiles/express/tests/behat"
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
 
-        # echo -----
-        # cd $DRUPAL_DIR
-        # echo "Copying settings.php file to sites/default/..."
-        # mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
-        # cp $DRUPAL_DIR/profiles/express/.github/workflows/behat/behat.settings.php $DRUPAL_DIR/sites/default/settings.php
-
-        echo -----
-        echo Installing Express...
-        cd $DRUPAL_DIR
-        # Start server
+    - name: Install Express and needed modules
+      run: |
+        # Memcache module causes some problems. Remove it.
         rm -rf profiles/express/modules/contrib/memcache
+        # Start server.
         ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
         ./vendor/bin/drush runserver > /dev/null 2>&1 &
         ./vendor/bin/drush status
 
-        # Install cu_behat_tests
-        echo -----
+        # Install cu_behat_tests.
         echo "Installing cu_behat_tests..."
         ./vendor/bin/drush en cu_behat_tests cu_users -y
         ./vendor/bin/drush pm-list
@@ -96,10 +74,10 @@ jobs:
         sed -i s/_USERNAME_/${{ secrets.SAUCE_USERNAME }}/g $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml
         sed -i s/_ACCESS_KEY_/${{ secrets.SAUCE_ACCESS_KEY }}/g $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml
 
-        # echo -----
-        # echo "Running Express headless tests..."
-        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent" --stop-on-failure
+    - name: Run Ghoute driver tests
+      run: |
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent" --stop-on-failure
 
-        echo -----
-        echo "Running JavaScript tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "~@broken&&@javascript"
+    # - name: Run js tests
+    #   run: |
+        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "~@broken&&@javascript" --verbose
