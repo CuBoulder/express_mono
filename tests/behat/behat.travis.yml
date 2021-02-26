@@ -97,7 +97,7 @@ default:
           default:
             goutte:
               guzzle_parameters:
-                  verify: false
+                verify: false
           sauce:
             sauce_labs:
               # Browser defaults to Firefox if left out.
