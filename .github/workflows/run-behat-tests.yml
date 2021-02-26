@@ -35,6 +35,7 @@ jobs:
         php-version: 7.4
         tools: composer:v1
         extensions: mysqli, PDO, xml, openssl, mbstring, gd
+
     - uses: saucelabs/sauce-connect-action@v1.1.2
       with:
         username: ${{ secrets.SAUCE_USERNAME }}
@@ -99,7 +100,7 @@ jobs:
 
         # echo -----
         # echo "Running Express headless tests..."
-        # $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent" --stop-on-failure
+        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent" --stop-on-failure
 
         echo -----
         echo "Running JavaScript tests..."
