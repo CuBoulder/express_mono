@@ -1,0 +1,40 @@
+<?php
+
+require '../classes/express_site_metrics_instpector.php';
+require '../classes/express_site_metrics_kiosk.php';
+
+/**
+ * Unit tests for this module.
+ */
+class ExpressSiteMetricsTestCase extends DrupalUnitTestCase {
+
+  // A mock of the expected request from Prometheus.
+  private $requests = [];
+
+  /**
+   * Describe test suite.
+   */
+  public static function getInfo() {
+    return [
+      'name' => 'Simpletest Example unit tests',
+      'description' => 'Test the SiteMetricsInspector class',
+      'group' => 'express_site_metrics',
+    ];
+  }
+
+  public function testKioskTokenAuthorization() {
+    // Test one valid and one invalid token.
+    // Test authenticated user without token -> should be sent to kiosk->generateToken().
+    // Test anonymous user -> should not be allowed to see metric data. Maybe show message
+  }
+
+  public function testKioskTokenGeneration() {
+    // If no token is present and a user is Authenticated, generate one.
+  }
+
+  public function testUserNotAuthenticated() {
+    // If the user is not properly authenticated do something appropriate, but do not let them see the metrics data.
+  }
+
+  public function test
+}
