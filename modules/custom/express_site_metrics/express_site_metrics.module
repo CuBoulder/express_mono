@@ -6,6 +6,7 @@
  */
 
 require drupal_get_path('module', 'express_site_metrics') . '/classes/express_site_metrics_instpector.php';
+require drupal_get_path('module', 'express_site_metrics') . '/classes/express_site_metrics_token.php';
 
 /**
  * Implements hook_menu().
@@ -36,28 +37,29 @@ function express_site_metrics_menu() {
  *   User can or canno access this endpoint.
  */
 function express_site_metrics_access() {
-
-  $serverKey = '5f2b5cdbe5194f10b3241568fe4e2b24';
-  $userID = 'Prometheus';
+  $secret = variable_get('express_site_metrics_secret', 'no secret in variable table.');
 
   if (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
     $token = explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1];
-    $decodedToken = JWT::decode($token, $serverKey, array('HS256'));
-    // echo json_encode($decodedToken);
+    $decodedToken = JWT::decode($token, $secret, array('HS256'));
 
-    if ($userID === $decodedToken->userId) {
-      return TRUE;
+    foreach (variable_get('express_site_metrics_tokens') as $bearer => $payload) {
+      if ($payload['userId'] === $decodedToken->userId) {
+        return TRUE;
+      }
     }
   }
 
   return FALSE;
 }
 
+/**
+ * Build a json response with metrics data.
+ */
 function express_site_metrics_json() {
-
   drupal_add_http_header('Status', 200, TRUE);
   drupal_add_http_header('Content-Type', 'application/json');
-  echo json_encode([$_GET, $_SERVER], JSON_PRETTY_PRINT);
+  echo json_encode(['message' => "You made it! Your token got you here!"]);
 
 }
 
@@ -65,12 +67,33 @@ function express_site_metrics_json() {
  * Pretty prints site metrics data to screen.
  */
 function express_site_metrics_pretty_print() {
+  // Create a token.
+  $secret = variable_get('express_site_metrics_secret', 'no secret in variable table.');
+  $userId = variable_get('express_site_metrics_tokens')['prometheus']['userId'];
+  $payloadArray = array();
+  $payloadArray['userId'] = $userId;
+  $token = JWT::encode($payloadArray, $secret);
+
+  // Return to caller.
+  $returnArray = array('token', $token);
+  $jsonEncodedReturnArray = json_encode($returnArray, JSON_PRETTY_PRINT);
+  $tokenCharCount = strlen('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJQcm9tZXRoZXVzIn0.Ft8yJjMNjTx5LrRxJVxHVLJzmjFHGa8vvOjzrxnbYoQ');
+  $tokenHeaderCount = strlen('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9');
+  $tokenPayloadCount = strlen('eyJ1c2VySWQiOiJQcm9tZXRoZXVzIn0');
+  $tokenSignatureCount = strlen('Ft8yJjMNjTx5LrRxJVxHVLJzmjFHGa8vvOjzrxnbYoQ');
+
   return [
     'content' => [
       '#type' => 'markup',
-      '#markup' => "<pre style=\"background-color: AliceBlue\">You will see site metrics printed here at some point in the future.</pre>",
+      '#markup' => "<p>$tokenCharCount - $tokenHeaderCount - $tokenPayloadCount - $tokenSignatureCount</p><pre style=\"background-color: AliceBlue\">$jsonEncodedReturnArray</pre>",
     ],
   ];
+  //   return [
+  //     'content' => [
+  //       '#type' => 'markup',
+  //       '#markup' => "<h2>$secret</h2><pre style=\"background-color: AliceBlue\">You will see site metrics printed here at some point in the future.</pre>",
+  //     ],
+  //   ];
 }
 
 /**

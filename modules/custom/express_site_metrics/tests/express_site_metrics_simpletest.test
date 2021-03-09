@@ -1,7 +1,29 @@
 <?php
 
 require '../classes/express_site_metrics_instpector.php';
-require '../classes/express_site_metrics_kiosk.php';
+require '../classes/express_site_metrics_token.php';
+
+class Mock {
+  private $express_site_metrics_tokens = ['prometheus' => ['userId' => 'Prometheus']];
+  private $express_site_metrics_secret = 'SECRET';
+
+  static function varibale_get(string $key, mixed $ifEmpty = NULL): mixed {
+    if ($key === 'express_site_metrics_tokens') {
+      return self::$express_site_metrics_tokens;
+    }
+
+    elseif ($key === 'express_site_metric_secret') {
+      return self::$express_site_metrics_secret;
+    }
+  }
+
+  static function variable_set(string $key, mixed $value) {
+    if ($key === 'express_site_metrics_tokens') {
+      self::$express_site_metrics_tokens = $value;
+    }
+  }
+
+}
 
 /**
  * Unit tests for this module.
@@ -9,8 +31,8 @@ require '../classes/express_site_metrics_kiosk.php';
 class ExpressSiteMetricsTestCase extends DrupalUnitTestCase {
 
   // A mock of the expected request from Prometheus.
-  private $requests = [];
-
+  private $tokens = ['good' => '', 'bad' => ''];
+  private $Mock = new Mock();
   /**
    * Describe test suite.
    */
@@ -22,19 +44,18 @@ class ExpressSiteMetricsTestCase extends DrupalUnitTestCase {
     ];
   }
 
-  public function testKioskTokenAuthorization() {
-    // Test one valid and one invalid token.
-    // Test authenticated user without token -> should be sent to kiosk->generateToken().
-    // Test anonymous user -> should not be allowed to see metric data. Maybe show message
+  public function testTokenGenerate() {
+    // Should return token -> xxxxx.xxxxx.xxxxxx.
+    $TokenGenerator = new Token('dbGet', 'dbSet');
+
   }
 
-  public function testKioskTokenGeneration() {
-    // If no token is present and a user is Authenticated, generate one.
+  public function testTokenValidate() {
+    // Should return TRUE if token is valid. FALSE if not.
   }
 
-  public function testUserNotAuthenticated() {
-    // If the user is not properly authenticated do something appropriate, but do not let them see the metrics data.
-  }
+  // public function testInspectorGetMetrics() {
+  //   // Should return an associative array.
+  // }
 
-  public function test
 }
