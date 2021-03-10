@@ -24,14 +24,14 @@ function cu_newsletter_menu() {
     'title' => 'Publish newsletter and attached articles',
   );
   $items['newsletter/%'] = array(
-    'page callback' => 'cu_newsletter_archive_page',
+    'page callback' => 'cu_newsletter_current_page',
     'page arguments' => array(1),
     'access callback' => TRUE,
     'title callback' =>'cu_newsletter_archive_page_title',
     'title arguments' => array(1),
   );
   $items['newsletter/%/current'] = array(
-    'page callback' => 'cu_newsletter_latest',
+    'page callback' => 'cu_newsletter_',
     'page arguments' => array(1),
     'access callback' => TRUE,
   );
@@ -570,6 +570,37 @@ function cu_newsletter_archive_page_title($newsletter_path) {
   $term = cu_newsletter_load_by_path($newsletter_path);
   $term = taxonomy_term_load($term->tid);
   $output = $term->name . ' Archive';
+  return $output;
+}
+
+/**
+ * Page callback function for newsletter/%/current.
+ */
+function cu_newsletter_current_page($newsletter_path) {
+  $output = array();
+  $term = cu_newsletter_load_by_path($newsletter_path);
+  $query = db_select('node', 'n');
+  $query->orderBy('created', 'DESC');
+  $query = $query->extend('PagerDefault')->limit(10);
+  $query->condition('n.type', 'newsletter', '=');
+  $query->condition('n.status', 1, '=');
+  $query->fields('n', array('nid', 'title', 'sticky'));
+  // Add newsletter type condition
+  $query->join("field_data_field_newsletter_type", "type", "n.nid = type.entity_id");
+  $query->fields('type', array('field_newsletter_type_tid'));
+  $query->condition('type.field_newsletter_type_tid', $term->tid, '=');
+
+  $nids = $query->execute()->fetchCol();
+  $nodes = node_load_multiple($nids);
+
+  $output['newsletters'] = node_view_multiple($nodes, 'teaser');
+  $output['newsletters']['#weight'] = 99;
+  $output['pager'] = array(
+    '#theme' => 'pager',
+    '#tags' => array(),
+    '#weight' => 100.
+  );
+
   return $output;
 }
 
