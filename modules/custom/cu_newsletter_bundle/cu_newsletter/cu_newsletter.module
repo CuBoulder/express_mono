@@ -30,7 +30,11 @@ function cu_newsletter_menu() {
     'title callback' =>'cu_newsletter_archive_page_title',
     'title arguments' => array(1),
   );
-
+  $items['newsletter/%/current'] = array(
+    'page callback' => 'cu_newsletter_latest',
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+  );
   return $items;
 }
 
