@@ -8,18 +8,8 @@ class SiteMetricsInspector {
   /**
    * Build the class.
    */
-  private function __construct() {
+  public function __construct() {
 
-  }
-
-  /**
-   * Authenticate the request.
-   *
-   * @return bool
-   *   Returns true if allowed, false if not.
-   */
-  private function isAllowedIn($token) {
-    return TRUE;
   }
 
   /**
@@ -28,8 +18,9 @@ class SiteMetricsInspector {
    * @return array
    *   Metrics data in an associative array.
    */
-  public static function gatherData() {
-    return [];
+  public static function gatherData($pretty = FALSE) {
+    $metrics = 'Site metrics will be here.';
+    return $pretty ? json_encode(['metrics' => $metrics], JSON_PRETTY_PRINT) : json_encode(['metrics' => $metrics]);
   }
 
 }

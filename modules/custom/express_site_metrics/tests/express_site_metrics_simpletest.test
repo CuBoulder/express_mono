@@ -1,28 +1,53 @@
 <?php
 
-require '../classes/express_site_metrics_instpector.php';
-require '../classes/express_site_metrics_token.php';
+/**
+ * @file
+ * Unit test cases for this module.
+ */
 
-class Mock {
-  private $express_site_metrics_tokens = ['prometheus' => ['userId' => 'Prometheus']];
-  private $express_site_metrics_secret = 'SECRET';
+// Mock data and functions.
+$express_site_metrics_tokens = ['prometheus' => ['userId' => 'Prometheus']];
+$express_site_metrics_secret = 'SECRET';
 
-  static function varibale_get(string $key, mixed $ifEmpty = NULL): mixed {
-    if ($key === 'express_site_metrics_tokens') {
-      return self::$express_site_metrics_tokens;
-    }
-
-    elseif ($key === 'express_site_metric_secret') {
-      return self::$express_site_metrics_secret;
-    }
+/**
+ * Mocked implementation of variable_get().
+ *
+ * @param string $key
+ *   Name of the entry in the variable DB table.
+ * @param mixed $ifEmpty
+ *   What is returned if no entry exists with the name of $key.
+ *
+ * @return mixed
+ *   Returns either the DB entry for $key or null.
+ */
+function variable_get(string $key, $ifEmpty = NULL): mixed {
+  global $_express_site_metrics_secret, $_express_site_metrics_tokens;
+  if ($key === 'express_site_metrics_tokens') {
+    return $_express_site_metrics_tokens;
   }
 
-  static function variable_set(string $key, mixed $value) {
-    if ($key === 'express_site_metrics_tokens') {
-      self::$express_site_metrics_tokens = $value;
-    }
+  elseif ($key === 'express_site_metric_secret') {
+    return $_express_site_metrics_secret;
   }
 
+  else {
+    return NULL;
+  }
+}
+
+/**
+ * Mocked implementation of variable_set().
+ *
+ * @param string $key
+ *   The name of the entry in the variable DB table.
+ * @param array $value
+ *   The value to save to the database. In this case an associative array.
+ */
+function variable_set(string $key, array $value) {
+  global $_express_site_metrics_tokens;
+  if ($key === 'express_site_metrics_tokens') {
+    $_express_site_metrics_tokens = $value;
+  }
 }
 
 /**
@@ -30,9 +55,13 @@ class Mock {
  */
 class ExpressSiteMetricsTestCase extends DrupalUnitTestCase {
 
-  // A mock of the expected request from Prometheus.
-  private $tokens = ['good' => '', 'bad' => ''];
-  private $Mock = new Mock();
+  private $tokenHandler;
+  private $inspector;
+  private $testTokens = [
+    'good' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJzb21lRG9Hb29kZXIifQ.jYmzAJ_RUVaBEFUu6EBQReMQuPm2IGY3Ln-XJlwlYG8',
+    'bad' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiJzb21lRG9Hb29kZXIifQ.1_s1082tpGO1OwFy_5boCHhXQNpxgk6KEreuAcq93hs',
+  ];
+
   /**
    * Describe test suite.
    */
@@ -44,18 +73,45 @@ class ExpressSiteMetricsTestCase extends DrupalUnitTestCase {
     ];
   }
 
+  /**
+   * Set up inspector and tokenhandler classes.
+   */
+  public function setUp() {
+    require '../classes/express_site_metrics_instpector.php';
+    require '../classes/express_site_metrics_token.php';
+
+    $constructorObject = [
+      'dbGet' => 'variable_get',
+      'dbSet' => 'variable_set',
+      'secret' => 'express_site_metrics_secret',
+      'tokensDb' => 'express_site_metrics_tokens',
+    ];
+
+    $this->inspector = new SiteMetricsInspector();
+    $this->tokenHandler = new TokenHandler($constructorObject);
+  }
+
+  /**
+   * Test the tokenHandler->generate() method.
+   */
   public function testTokenGenerate() {
     // Should return token -> xxxxx.xxxxx.xxxxxx.
-    $TokenGenerator = new Token('dbGet', 'dbSet');
+    $newToken = $this->tokenHandler->generate('someDoGooder');
 
+    $this->assertEqual($newToken, $this->testTokens['good']);
   }
 
+  /**
+   * Test the tokenhandler->validate() method.
+   *
+   * @return void
+   */
   public function testTokenValidate() {
-    // Should return TRUE if token is valid. FALSE if not.
-  }
+    $isAllowed = $this->tokenHandler->validate($testTokens['good']);
+    $this->assertTrue($isAllowed, "This token should be successfully validated.");
 
-  // public function testInspectorGetMetrics() {
-  //   // Should return an associative array.
-  // }
+    $isAllowed = $this->tokenHandler->validate($testTokens['bad']);
+    $this->assertFalse($isAllowed, "This token should not be validated.");
+  }
 
 }
