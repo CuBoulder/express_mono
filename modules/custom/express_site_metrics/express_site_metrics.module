@@ -5,6 +5,13 @@
  * Provides statistics reporting for Express web sites.
  */
 
+$tokenHandlerConstructor = [
+  'metricsUsers' => 'express_site_metrics_users',
+  'secret' => 'express_site_metrics_secret',
+  'dbGet' => 'variable_get',
+  'dbSet' => 'variable_set',
+];
+
 /**
  * Implements hook_menu().
  */
@@ -22,6 +29,21 @@ function express_site_metrics_menu() {
     // 'access arguments' => array('administer modules'),
   );
 
+  $items['admin/express/metrics/token'] = array(
+    'title' => 'Generate a new token for Express site metrics access.',
+    'description' => 'Express uses Json Web Tokens to authenticate 3rd party services.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('express_site_metrics_generate_token_form'),
+    'access arguments' => array('administer modules'),
+  );
+
+  $items['admin/express/metrics/show-token'] = array(
+    'title' => 'Your new token for Express site metrics access.',
+    'description' => 'New Json Web Token',
+    'page callback' => 'express_site_metrics_show_token',
+    'access arguments' => array('administer modules'),
+  );
+
   return $items;
 }
 
@@ -36,12 +58,9 @@ function express_site_metrics_menu() {
 function express_site_metrics_access() {
 
   if (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
-    $secret = variable_get('express_site_metrics_secret', 'SECRET');
-    $tokensDb = variable_get('express_site_metrics_tokens');
-
-    $tokenHandler = new TokenHandler($secret, $tokensDb, $_SERVER);
-
-    return $tokenHandler->validate();
+    $variableDb = new VariableController();
+    $tokenHandler = new TokenHandler($variableDb, $_SERVER);
+    return $tokenHandler->validateToken();
   }
 
   return FALSE;
@@ -51,10 +70,9 @@ function express_site_metrics_access() {
  * Build a json response with metrics data.
  */
 function express_site_metrics_json() {
-  $inspector = new SiteMetricsInspector();
   drupal_add_http_header('Status', 200, TRUE);
   drupal_add_http_header('Content-Type', 'application/json');
-  $metrics = $inspector->gatherData();
+  $metrics = SiteMetricsInspector::makeReport('module_invoke_all', 'atlas_statistics');
   echo $metrics;
 }
 
@@ -62,34 +80,78 @@ function express_site_metrics_json() {
  * Pretty prints site metrics data to screen.
  */
 function express_site_metrics_pretty_print() {
-  // Create a token.
-  $secret = variable_get('express_site_metrics_secret', 'no secret in variable table.');
-  $userId = variable_get('express_site_metrics_tokens')['prometheus']['userId'];
-  $payloadArray = array();
-  $payloadArray['userId'] = $userId;
-  $token = JWT::encode($payloadArray, $secret);
-
-  // Return to caller.
-  $returnArray = array('token', $token);
-  $jsonEncodedReturnArray = json_encode($returnArray, JSON_PRETTY_PRINT);
-
+  $jsonSiteMetricsData = SiteMetricsInspector::makeReport('module_invoke_all', 'atlas_statistics', TRUE);
   return [
     'content' => [
       '#type' => 'markup',
-      '#markup' => "<pre style=\"background-color: AliceBlue\">$jsonEncodedReturnArray</pre>",
+      '#markup' => "<pre style=\"background-color: AliceBlue\">$jsonSiteMetricsData</pre>",
     ],
   ];
-  //   return [
-  //     'content' => [
-  //       '#type' => 'markup',
-  //       '#markup' => "<h2>$secret</h2><pre style=\"background-color: AliceBlue\">You will see site metrics printed here at some point in the future.</pre>",
-  //     ],
-  //   ];
 }
 
 /**
- * Implements hook_cron().
+ * Creates a form for a user to create a new Json Web Token. If ever needed.
  */
-function express_site_metrics_cron() {
+function express_site_metrics_generate_token_form($form, &$form_state) {
 
+  $form['fieldset'] = [
+    '#type' => 'fieldset',
+    '#title' => 'Set User Id for New Token',
+  ];
+
+  $form['fieldset']['userId'] = [
+    '#title' => 'User Id',
+    '#type' => 'textfield',
+    '#default_value' => 'a short user id',
+    '#required' => TRUE,
+  ];
+
+  $form['fieldset']['submit'] = [
+    '#type' => 'submit',
+    '#value' => 'Submit',
+  ];
+
+  $form['#submit'][] = 'express_site_metrics_generate_token';
+  $form['#method'][] = 'POST';
+  return $form;
+}
+
+/**
+ * Validate UserId. Generate a new token.
+ */
+function express_site_metrics_generate_token() {
+  $userId = $_POST['userId'];
+  $tokenHandler = new TokenHandler(new VariableController(), []);
+
+  if ($userId) {
+    $token = $tokenHandler->generateToken($userId);
+
+    $query = ['metricsToken' => $token, 'userId' => $userId];
+    drupal_goto('/admin/express/metrics/show-token', ['query' => $query]);
+  }
+}
+
+/**
+ * Simply shows a newly created JWT.
+ */
+function express_site_metrics_show_token() {
+  if ($_GET['metricsToken'] && $_GET['userId']) {
+    $metricsToken = $_GET['metricsToken'];
+    $userId = $_GET['userId'];
+
+    return [
+      'content' => [
+        '#type' => 'markup',
+        '#markup' => "<div style=\"width: 75%; margin: 0 auto;\"><ul><li>UserId: <span style=\"background-color: AliceBlue; padding: 4px 8px;\">$userId</span></li><li>Token: <span style=\"background-color: AliceBlue; padding: 4px 8px;\">$metricsToken</span></li><li><a href=\"/admin/express/metrics/token\">go back</a></li></div>",
+      ],
+    ];
+  }
+  else {
+    return [
+      'content' => [
+        '#type' => 'markup',
+        '#markup' => "<p style=\"messages warning\">Oops! For some reason your new token cannot be displayed.</p><div><a href=\"/admin/express/metrics/token\">go back</a></div>",
+      ],
+    ];
+  }
 }

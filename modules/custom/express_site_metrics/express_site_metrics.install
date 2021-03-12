@@ -12,5 +12,5 @@ function express_site_metrics_install() {
   global $conf;
   $prometheusToken = $conf['express_site_metrics_prometheus'];
 
-  variable_set('express_site_metrics_tokens', $prometheusToken);
+  variable_set('express_site_metrics_users', $prometheusToken);
 }
