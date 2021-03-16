@@ -590,7 +590,7 @@ function cu_newsletter_current_page($newsletter_path) {
   $query->join("field_data_field_newsletter_type", "type", "n.nid = type.entity_id");
   $query->fields('type', ['field_newsletter_type_tid']);
   $query->condition('type.field_newsletter_type_tid', $term->tid, '=');
-  $query->range(0, 1); 
+  $query->range(0, 1);
   $nid = $query->execute()->fetchField();
   $node = node_load($nid);
   $output = node_view($node);
