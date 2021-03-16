@@ -575,21 +575,22 @@ function cu_newsletter_archive_page_title($newsletter_path) {
 
 /**
  * Page callback function for newsletter/%/current.
+ *
  * Go to latest published issue for selected newsletter.
  */
 function cu_newsletter_current_page($newsletter_path) {
   $output = array();
   $term = cu_newsletter_load_by_path($newsletter_path);
-  $query = db_select("node", "n"); // select from the node table
-  $query->condition('n.type', 'newsletter', '='); // node is published
+  $query = db_select("node", "n");
+  $query->condition('n.type', 'newsletter', '=');
   $query->condition('n.status', 1, '=');
   $query->fields('n', ['nid', 'title', 'sticky']);
-  $query->orderBy("created", "DESC"); // order by the newest
+  $query->orderBy("created", "DESC");
   // Add newsletter type condition
   $query->join("field_data_field_newsletter_type", "type", "n.nid = type.entity_id");
   $query->fields('type', ['field_newsletter_type_tid']);
   $query->condition('type.field_newsletter_type_tid', $term->tid, '=');
-  $query->range(0, 1); // select only 1 record
+  $query->range(0, 1); 
   $nid = $query->execute()->fetchField();
   $node = node_load($nid);
   $output = node_view($node);
