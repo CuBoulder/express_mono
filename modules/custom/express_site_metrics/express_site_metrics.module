@@ -84,7 +84,7 @@ function express_site_metrics_pretty_print() {
   return [
     'content' => [
       '#type' => 'markup',
-      '#markup' => "<pre style=\"background-color: AliceBlue\">$jsonSiteMetricsData</pre>",
+      '#markup' => "<pre style=\"background-color: AliceBlue; padding: 8px; white-space: pre-wrap; word-break: keep-all;\">$jsonSiteMetricsData</pre>",
     ],
   ];
 }

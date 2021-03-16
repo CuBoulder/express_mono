@@ -5,3 +5,7 @@ core = 7.x
 files[] = classes/express_site_metrics_inspector.php
 files[] = classes/express_site_metrics_token_handler.php
 files[] = classes/express_site_metrics_variable_controller.php
+
+dependencies[] = atlas
+dependencies[] = atlas_statistics
+dependencies[] = cu_users
