@@ -71,10 +71,10 @@ jobs:
         sed -i s/_USERNAME_/${{ secrets.SAUCE_USERNAME }}/g ./profiles/express/tests/behat/behat.travis.yml
         sed -i s/_ACCESS_KEY_/${{ secrets.SAUCE_ACCESS_KEY }}/g ./profiles/express/tests/behat/behat.travis.yml
 
-    - name: Run Ghoute driver tests
-      run: |
-        pwd && ls
-        drupal/profiles/express/tests/behat/bin/behat --config drupal/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent,@block-section-block,@cu_publications_bundle" --stop-on-failure
+    # - name: Run Ghoute driver tests
+    #   run: |
+    #     pwd && ls
+    #     drupal/profiles/express/tests/behat/bin/behat --config drupal/profiles/express/tests/behat/behat.travis.yml --tags "~@javascript&&~@digital_campaign&&~@broken" --verbose
 
     - name: Run js tests
       run: |
