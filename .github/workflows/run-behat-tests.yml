@@ -78,7 +78,7 @@ jobs:
 
     - name: Start Headless Chrome
       run: |
-        google-chrome --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 -disk-cache-dir=/tmp --user-data-dir=/tmp --crash-dumps-dir=/tmp
+        google-chrome --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 -disk-cache-dir=/tmp --user-data-dir=/tmp --crash-dumps-dir=/tmp > /dev/null 2>&1 &
 
     - name: Run js tests
       run: |
