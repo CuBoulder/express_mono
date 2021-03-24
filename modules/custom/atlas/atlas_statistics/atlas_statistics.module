@@ -5,7 +5,6 @@
  * Provides statistics reporting for Atlas.
  */
 
-
 /**
  * Implements hook_boot().
  */
@@ -14,22 +13,27 @@ function atlas_statistics_boot() {
   // https://www.drupal.org/node/1822278
 }
 
-/**
- * Implements hook_cron().
- */
-function atlas_statistics_cronapi($op, $job = NULL) {
-
-  $items['atlas_statistics_cron'] = array(
-    'description' => 'Update Atals Statistics',
-    'rule' => '0 */4 * * *', // Every 4 hours
-  );
-
-  return $items;
-}
+// We are not using atlas_statistics to gather data any longer.
+// Commenting out the hook_cron functions so that they do not run.
+// At the moment we are using other code from this module in
+// express_site_metrics, so we need to enable this module as a dependency.
 
 /**
  * Implements hook_cron().
  */
+// function atlas_statistics_cronapi($op, $job = NULL) {
+//   $items['atlas_statistics_cron'] = array(
+//     'description' => 'Update Atals Statistics',
+//     'rule' => '0 */4 * * *', // Every 4 hours.
+//   );
+
+//   return $items;
+// }
+
+/**
+ * Implements hook_cron().
+ */
+/*
 function atlas_statistics_cron() {
   // Only run cron task if site is installed or launched.
   $site_status = variable_get('atlas_status', NULL);
@@ -53,7 +57,7 @@ function atlas_statistics_cron() {
 
     }
   }
-}
+} */
 
 /**
  * Implements hook_menu().
