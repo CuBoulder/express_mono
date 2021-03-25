@@ -13,52 +13,6 @@ function atlas_statistics_boot() {
   // https://www.drupal.org/node/1822278
 }
 
-// We are not using atlas_statistics to gather data any longer.
-// Commenting out the hook_cron functions so that they do not run.
-// At the moment we are using other code from this module in
-// express_site_metrics, so we need to enable this module as a dependency.
-
-/**
- * Implements hook_cron().
- */
-// function atlas_statistics_cronapi($op, $job = NULL) {
-//   $items['atlas_statistics_cron'] = array(
-//     'description' => 'Update Atals Statistics',
-//     'rule' => '0 */4 * * *', // Every 4 hours.
-//   );
-
-//   return $items;
-// }
-
-/**
- * Implements hook_cron().
- */
-/*
-function atlas_statistics_cron() {
-  // Only run cron task if site is installed or launched.
-  $site_status = variable_get('atlas_status', NULL);
-  if ($site_status == 'installed' || $site_status == 'launched') {
-    // Switch so that we can easily stop the processing.
-    if (variable_get('atlas_statistics_site_cron', TRUE)) {
-      $atlas_id = variable_get('atlas_id', NULL);
-      $site_array = atlas_api_request('sites', $atlas_id);
-      $statistics_id = $site_array['statistics'];
-      $pool = $site_array['pool'];
-      $statistics_array = atlas_api_request('statistics', $statistics_id);
-
-      module_load_include('inc', 'atlas_statistics');
-      $request_data = atlas_statistics_get_statistics();
-
-      // Set the etag from the form.
-      $request_data['_etag'] = $statistics_array['_etag'];
-      $request_data['site'] = $atlas_id;
-
-      atlas_api_request('statistics', $statistics_id, 'PUT', $request_data);
-
-    }
-  }
-} */
-
 /**
  * Implements hook_menu().
  */

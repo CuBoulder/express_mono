@@ -119,7 +119,7 @@ function express_site_metrics_generate_token() {
     $token = $tokenHandler->generateToken($userId);
 
     $query = ['metricsToken' => $token, 'userId' => $userId];
-    drupal_goto('/admin/express/metrics/show-token', ['query' => $query]);
+    drupal_goto('/admin/config/express/metrics/show-token', ['query' => $query]);
   }
 }
 
@@ -131,10 +131,21 @@ function express_site_metrics_show_token() {
     $metricsToken = $_GET['metricsToken'];
     $userId = $_GET['userId'];
 
+    $content = "
+      <style>
+        .tokenLi {padding: 8px;}
+        .tokenLi span {padding: 4px; background-color: AliceBlue;}
+      </style>
+      <div style=\"width: 75%; margin: 0 auto;\">
+        <ul>
+          <li class=\"tokenLi\">UserId: <span>$userId</span></li>
+          <li class=\"tokenLi\">Token: <span>$metricsToken</span></li>
+          <li class=\"tokenLi\"><a href=\"/admin/config/express/metrics/token\">go back</a></li></div>
+    ";
     return [
       'content' => [
         '#type' => 'markup',
-        '#markup' => "<div style=\"width: 75%; margin: 0 auto;\"><ul><li>UserId: <span style=\"background-color: AliceBlue; padding: 4px 8px;\">$userId</span></li><li>Token: <span style=\"background-color: AliceBlue; padding: 4px 8px;\">$metricsToken</span></li><li><a href=\"/admin/express/metrics/token\">go back</a></li></div>",
+        '#markup' => $content,
       ],
     ];
   }
