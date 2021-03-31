@@ -553,3 +553,10 @@ function cu_core_update_7070() {
   $features = array('cu_wysiwyg');
   cu_core_revert_features($features);
 }
+
+/**
+ * Enable express_site_metrics module for Prometheus' gathering of metrics data.
+ */
+function cu_core_update_7071() {
+  module_enable(['express_site_metrics'], TRUE);
+}
