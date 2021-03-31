@@ -9,7 +9,9 @@ require_once drupal_get_path('module', 'express_site_metrics') . '/classes/JWT.p
 /**
  * Class for working with Json Web Tokens.
  *
- * The JWT class is taken from https://github.com/crmcmullen/jwtphpjquery/blob/master/jwt.php. See class comments for this class lower in this file.
+ * The JWT class is taken from
+ * https://github.com/crmcmullen/jwtphpjquery/blob/master/jwt.php.
+ * See class comments for this class lower in this file.
  */
 class TokenHandler extends JWT {
   /**
