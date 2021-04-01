@@ -39,7 +39,7 @@ And the "edit-menu-enabled" checkbox should be checked
 When I uncheck "edit-menu-enabled"
 # NOPE And I should see an "#edit-addanother" element
 And I should see an "#edit-addanother" element
-And I press "edit-submit"
+And I press "Save"
 Then I should be on "/my-faqs"
 And I should see "My FAQs"
 And I should see "Lorem ipsum dolor sit amet"

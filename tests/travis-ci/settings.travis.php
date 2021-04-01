@@ -71,9 +71,9 @@ $databases = array(
     'default' => array(
       'database' => 'drupal',
       'username' => 'root',
-      'password' => '',
+      'password' => 'root',
       'host' => 'localhost',
-      'port' => '',
+      'port' => '3306',
       'driver' => 'mysql',
       'prefix' => '',
     ),
