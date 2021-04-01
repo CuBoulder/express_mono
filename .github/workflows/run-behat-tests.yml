@@ -79,4 +79,5 @@ jobs:
     - name: Run js tests
       run: |
         /usr/bin/google-chrome --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 -disk-cache-dir=/tmp --user-data-dir=/tmp --crash-dumps-dir=/tmp > /dev/null 2>&1 &
+        sleep 2
         drupal/profiles/express/tests/behat/bin/behat --config drupal/profiles/express/tests/behat/behat.travis.yml --tags "~@broken&&@javascript" --verbose
