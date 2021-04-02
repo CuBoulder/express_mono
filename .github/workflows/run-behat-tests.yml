@@ -11,13 +11,6 @@ jobs:
 
     steps:
 
-    # - name: Make a comment
-    #   uses: mshick/add-pr-comment@v1
-    #   with:
-    #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-    #     message: |
-    #       **Tue3**
-
     - name: Checkout d7Core Repository
       uses: actions/checkout@v2
       with:
@@ -36,72 +29,55 @@ jobs:
         tools: composer:v1
         extensions: mysqli, PDO, xml, openssl, mbstring, gd
 
-    - uses: saucelabs/sauce-connect-action@v1.1.2
-      with:
-        username: ${{ secrets.SAUCE_USERNAME }}
-        accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-        tunnelIdentifier: cu_express_tests
-        scVersion: 4.6.4
-        scproxyPort: 8888
-        sePort: 4445
-
-    - name: Do Everything
+    - name: Start Mysql DB
       run: |
-        echo -----
-        echo "Starting Mysql Database..."
         sudo /etc/init.d/mysql start
+
+    - name: Print Mysql, php and composer versions
+      run: |
         mysql --version
         php --version
         composer --version
 
+    - name: Install Drush 8
+      run: |
+        pwd && ls
         cd drupal
-        DRUPAL_DIR=`pwd`
-        echo "PWD: $DRUPAL_DIR"
-        # cd profiles/express/modules/contrib/transliteration
-        # wget https://www.drupal.org/files/issues/2021-02-05/transliteration-MySQL-8-BINARY-fix-3196961-1.patch
-        # git apply transliteration-MySQL-8-BINARY-fix-3196961-1.patch
-        cd $DRUPAL_DIR
-
-        echo -----
-        echo "Installing Drush 8..."
         composer require "drush/drush:8.*"
         ./vendor/bin/drush --version
-        echo "Drush installed..."
 
-        echo -----
-        echo "Installing Behat dependencies in $DRUPAL_DIR/profiles/express/tests/behat"
-        cd "$DRUPAL_DIR/profiles/express/tests/behat"
+    - name: Install Behat
+      run: |
+        pwd && ls
+        cd drupal/profiles/express/tests/behat
         composer install --prefer-dist --no-interaction
         ./bin/behat --version
 
-        # echo -----
-        # cd $DRUPAL_DIR
-        # echo "Copying settings.php file to sites/default/..."
-        # mkdir -p sites/default/files/styles/preview/public/gallery/ && chmod -R 777 sites
-        # cp $DRUPAL_DIR/profiles/express/.github/workflows/behat/behat.settings.php $DRUPAL_DIR/sites/default/settings.php
-
-        echo -----
-        echo Installing Express...
-        cd $DRUPAL_DIR
-        # Start server
-        rm -rf profiles/express/modules/contrib/memcache
+    - name: Install Express and needed modules
+      run: |
+        cd drupal
+        # Memcache module causes some problems. Remove it.
+        rm -rf ./profiles/express/modules/contrib/memcache
+        # Start server.
         ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
         ./vendor/bin/drush runserver > /dev/null 2>&1 &
         ./vendor/bin/drush status
 
-        # Install cu_behat_tests
-        echo -----
+        # Install cu_behat_tests.
         echo "Installing cu_behat_tests..."
         ./vendor/bin/drush en cu_behat_tests cu_users -y
         ./vendor/bin/drush pm-list
         ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
-        sed -i s/_USERNAME_/${{ secrets.SAUCE_USERNAME }}/g $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml
-        sed -i s/_ACCESS_KEY_/${{ secrets.SAUCE_ACCESS_KEY }}/g $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml
+        sed -i s/_USERNAME_/${{ secrets.SAUCE_USERNAME }}/g ./profiles/express/tests/behat/behat.travis.yml
+        sed -i s/_ACCESS_KEY_/${{ secrets.SAUCE_ACCESS_KEY }}/g ./profiles/express/tests/behat/behat.travis.yml
 
-        # echo -----
-        # echo "Running Express headless tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "@TestContent" --stop-on-failure
+    - name: Run non JS tests
+      run: |
+        pwd && ls
+        drupal/profiles/express/tests/behat/bin/behat --config drupal/profiles/express/tests/behat/behat.travis.yml --tags "~@javascript&&~@digital_campaign&&~@broken" --verbose
 
-        echo -----
-        echo "Running JavaScript tests..."
-        $DRUPAL_DIR/profiles/express/tests/behat/bin/behat --config $DRUPAL_DIR/profiles/express/tests/behat/behat.travis.yml --tags "~@broken&&@javascript"
+    - name: Run js tests
+      run: |
+        /usr/bin/google-chrome --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 -disk-cache-dir=/tmp --user-data-dir=/tmp --crash-dumps-dir=/tmp > /dev/null 2>&1 &
+        sleep 2
+        drupal/profiles/express/tests/behat/bin/behat --config drupal/profiles/express/tests/behat/behat.travis.yml --tags "~@broken&&@javascript" --verbose

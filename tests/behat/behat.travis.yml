@@ -89,32 +89,18 @@ default:
       paths: [ "%paths.base%/features/cu_campus_news_bundle" ]
       contexts: [ FeatureContext ]
   extensions:
-      Behat\MinkExtension:
-        base_url: "http://127.0.0.1:8888"
-        files_path: "%paths.base%/assets"
-        javascript_session: sauce
-        sessions:
-          default:
-            goutte:
-              guzzle_parameters:
-                verify: false
-          sauce:
-            sauce_labs:
-              # Browser defaults to Firefox if left out.
-              username: _USERNAME_
-              access_key: _ACCESS_KEY_
-              connect: true
-              browser: "chrome"
-              # browser: "internet explorer"
-              capabilities:
-                # Need to add this fake data or else Sauce Labs fails.
-                # Problem in the behat/mink-extension project.
-                # Located in vendor/behat/mink-extension/src/Behat/MinkExtension/ServiceContainer/Driver/SauceLabsFactory.php
-                custom-data:
-                  foo: "bar"
-                  baz: "biz"
-                # OS to test against.
-                # platform: "macOS 10.13"
-                # platform: "Windows 10"
-                # Version of browser to use.
-                # version: "77.0"
+    DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
+    Behat\MinkExtension:
+      base_url: http://127.0.0.1:8888
+      files_path: "%paths.base%/assets"
+      javascript_session: js
+      browser_name: chrome
+      sessions:
+        default:
+          goutte:
+            guzzle_parameters:
+              verify: false
+        js:
+          chrome:
+            api_url: http://localhost:9222
+            validate_certificate: false
