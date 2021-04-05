@@ -63,6 +63,7 @@ function google_cse_menu() {
 function google_cse_render_xml() {
   $cse_array = explode(":", variable_get('google_cse_cx'));
   $cse_variables = array(
+    "cse_full_id" => variable_get('google_cse_cx'),
     "cse_creator" => $cse_array[0],
     "cse_id" => $cse_array[1],
     "title" => variable_get('site_name'),
