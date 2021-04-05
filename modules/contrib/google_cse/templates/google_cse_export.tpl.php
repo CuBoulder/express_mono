@@ -11,7 +11,7 @@ drupal_add_http_header('Content-Disposition', 'attachment; filename =' . $node['
 echo '<?xml version="1.0" encoding="UTF-8" ?>';
 ?>
 
-<CustomSearchEngine id="<?php print $node['cse_id']?>" creator="<?php print $node['cse_creator']?>" cx_id="<?php print $node['google_cse_cx']?>" language="en" encoding="UTF-8" enable_suggest="true" autocompletions="true">
+<CustomSearchEngine id="<?php print $node['cse_id']?>" creator="<?php print $node['cse_creator']?>" cx_id="<?php print $node['cse_full_id']?>" language="en" encoding="UTF-8" enable_suggest="true" autocompletions="true">
   <Title><?php print $node['title']?></Title>
     <Context>
         <BackgroundLabels>
