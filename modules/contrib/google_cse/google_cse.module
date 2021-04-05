@@ -65,7 +65,7 @@ function google_cse_render_xml() {
   $cse_variables = array(
     "cse_creator" => $cse_array[0],
     "cse_id" => $cse_array[1],
-    "title" => variable_get('google_cse_name'),
+    "title" => variable_get('site_name'),
   );
 
   print theme('google_cse_xml', array('node' => $cse_variables));
