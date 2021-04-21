@@ -32,7 +32,7 @@ Scenario: An anonymous user cannot add a Funnel Page
   When I am on "admin/settings/campaign/funnel-pages"
   Then I should see "Access denied"
 
-@funnelpages @javascript
+@funnelpages @javascript @broken
 Scenario: A Funnel Page can be added
   Given I am logged in as a user with the "site_owner" role
 # Create a two Basic Pages for testing
