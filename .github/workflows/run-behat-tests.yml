@@ -7,15 +7,6 @@ on:
     types: [labeled]
 
 jobs:
-  RunTestNotice:
-    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ReadyForTesting') }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: mshick/add-pr-comment@v1
-        with:
-          message: |
-            Hey, Don't forget to add the 'ReadyForTesting' Label to this PR when you are done working on it. That should trigger tests that need to pass before you merge it into dev.
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   BehatTests:
     if: ${{ contains(github.event.pull_request.labels.*.name, 'ReadyForTesting') }}
