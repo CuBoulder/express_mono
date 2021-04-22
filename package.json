@@ -1,0 +1,27 @@
+{
+  "name": "cu-web-express",
+  "version": "1.0.0",
+  "description": "Tool to build websites at University of Colorado Boulder",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "gulp": "gulp",
+    "compileAllScss": "gulp compileAllScss"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CuBoulder/express_mono.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CuBoulder/express_mono/issues"
+  },
+  "homepage": "https://github.com/CuBoulder/express_mono#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-dart-sass": "^1.0.2"
+  }
+}
