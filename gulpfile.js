@@ -3,6 +3,7 @@ const sass = require('gulp-dart-sass');
 const log = require('fancy-log');
 
 const glob = ['**/*.scss', '!node_modules/**/*.scss', '!**/_*.scss'];
+let fileCount = 0;
 
 // Tasks
 function watchScss() {
@@ -11,6 +12,7 @@ function watchScss() {
 }
 
 function compileSingleScss(path) {
+  console.log("path from watch:", path);
   return src(path)
     .pipe(sass())
     .pipe(dest(getDestPath));
@@ -22,10 +24,12 @@ function compileAllScss() {
     .pipe(dest(getDestPath));
 }
 
-// Helpers
-function getDestPath(file) {
-  let scssFilename = 'A .scss file';
-  const scssPathParts = file.path.split('/');
+// Function to rewrite the path of the compiled and saved vinylFile.
+function getDestPath(vinylFile) {
+  fileCount += 1;
+
+  let filename = `style-${fileCount}`;
+  const scssPathParts = vinylFile.path.split('/');
 
   const cssPathParts = scssPathParts.map(part => {
     if (part === "scss") {
@@ -33,16 +37,17 @@ function getDestPath(file) {
     }
 
     if (part.includes('.')) {
-      scssFilename = part;
+      filename = part;
       part = '';
     }
 
     return part;
   });
 
-  const cssPath = cssPathParts.join('/');
-  log(`Compiled ${scssFilename} to CSS and writing it to ${cssPath}`);
-  return cssPath;
+  const destPath = cssPathParts.join('/');
+  vinylFile.path = `${destPath}/${filename}`;
+  vinylFile.dirname = destPath;
+  return vinylFile.cwd;
 }
 
 exports.default = watchScss;
