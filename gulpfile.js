@@ -12,19 +12,20 @@ function watchScss() {
 }
 
 function compileSingleScss(path) {
+  console.log('PATH from compileSingleScss', path);
   return src(path)
     .pipe(sass())
-    .pipe(dest(getDestPath));
+    .pipe(dest((vinylFile) => getDestPath(true, vinylFile)));
 }
 
 function compileAllScss() {
   return src(glob)
     .pipe(sass())
-    .pipe(dest(getDestPath));
+    .pipe(dest((vinylFile) => getDestPath(false, vinylFile)));
 }
 
 // Function to rewrite the path of the compiled and saved vinylFile.
-function getDestPath(vinylFile) {
+function getDestPath(isSingleScssFile, vinylFile) {
   fileCount += 1;
 
   let filename = `style-${fileCount}`;
@@ -43,14 +44,22 @@ function getDestPath(vinylFile) {
     return part;
   });
 
-  const destPath = cssPathParts.join('/');
-  vinylFile.path = `${destPath}/${filename}`;
-  vinylFile.dirname = destPath;
+  let destPath = '';
 
-  console.log(`vinylFile.path:`, vinylFile.path);
-  console.log(`vinylFile.dirname:`, vinylFile.dirname);
-  console.log(`vinylFile.cwd:`, vinylFile.cwd);
-  return vinylFile.cwd;
+  if (isSingleScssFile) {
+    destPath = cssPathParts.join('/');
+  }
+  else {
+    vinylFile.path = `${destPath}/${filename}`;
+    vinylFile.dirname = cssPathParts.join('/');
+    console.log(`vinylFile.path:`, vinylFile.path);
+    console.log(`vinylFile.dirname:`, vinylFile.dirname);
+    console.log(`vinylFile.cwd:`, vinylFile.cwd);
+    destPath = vinylFile.cwd;
+  }
+
+  log(`Writing ${vinylFile.path}...`);
+  return destPath;
 }
 
 exports.default = watchScss;
