@@ -15,7 +15,14 @@ jobs:
           message: |
             ## Run Tests When Work Is Completed
             Do not merge code before you run tests. Do the following when you have completed work on this PR and all of you reviewers have approved it:
-            1. Add the Label "ReadyForTesting"
-            2. If the tests pass please merge it!
-            3. If the tests fail. You have more work to do!
+            1. Add the Label "ReadyForTesting".
+            2. If the tests pass:
+                - Great!
+                - Wait for you reviewers to approve the PR.
+                - Merge when appropriate.
+            3. If the tests fail:
+                - You have more work to do!
+                - Take the label off.
+                - Make your changes.
+                - Repeat these steps.
           repo-token: ${{ secrets.GITHUB_TOKEN }}
