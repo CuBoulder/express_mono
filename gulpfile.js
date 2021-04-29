@@ -12,7 +12,6 @@ function watchScss() {
 }
 
 function compileSingleScss(path) {
-  console.log("path from watch:", path);
   return src(path)
     .pipe(sass())
     .pipe(dest(getDestPath));
@@ -47,6 +46,10 @@ function getDestPath(vinylFile) {
   const destPath = cssPathParts.join('/');
   vinylFile.path = `${destPath}/${filename}`;
   vinylFile.dirname = destPath;
+
+  console.log(`vinylFile.path:`, vinylFile.path);
+  console.log(`vinylFile.dirname:`, vinylFile.dirname);
+  console.log(`vinylFile.cwd:`, vinylFile.cwd);
   return vinylFile.cwd;
 }
 
