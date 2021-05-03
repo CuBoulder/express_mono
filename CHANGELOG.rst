@@ -5,17 +5,65 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
-
-v4.4.3 (2021-02-01)
+v4.4.5 (2021-04-26)
 ------------
 
-Fixed
-~~~~~~~
-- Update permissions so that anonymous users can see JS includes. Resolves #787. [James Fuller]
-
-
+Added
 ~~~~~
-- Filter tips are hidden for anonymous users
+- Getting started with basic use ofJson Web Tokens. [AlanBCole]
+
+
+Changed
+~~~~~~~
+- Adjust function to load only one node. [cathysnider]
+
+- Duplicate newsletter archive page function. [cathysnider]
+
+- Add url item for current issue of newsletter. [cathysnider]
+
+- Adding new design for horizontal tabs. Resolves #800. [kevincrafts]
+
+
+Other
+~~~~~
+- Simply adding to the variable table in the hook_install() method. No longer using the settings.php file for this, only the express_site_metrics_secret. [AlanBCole]
+
+- Resolving some requested changes: [AlanBCole]
+
+  - fix link paths to include the new url/path
+  - Use firebase/php-jwt code directly by simply copy/pasting the JWT class file.
+  - Removed hook_cron() implementations from atlas_statistics module, since we are no longer using that to gather metrics data
+  - Put JWT class in its own file
+  - Some other minor css styling issues
+- Resolving most PR comments and issues. Also commenting out hook_cron functions in atlas_statistics. [AlanBCole]
+
+- Added atlas_statistics, cu_atlas, and atlas as dependencies. [AlanBCole]
+
+  Added these because I am using the hook_atlas_statistics() method outlined in atlas_statistics module
+- First working version. [AlanBCole]
+
+  Not all metrics data present in atlas statistics is showing up but SOME data is showing up.
+- First working version of web token handler. [AlanBCole]
+
+- Started to set up simple unit tests. [AlanBCole]
+
+
+v4.4.3 (2021-02-03)
+-------------------
+
+Changed
+~~~~~~~
+- Update permissions so that anonymoususers can see JS includes. Resolves #787. [James Fuller]
+
+
+Other
+~~~~~
+- Using a more nuanced approach: - filter/tips endpoint should be visible to all users with the 'authenticated user' role - unauthenticated users will be shown the log in page (this is default behavior. I did not implement it) [AlanBCole]
+
+- Making sure function naming is as intended. [AlanBCole]
+
+- Fix: added  method to cu_core. Resolves #790. [AlanBCole]
+
 
 
 v4.4.2 (2021-01-13)
