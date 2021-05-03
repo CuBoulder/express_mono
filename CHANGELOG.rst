@@ -5,6 +5,97 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+
+v4.4.3 (2021-02-01)
+------------
+
+Fixed
+~~~~~~~
+- Update permissions so that anonymous users can see JS includes. Resolves #787. [James Fuller]
+
+
+~~~~~
+- Filter tips are hidden for anonymous users
+
+
+v4.4.2 (2021-01-13)
+------------
+
+Fixed
+~~~~~~~
+
+- Update secure perms for JS Includes. [cathysnider]
+
+- Adding border to search block so field is visible. Resolves #740. [kevincrafts]
+
+- Fixing issue where hero units set to image sizing would have extra space at the bottom. Resolves #734. [kevincrafts]
+
+- Hiding search thumbnails. Resolves #771. [kevincrafts]
+
+-  Changed selector used in people_content_type.scss for person photos from  to  in order to make it more specific to the intended situation.
+
+- Add error checking for Layout Title length. [cathysnider]
+
+
+v4.4.1 (2020-12-07)
+------------
+
+Added
+~~~~~
+- Added a page to list all of a person's publications.
+  - if there are any publications authored by the person there will be a list of 5 of them by default
+  - if the person has more than 5 publications there will be a link at the bottom of the publications list
+  - clicking on the link should take you to a page with a paged list of all the person's publications, most recent first by default.
+  - the person's name should be a link to take you back to their Person page
+  - Can be configured by visiting /admin/structure/block/manage/cu_faculty_publications_bundle/person_publications_list/configure
+  - Can be inserted via Context
+  - grabs email from node of the person page it is loaded on.
+
+
+Deprecated
+~~~~~~~
+- Removing UI for adding LiveChat widgets. Resolves #744.
+
+- Removing bundle roles from livechat bundle so it can't be enabled.
+
+
+Fixed
+~~~~~
+- Allow warning/error messages to float to left side of image without its div overlapping with image's div.
+
+- Fix PATH assignment for drush.
+
+
+v4.4.0 (2020-10-26)
+------------
+
+Added
+~~~~~
+- Added integration to experts.colorado.edu. Resolves #41.
+
+- New method for including specific types of JavaScript embeds. Resolves #691.
+
+- Added context_error to allow the placement of a search box on a 403 or 404 page. Resolves #123.
+
+
+Changed
+~~~~~~~
+- Adding video filter for Wowza livestreaming video service. Resolves #289.
+
+
+Fixed
+~~~~~~~
+- Fixing issue where there was an empty role available. Resolves #718.
+
+
+v4.3.5 (2020-10-14)
+------------
+
+Fixed
+~~~~~~~
+- Replacing incorrect function call. Resolves #736
+
+
 v4.3.4 (2020-10-12)
 ------------
 
@@ -19,8 +110,6 @@ Fixed
 
 - Fixing links to include full urls, fixing gradient css for article title. Resolves #729.
 
-
-AlanBCole]
 
 v4.3.3 (2020-09-29)
 ------------

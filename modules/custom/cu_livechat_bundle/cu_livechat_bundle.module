@@ -65,23 +65,33 @@ function cu_livechat_bundle_preprocess_html(&$vars) {
  * LiveChat config onto Settings form.
  */
 function cu_livechat_bundle_admin_form() {
+  // Get content from .info file.
+  $info_file = DRUPAL_ROOT . '/' . drupal_get_path("module", "cu_livechat_bundle") . '/' . "cu_livechat_bundle.info";
+  $info = drupal_parse_info_file($info_file);
   $form = array();
+  $licence_number = variable_get('livechat_licence_number', NULL);
+  $update_text = "{$info['description']} Please click the link below to get started.";
+  $linkOptions = array();
 
-  $form['livechat'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Live Chat'),
-    '#description' => 'A paid real-time chat solution from LiveChat (<a href="http://www.livechatinc.com/">http://www.livechatinc.com/</a>). The department or academic unit will need to purchase a license in order to use this service. A free trial is available.',
-  );
-  $form['livechat']['livechat_license_number'] = array(
-    '#type' => 'textfield',
-    '#default_value' => variable_get('livechat_license_number', NULL),
-    '#required' => FALSE,
-    '#title' => 'LiveChatINC.com license number',
-    '#description' => '<em>Example: 1234567</em>',
-  );
+  if ($licence_number) {
+    $update_text .= "</br></br>Your LiveChat Licence Number: $licence_number";
+    $linkOptions['query'] = ['LiveChatLicence' => $licence_number];
+  }
 
-  $form = system_settings_form($form);
-  $form['#validate'][] = '_cu_livechat_bundle_config_form_validate';
+  $form['message'] = [
+    'title' => [
+      '#type' => 'markup',
+      '#markup' => '<h3>' . t('Our LiveChat bundle is being deprecated.') . '</h3>',
+    ],
+    'message' => [
+      '#type' => 'markup',
+      '#markup' => '<p>' . t($update_text) . '</p>',
+    ],
+    'link' => [
+      '#type' => 'markup',
+      '#markup' => l(t('Create LiveChat JavaScript Include'), "admin/content/js-includes/add/livechat", $linkOptions)
+    ]
+  ];
 
   return $form;
 }

@@ -74,9 +74,12 @@ span.responsive-label {
 }
 
 /* NODE VIEW */
+.person-photo .image-medium, .person-photo .image-small {
+  width: 100%;
+  height: auto;
+}
 
-.person-photo img.image-medium,
-.person-photo img.image-small {
+.person-photo {
   float: right;
   margin: 0 0 20px 20px;
   max-width:320px;
@@ -91,6 +94,7 @@ span.responsive-label {
     margin: 0 0 20px;
   }
 }
+
 
 /**
  * Responsive tables.

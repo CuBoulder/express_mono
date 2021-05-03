@@ -17,34 +17,34 @@ if [ ! -f $HOME/cache/express.sql ] || [ "${EXPRESS_COMMIT_HAS_BUILD}" ]; then
 
   # Install site like normal.
   echo Installing Express...
-  $HOME/.composer/vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+  $HOME/.config/composer/vendor/bin/drush si express --db-url=mysql://root:@127.0.0.1/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
   earlyexit
 
   # Export db so it can be imported after every suite run.
   # Test runs that fill up the db with nodes can impact other tests.
   echo Exporting database...
-  $HOME/.composer/vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
+  $HOME/.config/composer/vendor/bin/drush sql-dump --result-file=$HOME/cache/express.sql
 
 else
 
   # Import db if it is already built.
   echo Importing Express database...
-  $HOME/.composer/vendor/bin/drush sql-cli < $HOME/cache/express.sql
+  $HOME/.config/composer/vendor/bin/drush sql-cli < $HOME/cache/express.sql
   earlyexit
 
   # Run any database updates.
   echo Running pending database updates...
-  $HOME/.composer/vendor/bin/drush updb -y
+  $HOME/.config/composer/vendor/bin/drush updb -y
 
 fi
 
 # Check and see if testing core module is enabled.
-$HOME/.composer/vendor/bin/drush pm-info travis_hosting
-$HOME/.composer/vendor/bin/drush pm-info ng_hosting
-$HOME/.composer/vendor/bin/drush pm-info cu_core
-$HOME/.composer/vendor/bin/drush pm-info cu_ldap
-$HOME/.composer/vendor/bin/drush pm-info cu_local_users
+$HOME/.config/composer/vendor/bin/drush pm-info travis_hosting
+$HOME/.config/composer/vendor/bin/drush pm-info ng_hosting
+$HOME/.config/composer/vendor/bin/drush pm-info cu_core
+$HOME/.config/composer/vendor/bin/drush pm-info cu_ldap
+$HOME/.config/composer/vendor/bin/drush pm-info cu_local_users
 
-$HOME/.composer/vendor/bin/drush pm-list
+$HOME/.config/composer/vendor/bin/drush pm-list
 
 exit 0

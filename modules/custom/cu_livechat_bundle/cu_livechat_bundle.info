@@ -1,5 +1,5 @@
 name = CU Live Chat
-description = LiveChat is a paid real-time chat solution from LiveChat Inc. The department or academic unit will need to purchase a license in order to use this service.
+description = Our LiveChat bundle is being replaced with Javascript Includes, a much more flexible tool for adding third-party solutions to your site. The LiveChats you have on your site will continue to work, but we ask you to begin replacing them with our newer JavaScript Includes solution.
 core = 7.x
 version = 7.x-1.2
 package = CU-LiveChat
@@ -12,10 +12,5 @@ files[] = cu_livechat_bundle.context.inc
 bundle_cache_clear = 1
 bundle_context_clear = 1
 bundle_request = 1
-
-bundle_roles[] = developer
-bundle_roles[] = administrator
-bundle_roles[] = site_owner
-bundle_roles[] = configuration_manager
 
 bundle_group = request_bundles

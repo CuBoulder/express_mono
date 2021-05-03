@@ -179,9 +179,14 @@ function express_layout_node_insert($node) {
     return;
   }
   $nid = $node->nid;
+  $layout_title = 'Layout: ' . $node->title;
+  if (strlen($layout_title) > 255) {
+    $layout_title = substr($layout_title, 0, 255);
+  }
+
   $values = array(
     'layout_id' => $nid,
-    'title' => 'Layout: ' . $node->title,
+    'title' => $layout_title,
     'node_type' => $node->type,
   );
   $layout = entity_create('express_layout', $values);
@@ -198,13 +203,18 @@ function express_layout_node_update($node) {
     return;
   }
   $nid = $node->nid;
+  $layout_title = 'Layout: ' . $node->title;
+  if (strlen($layout_title) > 255) {
+    $layout_title = substr($layout_title, 0, 255);
+  }
+
   if ($layout = entity_load_single('express_layout', $nid)) {
-    $layout->title = 'Layout: ' . $node->title;
+    $layout->title = $layout_title;
     entity_save('express_layout', $layout);
   } else {
     $values = array(
       'layout_id' => $nid,
-      'title' => 'Layout: ' . $node->title,
+      'title' => $layout_title,
       'node_type' => $node->type,
     );
     $layout = entity_create('express_layout', $values);

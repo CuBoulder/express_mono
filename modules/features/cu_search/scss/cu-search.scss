@@ -288,7 +288,7 @@ $border_color: #e0e0e0;
     img.gs-promotion-image {
       width:100%;
       height: auto;
-      display: block;
+      display: none;
       vertical-align:middle;
       max-width: none;
     }
@@ -330,5 +330,8 @@ $border_color: #e0e0e0;
   .search-form-wrapper {
     display: flex;
     flex-direction: column-reverse;
+  }
+  &.cu-search-box .cu-search input.form-text {
+    border: 1px solid $border_color;
   }
 }

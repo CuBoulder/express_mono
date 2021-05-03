@@ -37,6 +37,9 @@ default:
     forms:
       paths: [ "%paths.base%/features/cu_forms_bundle" ]
       contexts: [ FeatureContext ]
+    jsincludes:
+      paths: [ "%paths.base%/features/cu_js_includes" ]
+      contexts: [ FeatureContext ]
     livechat:
       paths: [ "%paths.base%/features/cu_livechat_bundle" ]
       contexts: [ FeatureContext ]

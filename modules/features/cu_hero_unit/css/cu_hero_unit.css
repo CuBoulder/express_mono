@@ -25,7 +25,7 @@
   .hero-unit { font-size: 21px; }
   .hero-unit.hero-size-small { font-size: 18px; } }
 /* IMAGE SIZE PRIORITY */
-.hero-unit-image img { width: 100%; height: auto; }
+.hero-unit-image img { width: 100%; height: auto; display: block; }
 
 .hero-unit-image .hero-unit-content-wrapper { position: relative; }
 
