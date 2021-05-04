@@ -1,0 +1,28 @@
+name: Please Run Tests
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  RunTestNotice:
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'ReadyForTesting') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            ## Run Tests When Work Is Completed
+            Do not merge code before you run tests. Do the following when you have completed work on this PR and all of you reviewers have approved it:
+            1. Add the Label "ReadyForTesting".
+            2. If the tests pass:
+                - Great!
+                - Wait for you reviewers to approve the PR.
+                - Merge when appropriate.
+            3. If the tests fail:
+                - You have more work to do!
+                - Take the label off.
+                - Make your changes.
+                - Repeat these steps.
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,84 @@
+name: Run Behat Tests
+
+on:
+  pull_request:
+    branches:
+      - dev
+    types: [labeled]
+
+jobs:
+
+  BehatTests:
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'ReadyForTesting') }}
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout d7Core Repository
+      uses: actions/checkout@v2
+      with:
+        repository: CuBoulder/d7core
+        path: drupal
+
+    - name: Checkout Pull Request's Commit
+      uses: actions/checkout@v2
+      with:
+        path: drupal/profiles/express
+
+    - name: Set PHP Version
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+        tools: composer:v1
+        extensions: mysqli, PDO, xml, openssl, mbstring, gd
+
+    - name: Start Mysql DB
+      run: |
+        sudo /etc/init.d/mysql start
+
+    - name: Print Mysql, php and composer versions
+      run: |
+        mysql --version
+        php --version
+        composer --version
+
+    - name: Install Drush 8
+      run: |
+        pwd && ls
+        cd drupal
+        composer require "drush/drush:8.*"
+        ./vendor/bin/drush --version
+
+    - name: Install Behat
+      run: |
+        pwd && ls
+        cd drupal/profiles/express/tests/behat
+        composer install --prefer-dist --no-interaction
+        ./bin/behat --version
+
+    - name: Install Express and needed modules
+      run: |
+        cd drupal
+        # Memcache module causes some problems. Remove it.
+        rm -rf ./profiles/express/modules/contrib/memcache
+        # Start server.
+        ./vendor/bin/drush si express --db-url=mysql://root:root@127.0.0.1:3306/drupal --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="Express" --yes
+        ./vendor/bin/drush runserver > /dev/null 2>&1 &
+        ./vendor/bin/drush status
+
+        # Install cu_behat_tests.
+        echo "Installing cu_behat_tests..."
+        ./vendor/bin/drush en cu_behat_tests cu_users -y
+        ./vendor/bin/drush pm-list
+        ./vendor/bin/drush php-eval "variable_set('ldap_authentication_conf', array('authenticationMode' => 1));"
+
+    - name: Run non JS tests
+      run: |
+        pwd && ls
+        drupal/profiles/express/tests/behat/bin/behat --config drupal/profiles/express/tests/behat/behat.github.yml --tags "~@javascript&&~@digital_campaign&&~@broken" --verbose
+
+    - name: Run js tests
+      run: |
+        /usr/bin/google-chrome --disable-gpu --headless --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 -disk-cache-dir=/tmp --user-data-dir=/tmp --crash-dumps-dir=/tmp > /dev/null 2>&1 &
+        sleep 2
+        drupal/profiles/express/tests/behat/bin/behat --config drupal/profiles/express/tests/behat/behat.github.yml --tags "~@broken&&@javascript" --verbose
