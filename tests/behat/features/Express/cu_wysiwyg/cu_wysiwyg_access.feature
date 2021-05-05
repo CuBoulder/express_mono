@@ -4,12 +4,11 @@ When I login to the website
 As a content editor, site owner, administrator or developer
 I should be able to access the functionality of the WYSIWYG editor
 
-@javascript
+@wysiwyg
 Scenario Outline: An authenticated user should have WYSIWYG selected as the the default text format
   Given  I am logged in as a user with the <role> role
-  When I go to "node/add/page"
-  And I wait for the "#cke_1_top" element to appear
-  Then I should see a ".cke_button__bold" element
+  When I am on "node/add/page"
+  Then the "select[name='body[und][0][format]'] option[selected='selected']" element should contain "WYSIWYG"
 
   Examples:
   | role           |
