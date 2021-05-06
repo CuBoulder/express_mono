@@ -1,10 +1,11 @@
 @wysiwyg @core
 Feature: WYSIWYG Pathologic tests
 
-@javascript @broken
-# The hardcoded url 'http://127.0.0.1:8031/testpage' will likely change in different setups.
-# This means the test is likely to fail if hosting details we do not control are different.
-# TO DO: Need to setup Pathologic link in testing module install.
+# Pathologic replaces the specified URL(s) with whatever the BaseURL is.
+# Since that changes with each install, we'll test that the specified URL is no longer there
+# TO Do: insert real baseURL.
+
+@javascript @mytest
 Scenario: Pathologic should change URLs
   Given I am logged in as a user with the "developer" role
   And I am on "admin/config/content/formats/wysiwyg"
@@ -15,7 +16,6 @@ Scenario: Pathologic should change URLs
   And I follow "Disable rich-text"
   And I fill in "Body" with "<a href=\"http://www.colorado.edu/p1eb825ce549/testpage\" name=\"myPathoName\" id=\"myPathoName\" >Change This Link</a>"
   When I press "Save"
-  # FOR LOCAL TESTING, UNCOMMENT NEXT LINE AND CHANGE DOMAIN TO YOUR LOCAL SERVER
-  # And the "#myPathoName" element should have "http://mylocal.lndo.site/mytestpage" in the "href" attribute
-  # FOR TRAVIS TESTING, UNCOMMENT NEXT LINE
-  Then the "#myPathoName" element should have "http://127.0.0.1:8031/testpage" in the "href" attribute
+  # TO DO: check that baseURL has replaced Pathologic pattern
+  # Then the "#myPathoName" element should have "{baseURL}/testpage" in the "href" attribute
+  Then the response should not contain "http://www.colorado.edu/p1eb825ce549/testpage"
