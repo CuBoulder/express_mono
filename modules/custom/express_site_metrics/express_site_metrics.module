@@ -15,7 +15,7 @@ function express_site_metrics_menu() {
     'access arguments' => array('administer modules'),
   );
 
-  $items['admin/config/express/metrics/json'] = array(
+  $items['express/metrics/json'] = array(
     'title' => 'Express Site Metrics JSON endpoint',
     'access callback' => 'express_site_metrics_access',
     'page callback' => 'express_site_metrics_json',
