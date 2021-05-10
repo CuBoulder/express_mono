@@ -1,7 +1,9 @@
 @wysiwyg @core
 Feature: WYSIWYG Pathologic tests
 
-@javascript
+@javascript @broken
+# The hardcoded url 'http://127.0.0.1:8031/testpage' will likely change in different setups.
+# This means the test is likely to fail if hosting details we do not control are different.
 # TO DO: Need to setup Pathologic link in testing module install.
 Scenario: Pathologic should change URLs
   Given I am logged in as a user with the "developer" role
