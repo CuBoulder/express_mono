@@ -29,7 +29,8 @@ class SiteMetricsInspector {
    *   Associative array of site metrics data.
    */
   private static function gatherData($drupalModuleInvokeAll, $hookNameForInvokeAll) {
-    $metricsData = array_merge($drupalModuleInvokeAll($hookNameForInvokeAll));
+    $dataAfterModuleInvokeAll = $drupalModuleInvokeAll($hookNameForInvokeAll);
+    $metricsData = array_merge($dataAfterModuleInvokeAll);
     return $metricsData;
   }
 
