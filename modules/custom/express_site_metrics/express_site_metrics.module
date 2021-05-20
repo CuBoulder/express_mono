@@ -64,6 +64,11 @@ function express_site_metrics_access() {
 function express_site_metrics_json() {
   drupal_add_http_header('Status', 200, TRUE);
   drupal_add_http_header('Content-Type', 'application/json');
+
+  // Right now (5/2021) this method uses code from atlas_statistics.module.
+  // That module already created a hook for gathering desired data and I just
+  // used it. If and when we decide to change data gathered for site metrics we
+  // can implement similar code in this module.
   $metrics = SiteMetricsInspector::makeReport('module_invoke_all', 'atlas_statistics');
   echo $metrics;
 }
