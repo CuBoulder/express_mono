@@ -5,7 +5,7 @@ Feature: WYSIWYG Pathologic tests
 # Since that changes with each install, we'll test that the specified URL is no longer there
 # TO Do: insert real baseURL.
 
-@javascript @mytest
+@javascript
 Scenario: Pathologic should change URLs
   Given I am logged in as a user with the "developer" role
   And I am on "admin/config/content/formats/wysiwyg"
