@@ -101,8 +101,7 @@ function rave_alerts_remote_data() {
   // if we don't get a valid 200 response
   $data = NULL;
   if (variable_get('rave_alerts_check_enable', 0)) {
-    // $url = variable_get('rave_alerts_rss_url', 'https://www.getrave.com/rss/DemoUniversityAlert/channel8');
-    $url = 'http://www.sumrssDude.wtf';
+    $url = variable_get('rave_alerts_rss_url', 'https://www.getrave.com/rss/DemoUniversityAlert/channel8');
 
     if ($cache = cache_get('rave_alert', 'cache_rave_alerts')) {
       $data = $cache->data;
