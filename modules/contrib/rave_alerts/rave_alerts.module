@@ -139,6 +139,7 @@ function rave_alerts_remote_data() {
           else {
              variable_set('rave_alerts_active_event', 0);
              variable_set('rave_alerts_display', 0);
+             watchdog('rave_alerts', 'ACTIVE token NOT found');
           }
         }
         // @TODO: Add option to leave all clear message up for X hours
