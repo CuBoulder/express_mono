@@ -152,7 +152,6 @@ function rave_alerts_remote_data() {
         $logMessage = "Bad Request: {$response->code} - {$response->error}. Request URL: {$response->url}";
         watchdog('rave_alerts', $logMessage);
       }
-      //@TODO: Add code to handle network failure
     }
   }
   return $data;
