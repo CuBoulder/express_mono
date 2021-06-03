@@ -37,7 +37,7 @@ Examples:
 | administrator    | "A name describing your block theme" |
 | site_owner       | "A name describing your block theme" |
 | edit_my_content  | "Access denied" |
-# | site_editor      | "Access denied" | CAN ADD AND USE BLOCK DESIGNER
+| site_editor      | "Access denied" |
 | edit_only        | "Access denied" |
 | access_manager   | "Access denied" |
 | configuration_manager | "A name describing your block theme" |
