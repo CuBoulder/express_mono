@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.4.6 (2021-06-07)
+------------
+
+Changed
+~~~~~~~
+- Change express site metrics json endpoint to. [AlanBCole]
+
+- Update wywiwyg test. [cathysnider]
+
+- Fix broken funnel pages test. [cathysnider]
+
+- Remove instantiation and developer role from James Fuller. [cathysnider]
+
+
+Other
+~~~~~
+- Adding comment about the use of code from atlas_statistics.module. [AlanBCole]
+
+- Using atlas_stistics code that was left out of metrics gathering before. [AlanBCole]
+
+- Changing message in "Please Run Tests" workflow. [Alan Cole]
+
+- Removing sauce labs code. [Alan Cole]
+
+- Adding new workflow to comment run tests in a pr targeting dev. [AlanBCole]
+
+- Including action trigger for adding a label. [AlanBCole]
+
+- Adding token so pr comment can be made. [AlanBCole]
+
+- Trying to check if the pr has been labeled with 'ReadyForTesting' before running the tests, since they take so long. [AlanBCole]
+
+- Tagging failing test as broken. To be looked at in a new issue. [AlanBCole]
+
+- Changing behat.local.yml to match new testing configuration. [AlanBCole]
+
+- Removing a few things that I left in by accident, again. [AlanBCole]
+
+- Removing a few things that I left in by accident. [AlanBCole]
+
+- Created workflow to run our Behat tests. [AlanBCole]
+
+  Tests will be run when a new pr targets dev
+
+
 v4.4.5 (2021-04-26)
 ------------
 
