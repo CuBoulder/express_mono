@@ -187,7 +187,6 @@ function express_block_designer_secure_permissions($role) {
       'use block designer',
     ),
     'site_editor' => array(
-      'administer block designer themes',
       'use block designer',
     ),
     'site_owner' => array(

@@ -7,7 +7,7 @@ Should be able to access and create funnel pages
 @funnelpages
 Scenario: The Settings page contains a link to add Campaign Funnel Pages
   Given I am logged in as a user with the "site_owner" role
-    And I am on "admin/settings"
+  And I am on "admin/settings"
   Then I should see the link "Funnel Pages"
 
 @funnelpages
@@ -32,32 +32,36 @@ Scenario: An anonymous user cannot add a Funnel Page
   When I am on "admin/settings/campaign/funnel-pages"
   Then I should see "Access denied"
 
-@funnelpages @javascript
+@funnelpages
 Scenario: A Funnel Page can be added
   Given I am logged in as a user with the "site_owner" role
 # Create a two Basic Pages for testing
-    And I go to "node/add/page"
-    And fill in "edit-title" with "PageOne"
-    And the checkbox "edit-menu-enabled" is checked
-    And I press "edit-submit"
+  And I go to "node/add/page"
+  And fill in "edit-title" with "PageOne"
+  And I check "edit-menu-enabled"
+  And I fill in "edit-menu-link-title" with "PageOne"
+  And I press "edit-submit"
   Then I should see "PageOne"
-    And I go to "node/add/page"
-    And fill in "edit-title" with "PageTwo"
-    And the checkbox "edit-menu-enabled" is checked
-    And I press "edit-submit"
+  And I go to "node/add/page"
+  And fill in "edit-title" with "PageTwo"
+  And I check "edit-menu-enabled"
+  And I fill in "edit-menu-link-title" with "PageTwo"
+  And I press "edit-submit"
   Then I should be on "/pagetwo"
-    And I should see "PageTwo"
   # The main menu navigation is visible
-    And I should see "PageOne"
-# Make this page a funnel page
+  And I should see the link "PageOne"
+  And I should see the link "PageTwo"
+  # Make this page a funnel page
   Then I go to "admin/settings/campaign/funnel-pages"
-    And I fill in "cu_funnel_pages" with "pagetwo"
-    And I press "Save configuration"
+  And I fill in "cu_funnel_pages" with "pagetwo"
+  And I press "Save configuration"
   Then I should see "The configuration options have been saved"
   When I go to "/pageone"
-    And I should see "PageOne"
-  Then I should see "PageTwo"
+  Then I should see the link "PageOne"
+  And I should see the link "PageTwo"
   When I go to "/pagetwo"
-    Then I should see "PageTwo"
   # The main menu navigation is not visible
-    But I should not see "PageOne"
+  Then I should not see the link "PageOne"
+  And I should not see the link "PageTwo"
+
+

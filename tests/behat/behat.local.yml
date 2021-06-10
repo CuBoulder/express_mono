@@ -85,34 +85,22 @@ default:
     campus_news:
       paths: [ "%paths.base%/features/cu_campus_news_bundle" ]
       contexts: [ FeatureContext ]
+
+  # You need to start headless Chrome on you local computer before running Behat tests locally.
+  # Copy this file and name it my.behat.local and put in your base_url.
   extensions:
-      Behat\MinkExtension:
-        base_url: "http://127.0.0.1:8079/"
-        files_path: "%paths.base%/assets"
-        javascript_session: sauce
-        sessions:
-          default:
-            goutte:
-              guzzle_parameters:
-                  verify: false
-          sauce:
-            sauce_labs:
-              # Following are placeholders for environmental variables
-              # username: USER_NAME
-              # access_key: ACCESS_KEY
-              connect: true
-              # Browser defaults to Firefox if left out.
-              browser: "chrome"
-              #browser: "internet explorer"
-              capabilities:
-                # Need to add this fake data or else Sauce Labs fails.
-                # Problem in the behat/mink-extension project.
-                # Located in vendor/behat/mink-extension/src/Behat/MinkExtension/ServiceContainer/Driver/SauceLabsFactory.php
-                custom-data:
-                  foo: "bar"
-                  baz: "biz"
-                # OS to test against.
-                platform: "macOS 10.13"
-                #platform: "Windows 10"
-                # Version of browser to use.
-                #version: "63.0"
+    DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
+    Behat\MinkExtension:
+      base_url: "yourLocalUrl"
+      files_path: "%paths.base%/assets"
+      javascript_session: js
+      browser_name: chrome
+      sessions:
+        default:
+          goutte:
+            guzzle_parameters:
+              verify: false
+        js:
+          chrome:
+            api_url: "http://localhost:9222"
+            validate_certificate: false

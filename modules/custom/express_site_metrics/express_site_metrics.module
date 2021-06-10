@@ -15,7 +15,7 @@ function express_site_metrics_menu() {
     'access arguments' => array('administer modules'),
   );
 
-  $items['admin/config/express/metrics/json'] = array(
+  $items['express/metrics/json'] = array(
     'title' => 'Express Site Metrics JSON endpoint',
     'access callback' => 'express_site_metrics_access',
     'page callback' => 'express_site_metrics_json',
@@ -64,6 +64,11 @@ function express_site_metrics_access() {
 function express_site_metrics_json() {
   drupal_add_http_header('Status', 200, TRUE);
   drupal_add_http_header('Content-Type', 'application/json');
+
+  // Right now (5/2021) this method uses code from atlas_statistics.module.
+  // That module already created a hook for gathering desired data and I just
+  // used it. If and when we decide to change data gathered for site metrics we
+  // can implement similar code in this module.
   $metrics = SiteMetricsInspector::makeReport('module_invoke_all', 'atlas_statistics');
   echo $metrics;
 }
