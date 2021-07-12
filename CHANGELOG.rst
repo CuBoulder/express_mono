@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.4.7 (unreleased)
+------------
+- Updating ldap contrib module to version 7.x-2.6 for PHP 7.4 compatibility. [Jesus Gabriel Ortiz Tovar]
+
+
+
 v4.4.6 (2021-06-07)
 ------------
 
