@@ -133,19 +133,19 @@ function rave_alerts_remote_data() {
           $isCLEAR = strpos($data['channel']['item']['title'], variable_get('rave_alerts_clear_text', '[CLEAR]'));
           $isACTIVE = strpos($data['channel']['item']['title'], variable_get('rave_alerts_active_text', '[ACTIVE]'));
 
-          if ($isCLEAR) {
+          if ($isCLEAR !== FALSE) {
             variable_set('rave_alerts_active_event', 0);
             variable_set('rave_alerts_display', 0);
             watchdog('rave_alerts', 'CLEAR token found. Clearing rave alert.');
           }
 
-          if ($isACTIVE) {
+          if ($isACTIVE !== FALSE) {
             variable_set('rave_alerts_display', 1);
             variable_set('rave_alerts_active_event', 1);
             watchdog('rave_alerts', 'ACTIVE token found');
           }
 
-          if ($isCLEAR == FALSE) {
+          if ($isCLEAR === FALSE) {
             $logMessageData = [
               'title' => $data['channel']['item']['title'],
               'description' => $data['channel']['item']['description']
