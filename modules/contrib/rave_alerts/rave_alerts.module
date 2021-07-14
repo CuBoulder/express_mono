@@ -140,7 +140,6 @@ function rave_alerts_remote_data() {
           }
 
           if ($isACTIVE !== FALSE) {
-            variable_set('rave_alerts_display', 1);
             variable_set('rave_alerts_active_event', 1);
             watchdog('rave_alerts', 'ACTIVE token found');
           }
@@ -151,7 +150,7 @@ function rave_alerts_remote_data() {
               'description' => $data['channel']['item']['description']
             ];
             variable_set('rave_alerts_display', 1);
-            watchdog('rave_alerts', 'New Rave RSS item -> @tile: @description', $logMessageData);
+            watchdog('rave_alerts', 'New Rave RSS item -> @title: @description', $logMessageData);
           }
         }
         // @TODO: Add option to leave all clear message up for X hours
