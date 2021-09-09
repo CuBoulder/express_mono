@@ -463,3 +463,20 @@ function cu_users_update_7039() {
     }
   }
 }
+
+/**
+ * Remove developer role from developers who have departed (Catherine Snider)
+ */
+function cu_users_update_7040() {
+  // Catherine Snider.
+  $users = array('sniderc');
+  foreach ($users as $username) {
+    $user = user_load_by_name($username);
+    if ($user) {
+      if (($key = array_search('developer', $user->roles)) !== FALSE) {
+        unset($user->roles[$key]);
+      }
+      user_save($user);
+    }
+  }
+}
