@@ -18,7 +18,6 @@ function cu_users_get_users($type = 'all') {
 
   $user_array['developer'] = array(
     'crafts' => 'Kevin.Crafts@Colorado.EDU',
-    'sniderc' => 'Catherine.Snider@Colorado.EDU',
     'jeor0980' => 'Jesus.OrtizTovar@colorado.edu',
     'jesp3304' => 'Jeremy.Sparks@colorado.edu',
     'mibo7729' => 'Michael.Bolei@colorado.edu',
