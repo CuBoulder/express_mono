@@ -93,16 +93,33 @@ function ucb_page_alter(&$page) {
 function ucb_preprocess_html(&$vars) {
   global $base_url;
   // Add web fonts from google
+  $preconnect1 = array(
+    '#tag' => 'link', // The #tag is the html tag - <link />
+    '#attributes' => array( // Set up an array of attributes inside the tag
+      'href' => '//fonts.googleapis.com',
+      'rel' => 'preconnect',
+    ),
+  );
+  $preconnect2 = array(
+    '#tag' => 'link', // The #tag is the html tag - <link />
+    '#attributes' => array( // Set up an array of attributes inside the tag
+      'href' => '//fonts.gstatic.com',
+      'rel' => 'preconnect',
+      'crossorigin' => 'crossorigin',
+    ),
+  );
   $element = array(
     '#tag' => 'link', // The #tag is the html tag - <link />
     '#attributes' => array( // Set up an array of attributes inside the tag
-      'href' => '//fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Condensed:700',
+      'href' => '//fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;700&display=swap',
       'rel' => 'stylesheet',
       'type' => 'text/css',
     ),
   );
   // Don't include web fonts if variable is false
   if (variable_get('use_fonts', TRUE)) {
+    drupal_add_html_head($preconnect1, 'web_fonts_preconnect1');
+    drupal_add_html_head($preconnect2, 'web_fontspreconnect2');
     drupal_add_html_head($element, 'web_fonts');
   }
   // Turn off IE Compatibility Mode
