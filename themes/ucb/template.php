@@ -181,9 +181,6 @@ function ucb_preprocess_html(&$vars) {
   // Adding site type class here allows us to style pages based on this.
   // For example, adding the Ralphie logo to sport club sites.
   $vars['classes_array'][] = 'express-site-type-' . variable_get('express_site_type', 'default');
-
-  // This class is added to use the Helvetica Neue brand fonts.
-  $vars['classes_array'][] = 'brand-fonts';
 }
 
 /**
