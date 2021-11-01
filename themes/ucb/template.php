@@ -92,19 +92,6 @@ function ucb_page_alter(&$page) {
  */
 function ucb_preprocess_html(&$vars) {
   global $base_url;
-  // Add web fonts from fonts.com
-  $element = array(
-    '#tag' => 'link', // The #tag is the html tag - <link />
-    '#attributes' => array( // Set up an array of attributes inside the tag
-      'href' => '//fast.fonts.net/cssapi/86696b99-fb1a-4964-9676-9233fb4fca8f.css',
-      'rel' => 'stylesheet',
-      'type' => 'text/css',
-    ),
-  );
-  // Don't include web fonts if variable is false
-  if (variable_get('use_fonts', TRUE)) {
-    drupal_add_html_head($element, 'web_fonts');
-  }
   // Turn off IE Compatibility Mode
   $element = array(
     '#tag' => 'meta',
