@@ -99,14 +99,16 @@ function ucb_preprocess_html(&$vars) {
       'href' => '//fonts.googleapis.com',
       'rel' => 'preconnect',
     ),
+    '#weight' => 1,
   );
   $preconnect2 = array(
     '#tag' => 'link', // The #tag is the html tag - <link />
     '#attributes' => array( // Set up an array of attributes inside the tag
       'href' => '//fonts.gstatic.com',
       'rel' => 'preconnect',
-      'crossorigin' => 'crossorigin',
+      'crossorigin' => '',
     ),
+    '#weight' => 2,
   );
   $element = array(
     '#tag' => 'link', // The #tag is the html tag - <link />
@@ -115,11 +117,12 @@ function ucb_preprocess_html(&$vars) {
       'rel' => 'stylesheet',
       'type' => 'text/css',
     ),
+    '#weight' => 3,
   );
   // Don't include web fonts if variable is false
   if (variable_get('use_fonts', TRUE)) {
-    drupal_add_html_head($preconnect1, 'web_fonts_preconnect1');
-    drupal_add_html_head($preconnect2, 'web_fontspreconnect2');
+    drupal_add_html_head($preconnect1, 'preconnect_webfonts1');
+    drupal_add_html_head($preconnect2, 'preconnect_webfonts2');
     drupal_add_html_head($element, 'web_fonts');
   }
   // Turn off IE Compatibility Mode
