@@ -173,45 +173,7 @@ h2.block-title, h2.node-title {
   }
 }
 
-// Change weights if .brand-fonts is set
-.brand-fonts {
-  h1,
-  .h1
-  h1#page-title,
-  #page-title-image-title,
-  .page-title-section h1, h2, h3, h4,
-  .h2, .h3, .h4 {
-    font-weight:700;
-    strong,
-    b {
-      font-weight: 700;
-    }
-  }
-  h5, h6,
-  .h5, .h6
-   {
-    font-weight: 600;
-  }
-  h2.block-title, h2.node-title {
-    font-weight:700;
-  }
-  &.headings-light {
-    h1,
-    .h1,
-    h1#page-title,
-    #page-title-image-title,
-    .page-title-section h1,
-    h2, h2.block-title, h2.node-title,
-    h3, h4, h5, h6,
-    .h2, .h3, .h4, .h5, .h6 {
-      font-weight:200;
-      strong,
-      b {
-        font-weight: 600;
-      }
-    }
-  }
-}
+
 
 .type-size {
   font-size: 100% !important;
@@ -280,7 +242,7 @@ sub {
 
 /**
  * Font weights
- * 600 is a good bold, 700 is extra black, 900 is extra black condensed
+ * 400 is regular, 700 is bold.
  */
 strong {
   font-weight: bold;
@@ -301,18 +263,12 @@ h3.hero,
   line-height: 1.3;
   font-weight:normal;
   strong {
-    font-weight: bold;
-  }
-  .brand-fonts & {
-    font-weight:100;
-    strong {
-      font-weight:750;
-      font-family: $base_font_condensed;
-    }
+    font-weight:700;
+    font-family: $base_font_condensed;
   }
 }
 .exbd-heading-style-hero-bold > .block-inner > .exbd-block-title > .block-title {
-  font-weight: 750;
+  font-weight:700;
   font-family: $base_font_condensed;
 }
 
@@ -325,18 +281,12 @@ h3.supersize,
   line-height: 1.3;
   font-weight: normal;
   strong {
-    font-weight: bold;
-  }
-  .brand-fonts & {
-    font-weight:100;
-    strong {
-      font-weight:750;
-      font-family: $base_font_condensed;
-    }
+    font-weight:700;
+    font-family: $base_font_condensed;
   }
 }
 .exbd-heading-style-supersize-bold > .block-inner > .exbd-block-title > .block-title {
-  font-weight: 750;
+  font-weight:700;
   font-family: $base_font_condensed;
 }
 // Breadcumbs
