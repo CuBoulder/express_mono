@@ -92,17 +92,37 @@ function ucb_page_alter(&$page) {
  */
 function ucb_preprocess_html(&$vars) {
   global $base_url;
-  // Add web fonts from fonts.com
+  // Add web fonts from google
+  $preconnect1 = array(
+    '#tag' => 'link', // The #tag is the html tag - <link />
+    '#attributes' => array( // Set up an array of attributes inside the tag
+      'href' => '//fonts.googleapis.com',
+      'rel' => 'preconnect',
+    ),
+    '#weight' => 1,
+  );
+  $preconnect2 = array(
+    '#tag' => 'link', // The #tag is the html tag - <link />
+    '#attributes' => array( // Set up an array of attributes inside the tag
+      'href' => '//fonts.gstatic.com',
+      'rel' => 'preconnect',
+      'crossorigin' => '',
+    ),
+    '#weight' => 2,
+  );
   $element = array(
     '#tag' => 'link', // The #tag is the html tag - <link />
     '#attributes' => array( // Set up an array of attributes inside the tag
-      'href' => '//fast.fonts.net/cssapi/86696b99-fb1a-4964-9676-9233fb4fca8f.css',
+      'href' => '//fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&family=Roboto:wght@400;700&display=swap',
       'rel' => 'stylesheet',
       'type' => 'text/css',
     ),
+    '#weight' => 3,
   );
   // Don't include web fonts if variable is false
   if (variable_get('use_fonts', TRUE)) {
+    drupal_add_html_head($preconnect1, 'preconnect_webfonts1');
+    drupal_add_html_head($preconnect2, 'preconnect_webfonts2');
     drupal_add_html_head($element, 'web_fonts');
   }
   // Turn off IE Compatibility Mode
@@ -181,9 +201,6 @@ function ucb_preprocess_html(&$vars) {
   // Adding site type class here allows us to style pages based on this.
   // For example, adding the Ralphie logo to sport club sites.
   $vars['classes_array'][] = 'express-site-type-' . variable_get('express_site_type', 'default');
-
-  // This class is added to use the Helvetica Neue brand fonts.
-  $vars['classes_array'][] = 'brand-fonts';
 }
 
 /**

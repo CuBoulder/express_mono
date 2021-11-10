@@ -13,7 +13,7 @@ a:hover { color: #B71C1C; text-decoration-color: rgba(183, 28, 28, 0.65); -webki
 a:active { color: #B71C1C; text-decoration-color: rgba(183, 28, 28, 0.65); -webkit-text-decoration-color: rgba(183, 28, 28, 0.65); }
 
 /** Typography styles */
-body { font-size: 16px; line-height: 1.5; font-family: "Neue Helvetica W01", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #111111; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-smoothing: antialiased; text-rendering: optimizeLegibility; font-style: normal; font-variant: normal; -webkit-text-size-adjust: none; }
+body { font-size: 16px; line-height: 1.5; font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #111111; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-smoothing: antialiased; text-rendering: optimizeLegibility; font-style: normal; font-variant: normal; -webkit-text-size-adjust: none; }
 
 /** Headings */
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { line-height: 1.3; margin: 0 0 10px 0; }
@@ -61,7 +61,7 @@ h6, .h6 { font-size: 100%; }
 
 .node-view-mode-teaser h2, .node-view-mode-teaser h3 { font-size: 120%; }
 
-h1, h1#page-title, #page-title-image-title, .page-title-section h1, .h1 { font-size: 180%; font-family: "Neue Helvetica W01", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+h1, h1#page-title, #page-title-image-title, .page-title-section h1, .h1 { font-size: 180%; font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 h1 i, h1 em, h1#page-title i, h1#page-title em, #page-title-image-title i, #page-title-image-title em, .page-title-section h1 i, .page-title-section h1 em, .h1 i, .h1 em { font-style: italic; }
 
 @media screen and (min-width: 768px) { h1, h1#page-title, #page-title-image-title, .page-title-section h1, .h1 { font-size: 220%; } }
@@ -74,13 +74,6 @@ h2.block-title, h2.node-title { font-weight: bold; }
 
 .headings-light h1, .headings-light .h1, .headings-light h1#page-title, .headings-light #page-title-image-title, .headings-light .page-title-section h1, .headings-light h2, .headings-light h2.block-title, .headings-light h2.node-title, .headings-light h3, .headings-light h4, .headings-light h5, .headings-light h6 .h2, .headings-light .h3, .headings-light .h4, .headings-light .h5, .headings-light .h6 { font-weight: normal; }
 .headings-light h1 strong, .headings-light h1 b, .headings-light .h1 strong, .headings-light .h1 b, .headings-light h1#page-title strong, .headings-light h1#page-title b, .headings-light #page-title-image-title strong, .headings-light #page-title-image-title b, .headings-light .page-title-section h1 strong, .headings-light .page-title-section h1 b, .headings-light h2 strong, .headings-light h2 b, .headings-light h2.block-title strong, .headings-light h2.block-title b, .headings-light h2.node-title strong, .headings-light h2.node-title b, .headings-light h3 strong, .headings-light h3 b, .headings-light h4 strong, .headings-light h4 b, .headings-light h5 strong, .headings-light h5 b, .headings-light h6 .h2 strong, .headings-light h6 .h2 b, .headings-light .h3 strong, .headings-light .h3 b, .headings-light .h4 strong, .headings-light .h4 b, .headings-light .h5 strong, .headings-light .h5 b, .headings-light .h6 strong, .headings-light .h6 b { font-weight: bold; }
-
-.brand-fonts h1, .brand-fonts .h1 h1#page-title, .brand-fonts #page-title-image-title, .brand-fonts .page-title-section h1, .brand-fonts h2, .brand-fonts h3, .brand-fonts h4, .brand-fonts .h2, .brand-fonts .h3, .brand-fonts .h4 { font-weight: 700; }
-.brand-fonts h1 strong, .brand-fonts h1 b, .brand-fonts .h1 h1#page-title strong, .brand-fonts .h1 h1#page-title b, .brand-fonts #page-title-image-title strong, .brand-fonts #page-title-image-title b, .brand-fonts .page-title-section h1 strong, .brand-fonts .page-title-section h1 b, .brand-fonts h2 strong, .brand-fonts h2 b, .brand-fonts h3 strong, .brand-fonts h3 b, .brand-fonts h4 strong, .brand-fonts h4 b, .brand-fonts .h2 strong, .brand-fonts .h2 b, .brand-fonts .h3 strong, .brand-fonts .h3 b, .brand-fonts .h4 strong, .brand-fonts .h4 b { font-weight: 700; }
-.brand-fonts h5, .brand-fonts h6, .brand-fonts .h5, .brand-fonts .h6 { font-weight: 600; }
-.brand-fonts h2.block-title, .brand-fonts h2.node-title { font-weight: 700; }
-.brand-fonts.headings-light h1, .brand-fonts.headings-light .h1, .brand-fonts.headings-light h1#page-title, .brand-fonts.headings-light #page-title-image-title, .brand-fonts.headings-light .page-title-section h1, .brand-fonts.headings-light h2, .brand-fonts.headings-light h2.block-title, .brand-fonts.headings-light h2.node-title, .brand-fonts.headings-light h3, .brand-fonts.headings-light h4, .brand-fonts.headings-light h5, .brand-fonts.headings-light h6, .brand-fonts.headings-light .h2, .brand-fonts.headings-light .h3, .brand-fonts.headings-light .h4, .brand-fonts.headings-light .h5, .brand-fonts.headings-light .h6 { font-weight: 200; }
-.brand-fonts.headings-light h1 strong, .brand-fonts.headings-light h1 b, .brand-fonts.headings-light .h1 strong, .brand-fonts.headings-light .h1 b, .brand-fonts.headings-light h1#page-title strong, .brand-fonts.headings-light h1#page-title b, .brand-fonts.headings-light #page-title-image-title strong, .brand-fonts.headings-light #page-title-image-title b, .brand-fonts.headings-light .page-title-section h1 strong, .brand-fonts.headings-light .page-title-section h1 b, .brand-fonts.headings-light h2 strong, .brand-fonts.headings-light h2 b, .brand-fonts.headings-light h2.block-title strong, .brand-fonts.headings-light h2.block-title b, .brand-fonts.headings-light h2.node-title strong, .brand-fonts.headings-light h2.node-title b, .brand-fonts.headings-light h3 strong, .brand-fonts.headings-light h3 b, .brand-fonts.headings-light h4 strong, .brand-fonts.headings-light h4 b, .brand-fonts.headings-light h5 strong, .brand-fonts.headings-light h5 b, .brand-fonts.headings-light h6 strong, .brand-fonts.headings-light h6 b, .brand-fonts.headings-light .h2 strong, .brand-fonts.headings-light .h2 b, .brand-fonts.headings-light .h3 strong, .brand-fonts.headings-light .h3 b, .brand-fonts.headings-light .h4 strong, .brand-fonts.headings-light .h4 b, .brand-fonts.headings-light .h5 strong, .brand-fonts.headings-light .h5 b, .brand-fonts.headings-light .h6 strong, .brand-fonts.headings-light .h6 b { font-weight: 600; }
 
 .type-size { font-size: 100% !important; }
 
@@ -105,25 +98,21 @@ sup { /* Move the superscripted text up */ top: -0.5em; }
 
 sub { /* Move the subscripted text down, but only half as far down as the superscript moved up */ bottom: -0.25em; }
 
-/** Font weights 600 is a good bold, 700 is extra black, 900 is extra black condensed */
+/** Font weights 400 is regular, 700 is bold. */
 strong { font-weight: bold; }
 
 .lead { font-size: 130%; line-height: 1.4; }
 .lead strong { font-weight: bold; }
 
 .hero, h2.hero, h3.hero, .exbd-heading-style-hero > .block-inner > .exbd-block-title > .block-title, .exbd-heading-style-hero-bold > .block-inner > .exbd-block-title > .block-title { font-size: 200%; line-height: 1.3; font-weight: normal; }
-.hero strong, h2.hero strong, h3.hero strong, .exbd-heading-style-hero > .block-inner > .exbd-block-title > .block-title strong, .exbd-heading-style-hero-bold > .block-inner > .exbd-block-title > .block-title strong { font-weight: bold; }
-.brand-fonts .hero, .brand-fonts h2.hero, .brand-fonts h3.hero, .brand-fonts .exbd-heading-style-hero > .block-inner > .exbd-block-title > .block-title, .brand-fonts .exbd-heading-style-hero-bold > .block-inner > .exbd-block-title > .block-title { font-weight: 100; }
-.brand-fonts .hero strong, .brand-fonts h2.hero strong, .brand-fonts h3.hero strong, .brand-fonts .exbd-heading-style-hero > .block-inner > .exbd-block-title > .block-title strong, .brand-fonts .exbd-heading-style-hero-bold > .block-inner > .exbd-block-title > .block-title strong { font-weight: 750; font-family: "Neue Helvetica W05", "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.hero strong, h2.hero strong, h3.hero strong, .exbd-heading-style-hero > .block-inner > .exbd-block-title > .block-title strong, .exbd-heading-style-hero-bold > .block-inner > .exbd-block-title > .block-title strong { font-weight: 700; font-family: "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
-.exbd-heading-style-hero-bold > .block-inner > .exbd-block-title > .block-title { font-weight: 750; font-family: "Neue Helvetica W05", "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.exbd-heading-style-hero-bold > .block-inner > .exbd-block-title > .block-title { font-weight: 700; font-family: "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 .supersize, h2.supersize, h3.supersize, .exbd-heading-style-supersize > .block-inner > .exbd-block-title > .block-title, .exbd-heading-style-supersize-bold > .block-inner > .exbd-block-title > .block-title { font-size: 320%; line-height: 1.3; font-weight: normal; }
-.supersize strong, h2.supersize strong, h3.supersize strong, .exbd-heading-style-supersize > .block-inner > .exbd-block-title > .block-title strong, .exbd-heading-style-supersize-bold > .block-inner > .exbd-block-title > .block-title strong { font-weight: bold; }
-.brand-fonts .supersize, .brand-fonts h2.supersize, .brand-fonts h3.supersize, .brand-fonts .exbd-heading-style-supersize > .block-inner > .exbd-block-title > .block-title, .brand-fonts .exbd-heading-style-supersize-bold > .block-inner > .exbd-block-title > .block-title { font-weight: 100; }
-.brand-fonts .supersize strong, .brand-fonts h2.supersize strong, .brand-fonts h3.supersize strong, .brand-fonts .exbd-heading-style-supersize > .block-inner > .exbd-block-title > .block-title strong, .brand-fonts .exbd-heading-style-supersize-bold > .block-inner > .exbd-block-title > .block-title strong { font-weight: 750; font-family: "Neue Helvetica W05", "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.supersize strong, h2.supersize strong, h3.supersize strong, .exbd-heading-style-supersize > .block-inner > .exbd-block-title > .block-title strong, .exbd-heading-style-supersize-bold > .block-inner > .exbd-block-title > .block-title strong { font-weight: 700; font-family: "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
-.exbd-heading-style-supersize-bold > .block-inner > .exbd-block-title > .block-title { font-weight: 750; font-family: "Neue Helvetica W05", "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.exbd-heading-style-supersize-bold > .block-inner > .exbd-block-title > .block-title { font-weight: 700; font-family: "Roboto Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 .breadcrumb { font-size: 85%; margin: 0; padding: 0; }
 @media screen and (max-width: 768px) { .breadcrumb { font-size: 75%; } }

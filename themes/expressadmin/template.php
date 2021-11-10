@@ -8,7 +8,7 @@ function expressadmin_preprocess_html(&$vars) {
   $element = array(
     '#tag' => 'link', // The #tag is the html tag - <link />
     '#attributes' => array( // Set up an array of attributes inside the tag
-      'href' => '//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700',
+      'href' => '//fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Condensed:700',
       'rel' => 'stylesheet',
       'type' => 'text/css',
     ),
