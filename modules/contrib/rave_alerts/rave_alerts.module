@@ -103,7 +103,8 @@ function rave_alerts_remote_data() {
   if (variable_get('rave_alerts_check_enable', 0)) {
     $url = variable_get('rave_alerts_rss_url', 'https://www.getrave.com/rss/DemoUniversityAlert/channel8');
 
-    if ($cache = cache_get('rave_alert', 'cache_rave_alerts')) {
+    $cache = cache_get('rave_alert', 'cache_rave_alerts');
+    if ($cache && $cache->expire > time()) {
       $data = $cache->data;
     }
     else {
@@ -133,6 +134,9 @@ function rave_alerts_remote_data() {
           $isCLEAR = strpos($data['channel']['item']['title'], variable_get('rave_alerts_clear_text', '[CLEAR]'));
           $isACTIVE = strpos($data['channel']['item']['title'], variable_get('rave_alerts_active_text', '[ACTIVE]'));
 
+          // Two variables in the database are checked for expected functionality:
+            // 1. 'rave_alerts_display': checked to decide if alert is shown on page load.
+            // 2. 'rave_alerts_active_event': checked by rave_alerts.js to decide if alert continues to be shown.
           if ($isCLEAR !== FALSE) {
             variable_set('rave_alerts_active_event', 0);
             variable_set('rave_alerts_display', 0);
