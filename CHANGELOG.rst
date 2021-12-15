@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+
+
+
+
+v4.4.7(unreleased)
+------------
+
+Changed
+~~~~~~~
+- Checking for requests that do not have status codes of 200 - requests that time out are not causing issues - reqquests with other errors do not display the rave alert div at all. - all requests with errors are logged using. [AlanBCole]
+
+- Changing contrib module rave_alerts to avoid network error from alert rss feed to cause website errors. [AlanBCole]
+
+
+Other
+~~~~~
+- Added updated module code from drupal.org. [AlanBCole]
+
+- Adding call to watchdog if no ACTIVE token is found. [AlanBCole]
+
+- Adding changelog for v.4.4.7. [Jesus Gabriel Ortiz Tovar]
+
+- Updating ldap contrib module to version 7.x-2.6 for PHP 7.4 compatibility. [Jesus Gabriel Ortiz Tovar]
+
+
+
 v4.4.6 (2021-06-07)
 ------------
 
