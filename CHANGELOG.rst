@@ -7,9 +7,16 @@ The format is based on `Keep a Changelog`__, and this project adheres to `Semant
 
 
 
+v4.4.8 (2021-12-15)
+------------
+
+Changed
+~~~~~~~
+- Fix bug in rave_alerts module to ensure display of alerts is as expected.
 
 
-v4.4.7(unreleased)
+
+v4.4.7(2021-12-09)
 ------------
 
 Changed
@@ -17,6 +24,8 @@ Changed
 - Checking for requests that do not have status codes of 200 - requests that time out are not causing issues - reqquests with other errors do not display the rave alert div at all. - all requests with errors are logged using. [AlanBCole]
 
 - Changing contrib module rave_alerts to avoid network error from alert rss feed to cause website errors. [AlanBCole]
+
+- Updated fonts to default to the Roboto font.
 
 
 Other
