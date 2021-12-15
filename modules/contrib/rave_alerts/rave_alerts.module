@@ -137,35 +137,38 @@ function rave_alerts_remote_data() {
           // Two variables in the database are checked for expected functionality:
             // 1. 'rave_alerts_display': checked to decide if alert is shown on page load.
             // 2. 'rave_alerts_active_event': checked by rave_alerts.js to decide if alert continues to be shown.
+          // The PHP function strpos() can return int 0, which might be evalauted as falsey.
+          // We check for FALSE to avoid this.
           if ($isCLEAR !== FALSE) {
             variable_set('rave_alerts_active_event', 0);
             variable_set('rave_alerts_display', 0);
-            watchdog('rave_alerts', 'CLEAR token found. Clearing rave alert.');
+            // watchdog('rave_alerts', 'CLEAR token found. Clearing rave alert.');
           }
 
           if ($isACTIVE !== FALSE) {
             variable_set('rave_alerts_active_event', 1);
-            watchdog('rave_alerts', 'ACTIVE token found');
+            // watchdog('rave_alerts', 'ACTIVE token found');
           }
 
+          // This is an active event. We have an alert message that has not been cleared yet.
           if ($isCLEAR === FALSE) {
-            $logMessageData = [
-              'title' => $data['channel']['item']['title'],
-              'description' => $data['channel']['item']['description']
-            ];
             variable_set('rave_alerts_display', 1);
-            watchdog('rave_alerts', 'New Rave RSS item -> @title: @description', $logMessageData);
+            // $logMessageData = [
+            //   'title' => $data['channel']['item']['title'],
+            //   'description' => $data['channel']['item']['description']
+            // ];
+            // watchdog('rave_alerts', 'New Rave RSS item -> @title: @description', $logMessageData);
           }
         }
         // @TODO: Add option to leave all clear message up for X hours
       }
       // If response code != 200
       else {
-        variable_set('rave_alerts_active_event', 0);
-        variable_set('rave_alerts_display', 0);
-
         $logMessage = "Bad Request: {$response->code} - {$response->error}. Request URL: {$response->url}";
         watchdog('rave_alerts', $logMessage);
+
+        // Return the old cached alert data in this case.
+        $data = $cache->data;
       }
     }
   }
