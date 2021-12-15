@@ -103,7 +103,8 @@ function rave_alerts_remote_data() {
   if (variable_get('rave_alerts_check_enable', 0)) {
     $url = variable_get('rave_alerts_rss_url', 'https://www.getrave.com/rss/DemoUniversityAlert/channel8');
 
-    if ($cache = cache_get('rave_alert', 'cache_rave_alerts')) {
+    $cache = cache_get('rave_alert', 'cache_rave_alerts');
+    if ($cache && $cache->expire > time()) {
       $data = $cache->data;
     }
     else {
@@ -126,31 +127,48 @@ function rave_alerts_remote_data() {
           $data = json_decode($data, true);
           //@TODO: Make the cache timeout configurable
           cache_set('rave_alert', $data, 'cache_rave_alerts', time() + 60);
+
           // There is a new RSS item.  Evaluate the description for triggers.
-          // assume we are going to display this
-          variable_set('rave_alerts_display', 1);
           variable_set('rave_alerts_pubdate', $data['channel']['item']['pubDate']);
 
-          // Check for [Active] in rss title.
-          if (strpos($data['channel']['item']['title'], variable_get('rave_alerts_active_text', '[ACTIVE]'))) {
-             variable_set('rave_alerts_active_event', 1);
-             watchdog('rave_alerts', 'ACTIVE token found');
+          $isCLEAR = strpos($data['channel']['item']['title'], variable_get('rave_alerts_clear_text', '[CLEAR]'));
+          $isACTIVE = strpos($data['channel']['item']['title'], variable_get('rave_alerts_active_text', '[ACTIVE]'));
+
+          // Two variables in the database are checked for expected functionality:
+            // 1. 'rave_alerts_display': checked to decide if alert is shown on page load.
+            // 2. 'rave_alerts_active_event': checked by rave_alerts.js to decide if alert continues to be shown.
+          // The PHP function strpos() can return int 0, which might be evalauted as falsey.
+          // We check for FALSE to avoid this.
+          if ($isCLEAR !== FALSE) {
+            variable_set('rave_alerts_active_event', 0);
+            variable_set('rave_alerts_display', 0);
+            // watchdog('rave_alerts', 'CLEAR token found. Clearing rave alert.');
           }
-          else {
-             variable_set('rave_alerts_active_event', 0);
-             variable_set('rave_alerts_display', 0);
-             watchdog('rave_alerts', 'ACTIVE token NOT found');
+
+          if ($isACTIVE !== FALSE) {
+            variable_set('rave_alerts_active_event', 1);
+            // watchdog('rave_alerts', 'ACTIVE token found');
+          }
+
+          // This is an active event. We have an alert message that has not been cleared yet.
+          if ($isCLEAR === FALSE) {
+            variable_set('rave_alerts_display', 1);
+            // $logMessageData = [
+            //   'title' => $data['channel']['item']['title'],
+            //   'description' => $data['channel']['item']['description']
+            // ];
+            // watchdog('rave_alerts', 'New Rave RSS item -> @title: @description', $logMessageData);
           }
         }
         // @TODO: Add option to leave all clear message up for X hours
       }
       // If response code != 200
       else {
-        variable_set('rave_alerts_active_event', 0);
-        variable_set('rave_alerts_display', 0);
-
         $logMessage = "Bad Request: {$response->code} - {$response->error}. Request URL: {$response->url}";
         watchdog('rave_alerts', $logMessage);
+
+        // Return the old cached alert data in this case.
+        $data = $cache->data;
       }
     }
   }
