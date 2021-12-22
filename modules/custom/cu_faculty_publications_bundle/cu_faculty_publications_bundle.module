@@ -415,8 +415,6 @@ function publish_data(array $publicationData) {
  */
 function build_request_data($beanObject) {
   $fisPubsEndpoint = variable_get('cu_faculty_publications_endpoint', 'https://search-experts-direct-cz3fpq4rlxcbn5z27vzq4mpzaa.us-east-2.es.amazonaws.com/fispubs-v1/_search');
-  // No longer using this endpoint. Author emails are already in $fisPubsEndpoint
-  // $fisPeopleEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
   $numberOfResultsPerPage = 25;
   $requestedNumberOfResults = 10;
   $currentPage = pager_find_page();
@@ -482,25 +480,6 @@ function build_request_data($beanObject) {
     $arguments['q'][] = "authors.email:$authorEmailString";
   }
 
-  // No longer searching for orcids. This code may be able to be removed.
-  // Call experts people database and search for author email addresses. Return an orcid for each mathcing email found there.
-  // $orcidResults = get_author_orcids($authorEmails, $fisPeopleEndpoint);
-
-  // if (isset($orcidResults['error']) || isset($orcidResults['warning'])) {
-  //   return $orcidResults;
-  // }
-
-  // elseif (isset($orcidResults) && count($orcidResults['authorsNotFound']) > 0) {
-  //   $messages['authorsNotFound'] = get_html_no_result_string($orcidResults['authorsNotFound'], 'publications');;
-  // }
-
-  // // Add all of the authors' orcids to arguments['q'] array if there are any.
-  // if (count($orcidResults['orcids']) > 0) {
-  //   $orcids = $orcidResults['orcids'];
-  //   $authorOrcidStringQuoted = form_query_string_from_array($orcids);
-  //   $arguments['q'][] = "authors.orcid:$authorOrcidStringQuoted";
-  // }
-
   // Check for requestedNumberOfResults.
   if (!empty($beanObject->field_faculty_pub_results)) {
     $numberOfResults = $beanObject->field_faculty_pub_results[LANGUAGE_NONE][0]['value'];
@@ -545,46 +524,6 @@ function get_array_from_field_data($fieldArray, $fieldArrayFinalIdentifier) {
   $fieldArray);
 }
 
-// No longer searching for orcids. This code may not be needed.
-// function get_author_orcids($authorEmailArray, $dbUrl) {
-//   if (count($authorEmailArray) == 0) {
-//     return;
-//   }
-
-//   $orcids = array();
-//   $authorEmailString = form_query_string_from_array($authorEmailArray);
-//   $queryArray = ['q' => "email:{$authorEmailString}"];
-//   $requestUrl = url($dbUrl, ['query' => $queryArray]);
-//   $emailResponse = drupal_http_request($requestUrl);
-
-//   if ($emailResponse->code == '200') {
-//     $emailResult = drupal_json_decode($emailResponse->data, TRUE);
-//     $data = $emailResult['hits']['hits'];
-//     // Get the orcids from each database hit.
-//     foreach ($data as $author) {
-//       $authorOrcid = $author['_source']['orcid'];
-//       $authorEmail = strtolower($author['_source']['email'][0]);
-//       if ($authorOrcid) {
-//         array_push($orcids, $authorOrcid);
-//         $index = array_search($authorEmail, $authorEmailArray);
-//         array_splice($authorEmailArray, $index, 1);
-//       }
-//     }
-//     $noResults = count($orcids) > 0 ? FALSE : TRUE;
-//   }
-
-//   else {
-//     return ['error' => $emailResponse->code];
-//   }
-
-//   if ($noResults) {
-//     return ['warning' => "There was no publication data found for the selected author(s)."];
-//   }
-
-//   else {
-//     return ['orcids' => $orcids, 'authorsNotFound' => $authorEmailArray];
-//   }
-// }
 
 function form_query_string_from_array($arr) {
   $arrayQuoted = array_map(
