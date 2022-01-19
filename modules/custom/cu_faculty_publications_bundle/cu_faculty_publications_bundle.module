@@ -257,6 +257,14 @@ function cu_faculty_publications_bundle_preprocess_entity(&$vars) {
 function get_publication_data($cid, $skipCache, $beanObject) {
   $cache = cache_get($cid, 'cache_cu_faculty_publications_bundle');
   $newExpiration = time() + (24 * 60 * 60);
+  $authDataBase64 = base64_encode('anon:anonyM0us!');
+  $requestOptions = [
+    'method' => 'GET',
+    'headers' => [
+      'Authorization' => "Basic $authDataBase64"
+    ],
+  ];
+
   // First check if there is data in the cache and that it has not expired.
   // If so there is no need to build elastic search url, just return the cache.
   if (isset($cache->data) && $cache->data['expiration'] > time() && $skipCache === FALSE) {
@@ -268,7 +276,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
   // If the cache has expired try to refresh it and load new data.
   elseif (isset($cache->data) && $cache->data['expiration'] <= time() && $skipCache === FALSE) {
     $reqData = ['reqUrl' => $cache->data['reqUrl'], 'requestedNumberOfResults' => $cache->data['requestedNumberOfResults']];
-    $response = drupal_http_request($cache->data['reqUrl']);
+    $response = drupal_http_request($cache->data['reqUrl'], $requestOptions);
 
     if ($response->code == '200') {
       $parsedResponse = drupal_json_decode($response->data, TRUE);
@@ -316,7 +324,7 @@ function get_publication_data($cid, $skipCache, $beanObject) {
     }
 
     else {
-      $response = drupal_http_request($reqData['reqUrl']);
+      $response = drupal_http_request($reqData['reqUrl'], $requestOptions);
 
       if ($response->code == '200') {
         $parsedResponse = drupal_json_decode($response->data, TRUE);
@@ -373,7 +381,7 @@ function publish_data(array $publicationData) {
     }
 
     if ($publicationData['results']) {
-      $totalResults = $publicationData['total'] > $publicationData['requestedNumberOfResults'] ? $publicationData['requestedNumberOfResults'] : $publicationData['total'];
+      $totalResults = $publicationData['total']['value'] > $publicationData['requestedNumberOfResults'] ? $publicationData['requestedNumberOfResults'] : $publicationData['total']['value'];
       pager_default_initialize($totalResults, $publicationData['numberOfResultsPerPage']);
 
       // Check if results are from cache.
@@ -406,8 +414,7 @@ function publish_data(array $publicationData) {
  *   Returns an associative array with data to pass back into get_publication_data().
  */
 function build_request_data($beanObject) {
-  $fisPubsEndpoint = variable_get('cu_faculty_publications_endpoint', 'https://experts.colorado.edu/es/fispubs-v1/publication/_search');
-  $fisPeopleEndpoint = variable_get('cu_faculty_fis_endpoint', 'https://experts.colorado.edu/es/fis/_search');
+  $fisPubsEndpoint = variable_get('cu_faculty_publications_endpoint', 'https://search-experts-direct-cz3fpq4rlxcbn5z27vzq4mpzaa.us-east-2.es.amazonaws.com/fispubs-v1/_search');
   $numberOfResultsPerPage = 25;
   $requestedNumberOfResults = 10;
   $currentPage = pager_find_page();
@@ -429,7 +436,7 @@ function build_request_data($beanObject) {
 
     // Search for a department id number.
     if (intval($department)) {
-      $arguments['q'][] = "authors.organization.uri:*_$department";
+      $arguments['q'][] = "authors.organization.id:$department";
     }
 
     // Use name as search term.
@@ -467,23 +474,10 @@ function build_request_data($beanObject) {
     $authorEmails = array_merge($authorEmails, get_emails_assoc_with_jobs($tids));
   }
 
-  $authorEmails = array_unique($authorEmails);
-  // Call experts people database and search for author email addresses. Return an orcid for each mathcing email found there.
-  $orcidResults = get_author_orcids($authorEmails, $fisPeopleEndpoint);
-
-  if (isset($orcidResults['error']) || isset($orcidResults['warning'])) {
-    return $orcidResults;
-  }
-
-  elseif (isset($orcidResults) && count($orcidResults['authorsNotFound']) > 0) {
-    $messages['authorsNotFound'] = get_html_no_result_string($orcidResults['authorsNotFound'], 'publications');;
-  }
-
-  // Add all of the authors' orcids to arguments['q'] array if there are any.
-  if (count($orcidResults['orcids']) > 0) {
-    $orcids = $orcidResults['orcids'];
-    $authorOrcidStringQuoted = form_query_string_from_array($orcids);
-    $arguments['q'][] = "authors.orcid:$authorOrcidStringQuoted";
+  if (!empty($authorEmails)) {
+    $authorEmails = array_unique($authorEmails);
+    $authorEmailString = form_query_string_from_array($authorEmails);
+    $arguments['q'][] = "authors.email:$authorEmailString";
   }
 
   // Check for requestedNumberOfResults.
@@ -530,45 +524,6 @@ function get_array_from_field_data($fieldArray, $fieldArrayFinalIdentifier) {
   $fieldArray);
 }
 
-function get_author_orcids($authorEmailArray, $dbUrl) {
-  if (count($authorEmailArray) == 0) {
-    return;
-  }
-
-  $orcids = array();
-  $authorEmailString = form_query_string_from_array($authorEmailArray);
-  $queryArray = ['q' => "email:{$authorEmailString}"];
-  $requestUrl = url($dbUrl, ['query' => $queryArray]);
-  $emailResponse = drupal_http_request($requestUrl);
-
-  if ($emailResponse->code == '200') {
-    $emailResult = drupal_json_decode($emailResponse->data, TRUE);
-    $data = $emailResult['hits']['hits'];
-    // Get the orcids from each database hit.
-    foreach ($data as $author) {
-      $authorOrcid = $author['_source']['orcid'];
-      $authorEmail = strtolower($author['_source']['email'][0]);
-      if ($authorOrcid) {
-        array_push($orcids, $authorOrcid);
-        $index = array_search($authorEmail, $authorEmailArray);
-        array_splice($authorEmailArray, $index, 1);
-      }
-    }
-    $noResults = count($orcids) > 0 ? FALSE : TRUE;
-  }
-
-  else {
-    return ['error' => $emailResponse->code];
-  }
-
-  if ($noResults) {
-    return ['warning' => "There was no publication data found for the selected author(s)."];
-  }
-
-  else {
-    return ['orcids' => $orcids, 'authorsNotFound' => $authorEmailArray];
-  }
-}
 
 function form_query_string_from_array($arr) {
   $arrayQuoted = array_map(
