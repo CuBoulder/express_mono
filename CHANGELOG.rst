@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on `Keep a Changelog`__, and this project adheres to `Semantic Versioning`__.
 
+v4.4.9 (2022-01-19)
+------------
+
+Changed
+~~~~~~~
+- Changes to faculty publications module. [AlanBCole]
 
 
 v4.4.8 (2021-12-15)
