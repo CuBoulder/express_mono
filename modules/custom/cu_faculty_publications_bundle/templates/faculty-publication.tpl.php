@@ -1,4 +1,4 @@
-<div class="padding-bottom margin-bottom">
+<div class="faculty-publication padding-bottom margin-bottom">
   <h3 class="h5">
     <?php
       if ($doi) {
@@ -9,7 +9,7 @@
       }
     ?>
   </h3>
-  <div id="cu-authors">
+  <div class="cu-authors">
     <strong>CU Boulder Authors:</strong>
     <?php
       $names = array();
@@ -19,19 +19,19 @@
       print implode('; ', $names);
     ?>
   </div>
-  <div style="display: flex">
-    <strong>All Authors: </strong>
+  <div class="all-authors-container" style="display: flex">
+    <strong style="margin-right:.5rem; width: 85px;">All Authors:</strong>
     <?php if (strlen($citedAuthors) < 100): ?>
       <?php print $citedAuthors; ?>
 
     <?php else: ?>
       <?php $allAuthorArray = explode("; ", $citedAuthors); ?>
-      <details style="margin-left: 1rem" id="all-authors">
+      <details style="margin-left: .5rem" class="all-authors">
         <summary>
-          <span id=all-authors-truncated><?php print substr($citedAuthors, 0, 100) . "..."; ?></span>
+          <span class=all-authors-truncated><?php print substr($citedAuthors, 0, 120) . "..."; ?></span>
         </summary>
 
-        <ul id="all-authors-list">
+        <ul class="all-authors-list">
 
           <?php foreach($allAuthorArray as $author): ?>
             <li><?php print $author; ?></li>
@@ -47,12 +47,4 @@
   <strong>Publication Date:</strong> <?php print $publicationDate; ?><br />
   <strong>Type:</strong> <?php print $mostSpecificType; ?>
 </div>
-<!-- <script>
-  const allAuthors = document.querySelector('.all-authors');
-  const allAuthorsTruncated = document.querySelector('.all-authors-truncated')
-  const allAuthorsList = document.querySelector('.all-authors-list')
-  allAuthors.addEventListener("toggle", (event) => {
-    allAuthorsTruncated.toggleAttribute("hidden")
-    allAuthorsList.toggleAttribute("hidden")
-  })
-</script> -->
+
